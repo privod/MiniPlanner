@@ -10,10 +10,6 @@ public class Bay extends Domain {
     private SimpleCalendar dateReg;
     private String description;
 
-    public Bay() {
-        super(table);
-    }
-
     public BigDecimal getCost() {
         return cost;
     }

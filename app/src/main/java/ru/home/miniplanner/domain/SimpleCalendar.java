@@ -32,9 +32,9 @@ public class SimpleCalendar extends GregorianCalendar {
         return this.toString("dd.MM.yyyy");
     }
 
-    public String toSQLiteDate() {
-        return this.toString("yyyy-MM-dd");
-    }
+//    public String toSQLiteDate() {
+//        return this.toString("yyyy-MM-dd");
+//    }
 
     public String toString(String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format, new Locale("ru"));

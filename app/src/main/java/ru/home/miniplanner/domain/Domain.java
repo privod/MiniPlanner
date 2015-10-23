@@ -4,8 +4,6 @@ import com.j256.ormlite.field.DatabaseField;
 
 import java.io.Serializable;
 
-import ru.home.miniplanner.service.factory.SQLiteMapper;
-
 /**
  * Created by privod on 19.10.2015.
  */

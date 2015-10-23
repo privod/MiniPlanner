@@ -11,10 +11,6 @@ public class Contribution extends Domain {
     private String description;
     private Party whom;
 
-    public Contribution() {
-        super(table);
-    }
-
     public BigDecimal getSum() {
         return sum;
     }

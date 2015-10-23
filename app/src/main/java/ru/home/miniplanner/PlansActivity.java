@@ -3,7 +3,6 @@ package ru.home.miniplanner;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,17 +15,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import ru.home.miniplanner.adapter.PlanAdapter;
-import ru.home.miniplanner.db.DBHelper;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.domain.Plan;
 import ru.home.miniplanner.service.PlanDao;
-import ru.home.miniplanner.service.PlanerService;
 
 public class PlansActivity extends AppCompatActivity {
 
     private static final String TAG = PlansActivity.class.getSimpleName();
 
-    PlanerService service = new PlanerService(new DBHelper(this));
     PlanDao planDao;
     List<Plan> planList;
     PlanAdapter planAdapter;
@@ -68,7 +64,12 @@ public class PlansActivity extends AppCompatActivity {
             return;
         }
         Plan plan = (Plan) data.getSerializableExtra("plan");
-        service.save(plan);
+//        plan.setId(Long.valueOf(planDao.create(plan)));
+        try {
+            planDao.create(plan);
+        } catch (SQLException e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     @Override

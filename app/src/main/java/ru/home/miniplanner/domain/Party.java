@@ -13,20 +13,6 @@ public class Party extends Domain {
     private List<Bay> bays;
     private List<Contribution> contributions;
 
-    public Party() {
-        super(table);
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
