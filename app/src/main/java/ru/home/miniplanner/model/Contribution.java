@@ -1,13 +1,14 @@
-package ru.home.miniplanner.domain;
+package ru.home.miniplanner.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by privod on 19.10.2015.
  */
 public class Contribution extends Domain {
     private BigDecimal sum;
-    private SimpleCalendar dateReg;
+    private Date dateReg;
     private String description;
     private Party whom;
 
@@ -19,11 +20,11 @@ public class Contribution extends Domain {
         this.sum = sum;
     }
 
-    public SimpleCalendar getDateReg() {
+    public Date getDateReg() {
         return dateReg;
     }
 
-    public void setDateReg(SimpleCalendar dateReg) {
+    public void setDateReg(Date dateReg) {
         this.dateReg = dateReg;
     }
 

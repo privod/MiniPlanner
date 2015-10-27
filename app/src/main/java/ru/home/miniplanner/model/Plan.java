@@ -1,13 +1,11 @@
-package ru.home.miniplanner.domain;
-
-import android.content.ContentValues;
-import android.database.Cursor;
+package ru.home.miniplanner.model;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,9 +17,15 @@ public class Plan extends Domain {
     @DatabaseField
     private String name;
     @DatabaseField(dataType = DataType.DATE)
-    private SimpleCalendar dateReg;
+    private Date dateReg;
     @DatabaseField(dataType = DataType.BIG_DECIMAL)
     private BigDecimal costExpect;
+
+    public Plan() {
+        this.name = "";
+        this.dateReg = new Date();
+        this.costExpect = new BigDecimal("0");
+    }
 
     private List<Party> partners;
 
@@ -33,11 +37,11 @@ public class Plan extends Domain {
         this.name = name;
     }
 
-    public SimpleCalendar getDateReg() {
+    public Date getDateReg() {
         return dateReg;
     }
 
-    public void setDateReg(SimpleCalendar dateReg) {
+    public void setDateReg(Date dateReg) {
         this.dateReg = dateReg;
     }
 

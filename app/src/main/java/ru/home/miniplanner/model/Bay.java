@@ -1,13 +1,14 @@
-package ru.home.miniplanner.domain;
+package ru.home.miniplanner.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by privod on 19.10.2015.
  */
 public class Bay extends Domain {
     private BigDecimal cost;
-    private SimpleCalendar dateReg;
+    private Date dateReg;
     private String description;
 
     public BigDecimal getCost() {
@@ -18,11 +19,11 @@ public class Bay extends Domain {
         this.cost = cost;
     }
 
-    public SimpleCalendar getDateReg() {
+    public Date getDateReg() {
         return dateReg;
     }
 
-    public void setDateReg(SimpleCalendar dateReg) {
+    public void setDateReg(Date dateReg) {
         this.dateReg = dateReg;
     }
 

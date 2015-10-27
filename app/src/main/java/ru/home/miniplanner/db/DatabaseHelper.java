@@ -6,11 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
-import ru.home.miniplanner.domain.Plan;
+import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.PlanDao;
 
 /**
@@ -30,13 +29,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
-        try
-        {
-            TableUtils.clearTable(connectionSource, Plan.class);
+        try {
+            TableUtils.createTable(connectionSource, Plan.class);
         }
         catch (SQLException e){
             Log.e(TAG, e.getMessage());
-            throw new RuntimeException(e);
         }
     }
 
@@ -52,9 +49,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 //        }
     }
 
-    public synchronized PlanDao getPlanDao() throws SQLException{
+    public synchronized PlanDao getPlanDao() {
         if (null == planDao) {
-            planDao = new PlanDao(getConnectionSource(), Plan.class);
+            try {
+                planDao = new PlanDao(getConnectionSource(), Plan.class);
+            } catch (SQLException e) {
+                Log.e(TAG, e.getMessage());
+            }
         }
         return planDao;
     }

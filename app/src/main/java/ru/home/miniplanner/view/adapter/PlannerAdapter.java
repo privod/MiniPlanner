@@ -1,18 +1,15 @@
-package ru.home.miniplanner.adapter;
+package ru.home.miniplanner.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.domain.Domain;
+import ru.home.miniplanner.model.Domain;
 
 /**
  * Created by privod on 19.10.2015.
@@ -21,27 +18,27 @@ public class PlannerAdapter<T extends Domain> extends BaseAdapter {
 
     private final Context context;
     private final LayoutInflater layout;
-    private final List<T> list;
+    private List<T> data;
 
     public PlannerAdapter(Context context, List<T> list) {
         this.context = context;
         this.layout = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.list = list;
+        this.data = list;
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return data.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return list.get(position).getId();
+        return data.get(position).getId();
     }
 
     @Override
@@ -52,5 +49,13 @@ public class PlannerAdapter<T extends Domain> extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
     }
 }

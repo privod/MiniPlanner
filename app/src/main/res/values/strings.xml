@@ -15,4 +15,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="action_plan_del">Delete event</string>
+    <string name="contextmenu_plan_del">Delete event</string>
+    <string name="contextmenu_plan_edit">Edit event</string>
+    <string name="title_activity_partys">PartysActivity</string>
 </resources>

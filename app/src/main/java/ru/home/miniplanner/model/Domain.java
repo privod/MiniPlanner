@@ -1,4 +1,4 @@
-package ru.home.miniplanner.domain;
+package ru.home.miniplanner.model;
 
 import com.j256.ormlite.field.DatabaseField;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public abstract class Domain implements Serializable {
 
-    @DatabaseField(id = true, generatedId = true)
+    @DatabaseField(generatedId = true)
     private Long id;
 
     public Long getId() {

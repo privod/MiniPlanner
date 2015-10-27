@@ -1,4 +1,4 @@
-package ru.home.miniplanner.domain;
+package ru.home.miniplanner.model;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -24,8 +24,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditActivity"
-            android:label="@string/title_activity_edit" >
+            android:name=".PlanEditActivity"
+            android:label="@string/title_activity_edit"
+            android:windowSoftInputMode="stateVisible" >
+        </activity>
+        <activity
+            android:name=".view.PartysActivity"
+            android:label="@string/title_activity_partys"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

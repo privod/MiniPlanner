@@ -1,57 +1,105 @@
 package ru.home.miniplanner;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.annotation.LayoutRes;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import java.math.BigDecimal;
-import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
-import ru.home.miniplanner.domain.Plan;
-import ru.home.miniplanner.domain.SimpleCalendar;
+import ru.home.miniplanner.model.Domain;
+import ru.home.miniplanner.view.ViewService;
 
-public class EditActivity extends AppCompatActivity {
+/**
+ * Created by privod on 27.10.2015.
+ */
+public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
+    static final String LOG_TAG = PlanEditActivity.class.getSimpleName();
+    static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru"));
 
-    final String LOG_TAG = "EditActivity";
+    protected ViewService viewService;
+    protected T entity;
 
-    EditText nameEditText;
-    EditText dateRegEditText;
-    EditText costExpectEditText;
-    Button okButton;
-    Button cancelButton;
+    protected Button okButton;
+    protected Button cancelButton;
+
+    abstract protected @LayoutRes int getLayoutResID();
+    abstract protected T getEntity();
+    abstract protected EditText[] getArrayEdits();
+    abstract protected void editResultOk();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit);
+        setContentView(getLayoutResID());
 
-        nameEditText = (EditText) findViewById(R.id.nameEditText);
-        dateRegEditText = (EditText) findViewById(R.id.dateRegEditText);
-        costExpectEditText = (EditText) findViewById(R.id.costExpectEditText);
+        viewService = new ViewService();
+
+        entity = getEntity();
+        if (null == entity) {
+            setResult(RESULT_CANCELED);
+            finish();
+        }
+
+        setEditsTabBehavior(getArrayEdits());
+
         okButton = (Button) findViewById(R.id.okButton);
-        cancelButton = (Button) findViewById(R.id.cancelButton);
-
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Plan plan = new Plan();
-                plan.setName(nameEditText.getText().toString());
-                try {
-                    plan.setDateReg(new SimpleCalendar(dateRegEditText.getText().toString()));
-                } catch (ParseException e) {
-                    Log.e(LOG_TAG, e.getMessage());
-                    // TODO make error message on screen
-                    return;
-                }
-                plan.setCostExpect(new BigDecimal(costExpectEditText.getText().toString()));
+                editResultOk();
+            }
+        });
 
-                Intent intent = new Intent();
-                intent.putExtra("plan", plan);
-                setResult(RESULT_OK, intent);
+        cancelButton = (Button) findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
+    }
+
+    private void setEditsTabBehavior(EditText[] arrayViews) {
+        EditText firstView = arrayViews[0];
+        EditText lastView = arrayViews[arrayViews.length - 1];
+
+        firstView.requestFocus();
+
+        for (int i = 0; i < arrayViews.length - 1; i++) {
+            EditText curView = arrayViews[i];
+            final EditText nextView = arrayViews[i + 1];
+
+            curView.selectAll();
+            curView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                        nextView.requestFocus();
+                        nextView.selectAll();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        }
+
+        lastView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    editResultOk();
+                    return true;
+                }
+                return false;
             }
         });
     }
