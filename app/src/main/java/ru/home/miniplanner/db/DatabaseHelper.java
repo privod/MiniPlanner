@@ -9,7 +9,9 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
+import ru.home.miniplanner.service.PartyDao;
 import ru.home.miniplanner.service.PlanDao;
 
 /**
@@ -19,9 +21,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String TAG = DatabaseHelper.class.getSimpleName();
     private static final String DATABASE_NAME ="planner.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     private PlanDao planDao;
+    private PartyDao partyDao;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -31,6 +34,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Plan.class);
+            TableUtils.createTable(connectionSource, Party.class);
         }
         catch (SQLException e){
             Log.e(TAG, e.getMessage());
@@ -39,14 +43,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-//        try
+        try
         {
-            //TODO update tables.
+            TableUtils.dropTable(connectionSource, Plan.class, true);
+            TableUtils.createTable(connectionSource, Plan.class);
+            TableUtils.dropTable(connectionSource, Party.class, true);
+            TableUtils.createTable(connectionSource, Party.class);
+
+            //TODO update tables with save data.
         }
-//        catch (SQLException e){
-//            Log.e(TAG, e.getMessage());
-//            throw new RuntimeException(e);
-//        }
+        catch (SQLException e){
+            Log.e(TAG, e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     public synchronized PlanDao getPlanDao() {
@@ -60,9 +69,21 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return planDao;
     }
 
+    public synchronized PartyDao getPartyDao() {
+        if (null == partyDao) {
+            try {
+                partyDao = new PartyDao(getConnectionSource(), Party.class);
+            } catch (SQLException e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+        return partyDao;
+    }
+
     @Override
     public void close() {
         planDao = null;
+        partyDao = null;
         super.close();
     }
 }

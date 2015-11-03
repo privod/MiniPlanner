@@ -1,7 +1,20 @@
 <resources>
-    <string name="app_name">MiniPlanner</string>
+
+    <string name="app_name">Mini Planner</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_edit">Edit</string>
+    <string name="title_plan_edit">@string/plan_edit</string>
+    <string name="title_plans">List of event</string>
+    <string name="title_parties">List of participants</string>
+
+    <!-- Base value -->
+    <string name="plan_edit">Edit event</string>
+    <string name="action_plan_edit">Edit event</string>
+    <string name="action_party_edit">Edit member</string>
+    <string name="action_party_edit_mess">Fill in all the fields</string>
+    <string name="action_plan_del">Delete event</string>
+    <string name="action_party_del">Remove member</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -15,8 +28,10 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="action_plan_del">Delete event</string>
-    <string name="contextmenu_plan_del">Delete event</string>
-    <string name="contextmenu_plan_edit">Edit event</string>
-    <string name="title_activity_partys">PartysActivity</string>
+    <string name="context_plan_del">@string/action_plan_del</string>
+    <string name="context_party_del">@string/action_party_del</string>
+    <string name="context_plan_edit">@string/action_plan_edit</string>
+    <string name="context_party_edit">@string/action_party_edit</string>
+    <string name="button_bay">Add bay</string>
+    <string name="batton_contribution">Add a contridution</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.home.miniplanner.R;
@@ -14,16 +15,17 @@ import ru.home.miniplanner.model.Domain;
 /**
  * Created by privod on 19.10.2015.
  */
-public class PlannerAdapter<T extends Domain> extends BaseAdapter {
+public class PlannerBaseAdapter<T extends Domain> extends BaseAdapter {
 
     private final Context context;
     private final LayoutInflater layout;
     private List<T> data;
 
-    public PlannerAdapter(Context context, List<T> list) {
+    public PlannerBaseAdapter(Context context, List<T> list) {
         this.context = context;
         this.layout = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.data = list;
+
+        this.data = (null != list) ? list : new ArrayList<T>();
     }
 
     @Override

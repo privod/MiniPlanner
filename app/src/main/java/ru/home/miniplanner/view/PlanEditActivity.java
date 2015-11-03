@@ -1,23 +1,11 @@
-package ru.home.miniplanner;
+package ru.home.miniplanner.view;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import ru.home.miniplanner.model.Domain;
+import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.view.ViewService;
 
 public class PlanEditActivity extends EditActivity<Plan> {
     static final String LOG_TAG = PlanEditActivity.class.getSimpleName();

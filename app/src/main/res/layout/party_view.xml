@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/debtTextView"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/dateRegTextView"
+            android:layout_column="0"
+            android:text="Name"
+            android:textSize="@dimen/list_view_text_size" />
+
+        <TextView
+            android:id="@+id/debtTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/nameTextView"
+            android:layout_column="1"
+            android:text="Debt"
+            android:textSize="@dimen/list_view_date_text_size" />
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/contributionButton"
+        android:layout_weight="0"
+        android:src="@drawable/ic_cash_multiple"
+        android:contentDescription="@string/batton_contribution" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bayButton"
+        android:src="@drawable/ic_cart"
+        android:contentDescription="@string/button_bay" />
+
+</LinearLayout>

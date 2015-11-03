@@ -1,9 +1,8 @@
-package ru.home.miniplanner;
+package ru.home.miniplanner.view;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -14,8 +13,8 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Domain;
-import ru.home.miniplanner.view.ViewService;
 
 /**
  * Created by privod on 27.10.2015.

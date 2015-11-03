@@ -1,4 +1,4 @@
-package ru.home.miniplanner;
+package ru.home.miniplanner.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,21 +12,19 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.List;
-import java.util.Objects;
-
+import ru.home.miniplanner.R;
 import ru.home.miniplanner.view.adapter.PlanAdapter;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.PlanDao;
 
-public class PlansActivity extends AppCompatActivity {
+public class PlansActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final String TAG = PlansActivity.class.getSimpleName();
-    private static final int REQUEST_PLAN_EDIT = 10;
+    private static final int REQUEST_PARTIES = 10;
+    private static final int REQUEST_PLAN_EDIT = 20;
 
     PlanDao planDao;
-//    List<Plan> planList;
     PlanAdapter planAdapter;
     ListView listView;
 
@@ -45,6 +43,7 @@ public class PlansActivity extends AppCompatActivity {
         listView.setAdapter(planAdapter);
 
         registerForContextMenu(listView);
+        listView.setOnItemClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +52,12 @@ public class PlansActivity extends AppCompatActivity {
                 openPlanEditActivity(new Plan());
             }
         });
+    }
+
+    private void openPartiesActivity(Plan plan) {
+        Intent intent = new Intent(PlansActivity.this, PartiesActivity.class);
+        intent.putExtra("plan_id", plan.getId());
+        startActivityForResult(intent, REQUEST_PARTIES);
     }
 
     private void openPlanEditActivity(Plan plan) {
@@ -77,6 +82,12 @@ public class PlansActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Plan plan = (Plan) listView.getItemAtPosition(position);
+        openPartiesActivity(plan);
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.context_plan, menu);
@@ -88,10 +99,10 @@ public class PlansActivity extends AppCompatActivity {
         long id = item.getItemId();
         Plan plan = (Plan) listView.getItemAtPosition(menuInfo.position);
 
-        if (id == R.id.contextmenu_plan_edit) {
+        if (id == R.id.context_plan_edit) {
             openPlanEditActivity(plan);
             return true;
-        } else if (id == R.id.contextmenu_plan_del) {
+        } else if (id == R.id.context_plan_del) {
             planDao.delete(plan);
             planAdapter.setData(planDao.getAll());
             planAdapter.notifyDataSetChanged();
@@ -104,7 +115,7 @@ public class PlansActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_plans, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
