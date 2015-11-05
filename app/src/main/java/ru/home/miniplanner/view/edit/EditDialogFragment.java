@@ -15,7 +15,6 @@ import java.util.Locale;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Domain;
-import ru.home.miniplanner.view.PlanEditActivity;
 import ru.home.miniplanner.view.ViewService;
 
 /**
@@ -27,7 +26,7 @@ public abstract class EditDialogFragment<T extends Domain> extends DialogFragmen
 
     protected ViewService viewService;
     protected T entity;
-//    View view;
+    View view;
     protected
     @LayoutRes
     int layoutResID;
@@ -37,7 +36,7 @@ public abstract class EditDialogFragment<T extends Domain> extends DialogFragmen
     protected
     @LayoutRes
     int messageResID;
-    OnActionDoneListener onActionDoneListener;
+    OnEditorActionDoneListener onActionDoneListener;
 
 
     protected Button okButton;
@@ -60,7 +59,7 @@ public abstract class EditDialogFragment<T extends Domain> extends DialogFragmen
         builder.setMessage(getMessageResID());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(getLayoutResID(), null);
+        view = inflater.inflate(getLayoutResID(), null);
         builder.setView(view);
 
         builder.setPositiveButton(R.string.ok, this);
@@ -84,7 +83,7 @@ public abstract class EditDialogFragment<T extends Domain> extends DialogFragmen
         this.entity = entity;
     }
 
-    public void setOnActionDoneListener(OnActionDoneListener l) {
+    public void setOnActionDoneListener(OnEditorActionDoneListener l) {
         this.onActionDoneListener = l;
     }
 
@@ -112,7 +111,7 @@ public abstract class EditDialogFragment<T extends Domain> extends DialogFragmen
         return titleResID;
     }
 
-    public OnActionDoneListener getOnActionDoneListener() {
+    public OnEditorActionDoneListener getOnActionDoneListener() {
         return onActionDoneListener;
     }
 }

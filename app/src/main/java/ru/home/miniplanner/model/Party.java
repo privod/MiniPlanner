@@ -22,6 +22,10 @@ public class Party extends Domain {
     private List<Bay> bays;
     private List<Contribution> contributions;
 
+    public BigDecimal getDebt() {
+
+    }
+
     public String getName() {
         return name;
     }

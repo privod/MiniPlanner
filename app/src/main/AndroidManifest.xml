@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.PlanEditActivity"
+            android:name=".view.edit.PlanEditActivity"
             android:label="@string/title_plan_edit"
             android:windowSoftInputMode="stateVisible" >
         </activity>
@@ -33,7 +33,9 @@
             android:label="@string/title_parties"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".view.PartyEditActivity" >
+        <activity android:name=".view.edit.PartyEditActivity"
+            android:label="@string/title_party_edit"
+            android:windowSoftInputMode="stateVisible" >
         </activity>
     </application>
 

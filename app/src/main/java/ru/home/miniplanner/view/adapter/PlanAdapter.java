@@ -23,6 +23,10 @@ public class PlanAdapter extends PlannerBaseAdapter<Plan> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = super.getView(position, convertView, parent);
 
+        if (null == view) {
+            view = layout.inflate(R.layout.plan_view, parent, false);
+        }
+
         ViewService viewService = new ViewService();
         Plan plan = (Plan) getItem(position);
 

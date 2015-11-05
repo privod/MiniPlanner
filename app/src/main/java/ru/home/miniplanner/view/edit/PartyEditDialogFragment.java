@@ -1,8 +1,8 @@
 package ru.home.miniplanner.view.edit;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 
 import ru.home.miniplanner.R;
@@ -23,28 +23,31 @@ public class PartyEditDialogFragment extends EditDialogFragment<Party> {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setOnActionDoneListener(new OnActionDoneListener() {
+        setOnActionDoneListener(new OnEditorActionDoneListener() {
             @Override
             public void onActionDone() {
                 getEntity().setName(getViewService().textViewGetString(nameEditText));
             }
         });
 
-        setEntity((Party) savedInstanceState.getSerializable("party"));
+        setEntity((Party) getArguments().getSerializable("party"));
         if (null == getEntity()) {
             Log.e(LOG_TAG, "Entity can not be null, Use the setEntity() method in the constructor inherited class");
             return;
         }
 
-        View view = this.getView();
-        if (null == view) {
+        Dialog dialog = getDialog();
+        if (null == dialog) {
             Log.e(LOG_TAG, "View can not be null, maybe error inflate...");
             return;
         }
 
+
+
         nameEditText = (EditText)(view.findViewById(R.id.nameEditText));
+        nameEditText.requestFocus();
         nameEditText.selectAll();
-        nameEditText.setOnEditorActionListener(new EditTabBehavior(null, getOnActionDoneListener()));
+        nameEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, getOnActionDoneListener()));
         getViewService().textViewSetText(nameEditText, getEntity().getName());
     }
 }

@@ -17,6 +17,7 @@ import ru.home.miniplanner.view.adapter.PlanAdapter;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.PlanDao;
+import ru.home.miniplanner.view.edit.PlanEditActivity;
 
 public class PlansActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -56,7 +57,7 @@ public class PlansActivity extends AppCompatActivity implements AdapterView.OnIt
 
     private void openPartiesActivity(Plan plan) {
         Intent intent = new Intent(PlansActivity.this, PartiesActivity.class);
-        intent.putExtra("plan_id", plan.getId());
+        intent.putExtra("plan", plan);
         startActivityForResult(intent, REQUEST_PARTIES);
     }
 

@@ -23,6 +23,10 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = super.getView(position, convertView, parent);
 
+        if (null == view) {
+            view = layout.inflate(R.layout.party_view, parent, false);
+        }
+
         ViewService viewService = new ViewService();
         Party party = (Party) getItem(position);
 

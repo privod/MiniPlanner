@@ -18,7 +18,7 @@ import ru.home.miniplanner.model.Domain;
 public class PlannerBaseAdapter<T extends Domain> extends BaseAdapter {
 
     private final Context context;
-    private final LayoutInflater layout;
+    protected final LayoutInflater layout;
     private List<T> data;
 
     public PlannerBaseAdapter(Context context, List<T> list) {
@@ -45,11 +45,6 @@ public class PlannerBaseAdapter<T extends Domain> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        if (null == convertView) {
-            convertView = layout.inflate(R.layout.plan_view, parent, false);
-        }
-
         return convertView;
     }
 
