@@ -6,6 +6,7 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -22,13 +23,17 @@ public class Plan extends Domain {
     private Date dateReg;
     @DatabaseField(dataType = DataType.BIG_DECIMAL)
     private BigDecimal costExpect;
-
+    @ForeignCollectionField
     private Collection<Party> parties;
 
     public Plan() {
         this.name = "";
         this.dateReg = new Date();
         this.costExpect = new BigDecimal("0");
+    }
+
+    public BigDecimal getShare() {
+        return costExpect.divide(new BigDecimal(parties.size()));
     }
 
     public String getName() {
@@ -47,8 +52,12 @@ public class Plan extends Domain {
         this.dateReg = dateReg;
     }
 
-    public Collection<Party> getParties() {
-        return parties;
+    public List<Party> getParties() {
+        if (parties instanceof List) {
+            return (List<Party>)parties;
+        } else {
+            return new ArrayList<Party>(parties);
+        }
     }
 
     public void setParties(List<Party> parties) {

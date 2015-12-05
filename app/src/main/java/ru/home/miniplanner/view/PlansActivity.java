@@ -21,7 +21,7 @@ import ru.home.miniplanner.view.edit.PlanEditActivity;
 
 public class PlansActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    private static final String TAG = PlansActivity.class.getSimpleName();
+    private static final String LOG_TAG = PlansActivity.class.getSimpleName();
     private static final int REQUEST_PARTIES = 10;
     private static final int REQUEST_PLAN_EDIT = 20;
 

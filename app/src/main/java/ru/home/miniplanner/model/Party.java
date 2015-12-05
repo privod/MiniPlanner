@@ -17,12 +17,22 @@ public class Party extends Domain {
     private String name;
     @DatabaseField(dataType = DataType.BIG_DECIMAL)
     private BigDecimal deposit;                         // ?????
-    @DatabaseField(foreign = true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Plan plan;
     private List<Bay> bays;
     private List<Contribution> contributions;
+//    private List<Contribution> contributions;
 
     public BigDecimal getDebt() {
+        BigDecimal summaryBays = new BigDecimal("0");
+        for (Bay bay: bays ) {
+            summaryBays.add(bay.getCost());
+        }
+        BigDecimal summaryContributions = new BigDecimal("0");
+        for (Contribution contribution: contributions) {
+            summaryContributions.add(contribution.getSum());
+        }
+        return plan.getShare().subtract(summaryBays);
 
     }
 

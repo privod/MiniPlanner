@@ -36,4 +36,5 @@
     <string name="context_party_edit">@string/action_party_edit</string>
     <string name="button_bay">Add bay</string>
     <string name="batton_contribution">Add a contridution</string>
+    <string name="button_popup">Popup menu</string>
 </resources>

@@ -38,9 +38,20 @@ public class PlanDao extends BaseDaoImpl<Plan, Long> {
         return this.delete(getById(id));
     }
 
+    @Override
     public int delete(Plan plan) {
         try {
             return super.delete(plan);
+        } catch (SQLException e) {
+            Log.e(TAG, e.getMessage());
+            return 0;
+        }
+    }
+
+    @Override
+    public int refresh(Plan plan) {
+        try {
+            return super.refresh(plan);
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
             return 0;

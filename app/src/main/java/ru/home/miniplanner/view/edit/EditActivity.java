@@ -18,7 +18,7 @@ import ru.home.miniplanner.view.ViewService;
  * Created by privod on 27.10.2015.
  */
 public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
-    static final String LOG_TAG = PlanEditActivity.class.getSimpleName();
+    static final String LOG_TAG = EditActivity.class.getSimpleName();
     static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru"));
 
     protected ViewService viewService;

@@ -21,7 +21,7 @@ import ru.home.miniplanner.view.ViewService;
  * Created by privod on 31.10.2015.
  */
 public abstract class EditDialogFragment<T extends Domain> extends DialogFragment implements DialogInterface.OnClickListener {
-    static final String LOG_TAG = PlanEditActivity.class.getSimpleName();
+    static final String LOG_TAG = EditDialogFragment.class.getSimpleName();
     static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru"));
 
     protected ViewService viewService;
