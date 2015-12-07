@@ -9,8 +9,10 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
+import ru.home.miniplanner.service.BayDao;
 import ru.home.miniplanner.service.PartyDao;
 import ru.home.miniplanner.service.PlanDao;
 
@@ -21,10 +23,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String TAG = DatabaseHelper.class.getSimpleName();
     private static final String DATABASE_NAME ="planner.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     private PlanDao planDao;
     private PartyDao partyDao;
+    private BayDao bayDao;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,6 +38,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, Plan.class);
             TableUtils.createTable(connectionSource, Party.class);
+            TableUtils.createTable(connectionSource, Bay.class);
         }
         catch (SQLException e){
             Log.e(TAG, e.getMessage());
@@ -49,6 +53,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Plan.class);
             TableUtils.dropTable(connectionSource, Party.class, true);
             TableUtils.createTable(connectionSource, Party.class);
+            TableUtils.dropTable(connectionSource, Bay.class, true);
+            TableUtils.createTable(connectionSource, Bay.class);
 
             //TODO update tables with save data.
         }
@@ -80,10 +86,22 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return partyDao;
     }
 
+    public synchronized BayDao getBayDao() {
+        if (null == bayDao) {
+            try {
+                bayDao = new BayDao(getConnectionSource(), Bay.class);
+            } catch (SQLException e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+        return bayDao;
+    }
+
     @Override
     public void close() {
         planDao = null;
         partyDao = null;
+        bayDao = null;
         super.close();
     }
 }

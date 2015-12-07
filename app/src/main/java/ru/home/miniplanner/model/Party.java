@@ -2,9 +2,11 @@ package ru.home.miniplanner.model;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,24 +17,33 @@ public class Party extends Domain {
 
     @DatabaseField
     private String name;
-    @DatabaseField(dataType = DataType.BIG_DECIMAL)
-    private BigDecimal deposit;                         // ?????
+//    @DatabaseField(dataType = DataType.BIG_DECIMAL)
+//    private BigDecimal deposit;                         // ?????
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Plan plan;
-    private List<Bay> bays;
-    private List<Contribution> contributions;
-//    private List<Contribution> contributions;
+    @ForeignCollectionField
+    private Collection<Bay> bays;
+    private Collection<Contribution> in;
+    private Collection<Contribution> out;
+
+    public BigDecimal getBaysTotalCost() {
+        BigDecimal TotalCost = new BigDecimal("0");
+        for (Bay bay : bays) {
+            TotalCost.add(bay.getCost());
+        }
+        return TotalCost;
+    }
 
     public BigDecimal getDebt() {
-        BigDecimal summaryBays = new BigDecimal("0");
-        for (Bay bay: bays ) {
-            summaryBays.add(bay.getCost());
-        }
-        BigDecimal summaryContributions = new BigDecimal("0");
-        for (Contribution contribution: contributions) {
-            summaryContributions.add(contribution.getSum());
-        }
-        return plan.getShare().subtract(summaryBays);
+//        BigDecimal summaryIn = new BigDecimal("0");
+//        for (Contribution contribution: in) {
+//            summaryIn.add(contribution.getSum());
+//        }
+//        BigDecimal summaryOut = new BigDecimal("0");
+//        for (Contribution contribution: out) {
+//            summaryOut.add(contribution.getSum());
+//        }
+        return plan.getShare().subtract(this.getBaysTotalCost());
 
     }
 
@@ -44,13 +55,13 @@ public class Party extends Domain {
         this.name = name;
     }
 
-    public BigDecimal getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(BigDecimal deposit) {
-        this.deposit = deposit;
-    }
+//    public BigDecimal getDeposit() {
+//        return deposit;
+//    }
+//
+//    public void setDeposit(BigDecimal deposit) {
+//        this.deposit = deposit;
+//    }
 
     public Plan getPlan() {
         return plan;
@@ -60,7 +71,7 @@ public class Party extends Domain {
         this.plan = plan;
     }
 
-    public List<Bay> getBays() {
+    public Collection<Bay> getBays() {
         return bays;
     }
 
@@ -68,11 +79,11 @@ public class Party extends Domain {
         this.bays = bays;
     }
 
-    public List<Contribution> getContributions() {
-        return contributions;
-    }
-
-    public void setContributions(List<Contribution> contributions) {
-        this.contributions = contributions;
-    }
+//    public Collection<Contribution> getContributions() {
+//        return contributions;
+//    }
+//
+//    public void setContributions(Collection<Contribution> contributions) {
+//        this.contributions = contributions;
+//    }
 }

@@ -32,8 +32,15 @@ public class Plan extends Domain {
         this.costExpect = new BigDecimal("0");
     }
 
+    public BigDecimal getTotalCost() {
+        BigDecimal TotalCost = new BigDecimal("0");
+        for (Party party : parties) {
+            TotalCost.add(party.getBaysTotalCost());
+        }
+        return TotalCost;
+    }
     public BigDecimal getShare() {
-        return costExpect.divide(new BigDecimal(parties.size()));
+        return getTotalCost().divide(new BigDecimal(parties.size()));
     }
 
     public String getName() {
