@@ -1,6 +1,7 @@
 package ru.home.miniplanner.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -10,11 +11,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import ru.home.miniplanner.R;
+
 /**
  * Created by privod on 26.10.2015.
  */
 public class ViewService {
     final String LOG_TAG = ViewService.class.getSimpleName();
+
+    Context context;
+
+    public ViewService(Context context) {
+        this.context = context;
+    }
 
     private final SimpleDateFormat dateRegFormat = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru"));
 
@@ -42,9 +51,13 @@ public class ViewService {
     }
 
     public void textViewSetText(TextView view, BigDecimal decimal) {
-//        String text = String.format("%.2f", decimal);
         String text = decimal.toString();
+        textViewSetText(view, text);
+    }
 
+    public void textViewSetMoney(TextView view, BigDecimal decimal) {
+        String template = context.getResources().getString(R.string.money);
+        String text = String.format(template, decimal.toString());
         textViewSetText(view, text);
     }
 

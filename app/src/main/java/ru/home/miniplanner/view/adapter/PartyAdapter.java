@@ -38,20 +38,24 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
             view = layout.inflate(R.layout.party_view, parent, false);
         }
 
-        ViewService viewService = new ViewService();
+        ViewService viewService = new ViewService(context);
         final Party party = (Party) getItem(position);
 
         TextView nameEditText = (TextView) view.findViewById(R.id.nameTextView);
-//        TextView depositRegEditText = (TextView) view.findViewById(R.id.depositTextView);
-//        TextView costExpectEditText = (TextView) view.findViewById(R.id.costTextView);
+        TextView debtTextView = (TextView) view.findViewById(R.id.debtTextView);
         ImageButton contributionButton = (ImageButton) view.findViewById(R.id.contributionButton);
         ImageButton bayButton = (ImageButton) view.findViewById(R.id.bayButton);
         ImageButton popupButton = (ImageButton) view.findViewById(R.id.popupButton);
 
         viewService.textViewSetText(nameEditText, party.getName());
-//        viewService.textViewSetText(depositRegEditText, party.getDeposit());
-//        viewService.textViewSetText(costExpectEditText, plan.getCostExpect());
+        viewService.textViewSetMoney(debtTextView, party.getBaysTotalCost());
         contributionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        bayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
