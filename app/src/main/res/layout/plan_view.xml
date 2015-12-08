@@ -43,8 +43,7 @@
             android:text="Cost expect"
             android:textSize="@dimen/list_view_text_size"
             android:layout_column="1"
-            android:layout_marginLeft="5sp"
-            android:layout_marginRight="5sp" />
+            android:layout_marginLeft="5sp" />
         <TextView
             android:id="@+id/costTotalTextView"
             android:layout_width="wrap_content"
@@ -54,8 +53,7 @@
             android:text="Cost total"
             android:textSize="@dimen/list_view_text_size"
             android:layout_column="1"
-            android:layout_marginLeft="5sp"
-            android:layout_marginRight="5sp" />
+            android:layout_marginLeft="5sp" />
     </TableRow>
 
 </TableLayout>

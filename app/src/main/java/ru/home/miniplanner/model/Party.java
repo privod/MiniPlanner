@@ -27,11 +27,11 @@ public class Party extends Domain {
     private Collection<Contribution> out;
 
     public BigDecimal getBaysTotalCost() {
-        BigDecimal TotalCost = new BigDecimal("0");
+        BigDecimal totalCost = new BigDecimal("0");
         for (Bay bay : bays) {
-            TotalCost.add(bay.getCost());
+            totalCost = totalCost.add(bay.getCost());
         }
-        return TotalCost;
+        return totalCost;
     }
 
     public BigDecimal getDebt() {

@@ -43,8 +43,8 @@ public class PlanAdapter extends PlannerBaseAdapter<Plan> {
 
         viewService.textViewSetText(nameTextView, plan.getName());
         viewService.textViewSetText(dateRegTextView, plan.getDateReg());
-        viewService.textViewSetMoney(costExpectTextView, plan.getCostExpect());
-        viewService.textViewSetMoney(costTotalTextView, plan.getTotalCost());
+        viewService.textViewSetText(costExpectTextView, plan.getCostExpect());
+        viewService.textViewSetText(costTotalTextView, plan.getTotalCost());
 
         return view;
     }

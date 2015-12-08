@@ -37,6 +37,10 @@
             android:label="@string/title_party_edit"
             android:windowSoftInputMode="stateVisible" >
         </activity>
+        <activity android:name=".view.edit.BayEditActivity"
+            android:label="@string/title_bay_edit"
+            android:windowSoftInputMode="stateVisible" >
+        </activity>
     </application>
 
 </manifest>

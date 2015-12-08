@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.view.PartiesActivity;
 import ru.home.miniplanner.view.ViewService;
@@ -24,6 +24,7 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
     static final String LOG_TAG = PartyAdapter.class.getSimpleName();
 
     Context context;
+    PartiesActivity activity;
 
     public PartyAdapter(Context context, List<Party> list) {
         super(context, list);
@@ -38,6 +39,13 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
             view = layout.inflate(R.layout.party_view, parent, false);
         }
 
+        if (context instanceof PartiesActivity) {
+            activity = (PartiesActivity)context;
+        }
+        else {
+            Log.e(LOG_TAG, "context must instance of PartiesActivity");
+        }
+
         ViewService viewService = new ViewService(context);
         final Party party = (Party) getItem(position);
 
@@ -48,17 +56,18 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
         ImageButton popupButton = (ImageButton) view.findViewById(R.id.popupButton);
 
         viewService.textViewSetText(nameEditText, party.getName());
-        viewService.textViewSetMoney(debtTextView, party.getBaysTotalCost());
+        viewService.textViewSetText(debtTextView, party.getDebt());
         contributionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
         bayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Bay bay = new Bay();
+                bay.setParty(party);
+                 activity.openBayEditActivity(bay);
             }
         });
         popupButton.setOnClickListener(new View.OnClickListener() {
@@ -69,15 +78,6 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        PartiesActivity activity;
-                        if (context instanceof PartiesActivity) {
-                            activity = (PartiesActivity)context;
-                        }
-                        else {
-                            Log.e(LOG_TAG, "context must instance of PartiesActivity");
-                            return false;
-                        }
-
                         long id = item.getItemId();
                         if (id == R.id.context_party_edit) {
                             activity.openPartyEditActivity(party);

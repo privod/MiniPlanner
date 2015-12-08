@@ -38,7 +38,7 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResID());
 
-        viewService = new ViewService();
+        viewService = new ViewService(this);
 
         entity = getEntity();
         if (null == entity) {

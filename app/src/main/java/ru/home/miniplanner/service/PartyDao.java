@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import ru.home.miniplanner.model.Party;
+import ru.home.miniplanner.model.Plan;
 
 /**
  * Created by privod on 23.10.2015.
@@ -41,6 +42,16 @@ public class PartyDao extends BaseDaoImpl<Party, Long> {
     public int delete(Party party) {
         try {
             return super.delete(party);
+        } catch (SQLException e) {
+            Log.e(TAG, e.getMessage());
+            return 0;
+        }
+    }
+
+    @Override
+    public int refresh(Party party) {
+        try {
+            return super.refresh(party);
         } catch (SQLException e) {
             Log.e(TAG, e.getMessage());
             return 0;

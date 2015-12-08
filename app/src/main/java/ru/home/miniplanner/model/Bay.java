@@ -21,6 +21,12 @@ public class Bay extends Domain {
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Party party;
 
+    public Bay() {
+        this.cost = new BigDecimal("0");
+        this.dateReg = new Date();
+        this.description = null;
+    }
+
     public BigDecimal getCost() {
         return cost;
     }

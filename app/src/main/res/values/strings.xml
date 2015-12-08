@@ -6,10 +6,12 @@
     <string name="title_parties">List of participants</string>
     <string name="title_plan_edit">@string/plan_edit</string>
     <string name="title_party_edit">@string/plan_edit</string>
+    <string name="title_bay_edit">@string/bay_edit</string>
 
     <!-- Base value -->
     <string name="plan_edit">Edit event</string>
     <string name="party_edit">Edit member</string>
+    <string name="bay_edit">Edit bay</string>
     <string name="action_plan_edit">Edit event</string>
     <string name="action_party_edit">Edit member</string>
     <string name="action_party_edit_mess">Fill in all the fields</string>
@@ -37,5 +39,5 @@
     <string name="button_bay">Add bay</string>
     <string name="batton_contribution">Add a contridution</string>
     <string name="button_popup">Popup menu</string>
-    <string name="money">%s $</string>
+    <string name="money">%s$</string>
 </resources>
