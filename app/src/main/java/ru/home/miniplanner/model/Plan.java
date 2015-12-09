@@ -6,6 +6,7 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -40,7 +41,8 @@ public class Plan extends Domain {
         return totalCost;
     }
     public BigDecimal getShare() {
-        return getTotalCost().divide(new BigDecimal(parties.size()));
+        BigDecimal partysCount = new BigDecimal(parties.size());
+        return getTotalCost().divide(partysCount, 0, RoundingMode.HALF_UP);
     }
 
     public String getName() {
