@@ -32,6 +32,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
     <string name="context_plan_del">@string/action_plan_del</string>
     <string name="context_party_del">@string/action_party_del</string>
     <string name="context_plan_edit">@string/action_plan_edit</string>
@@ -40,4 +41,6 @@
     <string name="batton_contribution">Add a contridution</string>
     <string name="button_popup">Popup menu</string>
     <string name="money">%s$</string>
+    <string name="text_bays">Bays</string>
+    <string name="text_contributions">Contributions</string>
 </resources>

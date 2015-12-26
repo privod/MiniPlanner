@@ -2,68 +2,161 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/debtTextView"
-        android:layout_alignParentStart="true"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/nameTextView"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/debtTextView"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/dateRegTextView"
-            android:layout_column="0"
-            android:text="Name"
-            android:textSize="@dimen/list_view_text_size" />
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/debtTextView"
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/dateRegTextView"
+                android:layout_column="0"
+                android:text="Name"
+                android:textSize="@dimen/list_view_text_size"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/debtTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/nameTextView"
+                android:layout_column="1"
+                android:text="Debt"
+                android:textSize="@dimen/list_view_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/nameTextView"
-            android:layout_column="1"
-            android:text="Debt"
-            android:textSize="@dimen/list_view_date_text_size" />
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/contributionButton"
+                android:layout_weight="0"
+                android:src="@drawable/ic_cash_multiple"
+                android:contentDescription="@string/batton_contribution" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bayButton"
+                android:src="@drawable/ic_cart"
+                android:contentDescription="@string/button_bay" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/popupButton"
+                android:contentDescription="@string/button_popup"
+                android:src="@drawable/ic_dots_vertical" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/titleLayout"
+        android:visibility="visible">
 
-        <ImageButton
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/contributionButton"
-            android:layout_weight="0"
-            android:src="@drawable/ic_cash_multiple"
-            android:contentDescription="@string/batton_contribution" />
+            android:text="@string/text_bays"
+            android:layout_column="0"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textAlignment="center" />
 
-        <ImageButton
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bayButton"
-            android:src="@drawable/ic_cart"
-            android:contentDescription="@string/button_bay" />
+            android:text="@string/text_contributions"
+            android:layout_column="0"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textAlignment="center" />
+    </LinearLayout>
 
-        <ImageButton
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bodyLayout"
+        android:visibility="visible">
+
+        <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/popupButton"
-            android:contentDescription="@string/button_popup"
-            android:src="@drawable/ic_dots_vertical" />
+            android:stretchColumns="0"
+            android:layout_weight="1"
+            android:layout_marginRight="20sp"
+            android:layout_marginLeft="20sp">
 
-        <TableRow
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:id="@+id/bayNameTextView" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:id="@+id/bayCostTextView"
+                    android:textAlignment="textEnd" />
+
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0"></TableRow>
+            android:layout_height="wrap_content"
+            android:stretchColumns="0"
+            android:layout_weight="1"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1" />
+            </TableRow>
+        </TableLayout>
     </LinearLayout>
 
 </LinearLayout>

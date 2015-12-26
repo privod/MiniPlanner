@@ -1,14 +1,17 @@
 package ru.home.miniplanner.view.adapter;
 
 import android.content.Context;
+import android.text.Layout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import ru.home.miniplanner.R;
@@ -51,12 +54,38 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
 
         TextView nameEditText = (TextView) view.findViewById(R.id.nameTextView);
         TextView debtTextView = (TextView) view.findViewById(R.id.debtTextView);
+        viewService.textViewSetText(nameEditText, party.getName());
+        BigDecimal debt = party.getDebt();
+        int redColor = context.getResources().getColor(R.color.red);
+        int greenColor = context.getResources().getColor(R.color.green);
+        if (debt.compareTo(new BigDecimal("0")) > 0) {
+            debtTextView.setTextColor(redColor);
+        } else {
+            debtTextView.setTextColor(greenColor);
+        }
+        viewService.textViewSetText(debtTextView, party.getDebt().abs());
+
+        StringBuilder bayNamesStr = new StringBuilder();
+        StringBuilder bayCostsStr = new StringBuilder();
+        for (Bay bay : party.getBays()) {
+            bayNamesStr.append(bay.getDescription()).append("\n");
+            bayCostsStr.append(bay.getCost()).append("\n");
+        }
+        TextView bayNameTextView = (TextView) view.findViewById(R.id.bayNameTextView);
+        TextView bayCostTextView = (TextView) view.findViewById(R.id.bayCostTextView);
+        viewService.textViewSetText(bayNameTextView, bayNamesStr.toString());
+        viewService.textViewSetText(bayCostTextView, bayCostsStr.toString());
+        if (bayCostsStr.toString().isEmpty()) {
+            ((LinearLayout) view.findViewById(R.id.titleLayout)).setVisibility(View.GONE);
+            ((LinearLayout) view.findViewById(R.id.bodyLayout)).setVisibility(View.GONE);
+        } else {
+            ((LinearLayout) view.findViewById(R.id.titleLayout)).setVisibility(View.VISIBLE);
+            ((LinearLayout) view.findViewById(R.id.bodyLayout)).setVisibility(View.VISIBLE);
+        }
+
         ImageButton contributionButton = (ImageButton) view.findViewById(R.id.contributionButton);
         ImageButton bayButton = (ImageButton) view.findViewById(R.id.bayButton);
         ImageButton popupButton = (ImageButton) view.findViewById(R.id.popupButton);
-
-        viewService.textViewSetText(nameEditText, party.getName());
-        viewService.textViewSetText(debtTextView, party.getDebt());
         contributionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

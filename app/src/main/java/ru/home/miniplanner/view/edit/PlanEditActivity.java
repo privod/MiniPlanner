@@ -12,7 +12,7 @@ public class PlanEditActivity extends EditActivity<Plan> {
 
     private EditText nameEditText;
     private EditText dateRegEditText;
-    private EditText costExpectEditText;
+//    private EditText costExpectEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class PlanEditActivity extends EditActivity<Plan> {
             public void onActionDone() {
                 entity.setName(viewService.textViewGetString(nameEditText));
                 entity.setDateReg(viewService.textViewGetDate(dateRegEditText));
-                entity.setCostExpect(viewService.textViewGetDecimal(costExpectEditText));
+//                entity.setCostExpect(viewService.textViewGetDecimal(costExpectEditText));
 
                 Intent intent = new Intent();
                 intent.putExtra("plan", entity);
@@ -33,17 +33,17 @@ public class PlanEditActivity extends EditActivity<Plan> {
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         dateRegEditText = (EditText) findViewById(R.id.dateRegEditText);
-        costExpectEditText = (EditText) findViewById(R.id.costExpectEditText);
+//        costExpectEditText = (EditText) findViewById(R.id.costExpectEditText);
 
         viewService.textViewSetText(nameEditText, entity.getName());
         viewService.textViewSetText(dateRegEditText, entity.getDateReg());
-        viewService.textViewSetText(costExpectEditText, entity.getCostExpect());
+//        viewService.textViewSetText(costExpectEditText, entity.getCostExpect());
 
         nameEditText.requestFocus();
         nameEditText.selectAll();
         nameEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
-        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(costExpectEditText, doneListener));
-        costExpectEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
+        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
+//        costExpectEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
     }
 
     @Override

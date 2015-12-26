@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.List;
+
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.view.adapter.PlanAdapter;
 import ru.home.miniplanner.db.HelperFactory;
@@ -53,6 +55,18 @@ public class PlansActivity extends AppCompatActivity implements AdapterView.OnIt
                 openPlanEditActivity(new Plan());
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        List<Plan> plans = planDao.getAll();
+        for (Plan plan : plans){
+            planDao.refresh(plan);
+        }
+        planAdapter.setData(plans);
+        planAdapter.notifyDataSetChanged();
     }
 
     private void openPartiesActivity(Plan plan) {

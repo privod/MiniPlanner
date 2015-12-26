@@ -23,7 +23,9 @@ public class Party extends Domain {
     private Plan plan;
     @ForeignCollectionField
     private Collection<Bay> bays;
+    @ForeignCollectionField(foreignFieldName = "to")
     private Collection<Contribution> in;
+    @ForeignCollectionField(foreignFieldName = "from")
     private Collection<Contribution> out;
 
     public BigDecimal getBaysTotalCost() {

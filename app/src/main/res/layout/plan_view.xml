@@ -34,16 +34,16 @@
             android:textSize="@dimen/list_view_text_size"
             android:layout_column="0" />
 
-        <TextView
-            android:id="@+id/costExpectTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/dateRegTextView"
-            android:text="Cost expect"
-            android:textSize="@dimen/list_view_text_size"
-            android:layout_column="1"
-            android:layout_marginLeft="5sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/costExpectTextView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_below="@+id/dateRegTextView"-->
+            <!--android:text="Cost expect"-->
+            <!--android:textSize="@dimen/list_view_text_size"-->
+            <!--android:layout_column="1"-->
+            <!--android:layout_marginLeft="5sp" />-->
         <TextView
             android:id="@+id/costTotalTextView"
             android:layout_width="wrap_content"

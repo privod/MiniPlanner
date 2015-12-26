@@ -38,12 +38,12 @@ public class PlanAdapter extends PlannerBaseAdapter<Plan> {
 
         TextView nameTextView = (TextView) view.findViewById(R.id.nameTextView);
         TextView dateRegTextView = (TextView) view.findViewById(R.id.dateRegTextView);
-        TextView costExpectTextView = (TextView) view.findViewById(R.id.costExpectTextView);
+//        TextView costExpectTextView = (TextView) view.findViewById(R.id.costExpectTextView);
         TextView costTotalTextView = (TextView) view.findViewById(R.id.costTotalTextView);
 
         viewService.textViewSetText(nameTextView, plan.getName());
         viewService.textViewSetText(dateRegTextView, plan.getDateReg());
-        viewService.textViewSetText(costExpectTextView, plan.getCostExpect());
+//        viewService.textViewSetText(costExpectTextView, plan.getCostExpect());
         viewService.textViewSetText(costTotalTextView, plan.getTotalCost());
 
         return view;

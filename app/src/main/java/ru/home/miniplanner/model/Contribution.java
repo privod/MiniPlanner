@@ -1,5 +1,7 @@
 package ru.home.miniplanner.model;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,7 +12,10 @@ public class Contribution extends Domain {
     private BigDecimal sum;
     private Date dateReg;
     private String description;
-    private Party whom;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Party from;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Party to;
 
     public BigDecimal getSum() {
         return sum;
@@ -34,13 +39,5 @@ public class Contribution extends Domain {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Party getWhom() {
-        return whom;
-    }
-
-    public void setWhom(Party whom) {
-        this.whom = whom;
     }
 }

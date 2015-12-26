@@ -62,29 +62,29 @@
                 android:layout_column="1" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--<TableRow-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Expected cost"
-                android:layout_weight="0"
-                android:textSize="20sp"
-                android:gravity="right"
-                android:layout_column="0"
-                android:id="@+id/textView" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Expected cost"-->
+                <!--android:layout_weight="0"-->
+                <!--android:textSize="20sp"-->
+                <!--android:gravity="right"-->
+                <!--android:layout_column="0"-->
+                <!--android:id="@+id/textView" />-->
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:imeOptions="actionDone"
-                android:ems="10"
-                android:id="@+id/costExpectEditText"
-                android:layout_column="1" />
-        </TableRow>
+            <!--<EditText-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:inputType="numberDecimal"-->
+                <!--android:imeOptions="actionDone"-->
+                <!--android:ems="10"-->
+                <!--android:id="@+id/costExpectEditText"-->
+                <!--android:layout_column="1" />-->
+        <!--</TableRow>-->
 
     </TableLayout>
 

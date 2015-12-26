@@ -10,6 +10,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import ru.home.miniplanner.model.Bay;
+import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.BayDao;
@@ -29,6 +30,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private PartyDao partyDao;
     private BayDao bayDao;
 
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -39,6 +41,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Plan.class);
             TableUtils.createTable(connectionSource, Party.class);
             TableUtils.createTable(connectionSource, Bay.class);
+            TableUtils.createTable(connectionSource, Contribution.class);
         }
         catch (SQLException e){
             Log.e(TAG, e.getMessage());
@@ -55,6 +58,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Party.class);
             TableUtils.dropTable(connectionSource, Bay.class, true);
             TableUtils.createTable(connectionSource, Bay.class);
+            TableUtils.dropTable(connectionSource, Contribution.class, true);
+            TableUtils.createTable(connectionSource, Contribution.class);
 
             //TODO update tables with save data.
         }
