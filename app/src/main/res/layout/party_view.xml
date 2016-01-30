@@ -9,67 +9,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="@color/design_fab_shadow_mid_color"
+        android:focusable="false">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/debtTextView"
             android:layout_alignParentStart="true"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_below="@+id/dateRegTextView"
+            android:layout_column="0"
+            android:text="Nam"
+            android:textSize="@dimen/list_view_text_size"
+            android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/nameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/dateRegTextView"
-                android:layout_column="0"
-                android:text="Name"
-                android:textSize="@dimen/list_view_text_size"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/debtTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/nameTextView"
-                android:layout_column="1"
-                android:text="Debt"
-                android:textSize="@dimen/list_view_text_size" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <TextView
+            android:id="@+id/debtTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/nameTextView"
+            android:layout_column="1"
+            android:text="Debt"
+            android:textSize="@dimen/list_view_text_size" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/contributionButton"
-                android:layout_weight="0"
-                android:src="@drawable/ic_cash_multiple"
-                android:contentDescription="@string/batton_contribution" />
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/bayButton"
-                android:src="@drawable/ic_cart"
-                android:contentDescription="@string/button_bay" />
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/contributionButton"-->
+                <!--android:layout_weight="0"-->
+                <!--android:src="@drawable/ic_cash_multiple"-->
+                <!--android:contentDescription="@string/batton_contribution" />-->
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/popupButton"
-                android:contentDescription="@string/button_popup"
-                android:src="@drawable/ic_dots_vertical" />
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/bayButton"-->
+                <!--android:src="@drawable/ic_cart"-->
+                <!--android:contentDescription="@string/button_bay" />-->
 
-        </LinearLayout>
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/popupButton"-->
+                <!--android:contentDescription="@string/button_popup"-->
+                <!--android:src="@drawable/ic_dots_vertical" />-->
+
+        <!--</LinearLayout>-->
 
     </LinearLayout>
 
