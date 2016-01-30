@@ -26,7 +26,7 @@ import ru.home.miniplanner.view.adapter.PartyAdapter;
 import ru.home.miniplanner.view.edit.BayEditActivity;
 import ru.home.miniplanner.view.edit.PartyEditActivity;
 
-public class PartiesActivity extends AppCompatActivity {
+public class PartiesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private static final String LOG_TAG = PartiesActivity.class.getSimpleName();
     //    private static final int REQUEST_PARTIES = 10;
     private static final int REQUEST_PARTY_EDIT = 40;
@@ -63,7 +63,7 @@ public class PartiesActivity extends AppCompatActivity {
         listView.setAdapter(partyAdapter);
 
         registerForContextMenu(listView);
-//        listView.setOnItemClickListener(this);
+        listView.setOnItemClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +100,12 @@ public class PartiesActivity extends AppCompatActivity {
 //            partyAdapter.setData(partyDao.getByPlanId(plan.getId()));
             partyAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Party party = (Party) listView.getItemAtPosition(position);
+        openPartyEditActivity(party);
     }
 
     @Override
