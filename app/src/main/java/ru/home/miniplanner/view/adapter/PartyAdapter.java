@@ -83,44 +83,44 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
             ((LinearLayout) view.findViewById(R.id.bodyLayout)).setVisibility(View.VISIBLE);
         }
 
-        ImageButton contributionButton = (ImageButton) view.findViewById(R.id.contributionButton);
-        ImageButton bayButton = (ImageButton) view.findViewById(R.id.bayButton);
-        ImageButton popupButton = (ImageButton) view.findViewById(R.id.popupButton);
-        contributionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-        bayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bay bay = new Bay();
-                bay.setParty(party);
-                 activity.openBayEditActivity(bay);
-            }
-        });
-        popupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-                popupMenu.inflate(R.menu.context_party);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        long id = item.getItemId();
-                        if (id == R.id.context_party_edit) {
-                            activity.openPartyEditActivity(party);
-                            return true;
-                        } else if (id == R.id.context_party_del) {
-                            activity.partyDelete(party);
-                            return true;
-                        }
-                        return false;
-                    }
-                });
-                popupMenu.show();
-            }
-        });
+//        ImageButton contributionButton = (ImageButton) view.findViewById(R.id.contributionButton);
+//        ImageButton bayButton = (ImageButton) view.findViewById(R.id.bayButton);
+//        ImageButton popupButton = (ImageButton) view.findViewById(R.id.popupButton);
+//        contributionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            }
+//        });
+//        bayButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Bay bay = new Bay();
+//                bay.setParty(party);
+//                 activity.openBayEditActivity(bay);
+//            }
+//        });
+//        popupButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+//                popupMenu.inflate(R.menu.context_party);
+//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        long id = item.getItemId();
+//                        if (id == R.id.context_party_edit) {
+//                            activity.openPartyEditActivity(party);
+//                            return true;
+//                        } else if (id == R.id.context_party_del) {
+//                            activity.partyDelete(party);
+//                            return true;
+//                        }
+//                        return false;
+//                    }
+//                });
+//                popupMenu.show();
+//            }
+//        });
 
         return view;
     }
