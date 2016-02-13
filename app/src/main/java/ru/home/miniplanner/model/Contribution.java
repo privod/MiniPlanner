@@ -9,6 +9,8 @@ import java.util.Date;
  * Created by privod on 19.10.2015.
  */
 public class Contribution extends Domain {
+    public static final String EXTRA_NAME = "contribution";
+
     private BigDecimal sum;
     private Date dateReg;
     private String description;

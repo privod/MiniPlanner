@@ -41,7 +41,7 @@ public class PlansActivity extends AppCompatActivity implements AdapterView.OnIt
         HelperFactory.setHelper(this);
         planDao = HelperFactory.getHelper().getPlanDao();
 
-        planAdapter = new PlanAdapter(this, planDao.getAll());
+        planAdapter = new PlanAdapter(this);
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(planAdapter);
 
@@ -62,22 +62,22 @@ public class PlansActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onResume();
 
         List<Plan> plans = planDao.getAll();
-        for (Plan plan : plans){
-            planDao.refresh(plan);
-        }
-        planAdapter.setData(plans);
+//        for (Plan plan : plans){
+//            planDao.refresh(plan);
+//        }
+        planAdapter.setList(plans);
         planAdapter.notifyDataSetChanged();
     }
 
     private void openPartiesActivity(Plan plan) {
         Intent intent = new Intent(PlansActivity.this, PartiesActivity.class);
-        intent.putExtra("plan", plan);
+        intent.putExtra(Plan.EXTRA_NAME, plan);
         startActivityForResult(intent, REQUEST_PARTIES);
     }
 
     private void openPlanEditActivity(Plan plan) {
         Intent intent = new Intent(PlansActivity.this, PlanEditActivity.class);
-        intent.putExtra("plan", plan);
+        intent.putExtra(Plan.EXTRA_NAME, plan);
         startActivityForResult(intent, REQUEST_PLAN_EDIT);
     }
 
@@ -89,9 +89,9 @@ public class PlansActivity extends AppCompatActivity implements AdapterView.OnIt
         }
 
         if (requestCode == REQUEST_PLAN_EDIT && resultCode == RESULT_OK) {
-            Plan plan = (Plan) data.getSerializableExtra("plan");
+            Plan plan = (Plan) data.getSerializableExtra(Plan.EXTRA_NAME);
             planDao.save(plan);
-            planAdapter.setData(planDao.getAll());
+            planAdapter.setList(planDao.getAll());
             planAdapter.notifyDataSetChanged();
         }
     }
@@ -119,7 +119,7 @@ public class PlansActivity extends AppCompatActivity implements AdapterView.OnIt
             return true;
         } else if (id == R.id.context_plan_del) {
             planDao.delete(plan);
-            planAdapter.setData(planDao.getAll());
+            planAdapter.setList(planDao.getAll());
             planAdapter.notifyDataSetChanged();
             return true;
         }

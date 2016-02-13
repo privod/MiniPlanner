@@ -12,6 +12,8 @@ import java.util.Date;
  */
 @DatabaseTable
 public class Bay extends Domain {
+    public static final String EXTRA_NAME = "bay";
+
     @DatabaseField(dataType = DataType.BIG_DECIMAL)
     private BigDecimal cost;
     @DatabaseField(dataType = DataType.DATE)

@@ -5,67 +5,56 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
+import ru.home.miniplanner.service.PlanDao;
 
 public class PlanEditActivity extends EditActivity<Plan> {
     static final String LOG_TAG = PlanEditActivity.class.getSimpleName();
 
     private EditText nameEditText;
     private EditText dateRegEditText;
-//    private EditText costExpectEditText;
+
+    PlanDao planDao;
+
+    private Plan plan;
+
+    public PlanEditActivity() {
+        super(R.layout.activity_plan_edit);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        planDao = HelperFactory.getHelper().getPlanDao();
+
+        Intent intent = this.getIntent();
+        plan = (Plan) intent.getSerializableExtra(Plan.EXTRA_NAME);
+//        planDao.refresh(plan);
+
         doneListener = new OnEditorActionDoneListener() {
             @Override
             public void onActionDone() {
-                entity.setName(viewService.textViewGetString(nameEditText));
-                entity.setDateReg(viewService.textViewGetDate(dateRegEditText));
+                plan.setName(getViewService().textViewGetString(nameEditText));
+                plan.setDateReg(getViewService().textViewGetDate(dateRegEditText));
 //                entity.setCostExpect(viewService.textViewGetDecimal(costExpectEditText));
 
                 Intent intent = new Intent();
-                intent.putExtra("plan", entity);
+                intent.putExtra(Plan.EXTRA_NAME, plan);
                 setResult(RESULT_OK, intent);
                 finish();            }
         };
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         dateRegEditText = (EditText) findViewById(R.id.dateRegEditText);
-//        costExpectEditText = (EditText) findViewById(R.id.costExpectEditText);
 
-        viewService.textViewSetText(nameEditText, entity.getName());
-        viewService.textViewSetText(dateRegEditText, entity.getDateReg());
-//        viewService.textViewSetText(costExpectEditText, entity.getCostExpect());
+        getViewService().textViewSetText(nameEditText, plan.getName());
+        getViewService().textViewSetText(dateRegEditText, plan.getDateReg());
 
         nameEditText.requestFocus();
         nameEditText.selectAll();
         nameEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
         dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
-//        costExpectEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
     }
-
-    @Override
-    protected int getLayoutResID() {
-        return R.layout.activity_plan_edit;
-    }
-
-    @Override
-    protected Plan getEntity() {
-        Intent intent = getIntent();
-        return (Plan) intent.getSerializableExtra("plan");
-    }
-
-//    @Override
-//    protected void editResultOk() {
-//        entity.setName(viewService.textViewGetString(nameEditText));
-//        entity.setDateReg(viewService.textViewGetDate(dateRegEditText));
-//        entity.setCostExpect(viewService.textViewGetDecimal(costExpectEditText));
-//
-//        Intent intent = new Intent();
-//        intent.putExtra("plan", entity);
-//        setResult(RESULT_OK, intent);
-//        finish();
-//    }
 }

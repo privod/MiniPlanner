@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import ru.home.miniplanner.R;
@@ -30,13 +31,17 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
     private static final String LOG_TAG = PartiesActivity.class.getSimpleName();
     //    private static final int REQUEST_PARTIES = 10;
     private static final int REQUEST_PARTY_EDIT = 40;
-    private static final int REQUEST_BAY_EDIT = 50;
+    private static final int REQUEST_PARTY_CONTENT = 60;
 
-    Plan plan;
+
     PlanDao planDao;
     PartyDao partyDao;
     BayDao bayDao;
+
+    Plan plan;
+
     PartyAdapter partyAdapter;
+
     ListView listView;
 
     @Override
@@ -48,17 +53,15 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
 
         planDao = HelperFactory.getHelper().getPlanDao();
         partyDao = HelperFactory.getHelper().getPartyDao();
-        bayDao = HelperFactory.getHelper().getBayDao();
-        Intent intent = getIntent();
-//        plan = (Plan) intent.getSerializableExtra("plan");
-        plan = (Plan) intent.getSerializableExtra("plan");
+//        bayDao = HelperFactory.getHelper().getBayDao();
+
+        plan = (Plan) getIntent().getSerializableExtra(Plan.EXTRA_NAME);
         planDao.refresh(plan);
-//        partyAdapter = new PartyAdapter(this, partyDao.getByPlanId(plan.getId()));
-        List<Party> parties = plan.getParties();
-        for (Party party : parties) {
-            partyDao.refresh(party);
-        }
-        partyAdapter = new PartyAdapter(this, parties);
+//        List<Party> parties = plan.getParties();
+//        for (Party party : parties) {
+//            partyDao.refresh(party);
+//        }
+        partyAdapter = new PartyAdapter(this);
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(partyAdapter);
 
@@ -71,9 +74,22 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
             public void onClick(View view) {
                 Party party = new Party();
                 party.setPlan(plan);
+                party.setBays(new ArrayList<Bay>());
                 openPartyEditActivity(party);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Collection<Party> parties = plan.getParties();
+//        for (Party party : parties){
+//            partyDao.refresh(party);
+//        }
+        partyAdapter.setList(parties);
+        partyAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -84,28 +100,28 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
         }
 
         if (requestCode == REQUEST_PARTY_EDIT && resultCode == RESULT_OK) {
-            Party party = (Party) data.getSerializableExtra("party");
+            Party party = (Party) data.getSerializableExtra(Party.EXTRA_NAME);
             partyDao.save(party);
             planDao.refresh(plan);
-            partyAdapter.setData(plan.getParties());
-//            partyAdapter.setData(partyDao.getByPlanId(plan.getId()));
+            partyAdapter.setList(plan.getParties());
+//            partyAdapter.setList(partyDao.getByPlanId(plan.getId()));
             partyAdapter.notifyDataSetChanged();
         }
-        else if (requestCode == REQUEST_BAY_EDIT && resultCode == RESULT_OK) {
-//            Party party = (Party) data.getSerializableExtra("party");
-            Bay bay = (Bay) data.getSerializableExtra("bay");
-            bayDao.save(bay);
-            partyDao.refresh(bay.getParty());
-            partyAdapter.setData(plan.getParties());
-//            partyAdapter.setData(partyDao.getByPlanId(plan.getId()));
-            partyAdapter.notifyDataSetChanged();
-        }
+//        else if (requestCode == REQUEST_BAY_EDIT && resultCode == RESULT_OK) {
+////            Party party = (Party) data.getSerializableExtra("party");
+//            Bay bay = (Bay) data.getSerializableExtra("bay");
+//            bayDao.save(bay);
+//            partyDao.refresh(bay.getParty());
+//            partyAdapter.setList(plan.getParties());
+////            partyAdapter.setList(partyDao.getByPlanId(plan.getId()));
+//            partyAdapter.notifyDataSetChanged();
+//        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Party party = (Party) listView.getItemAtPosition(position);
-        openPartyEditActivity(party);
+        openPartyContentActivity(party);
     }
 
     @Override
@@ -133,20 +149,20 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
 
     public void openPartyEditActivity(Party party) {
         Intent intent = new Intent(PartiesActivity.this, PartyEditActivity.class);
-        intent.putExtra("party", party);
+        intent.putExtra(Party.EXTRA_NAME, party);
         startActivityForResult(intent, REQUEST_PARTY_EDIT);
+    }
+
+    public void openPartyContentActivity(Party party) {
+        Intent intent = new Intent(PartiesActivity.this, PartyContentActivity.class);
+        intent.putExtra(Party.EXTRA_NAME, party);
+        startActivityForResult(intent, REQUEST_PARTY_CONTENT);
     }
 
     public void partyDelete (Party party) {
         partyDao.delete(party);
         planDao.refresh(plan);
-        partyAdapter.setData(plan.getParties());
+        partyAdapter.setList(plan.getParties());
         partyAdapter.notifyDataSetChanged();
-    }
-
-    public void openBayEditActivity(Bay bay) {
-        Intent intent = new Intent(PartiesActivity.this, BayEditActivity.class);
-        intent.putExtra("bay", bay);
-        startActivityForResult(intent, REQUEST_BAY_EDIT);
     }
 }

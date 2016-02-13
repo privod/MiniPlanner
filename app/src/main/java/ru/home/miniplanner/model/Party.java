@@ -6,6 +6,7 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @DatabaseTable
 public class Party extends Domain {
+    public static final String EXTRA_NAME = "party";
 
     @DatabaseField
     private String name;
@@ -73,19 +75,39 @@ public class Party extends Domain {
         this.plan = plan;
     }
 
+//    public List<Bay> getBays() {
+//        if (bays instanceof List) {
+//            return (List<Bay>)bays;
+//        } else {
+//            return new ArrayList<Bay>(bays);
+//        }
+//    }
+
+//    public void setBays(List<Bay> bays) {
+//        this.bays = bays;
+//    }
+
     public Collection<Bay> getBays() {
         return bays;
     }
 
-    public void setBays(List<Bay> bays) {
+    public void setBays(Collection<Bay> bays) {
         this.bays = bays;
     }
 
-//    public Collection<Contribution> getContributions() {
-//        return contributions;
-//    }
-//
-//    public void setContributions(Collection<Contribution> contributions) {
-//        this.contributions = contributions;
-//    }
+    public Collection<Contribution> getIn() {
+        return in;
+    }
+
+    public void setIn(Collection<Contribution> in) {
+        this.in = in;
+    }
+
+    public Collection<Contribution> getOut() {
+        return out;
+    }
+
+    public void setOut(Collection<Contribution> out) {
+        this.out = out;
+    }
 }

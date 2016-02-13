@@ -43,4 +43,5 @@
     <string name="money">%s$</string>
     <string name="text_bays">Bays</string>
     <string name="text_contributions">Contributions</string>
+    <string name="title_activity_party_content">PartyContentActivity</string>
 </resources>

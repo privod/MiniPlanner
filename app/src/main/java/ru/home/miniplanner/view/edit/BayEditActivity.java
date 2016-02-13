@@ -17,19 +17,29 @@ public class BayEditActivity extends EditActivity<Bay> {
     private EditText costEditText;
     private EditText dateRegEditText;
     private EditText descriptionEditText;
+    Bay bay;
+
+    public BayEditActivity() {
+        super(R.layout.activity_bay_edit);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = this.getIntent();
+        bay = (Bay) intent.getSerializableExtra(Bay.EXTRA_NAME);
+
+
         doneListener = new OnEditorActionDoneListener() {
             @Override
             public void onActionDone() {
-                entity.setCost(viewService.textViewGetDecimal(costEditText));
-                entity.setDateReg(viewService.textViewGetDate(dateRegEditText));
-                entity.setDescription(viewService.textViewGetString(descriptionEditText));
+                bay.setCost(getViewService().textViewGetDecimal(costEditText));
+                bay.setDateReg(getViewService().textViewGetDate(dateRegEditText));
+                bay.setDescription(getViewService().textViewGetString(descriptionEditText));
 
                 Intent intent = new Intent();
-                intent.putExtra("bay", entity);
+                intent.putExtra(Bay.EXTRA_NAME, bay);
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -39,25 +49,14 @@ public class BayEditActivity extends EditActivity<Bay> {
         dateRegEditText = (EditText) findViewById(R.id.dateRegEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
 
-        viewService.textViewSetText(costEditText, entity.getCost());
-        viewService.textViewSetText(dateRegEditText, entity.getDateReg());
-        viewService.textViewSetText(descriptionEditText, entity.getDescription());
+        getViewService().textViewSetText(costEditText, bay.getCost());
+        getViewService().textViewSetText(dateRegEditText, bay.getDateReg());
+        getViewService().textViewSetText(descriptionEditText, bay.getDescription());
 
         costEditText.requestFocus();
         costEditText.selectAll();
         costEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
         dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(descriptionEditText, doneListener));
         descriptionEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
-    }
-
-    @Override
-    protected int getLayoutResID() {
-        return R.layout.activity_bay_edit;
-    }
-
-    @Override
-    protected Bay getEntity() {
-        Intent intent = getIntent();
-        return (Bay) intent.getSerializableExtra("bay");
     }
 }

@@ -1,5 +1,6 @@
 package ru.home.miniplanner.model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @DatabaseTable
 public class Plan extends Domain {
+    public static final String EXTRA_NAME = "plan";
 
     @DatabaseField
     private String name;
@@ -40,6 +42,7 @@ public class Plan extends Domain {
         }
         return totalCost;
     }
+
     public BigDecimal getShare() {
         BigDecimal partysCount = new BigDecimal(parties.size());
         return getTotalCost().divide(partysCount, 0, RoundingMode.HALF_UP);
@@ -61,15 +64,23 @@ public class Plan extends Domain {
         this.dateReg = dateReg;
     }
 
-    public List<Party> getParties() {
-        if (parties instanceof List) {
-            return (List<Party>)parties;
-        } else {
-            return new ArrayList<Party>(parties);
-        }
+//    public List<Party> getParties() {
+//        if (parties instanceof List) {
+//            return (List<Party>)parties;
+//        } else {
+//            return new ArrayList<Party>(parties);
+//        }
+//    }
+//
+//    public void setParties(Collection<Party> parties) {
+//        this.parties = parties;
+//    }
+
+    public Collection<Party> getParties() {
+        return parties;
     }
 
-    public void setParties(List<Party> parties) {
+    public void setParties(Collection<Party> parties) {
         this.parties = parties;
     }
 

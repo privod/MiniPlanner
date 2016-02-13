@@ -7,10 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Domain;
+import ru.home.miniplanner.view.ViewService;
 
 /**
  * Created by privod on 19.10.2015.
@@ -18,29 +19,40 @@ import ru.home.miniplanner.model.Domain;
 public class PlannerBaseAdapter<T extends Domain> extends BaseAdapter {
 
     private final Context context;
-    protected final LayoutInflater layout;
-    private List<T> data;
+    private final LayoutInflater layout;
+    private final ViewService viewService;
+    private List<T> list;
 
-    public PlannerBaseAdapter(Context context, List<T> list) {
+    public PlannerBaseAdapter(Context context) {
         this.context = context;
         this.layout = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        viewService = new ViewService(getContext());
 
-        this.data = (null != list) ? list : new ArrayList<T>();
+        this.list = new ArrayList<T>();
     }
 
+//    public PlannerBaseAdapter(Context context, List<T> list) {
+//        this.context = context;
+//        this.layout = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        viewService = new ViewService(getContext());
+//
+//        this.list = (null != list) ? list : new ArrayList<T>();
+//    }
+//
     @Override
     public int getCount() {
-        return data.size();
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return data.get(position);
+        return list.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return data.get(position).getId();
+        return position;
+//        return list.get(position).getId();
     }
 
     @Override
@@ -48,11 +60,27 @@ public class PlannerBaseAdapter<T extends Domain> extends BaseAdapter {
         return convertView;
     }
 
-    public List<T> getData() {
-        return data;
+    public List<T> getList() {
+        return list;
     }
 
-    public void setData(List<T> data) {
-        this.data = data;
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
+    public void setList(Collection<T> c) {
+        this.list = new ArrayList<>(c);
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public LayoutInflater getLayout() {
+        return layout;
+    }
+
+    public ViewService getViewService() {
+        return viewService;
     }
 }

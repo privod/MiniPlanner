@@ -1,17 +1,21 @@
 package ru.home.miniplanner.view.edit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
+import com.j256.ormlite.dao.BaseDaoImpl;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Domain;
+import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.view.ViewService;
 
 /**
@@ -21,17 +25,23 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
     static final String LOG_TAG = EditActivity.class.getSimpleName();
     static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru"));
 
-    protected ViewService viewService;
-    protected T entity;
+    private ViewService viewService;
+//    private T entity;
+
     protected OnEditorActionDoneListener doneListener;
 
     protected Button okButton;
     protected Button cancelButton;
 
-    abstract protected @LayoutRes int getLayoutResID();
-    abstract protected T getEntity();
+//    private final String extraName;
+    @LayoutRes private final int layoutResID;
 //    abstract protected EditText[] getArrayEdits();
 //    abstract protected void editResultOk();
+
+    public EditActivity(int layoutResID) {
+//        this.extraName = extraName;
+        this.layoutResID = layoutResID;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +50,11 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
 
         viewService = new ViewService(this);
 
-        entity = getEntity();
-        if (null == entity) {
-            setResult(RESULT_CANCELED);
-            finish();
-        }
-
-//        setEditsTabBehavior(getArrayEdits());
+//        entity = getEntityFromIntent();
+//        if (null == entity) {
+//            setResult(RESULT_CANCELED);
+//            finish();
+//        }
 
         okButton = (Button) findViewById(R.id.okButton);
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -66,39 +74,15 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         });
     }
 
-//    private void setEditsTabBehavior(EditText[] arrayViews) {
-//        EditText firstView = arrayViews[0];
-//        EditText lastView = arrayViews[arrayViews.length - 1];
-//
-//        firstView.requestFocus();
-//
-//        for (int i = 0; i < arrayViews.length - 1; i++) {
-//            EditText curView = arrayViews[i];
-//            final EditText nextView = arrayViews[i + 1];
-//
-//            curView.selectAll();
-//            curView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//                @Override
-//                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                    if (actionId == EditorInfo.IME_ACTION_NEXT) {
-//                        nextView.requestFocus();
-//                        nextView.selectAll();
-//                        return true;
-//                    }
-//                    return false;
-//                }
-//            });
-//        }
-//
-//        lastView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    editResultOk();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
+//    public String getExtraName() {
+//        return extraName;
 //    }
+
+    public int getLayoutResID() {
+        return layoutResID;
+    }
+
+    public ViewService getViewService() {
+        return viewService;
+    }
 }
