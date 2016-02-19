@@ -2,18 +2,23 @@ package ru.home.miniplanner.db;
 
 import android.content.Context;
 import java.sql.SQLException;
+import java.util.List;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Contribution;
+import ru.home.miniplanner.model.Domain;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.BayDao;
+import ru.home.miniplanner.service.ContributionDao;
 import ru.home.miniplanner.service.PartyDao;
 import ru.home.miniplanner.service.PlanDao;
 
@@ -24,11 +29,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String TAG = DatabaseHelper.class.getSimpleName();
     private static final String DATABASE_NAME ="planner.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     private PlanDao planDao;
     private PartyDao partyDao;
     private BayDao bayDao;
+    private ContributionDao contributionDao;
 
 
     public DatabaseHelper(Context context) {
@@ -62,10 +68,25 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Contribution.class);
 
             //TODO update tables with save data.
+//            upgradeTable(database, getPlanDao(), Plan.class);
+//            upgradeTable(database, getPartyDao(), Party.class);
+//            upgradeTable(database, getBayDao(), Bay.class);
+//            upgradeTable(database, getContributionDao(), Contribution.class);
+
         }
         catch (SQLException e){
             Log.e(TAG, e.getMessage());
             throw new RuntimeException(e);
+        }
+    }
+
+    public <T extends Domain> void upgradeTable(SQLiteDatabase database, BaseDaoImpl dao, Class<T> type) throws SQLException {
+        List<T> oldData = dao.queryForAll();
+        TableUtils.dropTable(connectionSource, type, true);
+        TableUtils.createTable(connectionSource, type);
+        for (T entity :
+                oldData) {
+            dao.create(entity);
         }
     }
 
@@ -102,11 +123,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return bayDao;
     }
 
+    public synchronized ContributionDao getContributionDao() {
+        if (null == contributionDao) {
+            try {
+                contributionDao = new ContributionDao(getConnectionSource(), Contribution.class);
+            } catch (SQLException e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+        return contributionDao;
+    }
+
     @Override
     public void close() {
         planDao = null;
         partyDao = null;
         bayDao = null;
+        contributionDao = null;
         super.close();
     }
 }
