@@ -5,9 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Collection;
-import java.util.List;
-
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Bay;
 
@@ -35,7 +32,7 @@ public class BayAdapter extends PlannerBaseAdapter<Bay> {
 
         Bay bay = (Bay) getItem(position);
 
-        TextView descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+        TextView descriptionTextView = (TextView) view.findViewById(R.id.partyTextView);
         TextView dateRegTextView = (TextView) view.findViewById(R.id.dateRegTextView);
         TextView costTextView = (TextView) view.findViewById(R.id.costTextView);
 

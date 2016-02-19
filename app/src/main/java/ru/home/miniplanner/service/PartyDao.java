@@ -40,6 +40,7 @@ public class PartyDao extends BaseDaoImpl<Party, Long> {
     }
 
     public int delete(Party party) {
+
         try {
             return super.delete(party);
         } catch (SQLException e) {

@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Bay;
@@ -38,7 +37,7 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
 
         final Party party = (Party) getItem(position);
 
-        TextView nameEditText = (TextView) view.findViewById(R.id.descriptionTextView);
+        TextView nameEditText = (TextView) view.findViewById(R.id.partyTextView);
         TextView debtTextView = (TextView) view.findViewById(R.id.debtTextView);
 
         getViewService().textViewSetText(nameEditText, party.getName());
@@ -61,10 +60,10 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
         getViewService().textViewSetText(bayNameTextView, bayNamesStr.toString());
         getViewService().textViewSetText(bayCostTextView, bayCostsStr.toString());
         if (bayCostsStr.toString().isEmpty()) {
-            ((LinearLayout) view.findViewById(R.id.titleLayout)).setVisibility(View.GONE);
+//            ((LinearLayout) view.findViewById(R.id.titleLayout)).setVisibility(View.GONE);
             ((LinearLayout) view.findViewById(R.id.bodyLayout)).setVisibility(View.GONE);
         } else {
-            ((LinearLayout) view.findViewById(R.id.titleLayout)).setVisibility(View.VISIBLE);
+//            ((LinearLayout) view.findViewById(R.id.titleLayout)).setVisibility(View.VISIBLE);
             ((LinearLayout) view.findViewById(R.id.bodyLayout)).setVisibility(View.VISIBLE);
         }
 

@@ -31,7 +31,7 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
     private static final String LOG_TAG = PartiesActivity.class.getSimpleName();
     //    private static final int REQUEST_PARTIES = 10;
     private static final int REQUEST_PARTY_EDIT = 40;
-    private static final int REQUEST_PARTY_CONTENT = 60;
+    private static final int REQUEST_PARTY_CONTENT = 50;
 
 
     PlanDao planDao;
