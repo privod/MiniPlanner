@@ -7,11 +7,13 @@
     <string name="title_plan_edit">@string/plan_edit</string>
     <string name="title_party_edit">@string/plan_edit</string>
     <string name="title_bay_edit">@string/bay_edit</string>
+    <string name="title_contribution_edit">@string/bay_edit</string>
 
     <!-- Base value -->
     <string name="plan_edit">Edit event</string>
     <string name="party_edit">Edit member</string>
     <string name="bay_edit">Edit bay</string>
+    <string name="contribution_edit">Edit contribution</string>
     <string name="action_plan_edit">Edit event</string>
     <string name="action_party_edit">Edit member</string>
     <string name="action_party_edit_mess">Fill in all the fields</string>

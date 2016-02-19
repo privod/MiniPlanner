@@ -1,6 +1,5 @@
 package ru.home.miniplanner.model;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -8,10 +7,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by privod on 19.10.2015.
@@ -30,7 +27,7 @@ public class Plan extends Domain {
     private Collection<Party> parties;
 
     public Plan() {
-        this.name = "";
+//        this.name = "";
         this.dateReg = new Date();
         this.costExpect = new BigDecimal("0");
     }
@@ -38,14 +35,19 @@ public class Plan extends Domain {
     public BigDecimal getTotalCost() {
         BigDecimal totalCost = new BigDecimal("0");
         for (Party party : parties) {
-            totalCost = totalCost.add(party.getBaysTotalCost());
+            totalCost = totalCost.add(party.getTotalCostBays());
         }
         return totalCost;
     }
 
     public BigDecimal getShare() {
-        BigDecimal partysCount = new BigDecimal(parties.size());
-        return getTotalCost().divide(partysCount, 0, RoundingMode.HALF_UP);
+        BigDecimal partiesCount = new BigDecimal(parties.size());
+        return getTotalCost().divide(partiesCount, 0, RoundingMode.HALF_UP);
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 
     public String getName() {

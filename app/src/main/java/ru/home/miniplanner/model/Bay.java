@@ -5,6 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
+import java.text.Format;
 import java.util.Date;
 
 /**
@@ -26,7 +27,12 @@ public class Bay extends Domain {
     public Bay() {
         this.cost = new BigDecimal("0");
         this.dateReg = new Date();
-        this.description = null;
+//        this.description = null;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s/t%s", getDescription(), getCost());
     }
 
     public BigDecimal getCost() {

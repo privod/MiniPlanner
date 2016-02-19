@@ -1,14 +1,11 @@
 package ru.home.miniplanner.model;
 
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by privod on 19.10.2015.
@@ -30,7 +27,7 @@ public class Party extends Domain {
     @ForeignCollectionField(foreignFieldName = "from")
     private Collection<Contribution> out;
 
-    public BigDecimal getBaysTotalCost() {
+    public BigDecimal getTotalCostBays() {
         BigDecimal totalCost = new BigDecimal("0");
         for (Bay bay : bays) {
             totalCost = totalCost.add(bay.getCost());
@@ -38,17 +35,33 @@ public class Party extends Domain {
         return totalCost;
     }
 
-    public BigDecimal getDebt() {
-//        BigDecimal summaryIn = new BigDecimal("0");
-//        for (Contribution contribution: in) {
-//            summaryIn.add(contribution.getSum());
-//        }
-//        BigDecimal summaryOut = new BigDecimal("0");
-//        for (Contribution contribution: out) {
-//            summaryOut.add(contribution.getSum());
-//        }
-        return plan.getShare().subtract(this.getBaysTotalCost());
+    public BigDecimal getTotalSumIn() {
+        return getTotalSumContributions(getIn());
+    }
 
+    public BigDecimal getTotalSumOut() {
+        return getTotalSumContributions(getOut());
+    }
+
+    private BigDecimal getTotalSumContributions(Collection<Contribution> contributions) {
+        BigDecimal totalSum = new BigDecimal("0");
+        for (Contribution contribution : contributions) {
+            totalSum = totalSum.add(contribution.getSum());
+        }
+        return totalSum;
+    }
+
+    public BigDecimal getDebt() {
+        return plan.getShare()
+                .subtract(getTotalCostBays())
+                .subtract(getTotalSumOut())
+                .add(getTotalSumIn());
+
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 
     public String getName() {
