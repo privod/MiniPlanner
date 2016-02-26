@@ -32,7 +32,7 @@ public class BayAdapter extends PlannerBaseAdapter<Bay> {
 
         Bay bay = (Bay) getItem(position);
 
-        TextView descriptionTextView = (TextView) view.findViewById(R.id.partyTextView);
+        TextView descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
         TextView dateRegTextView = (TextView) view.findViewById(R.id.dateRegTextView);
         TextView costTextView = (TextView) view.findViewById(R.id.costTextView);
 

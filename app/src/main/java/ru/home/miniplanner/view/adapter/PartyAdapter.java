@@ -2,6 +2,7 @@ package ru.home.miniplanner.view.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Bay;
+import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Party;
 
 /**
@@ -28,6 +30,13 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
     }
 
     @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+
+
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = super.getView(position, convertView, parent);
 
@@ -37,7 +46,7 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
 
         final Party party = (Party) getItem(position);
 
-        TextView nameEditText = (TextView) view.findViewById(R.id.partyTextView);
+        TextView nameEditText = (TextView) view.findViewById(R.id.descriptionTextView);
         TextView debtTextView = (TextView) view.findViewById(R.id.debtTextView);
 
         getViewService().textViewSetText(nameEditText, party.getName());
@@ -49,23 +58,68 @@ public class PartyAdapter extends PlannerBaseAdapter<Party> {
             debtTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.green));
         }
 
-        StringBuilder bayNamesStr = new StringBuilder();
-        StringBuilder bayCostsStr = new StringBuilder();
+//        Log.e(LOG_TAG, String.format("%s\t%s\t%s\t%s", party.hashCode(), party.getBays().hashCode(),  party.getOut().hashCode(), party.getName()));
+
+
+        ViewGroup contentLayout = (ViewGroup) view.findViewById(R.id.contentLayout);
+
+        // ????????????????
+        if (contentLayout.getChildCount() == party.getBays().size() + party.getOut().size()) {
+            Log.e(LOG_TAG, String.format("return\t%s", party.getName()));
+            return view;
+        }
+        // ????????????????
+
+        Log.e(LOG_TAG, String.format("%s\t%s", party.hashCode(), party.getName()));
+        contentLayout.removeAllViews();
         for (Bay bay : party.getBays()) {
-            bayNamesStr.append(bay.getDescription()).append("\n");
-            bayCostsStr.append(bay.getCost()).append("\n");
+            String tag = Bay.EXTRA_NAME + bay.getId();
+            View bayLayout;
+            bayLayout = contentLayout.findViewWithTag(tag);
+            if (null == bayLayout) {
+                bayLayout = getLayout().inflate(R.layout.party_bay_view, contentLayout, false);
+                bayLayout.setTag(tag);
+                contentLayout.addView(bayLayout);
+            }
+            TextView descriptionTextView = (TextView) bayLayout.findViewById(R.id.bayDescriptionTextView);
+            TextView costTextView = (TextView) bayLayout.findViewById(R.id.costTextView);
+            getViewService().textViewSetText(descriptionTextView, bay.getDescription());
+            getViewService().textViewSetText(costTextView, bay.getCost());
         }
-        TextView bayNameTextView = (TextView) view.findViewById(R.id.bayNameTextView);
-        TextView bayCostTextView = (TextView) view.findViewById(R.id.bayCostTextView);
-        getViewService().textViewSetText(bayNameTextView, bayNamesStr.toString());
-        getViewService().textViewSetText(bayCostTextView, bayCostsStr.toString());
-        if (bayCostsStr.toString().isEmpty()) {
-//            ((LinearLayout) view.findViewById(R.id.titleLayout)).setVisibility(View.GONE);
-            ((LinearLayout) view.findViewById(R.id.bodyLayout)).setVisibility(View.GONE);
-        } else {
-//            ((LinearLayout) view.findViewById(R.id.titleLayout)).setVisibility(View.VISIBLE);
-            ((LinearLayout) view.findViewById(R.id.bodyLayout)).setVisibility(View.VISIBLE);
+        for (Contribution contribution : party.getOut()) {
+            String tag = Contribution.EXTRA_NAME + contribution.getId();
+            View contributionLayout;
+            contributionLayout = contentLayout.findViewWithTag(tag);
+            if (null == contributionLayout) {
+                contributionLayout = getLayout().inflate(R.layout.party_contribution_view, contentLayout, false);
+                contributionLayout.setTag(tag);
+                contentLayout.addView(contributionLayout);
+            }
+//            View contributionLayout = getLayout().inflate(R.layout.party_contribution_view, contentLayout, false);
+            TextView partyToTextView = (TextView) contributionLayout.findViewById(R.id.partyToTextView);
+            TextView sumTextView = (TextView) contributionLayout.findViewById(R.id.sumTextView);
+            getViewService().textViewSetText(partyToTextView, contribution.getTo().toString());
+            getViewService().textViewSetText(sumTextView, contribution.getSum());
+//            contentLayout.addView(contributionLayout);
         }
+
+//        StringBuilder bayNamesStr = new StringBuilder();
+//        StringBuilder bayCostsStr = new StringBuilder();
+//        for (Bay bay : party.getBays()) {
+//            bayNamesStr.append(bay.getDescription()).append("\n");
+//            bayCostsStr.append(bay.getCost()).append("\n");
+//        }
+//        TextView bayNameTextView = (TextView) view.findViewById(R.id.bayNameTextView);
+//        TextView bayCostTextView = (TextView) view.findViewById(R.id.bayCostTextView);
+//        getViewService().textViewSetText(bayNameTextView, bayNamesStr.toString());
+//        getViewService().textViewSetText(bayCostTextView, bayCostsStr.toString());
+//        if (bayCostsStr.toString().isEmpty()) {
+////            ((LinearLayout) view.findViewById(R.id.titleLayout)).setVisibility(View.GONE);
+//            ((LinearLayout) view.findViewById(R.id.bodyLayout)).setVisibility(View.GONE);
+//        } else {
+////            ((LinearLayout) view.findViewById(R.id.titleLayout)).setVisibility(View.VISIBLE);
+//            ((LinearLayout) view.findViewById(R.id.bodyLayout)).setVisibility(View.VISIBLE);
+//        }
 
         return view;
     }

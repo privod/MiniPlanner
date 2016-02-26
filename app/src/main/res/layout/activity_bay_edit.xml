@@ -28,7 +28,8 @@
                 android:text="Cost"
                 android:layout_weight="0"
                 android:textSize="20sp"
-                android:gravity="right"
+                android:gravity="end"
+                android:labelFor="@+id/costEditText"
                 android:layout_column="0" />
 
             <EditText
@@ -51,7 +52,8 @@
                 android:text="Date"
                 android:layout_weight="0"
                 android:textSize="20sp"
-                android:gravity="right"
+                android:gravity="end"
+                android:labelFor="@+id/dateRegEditText"
                 android:layout_column="0" />
 
             <EditText
@@ -75,7 +77,8 @@
                 android:text="Description"
                 android:layout_weight="0"
                 android:textSize="20sp"
-                android:gravity="right"
+                android:gravity="end"
+                android:labelFor="@+id/descriptionEditText"
                 android:layout_column="0" />
 
             <EditText
@@ -93,17 +96,13 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:orientation="horizontal"
-        android:layout_below="@+id/tableLayout"
-        android:layout_alignParentEnd="true">
+        android:gravity="end"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/okButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
             android:layout_weight="0"
             android:text="OK" />
 
@@ -112,9 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_weight="0" />
-
     </LinearLayout>
-
 </LinearLayout>

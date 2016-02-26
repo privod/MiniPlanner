@@ -14,7 +14,7 @@
         android:focusable="false">
 
         <TextView
-            android:id="@+id/partyTextView"
+            android:id="@+id/descriptionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -29,10 +29,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/partyTextView"
+            android:layout_below="@+id/descriptionTextView"
             android:layout_column="1"
             android:text="Debt"
             android:textSize="@dimen/list_view_text_size" />
+
 
         <!--<LinearLayout-->
             <!--android:orientation="horizontal"-->
@@ -64,6 +65,12 @@
         <!--</LinearLayout>-->
 
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/contentLayout"></LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"

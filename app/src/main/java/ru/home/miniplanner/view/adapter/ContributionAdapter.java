@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Contribution;
 
 /**
@@ -30,7 +29,7 @@ public class ContributionAdapter extends PlannerBaseAdapter<Contribution> {
         Contribution contribution = (Contribution) getItem(position);
 
 //        TextView descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
-        TextView partyTextView = (TextView) view.findViewById(R.id.partyTextView);
+        TextView partyTextView = (TextView) view.findViewById(R.id.descriptionTextView);
         TextView dateRegTextView = (TextView) view.findViewById(R.id.dateRegTextView);
         TextView sumTextView = (TextView) view.findViewById(R.id.sumTextView);
 
