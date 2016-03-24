@@ -26,7 +26,7 @@ public class PlannerBaseAdapter<T extends Domain> extends BaseAdapter {
     public PlannerBaseAdapter(Context context) {
         this.context = context;
         this.layout = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        viewService = new ViewService(getContext());
+        viewService = new ViewService();
 
         this.list = new ArrayList<T>();
     }

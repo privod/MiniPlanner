@@ -2,8 +2,11 @@ package ru.home.miniplanner.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.View;
@@ -15,21 +18,21 @@ import android.widget.ListView;
 import java.util.List;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.view.adapter.PlanAdapter;
+import ru.home.miniplanner.view.RVAdater.PlanAdapter;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.PlanDao;
 import ru.home.miniplanner.view.edit.PlanEditActivity;
 
-public class PlansActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class PlansActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = PlansActivity.class.getSimpleName();
-    private static final int REQUEST_PARTIES = 10;
+    public static final int REQUEST_PARTIES = 10;
     private static final int REQUEST_PLAN_EDIT = 20;
 
     PlanDao planDao;
     PlanAdapter planAdapter;
-    ListView listView;
+    RecyclerView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +44,13 @@ public class PlansActivity extends AppCompatActivity implements AdapterView.OnIt
         HelperFactory.setHelper(this);
         planDao = HelperFactory.getHelper().getPlanDao();
 
-        planAdapter = new PlanAdapter(this);
-        listView = (ListView) findViewById(R.id.listView);
+        planAdapter = new PlanAdapter();
+        listView = (RecyclerView) findViewById(R.id.listView);
         listView.setAdapter(planAdapter);
 
+        listView.setLayoutManager(new LinearLayoutManager(this));
+
         registerForContextMenu(listView);
-        listView.setOnItemClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +69,7 @@ public class PlansActivity extends AppCompatActivity implements AdapterView.OnIt
 //        for (Plan plan : plans){
 //            planDao.refresh(plan);
 //        }
-        planAdapter.setList(plans);
+        planAdapter.setPlans(plans);
         planAdapter.notifyDataSetChanged();
     }
 
@@ -91,16 +95,16 @@ public class PlansActivity extends AppCompatActivity implements AdapterView.OnIt
         if (requestCode == REQUEST_PLAN_EDIT && resultCode == RESULT_OK) {
             Plan plan = (Plan) data.getSerializableExtra(Plan.EXTRA_NAME);
             planDao.save(plan);
-            planAdapter.setList(planDao.getAll());
+            planAdapter.setPlans(planDao.getAll());
             planAdapter.notifyDataSetChanged();
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Plan plan = (Plan) listView.getItemAtPosition(position);
-        openPartiesActivity(plan);
-    }
+//    @Override
+//    public void onContextClick(AdapterView<?> parent, View view, int position, long id) {
+//        Plan plan = (Plan) listView.getItemAtPosition(position);
+//        openPartiesActivity(plan);
+//    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -112,17 +116,17 @@ public class PlansActivity extends AppCompatActivity implements AdapterView.OnIt
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         long id = item.getItemId();
-        Plan plan = (Plan) listView.getItemAtPosition(menuInfo.position);
-
-        if (id == R.id.context_plan_edit) {
-            openPlanEditActivity(plan);
-            return true;
-        } else if (id == R.id.context_plan_del) {
-            planDao.delete(plan);
-            planAdapter.setList(planDao.getAll());
-            planAdapter.notifyDataSetChanged();
-            return true;
-        }
+//        Plan plan = (Plan) listView.getItemAtPosition(menuInfo.position);
+//
+//        if (id == R.id.context_plan_edit) {
+//            openPlanEditActivity(plan);
+//            return true;
+//        } else if (id == R.id.context_plan_del) {
+//            planDao.delete(plan);
+//            planAdapter.setPlans(planDao.getAll());
+//            planAdapter.notifyDataSetChanged();
+//            return true;
+//        }
 
         return super.onContextItemSelected(item);
     }

@@ -19,11 +19,11 @@ import ru.home.miniplanner.R;
 public class ViewService {
     final String LOG_TAG = ViewService.class.getSimpleName();
 
-    Context context;
-
-    public ViewService(Context context) {
-        this.context = context;
-    }
+//    Context context;
+//
+//    public ViewService(Context context) {
+//        this.context = context;
+//    }
 
     private final SimpleDateFormat dateRegFormat = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru"));
 
@@ -55,11 +55,11 @@ public class ViewService {
         textViewSetText(view, text);
     }
 
-    public void textViewSetMoney(TextView view, BigDecimal decimal) {
-        String template = context.getResources().getString(R.string.money);
-        String text = String.format(template, decimal.toString());
-        textViewSetText(view, text);
-    }
+//    public void textViewSetMoney(TextView view, BigDecimal decimal) {
+//        String template = context.getResources().getString(R.string.money);
+//        String text = String.format(template, decimal.toString());
+//        textViewSetText(view, text);
+//    }
 
     public void textViewSetText(TextView view, Date date) {
         String text = dateRegFormat.format(date);
