@@ -2,18 +2,18 @@ package ru.home.miniplanner.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import java.util.List;
 
@@ -22,6 +22,7 @@ import ru.home.miniplanner.view.RVAdater.PlanAdapter;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.PlanDao;
+import ru.home.miniplanner.view.divider.DividerItemDecoration;
 import ru.home.miniplanner.view.edit.PlanEditActivity;
 
 public class PlansActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class PlansActivity extends AppCompatActivity {
 
     PlanDao planDao;
     PlanAdapter planAdapter;
-    RecyclerView listView;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +45,31 @@ public class PlansActivity extends AppCompatActivity {
         HelperFactory.setHelper(this);
         planDao = HelperFactory.getHelper().getPlanDao();
 
-        planAdapter = new PlanAdapter();
-        listView = (RecyclerView) findViewById(R.id.listView);
-        listView.setAdapter(planAdapter);
+        planAdapter = new PlanAdapter(this);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setAdapter(planAdapter);
 
-        listView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
-        registerForContextMenu(listView);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+//        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                Plan plan = planDao.getAll().get(position);
+//                openPartiesActivity(plan);
+//            }
+//
+//            @Override
+//            public void onLongClick(View view, int position) {
+//
+//            }
+//        }));
+
+        registerForContextMenu(recyclerView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -101,8 +120,17 @@ public class PlansActivity extends AppCompatActivity {
     }
 
 //    @Override
+//    public void onClick(View v) {
+//        Log.e(LOG_TAG, "OnClickListener called on CardView number " + getPosition());
+////
+//            Plan plan = plans.get(v.getPosition());
+//            Intent intent = new Intent(view.getContext(), PartiesActivity.class);
+//            intent.putExtra(Plan.EXTRA_NAME, plan);
+//            ((Activity) view.getContext()).startActivityForResult(intent, PlansActivity.REQUEST_PARTIES);
+//    }
+//    @Override
 //    public void onContextClick(AdapterView<?> parent, View view, int position, long id) {
-//        Plan plan = (Plan) listView.getItemAtPosition(position);
+//        Plan plan = (Plan) recyclerView.getItemAtPosition(position);
 //        openPartiesActivity(plan);
 //    }
 
@@ -110,23 +138,27 @@ public class PlansActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.context_plan, menu);
+//        planAdapter.setInfo(menuInfo);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+//        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         long id = item.getItemId();
-//        Plan plan = (Plan) listView.getItemAtPosition(menuInfo.position);
-//
-//        if (id == R.id.context_plan_edit) {
-//            openPlanEditActivity(plan);
-//            return true;
-//        } else if (id == R.id.context_plan_del) {
-//            planDao.delete(plan);
-//            planAdapter.setPlans(planDao.getAll());
-//            planAdapter.notifyDataSetChanged();
-//            return true;
-//        }
+
+        Plan plan = (Plan) planDao.getAll().get(planAdapter.getPosition());
+//        Plan plan = (Plan) planDao.getAll().get(menuInfo.position);
+
+        if (id == R.id.context_plan_edit) {
+            openPlanEditActivity(plan);
+            return true;
+        } else if (id == R.id.context_plan_del) {
+            planDao.delete(plan);
+            planAdapter.setPlans(planDao.getAll());
+            planAdapter.notifyDataSetChanged();
+            return true;
+        }
 
         return super.onContextItemSelected(item);
     }
@@ -135,6 +167,7 @@ public class PlansActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
+
         return true;
     }
 

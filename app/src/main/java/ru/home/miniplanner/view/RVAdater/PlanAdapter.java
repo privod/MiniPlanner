@@ -2,10 +2,11 @@ package ru.home.miniplanner.view.RVAdater;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
+//import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,21 +26,32 @@ import ru.home.miniplanner.view.ViewService;
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
     private static final String LOG_TAG = PlanAdapter.class.getSimpleName();
     private final ViewService viewService;
-    List<Plan> plans;
+//    private final View.OnClickListener clickListener;
+    private final View.OnCreateContextMenuListener menuListener;
+    private int position;
+//    ContextMenu.ContextMenuInfo info;
+    private List<Plan> plans;
 
-    public PlanAdapter() {
+
+    public PlanAdapter(/*View.OnClickListener clickListener,*/ View.OnCreateContextMenuListener menuListener) {
+//        this.clickListener = clickListener;
+        this.menuListener = menuListener;
         viewService = new ViewService();
     }
 
     public static class PlanViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            List<Plan> plans;
-            TextView costTotalTextView;
-            TextView nameTextView;
-            TextView dateRegTextView;
+//            private View.OnClickListener clickListener;
+            private View.OnCreateContextMenuListener menuListener;
+            private List<Plan> plans;
+            private TextView costTotalTextView;
+            private TextView nameTextView;
+            private TextView dateRegTextView;
 
         public PlanViewHolder(View itemView) {
             super(itemView);
+
             itemView.setOnClickListener(this);
+            itemView.setOnCreateContextMenuListener(menuListener);
             nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
             dateRegTextView = (TextView) itemView.findViewById(R.id.dateRegTextView);
             costTotalTextView = (TextView) itemView.findViewById(R.id.costTotalTextView);
@@ -56,6 +68,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             ((Activity) view.getContext()).startActivityForResult(intent, PlansActivity.REQUEST_PARTIES);
         }
 
+//        public void setClickListener(View.OnClickListener clickListener) {
+//            this.clickListener = clickListener;
+//        }
+
+        public void setMenuListener(View.OnCreateContextMenuListener menuListener) {
+            this.menuListener = menuListener;
+        }
+
         public void setPlans(List<Plan> plans) {
             this.plans = plans;
         }
@@ -64,7 +84,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     @Override
     public PlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_view, parent, false);
-        CardView cardView = (CardView) view.findViewById(R.id.card_view);
+//        CardView cardView = (CardView) view.findViewById(R.id.card_view);
 //
 //        cardView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -84,6 +104,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     @Override
     public void onBindViewHolder(PlanViewHolder holder, int position) {
         Plan plan = plans.get(position);
+//        holder.setClickListener(clickListener);
+        holder.setMenuListener(menuListener);
         holder.setPlans(plans);
         viewService.textViewSetText(holder.nameTextView, plan.getName());
         viewService.textViewSetText(holder.dateRegTextView, plan.getDateReg());
@@ -98,4 +120,16 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     public void setPlans(List<Plan> plans) {
         this.plans = plans;
     }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    //    public void setInfo(ContextMenu.ContextMenuInfo info) {
+//        this.info = info;
+//    }
 }

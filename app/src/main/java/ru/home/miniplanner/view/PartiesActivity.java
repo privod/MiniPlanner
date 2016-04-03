@@ -13,7 +13,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.HelperFactory;
@@ -24,7 +23,6 @@ import ru.home.miniplanner.service.BayDao;
 import ru.home.miniplanner.service.PartyDao;
 import ru.home.miniplanner.service.PlanDao;
 import ru.home.miniplanner.view.adapter.PartyAdapter;
-import ru.home.miniplanner.view.edit.BayEditActivity;
 import ru.home.miniplanner.view.edit.PartyEditActivity;
 
 public class PartiesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -62,7 +60,7 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
 //            partyDao.refresh(party);
 //        }
         partyAdapter = new PartyAdapter(this);
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.recyclerView);
         listView.setAdapter(partyAdapter);
 
         registerForContextMenu(listView);

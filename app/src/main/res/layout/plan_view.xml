@@ -8,17 +8,17 @@
 
     tools:context=".view.edit.PartyEditActivity">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        card_view:contentPadding="8dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:cardCornerRadius="4dp"
-        android:clickable="false"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground">
+    <!--<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/card_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--card_view:contentPadding="8dp"-->
+        <!--card_view:cardUseCompatPadding="true"-->
+        <!--card_view:cardCornerRadius="4dp"-->
+        <!--android:clickable="false"-->
+        <!--android:focusable="true"-->
+        <!--android:foreground="?android:attr/selectableItemBackground">-->
 
         <TableLayout
             android:layout_width="match_parent"
@@ -78,5 +78,5 @@
             </TableRow>
 
         </TableLayout>
-    </android.support.v7.widget.CardView>
+    <!--</android.support.v7.widget.CardView>-->
 </LinearLayout>
