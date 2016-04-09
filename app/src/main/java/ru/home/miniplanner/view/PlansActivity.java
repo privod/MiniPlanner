@@ -119,21 +119,6 @@ public class PlansActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        Log.e(LOG_TAG, "OnClickListener called on CardView number " + getPosition());
-////
-//            Plan plan = plans.get(v.getPosition());
-//            Intent intent = new Intent(view.getContext(), PartiesActivity.class);
-//            intent.putExtra(Plan.EXTRA_NAME, plan);
-//            ((Activity) view.getContext()).startActivityForResult(intent, PlansActivity.REQUEST_PARTIES);
-//    }
-//    @Override
-//    public void onContextClick(AdapterView<?> parent, View view, int position, long id) {
-//        Plan plan = (Plan) recyclerView.getItemAtPosition(position);
-//        openPartiesActivity(plan);
-//    }
-
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -147,9 +132,7 @@ public class PlansActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-//        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         long id = item.getItemId();
-//        Plan plan = (Plan) planDao.getAll().get(menuInfo.position);
 
         int position = planAdapter.getPosition();
         Plan plan = (Plan) planDao.getAll().get(position);
