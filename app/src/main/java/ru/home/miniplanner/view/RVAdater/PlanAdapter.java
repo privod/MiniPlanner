@@ -47,7 +47,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             private TextView nameTextView;
             private TextView dateRegTextView;
 
-        public PlanViewHolder(View itemView) {
+        public PlanViewHolder(View itemView, View.OnCreateContextMenuListener menuListener) {
             super(itemView);
 
             itemView.setOnClickListener(this);
@@ -60,9 +60,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
         @Override
         public void onClick(View view) {
-            Log.e(LOG_TAG, "OnClickListener called on CardView number " + getPosition());
+            Log.e(LOG_TAG, "OnClickListener called on CardView number " + getAdapterPosition());
 
-            Plan plan = plans.get(getPosition());
+            Plan plan = plans.get(getAdapterPosition());
             Intent intent = new Intent(view.getContext(), PartiesActivity.class);
             intent.putExtra(Plan.EXTRA_NAME, plan);
             ((Activity) view.getContext()).startActivityForResult(intent, PlansActivity.REQUEST_PARTIES);
@@ -84,6 +84,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     @Override
     public PlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_view, parent, false);
+
+
 //        CardView cardView = (CardView) view.findViewById(R.id.card_view);
 //
 //        cardView.setOnClickListener(new View.OnClickListener() {
@@ -97,15 +99,12 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 //                view.startActivityForResult(intent, REQUEST_PARTIES);
 //            }
 //        });
-
-        return new PlanViewHolder(view);
+        return new PlanViewHolder(view, menuListener);
     }
 
     @Override
     public void onBindViewHolder(PlanViewHolder holder, int position) {
         Plan plan = plans.get(position);
-//        holder.setClickListener(clickListener);
-        holder.setMenuListener(menuListener);
         holder.setPlans(plans);
         viewService.textViewSetText(holder.nameTextView, plan.getName());
         viewService.textViewSetText(holder.dateRegTextView, plan.getDateReg());

@@ -69,7 +69,7 @@ public class PlansActivity extends AppCompatActivity {
 //            }
 //        }));
 
-        registerForContextMenu(recyclerView);
+//        registerForContextMenu(recyclerView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -138,17 +138,21 @@ public class PlansActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.context_plan, menu);
-//        planAdapter.setInfo(menuInfo);
+
+        if (v.getParent() instanceof RecyclerView) {
+            RecyclerView recyclerView = (RecyclerView) v.getParent();
+            planAdapter.setPosition(recyclerView.getChildAdapterPosition(v));
+        }
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-
 //        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         long id = item.getItemId();
-
-        Plan plan = (Plan) planDao.getAll().get(planAdapter.getPosition());
 //        Plan plan = (Plan) planDao.getAll().get(menuInfo.position);
+
+        int position = planAdapter.getPosition();
+        Plan plan = (Plan) planDao.getAll().get(position);
 
         if (id == R.id.context_plan_edit) {
             openPlanEditActivity(plan);
