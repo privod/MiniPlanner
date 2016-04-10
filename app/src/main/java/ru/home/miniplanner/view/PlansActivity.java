@@ -56,19 +56,6 @@ public class PlansActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-//        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
-//            @Override
-//            public void onClick(View view, int position) {
-//                Plan plan = planDao.getAll().get(position);
-//                openPartiesActivity(plan);
-//            }
-//
-//            @Override
-//            public void onLongClick(View view, int position) {
-//
-//            }
-//        }));
-
 //        registerForContextMenu(recyclerView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -84,15 +71,15 @@ public class PlansActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        List<Plan> plans = planDao.getAll();
-//        for (Plan plan : plans){
-//            planDao.refresh(plan);
-//        }
-        planAdapter.setPlans(plans);
+        planAdapter.setPlans(getAllPlans());
         planAdapter.notifyDataSetChanged();
     }
 
-    private void openPartiesActivity(Plan plan) {
+    public List<Plan> getAllPlans() {
+        return planDao.getAll();
+    }
+
+    public void openPartiesActivity(Plan plan) {
         Intent intent = new Intent(PlansActivity.this, PartiesActivity.class);
         intent.putExtra(Plan.EXTRA_NAME, plan);
         startActivityForResult(intent, REQUEST_PARTIES);
@@ -114,7 +101,7 @@ public class PlansActivity extends AppCompatActivity {
         if (requestCode == REQUEST_PLAN_EDIT && resultCode == RESULT_OK) {
             Plan plan = (Plan) data.getSerializableExtra(Plan.EXTRA_NAME);
             planDao.save(plan);
-            planAdapter.setPlans(planDao.getAll());
+            planAdapter.setPlans(getAllPlans());
             planAdapter.notifyDataSetChanged();
         }
     }
@@ -128,6 +115,7 @@ public class PlansActivity extends AppCompatActivity {
             RecyclerView recyclerView = (RecyclerView) v.getParent();
             planAdapter.setPosition(recyclerView.getChildAdapterPosition(v));
         }
+//        AdapterView.AdapterContextMenuInfo info;
     }
 
     @Override
@@ -135,14 +123,14 @@ public class PlansActivity extends AppCompatActivity {
         long id = item.getItemId();
 
         int position = planAdapter.getPosition();
-        Plan plan = (Plan) planDao.getAll().get(position);
+        Plan plan = getAllPlans().get(position);
 
         if (id == R.id.context_plan_edit) {
             openPlanEditActivity(plan);
             return true;
         } else if (id == R.id.context_plan_del) {
             planDao.delete(plan);
-            planAdapter.setPlans(planDao.getAll());
+            planAdapter.setPlans(getAllPlans());
             planAdapter.notifyDataSetChanged();
             return true;
         }
