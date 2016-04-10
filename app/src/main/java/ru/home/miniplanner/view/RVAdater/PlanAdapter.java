@@ -34,7 +34,6 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     }
 
     public static class PlanViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            private List<Plan> plans;
             private TextView costTotalTextView;
             private TextView nameTextView;
             private TextView dateRegTextView;
@@ -52,16 +51,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
         @Override
         public void onClick(View view) {
-            Log.e(LOG_TAG, "OnClickListener called on CardView number " + getAdapterPosition());
-
-            Plan plan = plans.get(getAdapterPosition());
-            Intent intent = new Intent(view.getContext(), PartiesActivity.class);
-            intent.putExtra(Plan.EXTRA_NAME, plan);
-            ((Activity) view.getContext()).startActivityForResult(intent, PlansActivity.REQUEST_PARTIES);
-        }
-
-        public void setPlans(List<Plan> plans) {
-            this.plans = plans;
+            PlansActivity activity = (PlansActivity) view.getContext();
+            Plan plan = activity.getAllPlans().get(getAdapterPosition());
+            activity.openPartiesActivity(plan);
         }
     }
 
@@ -75,7 +67,6 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     @Override
     public void onBindViewHolder(PlanViewHolder holder, int position) {
         Plan plan = plans.get(position);
-        holder.setPlans(plans);
         viewService.textViewSetText(holder.nameTextView, plan.getName());
         viewService.textViewSetText(holder.dateRegTextView, plan.getDateReg());
         viewService.textViewSetText(holder.costTotalTextView, plan.getTotalCost());
