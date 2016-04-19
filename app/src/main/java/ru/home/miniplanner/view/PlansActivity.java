@@ -13,6 +13,8 @@ import android.view.ContextMenu;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 
 import java.util.List;
@@ -65,6 +67,9 @@ public class PlansActivity extends AppCompatActivity {
                 openPlanEditActivity(new Plan());
             }
         });
+
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.plans_appearance);
+        recyclerView.startAnimation(anim);
     }
 
     @Override
