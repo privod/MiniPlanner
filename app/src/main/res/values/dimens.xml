@@ -6,5 +6,6 @@
 
     <dimen name="list_view_text_size">25sp</dimen>
     <dimen name="list_view_date_text_size">15sp</dimen>
+    <dimen name="avatar_size">40dp</dimen>
 
 </resources>
