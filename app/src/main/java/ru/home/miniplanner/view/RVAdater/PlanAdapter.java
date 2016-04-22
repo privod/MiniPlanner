@@ -1,9 +1,9 @@
 package ru.home.miniplanner.view.RVAdater;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import java.util.List;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.view.PartiesActivity;
 import ru.home.miniplanner.view.PlansActivity;
 import ru.home.miniplanner.view.ViewService;
 
@@ -27,16 +26,16 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     private int position;
     private List<Plan> plans;
 
-
     public PlanAdapter(View.OnCreateContextMenuListener menuListener) {
         this.menuListener = menuListener;
         viewService = new ViewService();
     }
 
     public static class PlanViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            private TextView costTotalTextView;
-            private TextView nameTextView;
-            private TextView dateRegTextView;
+        private TextView costTotalTextView;
+        private TextView nameTextView;
+        private TextView dateRegTextView;
+        private TextView mAvatarImage;
 
         public PlanViewHolder(View itemView, View.OnCreateContextMenuListener menuListener) {
             super(itemView);
@@ -46,7 +45,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
             dateRegTextView = (TextView) itemView.findViewById(R.id.dateRegTextView);
             costTotalTextView = (TextView) itemView.findViewById(R.id.costTotalTextView);
-
+            mAvatarImage = (TextView) itemView.findViewById(R.id.avatarTextView);
+//            mAvatarImage.getBackground();
         }
 
         @Override
@@ -70,6 +70,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         viewService.textViewSetText(holder.nameTextView, plan.getName());
         viewService.textViewSetText(holder.dateRegTextView, plan.getDateReg());
         viewService.textViewSetText(holder.costTotalTextView, plan.getTotalCost());
+        viewService.textViewSetText(holder.mAvatarImage, plan.getName().substring(0,1).toUpperCase());
+        Drawable drawable = holder.mAvatarImage.getBackground();
+        if (drawable instanceof GradientDrawable)        {
+            ((GradientDrawable) drawable).setColor(Color.BLUE);
+        }
     }
 
     @Override

@@ -10,15 +10,14 @@
     android:clickable="true"
     android:background="?android:attr/selectableItemBackground">
 
-    <TextView
+    <ru.home.miniplanner.view.widget.AvatarLetterView
         android:layout_width="@dimen/avatar_size"
         android:layout_height="@dimen/avatar_size"
-        android:background="@drawable/circle"
-        android:id="@+id/mAvatarImage"
+        android:id="@+id/avatarTextView"
         android:text="N"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        style="@style/TextAppearance.AppCompat.Large.Inverse"
+        style="@style/AppTheme.AvatarLetter"
         android:gravity="center_vertical|center_horizontal" />
 
     <TextView
@@ -30,7 +29,7 @@
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/mAvatarImage" />
+        android:layout_toEndOf="@+id/avatarTextView" />
 
     <TextView
         android:layout_width="wrap_content"
