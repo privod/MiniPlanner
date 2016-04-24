@@ -15,6 +15,7 @@ import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.view.PlansActivity;
 import ru.home.miniplanner.view.ViewService;
+import ru.home.miniplanner.view.widget.AvatarLetterView;
 
 /**
  * Created by bespalov on 27.02.16.
@@ -35,7 +36,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         private TextView costTotalTextView;
         private TextView nameTextView;
         private TextView dateRegTextView;
-        private TextView mAvatarImage;
+        private AvatarLetterView mAvatarImage;
 
         public PlanViewHolder(View itemView, View.OnCreateContextMenuListener menuListener) {
             super(itemView);
@@ -45,7 +46,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
             dateRegTextView = (TextView) itemView.findViewById(R.id.dateRegTextView);
             costTotalTextView = (TextView) itemView.findViewById(R.id.costTotalTextView);
-            mAvatarImage = (TextView) itemView.findViewById(R.id.avatarTextView);
+            mAvatarImage = (AvatarLetterView) itemView.findViewById(R.id.avatarTextView);
 //            mAvatarImage.getBackground();
         }
 
@@ -70,11 +71,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         viewService.textViewSetText(holder.nameTextView, plan.getName());
         viewService.textViewSetText(holder.dateRegTextView, plan.getDateReg());
         viewService.textViewSetText(holder.costTotalTextView, plan.getTotalCost());
-        viewService.textViewSetText(holder.mAvatarImage, plan.getName().substring(0,1).toUpperCase());
-        Drawable drawable = holder.mAvatarImage.getBackground();
-        if (drawable instanceof GradientDrawable)        {
-            ((GradientDrawable) drawable).setColor(Color.BLUE);
-        }
+        holder.mAvatarImage.setLetter(plan.getName(), plan.getColor());
     }
 
     @Override

@@ -1,5 +1,7 @@
 package ru.home.miniplanner.model;
 
+import android.support.annotation.ColorInt;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -21,15 +23,16 @@ public class Plan extends Domain {
     private String name;
     @DatabaseField(dataType = DataType.DATE)
     private Date dateReg;
+    @DatabaseField @ColorInt
+    private int color;
     @DatabaseField(dataType = DataType.BIG_DECIMAL)
     private BigDecimal costExpect;
     @ForeignCollectionField
     private Collection<Party> parties;
 
     public Plan() {
-//        this.name = "";
-        this.dateReg = new Date();
-        this.costExpect = new BigDecimal("0");
+        dateReg = new Date();
+        costExpect = new BigDecimal("0");
     }
 
     public BigDecimal getTotalCost() {
@@ -92,5 +95,13 @@ public class Plan extends Domain {
 
     public void setCostExpect(BigDecimal costExpect) {
         this.costExpect = costExpect;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }
