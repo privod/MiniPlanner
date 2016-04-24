@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -39,12 +41,21 @@ public class AvatarLetterView extends TextView {
     public void setBackground(Context context) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.OVAL);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            drawable.setColor(context.getResources().getColor(R.color.avatarGreen, context.getTheme()));
-        } else {
-            drawable.setColor(context.getResources().getColor(R.color.avatarGreen));
+        this.setBackground(drawable);
+        this.setBackgroundColorByRes(R.color.avatarGreen);
+    }
+
+    public void setBackgroundColor(@ColorInt int color){
+        if (this.getBackground() instanceof GradientDrawable) {
+            ((GradientDrawable)getBackground()).setColor(color);
         }
 
-        this.setBackground(drawable);
+    }
+    public void setBackgroundColorByRes(@ColorRes int color){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.setBackgroundColor(getContext().getResources().getColor(color, getContext().getTheme()));
+        } else {
+            this.setBackgroundColor(getContext().getResources().getColor(color));
+        }
     }
 }
