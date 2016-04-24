@@ -45,17 +45,24 @@ public class AvatarLetterView extends TextView {
         this.setBackgroundColorByRes(R.color.avatarGreen);
     }
 
-    public void setBackgroundColor(@ColorInt int color){
+    public void setBackgroundColor(@ColorInt int color) {
         if (this.getBackground() instanceof GradientDrawable) {
-            ((GradientDrawable)getBackground()).setColor(color);
+            ((GradientDrawable) getBackground()).setColor(color);
         }
 
     }
-    public void setBackgroundColorByRes(@ColorRes int color){
+
+    public void setBackgroundColorByRes(@ColorRes int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.setBackgroundColor(getContext().getResources().getColor(color, getContext().getTheme()));
         } else {
             this.setBackgroundColor(getContext().getResources().getColor(color));
         }
+    }
+
+    public void setLetter(String text, @ColorInt int color) {
+        char ch = text.toCharArray()[0];
+        setText(String.valueOf(Character.toUpperCase(ch)));
+        setBackgroundColor(color);
     }
 }
