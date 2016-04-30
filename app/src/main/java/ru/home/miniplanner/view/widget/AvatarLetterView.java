@@ -47,6 +47,9 @@ public class AvatarLetterView extends TextView {
 
     public void setBackgroundColor(@ColorInt int color) {
         if (this.getBackground() instanceof GradientDrawable) {
+            if (color == 0) {
+                color = Color.GREEN;
+            }
             ((GradientDrawable) getBackground()).setColor(color);
         }
 
