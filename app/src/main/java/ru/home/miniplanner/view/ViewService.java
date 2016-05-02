@@ -2,6 +2,9 @@ package ru.home.miniplanner.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -19,13 +22,15 @@ import ru.home.miniplanner.R;
 public class ViewService {
     final String LOG_TAG = ViewService.class.getSimpleName();
 
-//    Context context;
-//
-//    public ViewService(Context context) {
-//        this.context = context;
-//    }
-
     private final SimpleDateFormat dateRegFormat = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru"));
+
+    static public @ColorInt int getColor(Context context, @ColorRes int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return context.getResources().getColor(color, context.getTheme());
+        } else {
+            return context.getResources().getColor(color);
+        }
+    }
 
     public String textViewGetString(TextView view) {
         return view.getText().toString();
@@ -55,14 +60,10 @@ public class ViewService {
         textViewSetText(view, text);
     }
 
-//    public void textViewSetMoney(TextView view, BigDecimal decimal) {
-//        String template = context.getResources().getString(R.string.money);
-//        String text = String.format(template, decimal.toString());
-//        textViewSetText(view, text);
-//    }
-
     public void textViewSetText(TextView view, Date date) {
         String text = dateRegFormat.format(date);
         textViewSetText(view, text);
     }
+
+
 }

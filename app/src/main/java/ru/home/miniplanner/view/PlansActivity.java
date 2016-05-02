@@ -1,7 +1,6 @@
 package ru.home.miniplanner.view;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,6 @@ import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -61,17 +59,17 @@ public class PlansActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                openPartiesActivity(planDao.getAll().get(position));
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-                planSelect(view, planDao.getAll().get(position));
-            }
-        }));
+//        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                openPartiesActivity(planDao.getAll().get(position));
+//            }
+//
+//            @Override
+//            public void onLongClick(View view, int position) {
+//                planSelect(view, planDao.getAll().get(position));
+//            }
+//        }));
 
 //        registerForContextMenu(recyclerView);
 
@@ -95,9 +93,9 @@ public class PlansActivity extends AppCompatActivity {
         planAdapter.notifyDataSetChanged();
     }
 
-//    public List<Plan> getAllPlans() {
-//        return planDao.getAll();
-//    }
+    public List<Plan> getAllPlans() {
+        return planDao.getAll();
+    }
 
     public void openPartiesActivity(Plan plan) {
         Intent intent = new Intent(PlansActivity.this, PartiesActivity.class);
@@ -111,26 +109,28 @@ public class PlansActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_PLAN_EDIT);
     }
 
-    private void planSelect(View view, Plan plan) {
-        final AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarTextView);
-        final ImageView selectorImage  = (ImageView) view.findViewById(R.id.selectorImage);
-        final Animation animToSide = AnimationUtils.loadAnimation(this, R.anim.to_side);
-        final Animation animFromSide = AnimationUtils.loadAnimation(this, R.anim.from_side);
-        animToSide.setAnimationListener( new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) { }
+    public void planSelect(View view, Plan plan) {
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                avatarLetterView.setVisibility(View.INVISIBLE);
-                selectorImage.setVisibility(View.VISIBLE);
-                selectorImage.startAnimation(animFromSide);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) { }
-        });
-        avatarLetterView.startAnimation(animToSide);
+        AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
+        avatarLetterView.startAnimationSelect();
+//        final ImageView selectorImage  = (ImageView) view.findViewById(R.id.selectorImage);
+//        final Animation animToSide = AnimationUtils.loadAnimation(this, R.anim.to_side);
+//        final Animation animFromSide = AnimationUtils.loadAnimation(this, R.anim.from_side);
+//        animToSide.setAnimationListener( new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) { }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//                avatarLetterView.setVisibility(View.INVISIBLE);
+//                selectorImage.setVisibility(View.VISIBLE);
+//                selectorImage.startAnimation(animFromSide);
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) { }
+//        });
+//        avatarLetterView.startAnimation(animToSide);
     }
 
     @Override
