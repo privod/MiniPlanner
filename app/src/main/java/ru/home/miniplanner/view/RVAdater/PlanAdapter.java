@@ -1,9 +1,8 @@
 package ru.home.miniplanner.view.RVAdater;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,26 +35,47 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         private TextView costTotalTextView;
         private TextView nameTextView;
         private TextView dateRegTextView;
-        private AvatarLetterView mAvatarImage;
+        private AvatarLetterView avatarLetter;
 
-        public PlanViewHolder(View itemView/*, View.OnCreateContextMenuListener menuListener*/) {
+        public PlanViewHolder(final View itemView) {
             super(itemView);
 
-//            itemView.setOnClickListener(this);
-//            itemView.setOnCreateContextMenuListener(menuListener);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Log.d(LOG_TAG, "Layout Click");
+                    if (v.getContext() instanceof PlansActivity) {
+                        ((PlansActivity) v.getContext()).openPartiesActivity(getAdapterPosition());
+                    }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+//                    Log.d(LOG_TAG, "Layout LongClick");
+                    if (v.getContext() instanceof PlansActivity) {
+                        ((PlansActivity) v.getContext()).planSelect(v, getAdapterPosition());
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
             nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
             dateRegTextView = (TextView) itemView.findViewById(R.id.dateRegTextView);
             costTotalTextView = (TextView) itemView.findViewById(R.id.costTotalTextView);
-            mAvatarImage = (AvatarLetterView) itemView.findViewById(R.id.avatarTextView);
-//            mAvatarImage.getBackground();
-        }
 
-//        @Override
-//        public void onClick(View view) {
-//            PlansActivity activity = (PlansActivity) view.getContext();
-//            Plan plan = activity.getAllPlans().get(getAdapterPosition());
-//            activity.openPartiesActivity(plan);
-//        }
+            avatarLetter = (AvatarLetterView) itemView.findViewById(R.id.avatarLetter);
+            avatarLetter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Log.d(LOG_TAG, "Avatar Click");
+                    if (v.getContext() instanceof PlansActivity) {
+                        ((PlansActivity) v.getContext()).planSelect(v, getAdapterPosition());
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -71,7 +91,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         viewService.textViewSetText(holder.nameTextView, plan.getName());
         viewService.textViewSetText(holder.dateRegTextView, plan.getDateReg());
         viewService.textViewSetText(holder.costTotalTextView, plan.getTotalCost());
-        holder.mAvatarImage.setLetter(plan.getName(), plan.getColor());
+        holder.avatarLetter.setLetter(plan.getName());
+        holder.avatarLetter.setSelectedState(plan.isSelected());
+
+//        holder.avatarLetter.getAvatarDrawable().setColor(plan.getColor());
+        holder.avatarLetter.getAvatarDrawable().setColor(Color.BLUE);
     }
 
     @Override

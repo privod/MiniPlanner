@@ -23,10 +23,12 @@ public class Plan extends Domain {
     private String name;
     @DatabaseField(dataType = DataType.DATE)
     private Date dateReg;
-    @DatabaseField @ColorInt
-    private int color;
     @DatabaseField(dataType = DataType.BIG_DECIMAL)
     private BigDecimal costExpect;
+    @DatabaseField(dataType = DataType.INTEGER) @ColorInt
+    private int avatarColor;
+    @DatabaseField(dataType = DataType.BOOLEAN)
+    private boolean selected;
     @ForeignCollectionField
     private Collection<Party> parties;
 
@@ -97,11 +99,19 @@ public class Plan extends Domain {
         this.costExpect = costExpect;
     }
 
-    public int getColor() {
-        return color;
+    public int getAvatarColor() {
+        return avatarColor;
     }
 
-    public void setColor(int color) {
-        this.color = color;
+    public void setAvatarColor(int avatarColor) {
+        this.avatarColor = avatarColor;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
