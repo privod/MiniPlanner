@@ -57,8 +57,9 @@ public class AvatarLetterView extends TextView {
     }
 
     private Drawable selectedDrawableInit(Resources resources) {
-        Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_check_circle_black_48dp);
-        return new BitmapDrawable(resources, bitmap);
+        Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_checkbox_marked_circle);
+        BitmapDrawable drawable = new BitmapDrawable(resources, bitmap);
+        return drawable;
     }
 
     private Animation animToSideInit() {

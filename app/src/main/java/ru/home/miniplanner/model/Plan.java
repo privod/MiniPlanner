@@ -25,7 +25,8 @@ public class Plan extends Domain {
     private Date dateReg;
     @DatabaseField(dataType = DataType.BIG_DECIMAL)
     private BigDecimal costExpect;
-    @DatabaseField(dataType = DataType.INTEGER) @ColorInt
+    @DatabaseField(dataType = DataType.INTEGER)
+    @ColorInt
     private int avatarColor;
     @DatabaseField(dataType = DataType.BOOLEAN)
     private boolean selected;

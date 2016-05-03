@@ -86,8 +86,8 @@ public class PlansActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-//        planAdapter.setPlans(planDao.getAll());
-//        planAdapter.notifyDataSetChanged();
+        planAdapter.setPlans(planDao.getAll());
+        planAdapter.notifyDataSetChanged();
     }
 
 //    public List<Plan> getAllPlans() {
