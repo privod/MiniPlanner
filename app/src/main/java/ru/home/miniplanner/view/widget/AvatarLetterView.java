@@ -75,7 +75,8 @@ public class AvatarLetterView extends TextView {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                switchSelected();
+                setSelectedState(!isSelectedState());
+//                switchSelectedState();
                 startAnimation(animFromSide);
             }
 
@@ -102,32 +103,39 @@ public class AvatarLetterView extends TextView {
         letter = String.valueOf(Character.toUpperCase(ch));
     }
 
-    public void setSelected() {
+    public void setStateSelected() {
         setBackground(selectedDrawable);
         setText("");
         selectedState = true;
     }
 
-    public void setUnselected() {
+    public void setStateUnselected() {
         setBackground(avatarDrawable);
         setText(letter);
         selectedState = false;
     }
 
-    public void switchSelected() {
-        if (isSelected()) {
-            setUnselected();
+//    public void switchSelectedState() {
+//        if (isSelectedState()) {
+//            setStateUnselected();
+//        } else {
+//            setStateSelected();
+//        }
+//    }
+
+    public void setSelectedState(boolean selectedState) {
+        if (selectedState) {
+            setStateSelected();
         } else {
-            setSelected();
+            setStateUnselected();
         }
     }
 
-    @Override
-    public boolean isSelected() {
+    public boolean isSelectedState() {
         return selectedState;
     }
 
-    public void startAnimationSelect() {
+    public void AnimationSwitchSelectedState() {
         this.startAnimation(animToSide);
     }
 

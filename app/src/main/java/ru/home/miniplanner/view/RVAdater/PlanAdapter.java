@@ -45,9 +45,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 public void onClick(View v) {
 //                    Log.d(LOG_TAG, "Layout Click");
                     if (v.getContext() instanceof PlansActivity) {
-                        PlansActivity activity = (PlansActivity) v.getContext();
-                        Plan plan = activity.getAllPlans().get(getAdapterPosition());
-                        activity.openPartiesActivity(plan);
+                        ((PlansActivity) v.getContext()).openPartiesActivity(getAdapterPosition());
                     }
                 }
             });
@@ -56,9 +54,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 public boolean onLongClick(View v) {
 //                    Log.d(LOG_TAG, "Layout LongClick");
                     if (v.getContext() instanceof PlansActivity) {
-                        PlansActivity activity = (PlansActivity) v.getContext();
-                        Plan plan = activity.getAllPlans().get(getAdapterPosition());
-                        activity.planSelect(v, plan);
+                        ((PlansActivity) v.getContext()).planSelect(v, getAdapterPosition());
                         return true;
                     }
                     return false;
@@ -75,9 +71,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 public void onClick(View v) {
 //                    Log.d(LOG_TAG, "Avatar Click");
                     if (v.getContext() instanceof PlansActivity) {
-                        PlansActivity activity = (PlansActivity) v.getContext();
-                        Plan plan = activity.getAllPlans().get(getAdapterPosition());
-                        activity.planSelect(v, plan);
+                        ((PlansActivity) v.getContext()).planSelect(v, getAdapterPosition());
                     }
                 }
             });
@@ -98,6 +92,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         viewService.textViewSetText(holder.dateRegTextView, plan.getDateReg());
         viewService.textViewSetText(holder.costTotalTextView, plan.getTotalCost());
         holder.avatarLetter.setLetter(plan.getName());
+        holder.avatarLetter.setSelectedState(plan.isSelected());
 
 //        holder.avatarLetter.getAvatarDrawable().setColor(plan.getColor());
         holder.avatarLetter.getAvatarDrawable().setColor(Color.BLUE);

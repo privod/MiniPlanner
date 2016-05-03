@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import java.util.List;
 
@@ -24,8 +23,6 @@ import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.PlanDao;
 import ru.home.miniplanner.view.divider.DividerItemDecoration;
 import ru.home.miniplanner.view.edit.PlanEditActivity;
-import ru.home.miniplanner.view.listeners.ClickListener;
-import ru.home.miniplanner.view.listeners.RecyclerTouchListener;
 import ru.home.miniplanner.view.widget.AvatarLetterView;
 
 public class PlansActivity extends AppCompatActivity {
@@ -37,7 +34,7 @@ public class PlansActivity extends AppCompatActivity {
     PlanDao planDao;
     PlanAdapter planAdapter;
     RecyclerView recyclerView;
-    List<Plan> planSelected;
+//    List<Plan> planSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +74,7 @@ public class PlansActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openPlanEditActivity(new Plan());
+                openPlanEditActivity(0);
             }
         });
 
@@ -89,30 +86,39 @@ public class PlansActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        planAdapter.setPlans(planDao.getAll());
-        planAdapter.notifyDataSetChanged();
+//        planAdapter.setPlans(planDao.getAll());
+//        planAdapter.notifyDataSetChanged();
     }
 
-    public List<Plan> getAllPlans() {
-        return planDao.getAll();
-    }
+//    public List<Plan> getAllPlans() {
+//        return planDao.getAll();
+//    }
 
-    public void openPartiesActivity(Plan plan) {
+    public void openPartiesActivity(int position) {
         Intent intent = new Intent(PlansActivity.this, PartiesActivity.class);
-        intent.putExtra(Plan.EXTRA_NAME, plan);
+        intent.putExtra(Plan.EXTRA_NAME, planDao.getAll().get(position));
         startActivityForResult(intent, REQUEST_PARTIES);
     }
 
-    private void openPlanEditActivity(Plan plan) {
+    private void openPlanEditActivity(int position) {
+        Plan plan;
+        if (position == 0) {
+            plan = new Plan();
+        } else {
+            plan = planDao.getAll().get(position);
+        }
         Intent intent = new Intent(PlansActivity.this, PlanEditActivity.class);
         intent.putExtra(Plan.EXTRA_NAME, plan);
         startActivityForResult(intent, REQUEST_PLAN_EDIT);
     }
 
-    public void planSelect(View view, Plan plan) {
+    public void planSelect(View view, int position) {
 
+        Plan plan = planDao.getAll().get(position);
+        plan.setSelected(!plan.isSelected());
         AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
-        avatarLetterView.startAnimationSelect();
+        avatarLetterView.AnimationSwitchSelectedState();
+
 //        final ImageView selectorImage  = (ImageView) view.findViewById(R.id.selectorImage);
 //        final Animation animToSide = AnimationUtils.loadAnimation(this, R.anim.to_side);
 //        final Animation animFromSide = AnimationUtils.loadAnimation(this, R.anim.from_side);
