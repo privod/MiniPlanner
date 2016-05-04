@@ -22,12 +22,10 @@ import ru.home.miniplanner.view.widget.AvatarLetterView;
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
     private static final String LOG_TAG = PlanAdapter.class.getSimpleName();
     private final ViewService viewService;
-//    private final View.OnCreateContextMenuListener menuListener;
     private int position;
     private List<Plan> plans;
 
-    public PlanAdapter(/*View.OnCreateContextMenuListener menuListener*/) {
-//        this.menuListener = menuListener;
+    public PlanAdapter() {
         viewService = new ViewService();
     }
 
@@ -82,7 +80,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     public PlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_view, parent, false);
 
-        return new PlanViewHolder(view/*, menuListener*/);
+        return new PlanViewHolder(view);
     }
 
     @Override

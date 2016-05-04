@@ -46,7 +46,7 @@ public class PlansActivity extends AppCompatActivity {
         HelperFactory.setHelper(this);
         planDao = HelperFactory.getHelper().getPlanDao();
 
-        planAdapter = new PlanAdapter(/*this*/);
+        planAdapter = new PlanAdapter();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setAdapter(planAdapter);
 
@@ -56,19 +56,6 @@ public class PlansActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
-//            @Override
-//            public void onClick(View view, int position) {
-//                openPartiesActivity(planDao.getAll().get(position));
-//            }
-//
-//            @Override
-//            public void onLongClick(View view, int position) {
-//                planSelect(view, planDao.getAll().get(position));
-//            }
-//        }));
-
-//        registerForContextMenu(recyclerView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -116,27 +103,9 @@ public class PlansActivity extends AppCompatActivity {
 
         Plan plan = planDao.getAll().get(position);
         plan.setSelected(!plan.isSelected());
+        planDao.save(plan);
         AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
         avatarLetterView.AnimationSwitchSelectedState();
-
-//        final ImageView selectorImage  = (ImageView) view.findViewById(R.id.selectorImage);
-//        final Animation animToSide = AnimationUtils.loadAnimation(this, R.anim.to_side);
-//        final Animation animFromSide = AnimationUtils.loadAnimation(this, R.anim.from_side);
-//        animToSide.setAnimationListener( new Animation.AnimationListener() {
-//            @Override
-//            public void onAnimationStart(Animation animation) { }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                avatarLetterView.setVisibility(View.INVISIBLE);
-//                selectorImage.setVisibility(View.VISIBLE);
-//                selectorImage.startAnimation(animFromSide);
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) { }
-//        });
-//        avatarLetterView.startAnimation(animToSide);
     }
 
     @Override
@@ -153,38 +122,6 @@ public class PlansActivity extends AppCompatActivity {
             planAdapter.notifyDataSetChanged();
         }
     }
-
-//    @Override
-//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//        getMenuInflater().inflate(R.menu.context_plan, menu);
-//
-//        if (v.getParent() instanceof RecyclerView) {
-//            RecyclerView recyclerView = (RecyclerView) v.getParent();
-//            planAdapter.setPosition(recyclerView.getChildAdapterPosition(v));
-//        }
-////        AdapterView.AdapterContextMenuInfo info;
-//    }
-//
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item) {
-//        long id = item.getItemId();
-//
-//        int position = planAdapter.getPosition();
-//        Plan plan = getAllPlans().get(position);
-//
-//        if (id == R.id.context_plan_edit) {
-//            openPlanEditActivity(plan);
-//            return true;
-//        } else if (id == R.id.context_plan_del) {
-//            planDao.delete(plan);
-//            planAdapter.setPlans(getAllPlans());
-//            planAdapter.notifyDataSetChanged();
-//            return true;
-//        }
-//
-//        return super.onContextItemSelected(item);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
