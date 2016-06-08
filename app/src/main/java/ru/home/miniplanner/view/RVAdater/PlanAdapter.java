@@ -1,12 +1,19 @@
 package ru.home.miniplanner.view.RVAdater;
 
 import android.graphics.Color;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
+import com.bignerdranch.android.multiselector.MultiSelector;
+import com.bignerdranch.android.multiselector.SwappingHolder;
 
 import java.util.List;
 
@@ -25,18 +32,21 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     private int position;
     private List<Plan> plans;
 
-    public PlanAdapter() {
+    private MultiSelector multiSelector;
+
+    public PlanAdapter(MultiSelector multiSelector) {
+        this.multiSelector = multiSelector;
         viewService = new ViewService();
     }
 
-    public static class PlanViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener*/ {
+    public class PlanViewHolder extends SwappingHolder  /*implements View.OnClickListener*/ {
         private TextView costTotalTextView;
         private TextView nameTextView;
         private TextView dateRegTextView;
         private AvatarLetterView avatarLetter;
 
         public PlanViewHolder(final View itemView) {
-            super(itemView);
+            super(itemView, multiSelector);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -55,6 +65,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                         ((PlansActivity) v.getContext()).planSelect(v, getAdapterPosition());
                         return true;
                     }
+                    if (!multiSelector.isSelectable()) {
+                        multiSelector.setSelectable(true);
+                        multiSelector.setSelected(PlanViewHolder.this, true);
+                    }
+
                     return false;
                 }
             });
@@ -70,6 +85,10 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 //                    Log.d(LOG_TAG, "Avatar Click");
                     if (v.getContext() instanceof PlansActivity) {
                         ((PlansActivity) v.getContext()).planSelect(v, getAdapterPosition());
+                    }
+                    if (!multiSelector.isSelectable()) {
+                        multiSelector.setSelectable(true);
+                        multiSelector.setSelected(PlanViewHolder.this, true);
                     }
                 }
             });

@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
+import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
+import com.bignerdranch.android.multiselector.MultiSelector;
 
 import java.util.List;
 
@@ -34,11 +38,11 @@ public class PlansActivity extends AppCompatActivity {
     public static final int REQUEST_PARTIES = 10;
     private static final int REQUEST_PLAN_EDIT = 20;
 
-    private static enum Mode {
-        NORMAL, EDIT, REMOVE
-    }
+//    private static enum Mode {
+//        NORMAL, EDIT, REMOVE
+//    }
 
-    private static Mode mode;
+//    private static Mode mode;
 
     PlanDao planDao;
     PlanAdapter planAdapter;
@@ -46,9 +50,25 @@ public class PlansActivity extends AppCompatActivity {
     Toolbar toolbar;
 //    List<Plan> planSelected;
 
-    MenuItem editMenuItem;
-    MenuItem removeMenuItem;
+//    MenuItem editMenuItem;
+//    MenuItem removeMenuItem;
 
+    private MultiSelector multiSelector = new MultiSelector();
+    private ModalMultiSelectorCallback mActionModeCallback
+            = new ModalMultiSelectorCallback(multiSelector) {
+
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+            super.onCreateActionMode(actionMode, menu);
+            getMenuInflater().inflate(R.menu.menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +80,7 @@ public class PlansActivity extends AppCompatActivity {
         HelperFactory.setHelper(this);
         planDao = HelperFactory.getHelper().getPlanDao();
 
-        planAdapter = new PlanAdapter();
+        planAdapter = new PlanAdapter(multiSelector);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setAdapter(planAdapter);
 
@@ -120,64 +140,65 @@ public class PlansActivity extends AppCompatActivity {
         return result;
     }
 
-    private void startMode(Mode modeToStart) {
-        if (modeToStart == Mode.NORMAL) {
-            editMenuItem.setVisible(false);
-            removeMenuItem.setVisible(false);
-            toolbar.setLogo(null);
+//    private void startMode(Mode modeToStart) {
+//        if (modeToStart == Mode.NORMAL) {
+//            editMenuItem.setVisible(false);
+//            removeMenuItem.setVisible(false);
+//            toolbar.setLogo(null);
+////            toolbar.setTitle(getString(R.string.title_plans));
+//            toolbar.setBackgroundResource(R.color.colorPrimary);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                Window window = getWindow();
+//                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+//            }
+//        } else if (modeToStart == Mode.EDIT) {
+//            editMenuItem.setVisible(true);
+//            removeMenuItem.setVisible(true);
+//            toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
+////            toolbar.setTitle(getString(R.string.title_plans));
+//            toolbar.setBackgroundResource(R.color.colorSelect);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                Window window = getWindow();
+//                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//                window.setStatusBarColor(getResources().getColor(R.color.colorSelectDark));
+//            }
+//        } else if (modeToStart == Mode.REMOVE) {
+//            editMenuItem.setVisible(false);
+//            removeMenuItem.setVisible(true);
+//            toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
+////            toolbar.setTitle(getString(R.string.title_plans));
+//            toolbar.setBackgroundResource(R.color.colorSelect);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                Window window = getWindow();
+//                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//                window.setStatusBarColor(getResources().getColor(R.color.colorSelectDark));
+//            }
+//        }
+//    }
+//
+//    private Mode getModeBySelected(List<Plan> plans) {
+//        if (getSelectedPlanCount(plans) == 0) {
+//            startMode(Mode.NORMAL);
 //            toolbar.setTitle(getString(R.string.title_plans));
-            toolbar.setBackgroundResource(R.color.colorPrimary);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Window window = getWindow();
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-            }
-        } else if (modeToStart == Mode.EDIT) {
-            editMenuItem.setVisible(true);
-            removeMenuItem.setVisible(true);
-            toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
-//            toolbar.setTitle(getString(R.string.title_plans));
-            toolbar.setBackgroundResource(R.color.colorSelect);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Window window = getWindow();
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(getResources().getColor(R.color.colorSelectDark));
-            }
-        } else if (modeToStart == Mode.REMOVE) {
-            editMenuItem.setVisible(false);
-            removeMenuItem.setVisible(true);
-            toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
-//            toolbar.setTitle(getString(R.string.title_plans));
-            toolbar.setBackgroundResource(R.color.colorSelect);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Window window = getWindow();
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(getResources().getColor(R.color.colorSelectDark));
-            }
-        }
-    }
-
-    private Mode getModeBySelected(List<Plan> plans) {
-        if (getSelectedPlanCount(plans) == 0) {
-            startMode(Mode.NORMAL);
-            toolbar.setTitle(getString(R.string.title_plans));
-        } else {
-            if (getSelectedPlanCount(plans) == 1) {
-                startMode(Mode.EDIT);
-            } else {
-                startMode(Mode.REMOVE);
-                toolbar.setTitle(String.valueOf(getSelectedPlanCount(plans)));
-            }
-        }
-
-    }
+//        } else {
+//            if (getSelectedPlanCount(plans) == 1) {
+//                startMode(Mode.EDIT);
+//            } else {
+//                startMode(Mode.REMOVE);
+//                toolbar.setTitle(String.valueOf(getSelectedPlanCount(plans)));
+//            }
+//        }
+//
+//    }
 
     public void planSelect(View view, int position) {
 
-        List<Plan> plans = planDao.getAll();
-        Plan plan = plans.get(position);
-        plan.setSelected(!plan.isSelected());
-        planDao.save(plan);
+//        List<Plan> plans = planDao.getAll();
+//        Plan plan = plans.get(position);
+//        plan.setSelected(!plan.isSelected());
+//        planDao.save(plan);
+        startSupportActionMode(mActionModeCallback);
         AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
         avatarLetterView.AnimationSwitchSelectedState();
 
@@ -225,10 +246,10 @@ public class PlansActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
 
-        editMenuItem = menu.findItem(R.id.action_edit);
-        removeMenuItem = menu.findItem(R.id.action_remove);
-
-        startMode(Mode.NORMAL);
+//        editMenuItem = menu.findItem(R.id.action_edit);
+//        removeMenuItem = menu.findItem(R.id.action_remove);
+//
+//        startMode(Mode.NORMAL);
 
         return true;
     }
@@ -250,7 +271,7 @@ public class PlansActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        HelperFactory.releaseHelper();      // TODO Нет гарантий вызова onDestroy, переделать
+        HelperFactory.releaseHelper();      // TODO Нет гарантий вызова onDestroy, переделать!
         super.onDestroy();
     }
 }
