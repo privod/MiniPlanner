@@ -62,13 +62,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 public boolean onLongClick(View v) {
 //                    Log.d(LOG_TAG, "Layout LongClick");
                     if (v.getContext() instanceof PlansActivity) {
-                        ((PlansActivity) v.getContext()).planSelect(v, getAdapterPosition());
+                        ((PlansActivity) v.getContext()).planSelect(v, PlanViewHolder.this);
                         return true;
                     }
-                    if (!multiSelector.isSelectable()) {
-                        multiSelector.setSelectable(true);
-                        multiSelector.setSelected(PlanViewHolder.this, true);
-                    }
+//                    if (!multiSelector.isSelectable()) {
+//                        multiSelector.setSelectable(true);
+//                        multiSelector.setSelected(PlanViewHolder.this, true);
+//                    }
 
                     return false;
                 }
@@ -84,12 +84,12 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 public void onClick(View v) {
 //                    Log.d(LOG_TAG, "Avatar Click");
                     if (v.getContext() instanceof PlansActivity) {
-                        ((PlansActivity) v.getContext()).planSelect(v, getAdapterPosition());
+                        ((PlansActivity) v.getContext()).planSelect(v, PlanViewHolder.this);
                     }
-                    if (!multiSelector.isSelectable()) {
-                        multiSelector.setSelectable(true);
-                        multiSelector.setSelected(PlanViewHolder.this, true);
-                    }
+//                    if (!multiSelector.isSelectable()) {
+//                        multiSelector.setSelectable(true);
+//                        multiSelector.setSelected(PlanViewHolder.this, true);
+//                    }
                 }
             });
         }

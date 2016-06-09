@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
+import com.bignerdranch.android.multiselector.SelectableHolder;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class PlansActivity extends AppCompatActivity {
 //    MenuItem editMenuItem;
 //    MenuItem removeMenuItem;
 
+    ActionMode actionMode;
     private MultiSelector multiSelector = new MultiSelector();
     private ModalMultiSelectorCallback mActionModeCallback
             = new ModalMultiSelectorCallback(multiSelector) {
@@ -60,12 +62,26 @@ public class PlansActivity extends AppCompatActivity {
         @Override
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
             super.onCreateActionMode(actionMode, menu);
-            getMenuInflater().inflate(R.menu.menu, menu);
+            getMenuInflater().inflate(R.menu.action_mode, menu);
             return true;
         }
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            if (item.getItemId() == R.id.action_remove) {
+                mode.finish();
+
+//                for (int i = mObjects.size(); i >= 0; i--) {
+//                    if (multiSelector.isSelected(i, 0)) {
+//                        // remove item from list
+//                        recyclerView.getAdapter().notifyItemRemoved(i);
+//                    }
+//                }
+
+                multiSelector.clearSelections();
+                return true;
+
+            }
             return false;
         }
     };
@@ -192,13 +208,23 @@ public class PlansActivity extends AppCompatActivity {
 //
 //    }
 
-    public void planSelect(View view, int position) {
+    public void planSelect(View view, SelectableHolder holder) {
 
 //        List<Plan> plans = planDao.getAll();
 //        Plan plan = plans.get(position);
 //        plan.setSelected(!plan.isSelected());
 //        planDao.save(plan);
-        startSupportActionMode(mActionModeCallback);
+
+        if (!multiSelector.isSelectable()) {
+            multiSelector.setSelectable(true);
+            multiSelector.setSelected(holder, true);
+            actionMode = startSupportActionMode(mActionModeCallback);
+        } else {
+            if (multiSelector.getSelectedPositions().isEmpty()) {
+                actionMode.finish();
+            }
+        }
+
         AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
         avatarLetterView.AnimationSwitchSelectedState();
 
