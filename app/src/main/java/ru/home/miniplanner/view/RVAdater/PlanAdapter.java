@@ -109,7 +109,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         viewService.textViewSetText(holder.dateRegTextView, plan.getDateReg());
         viewService.textViewSetText(holder.costTotalTextView, plan.getTotalCost());
         holder.avatarLetter.setLetter(plan.getName());
-        holder.avatarLetter.setSelectedState(plan.isSelected());
+//        holder.avatarLetter.setSelectedState(plan.isSelected());
+        holder.avatarLetter.setSelectedState(multiSelector.isSelected(position, holder.getItemId()));
 
 //        holder.avatarLetter.getAvatarDrawable().setColor(plan.getColor());
         holder.avatarLetter.getAvatarDrawable().setColor(Color.BLUE);

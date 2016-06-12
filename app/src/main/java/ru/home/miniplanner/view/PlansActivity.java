@@ -51,7 +51,7 @@ public class PlansActivity extends AppCompatActivity {
     Toolbar toolbar;
 //    List<Plan> planSelected;
 
-//    MenuItem editMenuItem;
+    MenuItem editMenuItem;
 //    MenuItem removeMenuItem;
 
     ActionMode actionMode;
@@ -63,7 +63,20 @@ public class PlansActivity extends AppCompatActivity {
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
             super.onCreateActionMode(actionMode, menu);
             getMenuInflater().inflate(R.menu.action_mode, menu);
+
+            editMenuItem = menu.findItem(R.id.action_edit);
+
             return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+            if (super.onPrepareActionMode(actionMode, menu)) {
+                multiSelector.setSelectable(true);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         @Override
@@ -83,6 +96,12 @@ public class PlansActivity extends AppCompatActivity {
 
             }
             return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode actionMode) {
+            super.onDestroyActionMode(actionMode);
+            multiSelector.setSelectable(false);
         }
     };
 
@@ -148,13 +167,13 @@ public class PlansActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_PLAN_EDIT);
     }
 
-    private int getSelectedPlanCount(List<Plan> plans) {
-        int result = 0;
-        for (Plan plan: plans) {
-            if (plan.isSelected()) { result += 1; }
-        }
-        return result;
-    }
+//    private int getSelectedPlanCount(List<Plan> plans) {
+//        int result = 0;
+//        for (Plan plan: plans) {
+//            if (plan.isSelected()) { result += 1; }
+//        }
+//        return result;
+//    }
 
 //    private void startMode(Mode modeToStart) {
 //        if (modeToStart == Mode.NORMAL) {
@@ -215,14 +234,27 @@ public class PlansActivity extends AppCompatActivity {
 //        plan.setSelected(!plan.isSelected());
 //        planDao.save(plan);
 
+//        if (!multiSelector.isSelectable()) {
+//            actionMode = startSupportActionMode(mActionModeCallback);
+//            multiSelector.setSelectable(true);
+//            multiSelector.setSelected(holder, true);
+//        } else {
+//            multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
+//        }
+
         if (!multiSelector.isSelectable()) {
-            multiSelector.setSelectable(true);
-            multiSelector.setSelected(holder, true);
             actionMode = startSupportActionMode(mActionModeCallback);
+        }
+
+        multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
+
+        int selectCount = multiSelector.getSelectedPositions().size();
+        if (selectCount == 0) {
+            actionMode.finish();
+        } else if (selectCount == 1) {
+            editMenuItem.setVisible(true);
         } else {
-            if (multiSelector.getSelectedPositions().isEmpty()) {
-                actionMode.finish();
-            }
+            editMenuItem.setVisible(false);
         }
 
         AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
