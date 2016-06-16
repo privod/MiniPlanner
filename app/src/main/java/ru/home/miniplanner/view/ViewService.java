@@ -6,6 +6,8 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -29,6 +31,20 @@ public class ViewService {
             return context.getResources().getColor(color, context.getTheme());
         } else {
             return context.getResources().getColor(color);
+        }
+    }
+
+    static public void setStatusBar(Activity activity, @ColorRes int res) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            @ColorInt int color;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                color = activity.getResources().getColor(res, activity.getTheme());
+            } else {
+                color = activity.getResources().getColor(res);
+            }
+            window.setStatusBarColor(color);
         }
     }
 
@@ -64,6 +80,4 @@ public class ViewService {
         String text = dateRegFormat.format(date);
         textViewSetText(view, text);
     }
-
-
 }

@@ -3,6 +3,7 @@ package ru.home.miniplanner.view;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -244,6 +245,9 @@ public class PlansActivity extends AppCompatActivity {
 
         if (!multiSelector.isSelectable()) {
             actionMode = startSupportActionMode(mActionModeCallback);
+            ViewService.setStatusBar(this, R.color.actionModeDark);
+        } else {
+            ViewService.setStatusBar(this, R.color.colorPrimaryDark);
         }
 
         multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
@@ -259,7 +263,6 @@ public class PlansActivity extends AppCompatActivity {
 
         AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
         avatarLetterView.AnimationSwitchSelectedState();
-
 
 //        toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
 //        toolbar.setBackgroundResource(R.color.colorSelect);
