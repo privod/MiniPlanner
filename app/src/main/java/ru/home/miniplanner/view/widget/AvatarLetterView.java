@@ -22,7 +22,7 @@ import ru.home.miniplanner.view.ViewService;
  * Created by privod on 21.04.2016.
  */
 public class AvatarLetterView extends TextView {
-    private final GradientDrawable avatarDrawable = avatarDrawableInit(getResources());
+    private final GradientDrawable avatarDrawable = avatarDrawableInit();
     private final Drawable selectedDrawable = selectedDrawableInit(getResources());
     private final Animation animToSide = animToSideInit();
     private final Animation animFromSide = animFromSideInit();
@@ -35,6 +35,7 @@ public class AvatarLetterView extends TextView {
 
     public AvatarLetterView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setBackground(avatarDrawable);
     }
 
     public AvatarLetterView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -44,14 +45,14 @@ public class AvatarLetterView extends TextView {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public AvatarLetterView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        setBackground(avatarDrawable);
     }
 
-    private GradientDrawable avatarDrawableInit(Resources resources) {
+    private GradientDrawable avatarDrawableInit() {
 
         GradientDrawable avatarDrawable = new GradientDrawable();
         avatarDrawable.setShape(GradientDrawable.OVAL);
         avatarDrawable.setColor(ViewService.getColor(getContext(), R.color.avatarGreen));
-        setBackground(avatarDrawable);
 
         return avatarDrawable;
     }
@@ -75,13 +76,7 @@ public class AvatarLetterView extends TextView {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (isSelectedState()) {
-                    setBackground(selectedDrawable);
-                    setText("");
-                } else {
-                    setBackground(avatarDrawable);
-                    setText(letter);
-                }
+                viewSelectedState();
                 startAnimation(animFromSide);
             }
 
@@ -108,13 +103,15 @@ public class AvatarLetterView extends TextView {
         letter = String.valueOf(Character.toUpperCase(ch));
     }
 
-//    public void setStateSelected() {
-//        setSelectedState(true);
-//    }
-//
-//    public void setStateUnselected() {
-//        setSelectedState(false);
-//    }
+    public void viewSelectedState() {
+        if (isSelectedState()) {
+            setBackground(selectedDrawable);
+            setText("");
+        } else {
+            setBackground(avatarDrawable);
+            setText(letter);
+        }
+    }
 
     public void switchSelectedState() {
         setSelectedState(!isSelectedState());
@@ -125,6 +122,8 @@ public class AvatarLetterView extends TextView {
         if (this.selectedState != selectedState) {
             startAnimation(animToSide);
             this.selectedState = selectedState;
+        } else {
+            viewSelectedState();
         }
     }
 

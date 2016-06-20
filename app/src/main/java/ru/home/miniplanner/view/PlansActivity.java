@@ -86,6 +86,7 @@ public class PlansActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.action_remove) {
 
                 for (int position: multiSelector.getSelectedPositions()) {
+                    planRemove(planDao.getAll().get(position));
 
                 }
 
@@ -177,6 +178,12 @@ public class PlansActivity extends AppCompatActivity {
         Intent intent = new Intent(PlansActivity.this, PlanEditActivity.class);
         intent.putExtra(Plan.EXTRA_NAME, plan);
         startActivityForResult(intent, REQUEST_PLAN_EDIT);
+    }
+
+    public void planRemove(Plan plan) {
+        this.planDao.delete(plan);
+        planAdapter.setPlans(planDao.getAll());
+        planAdapter.notifyDataSetChanged();
     }
 
 //    private int getSelectedPlanCount(List<Plan> plans) {
