@@ -58,8 +58,7 @@ public class AvatarLetterView extends TextView {
 
     private Drawable selectedDrawableInit(Resources resources) {
         Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_checkbox_marked_circle);
-        BitmapDrawable drawable = new BitmapDrawable(resources, bitmap);
-        return drawable;
+        return new BitmapDrawable(resources, bitmap);
     }
 
     private Animation animToSideInit() {
@@ -76,8 +75,13 @@ public class AvatarLetterView extends TextView {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                setSelectedState(!isSelectedState());
-//                switchSelectedState();
+                if (isSelectedState()) {
+                    setBackground(selectedDrawable);
+                    setText("");
+                } else {
+                    setBackground(avatarDrawable);
+                    setText(letter);
+                }
                 startAnimation(animFromSide);
             }
 
@@ -104,31 +108,23 @@ public class AvatarLetterView extends TextView {
         letter = String.valueOf(Character.toUpperCase(ch));
     }
 
-    public void setStateSelected() {
-        setBackground(selectedDrawable);
-        setText("");
-        selectedState = true;
-    }
-
-    public void setStateUnselected() {
-        setBackground(avatarDrawable);
-        setText(letter);
-        selectedState = false;
-    }
-
-//    public void switchSelectedState() {
-//        if (isSelectedState()) {
-//            setStateUnselected();
-//        } else {
-//            setStateSelected();
-//        }
+//    public void setStateSelected() {
+//        setSelectedState(true);
+//    }
+//
+//    public void setStateUnselected() {
+//        setSelectedState(false);
 //    }
 
+    public void switchSelectedState() {
+        setSelectedState(!isSelectedState());
+//        switchSelectedState();
+    }
+
     public void setSelectedState(boolean selectedState) {
-        if (selectedState) {
-            setStateSelected();
-        } else {
-            setStateUnselected();
+        if (this.selectedState != selectedState) {
+            startAnimation(animToSide);
+            this.selectedState = selectedState;
         }
     }
 
@@ -136,9 +132,9 @@ public class AvatarLetterView extends TextView {
         return selectedState;
     }
 
-    public void AnimationSwitchSelectedState() {
-        this.startAnimation(animToSide);
-    }
+//    public void AnimationSwitchSelectedState() {
+//        this.startAnimation(animToSide);
+//    }
 
     public GradientDrawable getAvatarDrawable() {
         return avatarDrawable;

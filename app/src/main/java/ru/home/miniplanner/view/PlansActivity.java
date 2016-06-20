@@ -66,6 +66,7 @@ public class PlansActivity extends AppCompatActivity {
             getMenuInflater().inflate(R.menu.action_mode, menu);
 
             editMenuItem = menu.findItem(R.id.action_edit);
+            ViewService.setStatusBar(PlansActivity.this, R.color.actionModeDark);
 
             return true;
         }
@@ -83,7 +84,10 @@ public class PlansActivity extends AppCompatActivity {
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             if (item.getItemId() == R.id.action_remove) {
-                mode.finish();
+
+                for (int position: multiSelector.getSelectedPositions()) {
+
+                }
 
 //                for (int i = mObjects.size(); i >= 0; i--) {
 //                    if (multiSelector.isSelected(i, 0)) {
@@ -92,6 +96,7 @@ public class PlansActivity extends AppCompatActivity {
 //                    }
 //                }
 
+                mode.finish();
                 multiSelector.clearSelections();
                 return true;
 
@@ -102,7 +107,13 @@ public class PlansActivity extends AppCompatActivity {
         @Override
         public void onDestroyActionMode(ActionMode actionMode) {
             super.onDestroyActionMode(actionMode);
+
+            multiSelector.clearSelections();
             multiSelector.setSelectable(false);
+            planAdapter.notifyDataSetChanged();
+            ViewService.setStatusBar(PlansActivity.this, R.color.colorPrimaryDark);
+//            AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
+//            avatarLetterView.AnimationSwitchSelectedState();
         }
     };
 
@@ -245,9 +256,6 @@ public class PlansActivity extends AppCompatActivity {
 
         if (!multiSelector.isSelectable()) {
             actionMode = startSupportActionMode(mActionModeCallback);
-            ViewService.setStatusBar(this, R.color.actionModeDark);
-        } else {
-            ViewService.setStatusBar(this, R.color.colorPrimaryDark);
         }
 
         multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
@@ -261,8 +269,9 @@ public class PlansActivity extends AppCompatActivity {
             editMenuItem.setVisible(false);
         }
 
-        AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
-        avatarLetterView.AnimationSwitchSelectedState();
+        planAdapter.notifyDataSetChanged();
+//        AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
+//        avatarLetterView.switchSelectedState();
 
 //        toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
 //        toolbar.setBackgroundResource(R.color.colorSelect);
