@@ -95,7 +95,7 @@ public class PlansActivity extends AppCompatActivity {
                 multiSelector.clearSelections();
                 return true;
             } else if (item.getItemId() == R.id.action_edit) {
-
+                openPlanEditActivity(multiSelector.getSelectedPositions().get(0));       // Режим редактирования возможен только если выцделен один элемен, поэтому цикла не делаю, а выбираю нулевой элемент.
             }
 
             return false;
