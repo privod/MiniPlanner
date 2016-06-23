@@ -84,11 +84,12 @@ public class PlansActivity extends AppCompatActivity {
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             if (item.getItemId() == R.id.action_remove) {
-
+                List<Plan> plans = planDao.getAll();
                 for (int position: multiSelector.getSelectedPositions()) {
-                    planRemove(planDao.getAll().get(position));
-
+                    planDao.delete(plans.get(position));
                 }
+                planAdapter.setPlans(planDao.getAll());
+                planAdapter.notifyDataSetChanged();
 
                 mode.finish();
                 multiSelector.clearSelections();
@@ -104,13 +105,14 @@ public class PlansActivity extends AppCompatActivity {
         public void onDestroyActionMode(ActionMode actionMode) {
             super.onDestroyActionMode(actionMode);
 
-            multiSelector.clearSelections();
-            multiSelector.setSelectable(false);
 //            planAdapter.notifyDataSetChanged();
             for (int position: multiSelector.getSelectedPositions()) {
-//            AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
-//            avatarLetterView.AnimationSwitchSelectedState();
+
+                AvatarLetterView avatarLetterView = (AvatarLetterView) recyclerView.getChildAt(position).findViewById(R.id.avatarLetter);
+                avatarLetterView.switchSelectedState();
             }
+            multiSelector.clearSelections();
+            multiSelector.setSelectable(false);
 
             ViewService.setStatusBar(PlansActivity.this, R.color.colorPrimaryDark);
         }
@@ -178,11 +180,11 @@ public class PlansActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_PLAN_EDIT);
     }
 
-    public void planRemove(Plan plan) {
-        this.planDao.delete(plan);
-        planAdapter.setPlans(planDao.getAll());
-        planAdapter.notifyDataSetChanged();
-    }
+//    public void planRemove(Plan plan) {
+//        this.planDao.delete(plan);
+//        planAdapter.setPlans(planDao.getAll());
+//        planAdapter.notifyDataSetChanged();
+//    }
 
 //    private int getSelectedPlanCount(List<Plan> plans) {
 //        int result = 0;
