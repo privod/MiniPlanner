@@ -90,18 +90,13 @@ public class PlansActivity extends AppCompatActivity {
 
                 }
 
-//                for (int i = mObjects.size(); i >= 0; i--) {
-//                    if (multiSelector.isSelected(i, 0)) {
-//                        // remove item from list
-//                        recyclerView.getAdapter().notifyItemRemoved(i);
-//                    }
-//                }
-
                 mode.finish();
                 multiSelector.clearSelections();
                 return true;
+            } else if (item.getItemId() == R.id.action_edit) {
 
             }
+
             return false;
         }
 
@@ -111,10 +106,13 @@ public class PlansActivity extends AppCompatActivity {
 
             multiSelector.clearSelections();
             multiSelector.setSelectable(false);
-            planAdapter.notifyDataSetChanged();
-            ViewService.setStatusBar(PlansActivity.this, R.color.colorPrimaryDark);
+//            planAdapter.notifyDataSetChanged();
+            for (int position: multiSelector.getSelectedPositions()) {
 //            AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
 //            avatarLetterView.AnimationSwitchSelectedState();
+            }
+
+            ViewService.setStatusBar(PlansActivity.this, R.color.colorPrimaryDark);
         }
     };
 
@@ -276,9 +274,9 @@ public class PlansActivity extends AppCompatActivity {
             editMenuItem.setVisible(false);
         }
 
-        planAdapter.notifyDataSetChanged();
-//        AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
-//        avatarLetterView.switchSelectedState();
+//        planAdapter.notifyDataSetChanged();
+        AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
+        avatarLetterView.switchSelectedState();
 
 //        toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
 //        toolbar.setBackgroundResource(R.color.colorSelect);

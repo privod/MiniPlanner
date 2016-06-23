@@ -35,7 +35,7 @@ public class AvatarLetterView extends TextView {
 
     public AvatarLetterView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setBackground(avatarDrawable);
+        setIsUnselectedState();
     }
 
     public AvatarLetterView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -45,7 +45,7 @@ public class AvatarLetterView extends TextView {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public AvatarLetterView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        setBackground(avatarDrawable);
+        setIsUnselectedState();
     }
 
     private GradientDrawable avatarDrawableInit() {
@@ -76,7 +76,7 @@ public class AvatarLetterView extends TextView {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                viewSelectedState();
+                setSelectedState(!isSelectedState());
                 startAnimation(animFromSide);
             }
 
@@ -103,27 +103,37 @@ public class AvatarLetterView extends TextView {
         letter = String.valueOf(Character.toUpperCase(ch));
     }
 
-    public void viewSelectedState() {
-        if (isSelectedState()) {
-            setBackground(selectedDrawable);
-            setText("");
-        } else {
-            setBackground(avatarDrawable);
-            setText(letter);
-        }
+    public void setIsSelectedState() {
+        setBackground(selectedDrawable);
+        setText("");
+        selectedState = true;
     }
 
+    public void setIsUnselectedState() {
+        setBackground(avatarDrawable);
+        setText(letter);
+        selectedState = false;
+    }
+
+//    public void viewSelectedState() {
+//        if (isSelectedState()) {
+//            setBackground(selectedDrawable);
+//            setText("");
+//        } else {
+//            setBackground(avatarDrawable);
+//            setText(letter);
+//        }
+//    }
+
     public void switchSelectedState() {
-        setSelectedState(!isSelectedState());
-//        switchSelectedState();
+        startAnimation(animToSide);
     }
 
     public void setSelectedState(boolean selectedState) {
-        if (this.selectedState != selectedState) {
-            startAnimation(animToSide);
-            this.selectedState = selectedState;
+        if (selectedState) {
+            setIsSelectedState();
         } else {
-            viewSelectedState();
+            setIsUnselectedState();
         }
     }
 
