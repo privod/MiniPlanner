@@ -19,7 +19,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
@@ -66,20 +66,18 @@
             <Button
                 android:id="@+id/button_ok"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="@dimen/button_padding"
-                android:background="@color/colorPrimary"
-                android:text="@string/ok"
-                android:textColor="@android:color/primary_text_dark" />
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:text="@string/ok" />
+            <!--android:textColor="@android:color/primary_text_dark" -->
+            <!--android:background="@color/colorPrimary"-->
 
             <Button
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="@dimen/button_padding"
-                android:background="@color/colorPrimary"
-                android:text="@string/cancel"
-                android:textColor="@android:color/primary_text_dark" />
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:text="@string/cancel" />
 
         </LinearLayout>
 
@@ -110,5 +108,5 @@
 
         </LinearLayout>-->
 
-    </LinearLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
 </android.support.design.widget.CoordinatorLayout>
