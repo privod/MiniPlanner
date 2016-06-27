@@ -46,8 +46,8 @@ public class PlanEditActivity extends EditActivity<Plan> {
                 finish();            }
         };
 
-        nameEditText = (EditText) findViewById(R.id.nameEditText);
-        dateRegEditText = (EditText) findViewById(R.id.dateRegEditText);
+        nameEditText = (EditText) findViewById(R.id.edit_text_name);
+        dateRegEditText = (EditText) findViewById(R.id.edit_text_date);
 
         getViewService().textViewSetText(nameEditText, plan.getName());
         getViewService().textViewSetText(dateRegEditText, plan.getDateReg());

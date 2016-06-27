@@ -30,7 +30,7 @@ public class ContributionAdapter extends PlannerBaseAdapter<Contribution> {
 
 //        TextView descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
         TextView partyTextView = (TextView) view.findViewById(R.id.descriptionTextView);
-        TextView dateRegTextView = (TextView) view.findViewById(R.id.dateRegTextView);
+        TextView dateRegTextView = (TextView) view.findViewById(R.id.text_view_date_reg);
         TextView sumTextView = (TextView) view.findViewById(R.id.sumTextView);
 
 //        getViewService().textViewSetText(descriptionTextView, contribution.getDescription());

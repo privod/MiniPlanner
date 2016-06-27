@@ -76,11 +76,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 }
             });
 
-            nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
-            dateRegTextView = (TextView) itemView.findViewById(R.id.dateRegTextView);
-            costTotalTextView = (TextView) itemView.findViewById(R.id.costTotalTextView);
+            nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
+            dateRegTextView = (TextView) itemView.findViewById(R.id.text_view_date_reg);
+            costTotalTextView = (TextView) itemView.findViewById(R.id.text_view_cost_total);
 
-            avatarLetter = (AvatarLetterView) itemView.findViewById(R.id.avatarLetter);
+            avatarLetter = (AvatarLetterView) itemView.findViewById(R.id.avatar_letter);
             avatarLetter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

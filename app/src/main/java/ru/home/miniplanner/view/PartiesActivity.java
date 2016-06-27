@@ -60,7 +60,7 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
 //            partyDao.refresh(party);
 //        }
         partyAdapter = new PartyAdapter(this);
-        listView = (ListView) findViewById(R.id.recyclerView);
+        listView = (ListView) findViewById(R.id.recycler_view);
         listView.setAdapter(partyAdapter);
 
         registerForContextMenu(listView);

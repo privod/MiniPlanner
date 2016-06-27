@@ -56,7 +56,7 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
 //            finish();
 //        }
 
-        okButton = (Button) findViewById(R.id.okButton);
+        okButton = (Button) findViewById(R.id.button_ok);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +64,7 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
             }
         });
 
-        cancelButton = (Button) findViewById(R.id.cancelButton);
+        cancelButton = (Button) findViewById(R.id.button_cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

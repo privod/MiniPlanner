@@ -1,9 +1,7 @@
 package ru.home.miniplanner.view;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -14,8 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -108,7 +104,7 @@ public class PlansActivity extends AppCompatActivity {
 //            planAdapter.notifyDataSetChanged();
             for (int position: multiSelector.getSelectedPositions()) {
 
-                AvatarLetterView avatarLetterView = (AvatarLetterView) recyclerView.getChildAt(position).findViewById(R.id.avatarLetter);
+                AvatarLetterView avatarLetterView = (AvatarLetterView) recyclerView.getChildAt(position).findViewById(R.id.avatar_letter);
                 avatarLetterView.switchSelectedState();
             }
             multiSelector.clearSelections();
@@ -129,7 +125,7 @@ public class PlansActivity extends AppCompatActivity {
         planDao = HelperFactory.getHelper().getPlanDao();
 
         planAdapter = new PlanAdapter(multiSelector);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setAdapter(planAdapter);
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -277,7 +273,7 @@ public class PlansActivity extends AppCompatActivity {
         }
 
 //        planAdapter.notifyDataSetChanged();
-        AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatarLetter);
+        AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatar_letter);
         avatarLetterView.switchSelectedState();
 
 //        toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
