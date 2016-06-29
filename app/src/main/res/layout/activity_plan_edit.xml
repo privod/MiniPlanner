@@ -51,6 +51,7 @@
                 android:id="@+id/edit_text_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.EditText"
                 android:hint="@string/plan_date_hint"
                 android:inputType="date"
                 android:singleLine="true" />
