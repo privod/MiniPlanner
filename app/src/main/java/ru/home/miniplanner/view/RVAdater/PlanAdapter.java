@@ -2,10 +2,13 @@ package ru.home.miniplanner.view.RVAdater;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.text.style.BackgroundColorSpan;
 import android.util.Log;
+import android.util.StateSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -94,8 +97,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 //                    }
                 }
             });
-//            setSelectionModeBackgroundDrawable(new ColorDrawable(ViewService.getColor(itemView.getContext(), R.color.colorSelect)));
-//            setDefaultModeBackgroundDrawable(new ColorDrawable(ViewService.getColor(itemView.getContext(), R.color.colorSelect)));
+
+            StateListDrawable stateListDrawable = new StateListDrawable();
+            ColorDrawable colorDrawable = new ColorDrawable(ViewService.getColor(itemView.getContext(), R.color.colorSelect));
+            stateListDrawable.addState(new int[]{16843518}, colorDrawable);
+            stateListDrawable.addState(StateSet.WILD_CARD, (Drawable)null);
+            setSelectionModeBackgroundDrawable(stateListDrawable);
+            setDefaultModeBackgroundDrawable(itemView.getBackground());
         }
     }
 

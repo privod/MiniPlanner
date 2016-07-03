@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SelectableHolder;
+import com.bignerdranch.android.multiselector.SwappingHolder;
 
 import java.util.List;
 
@@ -102,10 +103,16 @@ public class PlansActivity extends AppCompatActivity {
             super.onDestroyActionMode(actionMode);
 
 //            planAdapter.notifyDataSetChanged();
-            for (int position: multiSelector.getSelectedPositions()) {
+//            for (int position: multiSelector.getSelectedPositions()) {
+//                AvatarLetterView avatarLetterView = (AvatarLetterView) recyclerView.getChildAt(position).findViewById(R.id.avatar_letter);
+//                avatarLetterView.switchSelectedState();
+//            }
 
-                AvatarLetterView avatarLetterView = (AvatarLetterView) recyclerView.getChildAt(position).findViewById(R.id.avatar_letter);
-                avatarLetterView.switchSelectedState();
+            for (int i = 0; i < recyclerView.getChildCount(); i++ ) {
+                AvatarLetterView avatarLetter = (AvatarLetterView) (recyclerView.getChildAt(i).findViewById(R.id.avatar_letter));
+                if (avatarLetter.isSelectedState()) {
+                    avatarLetter.switchSelectedState();
+                }
             }
             multiSelector.clearSelections();
             multiSelector.setSelectable(false);
