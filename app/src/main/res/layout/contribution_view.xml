@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date"
-            android:textSize="@dimen/list_view_date_text_size"
+            android:textSize="@dimen/font_small"
             android:layout_column="0" />
     </TableRow>
 
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Party"
-            android:textSize="@dimen/list_view_text_size"
+            android:textSize="@dimen/font_normal"
             android:layout_column="0" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sum"
-            android:textSize="@dimen/list_view_text_size"
+            android:textSize="@dimen/font_normal"
             android:layout_column="1"
             android:layout_marginStart="5sp" />
     </TableRow>

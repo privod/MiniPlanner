@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.PlansActivity"
-            android:label="@string/title_plans"
+            android:label="@string/activity.plans"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,15 +25,15 @@
         </activity>
         <activity
             android:name=".view.edit.PlanEditActivity"
-            android:label="@string/title_plan_edit"
+            android:label="@string/activity.plan_edit"
             android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".view.PartiesActivity"
-            android:label="@string/title_parties"
+            android:label="@string/activity.parties"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".view.edit.PartyEditActivity"
-            android:label="@string/title_party_edit"
+            android:label="@string/activity.party_edit"
             android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".view.PartyContentActivity"
@@ -41,11 +41,11 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".view.edit.BayEditActivity"
-            android:label="@string/title_bay_edit"
+            android:label="@string/activity.bay_edit"
             android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".view.edit.ContributionEditActivity"
-            android:label="@string/title_contribution_edit"
+            android:label="@string/activity.contribution_edit"
             android:windowSoftInputMode="stateVisible"/>
     </application>
 

@@ -5,7 +5,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -18,7 +17,7 @@ import ru.home.miniplanner.model.Party;
 /**
  * Created by privod on 28.10.2015.
  */
-public class PartyAdapter extends PlannerBaseAdapter<Party> {
+public class PartyAdapter extends BaseAdapter<Party> {
     static final String LOG_TAG = PartyAdapter.class.getSimpleName();
 
 //    public PartyAdapter(Context context, List<Party> list) {

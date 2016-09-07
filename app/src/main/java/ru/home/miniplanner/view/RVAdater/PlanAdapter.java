@@ -4,19 +4,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
-import android.text.style.BackgroundColorSpan;
-import android.util.Log;
 import android.util.StateSet;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SwappingHolder;
 
@@ -58,7 +52,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                 public void onClick(View v) {
 //                    Log.d(LOG_TAG, "Layout Click");
                     if (v.getContext() instanceof PlansActivity) {
-                        ((PlansActivity) v.getContext()).openPartiesActivity(getAdapterPosition());
+                        ((PlansActivity) v.getContext()).startPartiesActivity(getAdapterPosition());
                     }
                 }
             });
@@ -99,7 +93,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             });
 
             StateListDrawable stateListDrawable = new StateListDrawable();
-            ColorDrawable colorDrawable = new ColorDrawable(ViewService.getColor(itemView.getContext(), R.color.colorSelect));
+            ColorDrawable colorDrawable = new ColorDrawable(ViewService.getColor(itemView.getContext(), R.color.material_gray_400));
             stateListDrawable.addState(new int[]{16843518}, colorDrawable);
             stateListDrawable.addState(StateSet.WILD_CARD, (Drawable)null);
             setSelectionModeBackgroundDrawable(stateListDrawable);

@@ -1,15 +1,20 @@
 <resources>
 
-    <string name="app_name">Mini Planner</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_edit">Edit</string>
-    <string name="action_remove">Remove</string>
-    <string name="title_plans">List of event</string>
-    <string name="title_parties">List of participants</string>
-    <string name="title_plan_edit">@string/plan_edit</string>
-    <string name="title_party_edit">@string/plan_edit</string>
-    <string name="title_bay_edit">@string/bay_edit</string>
-    <string name="title_contribution_edit">@string/bay_edit</string>
+    <!--Intent arguments-->
+    <string name="argument.id">id</string>
+
+    <string name="app_name">Mini Planner</string>=
+
+    <string name="action.settings">Settings</string>
+    <string name="action.edit">Edit</string>
+    <string name="action.remove">Remove</string>
+
+    <string name="activity.plans">List of event</string>
+    <string name="activity.parties">List of participants</string>
+    <string name="activity.plan_edit">@string/plan_edit</string>
+    <string name="activity.party_edit">@string/party_edit</string>
+    <string name="activity.bay_edit">@string/bay_edit</string>
+    <string name="activity.contribution_edit">@string/bay_edit</string>
 
     <!-- Base value -->
     <string name="plan_edit">Edit event</string>

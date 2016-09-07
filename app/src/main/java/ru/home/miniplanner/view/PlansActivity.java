@@ -18,40 +18,28 @@ import android.view.animation.AnimationUtils;
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SelectableHolder;
-import com.bignerdranch.android.multiselector.SwappingHolder;
 
 import java.util.List;
 
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.view.RVAdater.PlanAdapter;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.service.PlanDao;
 import ru.home.miniplanner.view.divider.DividerItemDecoration;
 import ru.home.miniplanner.view.edit.PlanEditActivity;
 import ru.home.miniplanner.view.widget.AvatarLetterView;
 
 public class PlansActivity extends AppCompatActivity {
+//    public static final int REQUEST_PARTIES = 10;
+//    private static final int REQUEST_PLAN_EDIT = 20;
 
-    private static final String LOG_TAG = PlansActivity.class.getSimpleName();
-    public static final int REQUEST_PARTIES = 10;
-    private static final int REQUEST_PLAN_EDIT = 20;
-
-//    private static enum Mode {
-//        NORMAL, EDIT, REMOVE
-//    }
-
-//    private static Mode mode;
-
-    PlanDao planDao;
+    private Dao<Plan> planDao;
     PlanAdapter planAdapter;
     RecyclerView recyclerView;
-    Toolbar toolbar;
-//    List<Plan> planSelected;
+//    Toolbar toolbar;
 
     MenuItem editMenuItem;
-//    MenuItem removeMenuItem;
-
     ActionMode actionMode;
     private MultiSelector multiSelector = new MultiSelector();
     private ModalMultiSelectorCallback mActionModeCallback
@@ -63,7 +51,7 @@ public class PlansActivity extends AppCompatActivity {
             getMenuInflater().inflate(R.menu.action_mode, menu);
 
             editMenuItem = menu.findItem(R.id.action_edit);
-            ViewService.setStatusBar(PlansActivity.this, R.color.actionModeDark);
+            ViewService.setStatusBar(PlansActivity.this, R.color.material_gray_700);
 
             return true;
         }
@@ -92,7 +80,7 @@ public class PlansActivity extends AppCompatActivity {
                 multiSelector.clearSelections();
                 return true;
             } else if (item.getItemId() == R.id.action_edit) {
-                openPlanEditActivity(multiSelector.getSelectedPositions().get(0));       // Режим редактирования возможен только если выцделен один элемен, поэтому цикла не делаю, а выбираю нулевой элемент.
+                startPlanEditActivity(multiSelector.getSelectedPositions().get(0));       // Режим редактирования возможен только если выцделен один элемен, поэтому цикла не делаю, а выбираю нулевой элемент.
             }
 
             return false;
@@ -125,7 +113,7 @@ public class PlansActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plans);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         HelperFactory.setHelper(this);
@@ -134,9 +122,7 @@ public class PlansActivity extends AppCompatActivity {
         planAdapter = new PlanAdapter(multiSelector);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setAdapter(planAdapter);
-
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -148,7 +134,7 @@ public class PlansActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openPlanEditActivity(0);
+                startPlanEditActivity(0);
             }
         });
     }
@@ -165,13 +151,13 @@ public class PlansActivity extends AppCompatActivity {
 //        return planDao.getAll();
 //    }
 
-    public void openPartiesActivity(int position) {
+    public void startPartiesActivity(int position) {
         Intent intent = new Intent(PlansActivity.this, PartiesActivity.class);
         intent.putExtra(Plan.EXTRA_NAME, planDao.getAll().get(position));
-        startActivityForResult(intent, REQUEST_PARTIES);
+        startActivityForResult(intent, getResources().getInteger(R.integer.request_code_parties));
     }
 
-    private void openPlanEditActivity(int position) {
+    private void startPlanEditActivity(int position) {
         Plan plan;
         if (position == 0) {
             plan = new Plan();
@@ -180,7 +166,7 @@ public class PlansActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(PlansActivity.this, PlanEditActivity.class);
         intent.putExtra(Plan.EXTRA_NAME, plan);
-        startActivityForResult(intent, REQUEST_PLAN_EDIT);
+        startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
     }
 
 //    public void planRemove(Plan plan) {

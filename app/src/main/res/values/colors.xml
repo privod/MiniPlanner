@@ -4,12 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="colorSelectAvatar">#757575</color>
-    <color name="colorSelect">#bdbdbd</color>
-    <color name="colorSelectDark">#616161</color>
-
-    <color name="actionMode">#757575</color>
-    <color name="actionModeDark">#616161</color>
+    <color name="material_gray_700">#616161</color>
+    <color name="material_gray_600">#757575</color>
+    <color name="material_gray_400">#bdbdbd</color>
 
     <color name="green">#43a047</color>
     <color name="red">#be2b30</color>

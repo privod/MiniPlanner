@@ -11,7 +11,7 @@ import ru.home.miniplanner.model.Bay;
 /**
  * Created by privod on 19.10.2015.
  */
-public class BayAdapter extends PlannerBaseAdapter<Bay> {
+public class BayAdapter extends BaseAdapter<Bay> {
     static final String LOG_TAG = BayAdapter.class.getSimpleName();
 
     public BayAdapter(Context context) {

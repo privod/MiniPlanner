@@ -26,10 +26,10 @@ public class Plan extends Domain {
     @DatabaseField(dataType = DataType.BIG_DECIMAL)
     private BigDecimal costExpect;
     @DatabaseField(dataType = DataType.INTEGER)
-    @ColorInt
-    private int avatarColor;
-    @DatabaseField(dataType = DataType.BOOLEAN)
-    private boolean selected;
+//    @ColorInt
+//    private int avatarColor;
+//    @DatabaseField(dataType = DataType.BOOLEAN)
+//    private boolean selected;
     @ForeignCollectionField
     private Collection<Party> parties;
 
@@ -100,19 +100,19 @@ public class Plan extends Domain {
         this.costExpect = costExpect;
     }
 
-    public int getAvatarColor() {
-        return avatarColor;
-    }
-
-    public void setAvatarColor(int avatarColor) {
-        this.avatarColor = avatarColor;
-    }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
+//    public int getAvatarColor() {
+//        return avatarColor;
+//    }
+//
+//    public void setAvatarColor(int avatarColor) {
+//        this.avatarColor = avatarColor;
+//    }
+//
+//    public boolean isSelected() {
+//        return selected;
+//    }
+//
+//    public void setSelected(boolean selected) {
+//        this.selected = selected;
+//    }
 }
