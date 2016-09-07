@@ -2,6 +2,7 @@ package ru.home.miniplanner.db;
 
 import android.content.Context;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -17,10 +18,6 @@ import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Domain;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.service.BayDao;
-import ru.home.miniplanner.service.ContributionDao;
-import ru.home.miniplanner.service.PartyDao;
-import ru.home.miniplanner.service.PlanDao;
 
 /**
  * Created by privod on 23.10.2015.
@@ -29,10 +26,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME ="planner.db";
     private static final int DATABASE_VERSION = 1;
 
-    private Dao<Plan> planDao;
-    private Dao<Party> partyDao;
-    private Dao<Bay> bayDao;
-    private Dao<Contribution> contributionDao;
+    private BaseDao<Plan> planDao;
+    private BaseDao<Party> partyDao;
+    private BaseDao<Bay> bayDao;
+    private BaseDao<Contribution> contributionDao;
 
 
     public DatabaseHelper(Context context) {
@@ -88,17 +85,27 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    private <T extends Domain> Dao<T> daoCreate(Class<T> tClass) {
-        Dao<T> dao = null;
+    private <T extends Domain, D extends BaseDao<T>> D getDao(D dao) {
+        if (null == dao) {
+            try {
+                dao = D.new;
+            } catch (SQLException e) {
+                Log.e(this.getClass().getSimpleName(), e.getMessage());
+            }
+        }
+    }
+
+    private <T extends Domain> BaseDao<T> daoCreate(Class<T> tClass) {
+        BaseDao<T> dao = null;
         try {
-            dao = new Dao<T>(getConnectionSource(), tClass);
+            dao = new BaseDao<T>(getConnectionSource(), tClass);
         } catch (SQLException e) {
             Log.e(this.getClass().getSimpleName(), e.getMessage());
         }
         return dao;
     }
 
-    public synchronized Dao<Plan> getPlanDao() {
+    public synchronized PlanDao getPlanDao() {
         if (null == planDao) {
             planDao = daoCreate(Plan.class);
         }
@@ -106,21 +113,21 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
 
-    public synchronized Dao<Party> getPartyDao() {
+    public synchronized BaseDao<Party> getPartyDao() {
         if (null == partyDao) {
             partyDao = daoCreate(Party.class);
         }
         return partyDao;
     }
 
-    public synchronized Dao<Bay> getBayDao() {
+    public synchronized BaseDao<Bay> getBayDao() {
         if (null == bayDao) {
             bayDao = daoCreate(Bay.class);
         }
         return bayDao;
     }
 
-    public synchronized Dao<Contribution> getContributionDao() {
+    public synchronized BaseDao<Contribution> getContributionDao() {
         if (null == contributionDao) {
             contributionDao = daoCreate(Contribution.class);
         }

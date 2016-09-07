@@ -1,76 +1,57 @@
 package ru.home.miniplanner.view.adapter;
 
+import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.bignerdranch.android.multiselector.MultiSelector;
+import com.bignerdranch.android.multiselector.SwappingHolder;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import ru.home.miniplanner.model.Domain;
+import ru.home.miniplanner.view.PlansActivity;
 
 /**
  * Created by privod on 19.10.2015.
  */
-public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends Domain> extends android.widget.BaseAdapter {
+public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends Domain> extends RecyclerView.Adapter<VH> {
 
-    public abstract VH onCreateViewHolder(ViewGroup parent);
-    public abstract void onBindViewHolder(VH holder, int position, ViewGroup parent);
-
-    public static class ViewHolder {
-        View itemView;
-
-        public ViewHolder(View itemView) {
-            this.itemView = itemView;
-        }
-
-        public View getItemView() {
-            return itemView;
-        }
-    }
-
+//    public abstract VH onCreateViewHolder(ViewGroup parent);
+//    public abstract void onBindViewHolder(VH holder, int position, ViewGroup parent);
     //    private Context context;
     private List<T> data;
-    private SparseBooleanArray arrayChecked;
+//    private SparseBooleanArray arrayChecked;
     protected Class<VH> tClass;
 
-    public BaseAdapter(Class<VH> tClass) {
+    protected MultiSelector multiSelector;
+
+    public BaseAdapter(MultiSelector multiSelector, Class<VH> tClass) {
         this.data = new ArrayList<>();
-        this.arrayChecked = new SparseBooleanArray();
+//        this.arrayChecked = new SparseBooleanArray();
         this.tClass = tClass;
     }
 
-    @Override
-    public int getCount() {
-        return data.size();
-    }
+    public abstract class ViewHolder extends SwappingHolder {
+//        View itemView;
 
-    @Override
-    public T getItem(int position) {
-        return data.get(position);
-    }
+        public ViewHolder(final View itemView) {
+            super(itemView, multiSelector);
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        VH holder;
-
-        if (convertView == null) {
-            holder = onCreateViewHolder(parent);
-            convertView = holder.getItemView();
-        } else {
-            holder = tClass.cast(convertView.getTag());
+//            this.itemView = itemView;
         }
 
-        onBindViewHolder(holder, position, parent);
-        convertView.setTag(holder);
+//        public View getItemView() {
+//            return itemView;
+//        }
+    }
 
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return data.size();
     }
 
     public void setData(List<T> data) {
@@ -85,11 +66,11 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
         return data;
     }
 
-    public SparseBooleanArray getArrayChecked() {
-        return arrayChecked;
-    }
-
-    public void setArrayChecked(SparseBooleanArray arrayChecked) {
-        this.arrayChecked = arrayChecked;
-    }
+//    public SparseBooleanArray getArrayChecked() {
+//        return arrayChecked;
+//    }
+//
+//    public void setArrayChecked(SparseBooleanArray arrayChecked) {
+//        this.arrayChecked = arrayChecked;
+//    }
 }

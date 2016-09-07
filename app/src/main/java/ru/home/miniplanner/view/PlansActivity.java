@@ -22,19 +22,18 @@ import com.bignerdranch.android.multiselector.SelectableHolder;
 import java.util.List;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.db.Dao;
-import ru.home.miniplanner.view.RVAdater.PlanAdapter;
+import ru.home.miniplanner.db.BaseDao;
+import ru.home.miniplanner.view.adapter.PlanAdapter;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.view.divider.DividerItemDecoration;
 import ru.home.miniplanner.view.edit.PlanEditActivity;
-import ru.home.miniplanner.view.widget.AvatarLetterView;
 
 public class PlansActivity extends AppCompatActivity {
 //    public static final int REQUEST_PARTIES = 10;
 //    private static final int REQUEST_PLAN_EDIT = 20;
 
-    private Dao<Plan> planDao;
+    private BaseDao<Plan> planDao;
     PlanAdapter planAdapter;
     RecyclerView recyclerView;
 //    Toolbar toolbar;
@@ -73,7 +72,7 @@ public class PlansActivity extends AppCompatActivity {
                 for (int position: multiSelector.getSelectedPositions()) {
                     planDao.delete(plans.get(position));
                 }
-                planAdapter.setPlans(planDao.getAll());
+                planAdapter.setData(planDao.getAll());
                 planAdapter.notifyDataSetChanged();
 
                 mode.finish();
@@ -90,17 +89,11 @@ public class PlansActivity extends AppCompatActivity {
         public void onDestroyActionMode(ActionMode actionMode) {
             super.onDestroyActionMode(actionMode);
 
-//            planAdapter.notifyDataSetChanged();
-//            for (int position: multiSelector.getSelectedPositions()) {
-//                AvatarLetterView avatarLetterView = (AvatarLetterView) recyclerView.getChildAt(position).findViewById(R.id.avatar_letter);
-//                avatarLetterView.switchSelectedState();
-//            }
-
             for (int i = 0; i < recyclerView.getChildCount(); i++ ) {
-                AvatarLetterView avatarLetter = (AvatarLetterView) (recyclerView.getChildAt(i).findViewById(R.id.avatar_letter));
+                /*AvatarLetterView avatarLetter = (AvatarLetterView) (recyclerView.getChildAt(i).findViewById(R.id.avatar_letter));
                 if (avatarLetter.isSelectedState()) {
                     avatarLetter.switchSelectedState();
-                }
+                }*/
             }
             multiSelector.clearSelections();
             multiSelector.setSelectable(false);
@@ -119,7 +112,7 @@ public class PlansActivity extends AppCompatActivity {
         HelperFactory.setHelper(this);
         planDao = HelperFactory.getHelper().getPlanDao();
 
-        planAdapter = new PlanAdapter(multiSelector);
+        planAdapter = new PlanAdapter(this, multiSelector);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setAdapter(planAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -143,7 +136,7 @@ public class PlansActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        planAdapter.setPlans(planDao.getAll());
+        planAdapter.setData(planDao.getAll());
         planAdapter.notifyDataSetChanged();
     }
 
@@ -265,9 +258,12 @@ public class PlansActivity extends AppCompatActivity {
             editMenuItem.setVisible(false);
         }
 
-//        planAdapter.notifyDataSetChanged();
-        AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatar_letter);
-        avatarLetterView.switchSelectedState();
+        planAdapter.notifyDataSetChanged();
+//        AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatar_letter);
+//        avatarLetterView.switchSelectedState();
+
+
+
 
 //        toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
 //        toolbar.setBackgroundResource(R.color.colorSelect);
@@ -299,10 +295,11 @@ public class PlansActivity extends AppCompatActivity {
             return;
         }
 
-        if (requestCode == REQUEST_PLAN_EDIT && resultCode == RESULT_OK) {
+        if (requestCode == getResources().getInteger(R.integer.request_code_plan_edit)
+                && resultCode == RESULT_OK) {
             Plan plan = (Plan) data.getSerializableExtra(Plan.EXTRA_NAME);
             planDao.save(plan);
-            planAdapter.setPlans(planDao.getAll());
+            planAdapter.setData(planDao.getAll());
             planAdapter.notifyDataSetChanged();
         }
     }

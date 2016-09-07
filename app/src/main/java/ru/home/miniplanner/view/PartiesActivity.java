@@ -21,7 +21,7 @@ import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.BayDao;
 import ru.home.miniplanner.service.PartyDao;
-import ru.home.miniplanner.service.PlanDao;
+import ru.home.miniplanner.db.PlanDao;
 import ru.home.miniplanner.view.adapter.PartyAdapter;
 import ru.home.miniplanner.view.edit.PartyEditActivity;
 

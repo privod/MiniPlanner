@@ -13,9 +13,9 @@ import ru.home.miniplanner.model.Domain;
 /**
  * Created by privod on 23.10.2015.
  */
-public class Dao<T extends Domain> extends BaseDaoImpl<T, Long> {
+public abstract class BaseDao<T extends Domain> extends BaseDaoImpl<T, Long> {
 
-    public Dao(ConnectionSource connectionSource, Class<T> dataClass) throws SQLException {
+    public BaseDao(ConnectionSource connectionSource, Class<T> dataClass) throws SQLException {
         super(connectionSource, dataClass);
     }
 

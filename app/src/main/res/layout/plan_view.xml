@@ -2,50 +2,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/spacing_normal"
-    android:paddingRight="@dimen/spacing_normal"
-    android:paddingTop="@dimen/spacing_normal"
-    android:paddingBottom="@dimen/spacing_normal"
-    android:background="?android:attr/activatedBackgroundIndicator">
+    android:background="?android:attr/activatedBackgroundIndicator"
+    style="@style/AppTheme.LayoutPadding"
+    >
 
-    <ru.home.miniplanner.view.widget.AvatarLetterView
-        android:layout_width="@dimen/size_avatar"
-        android:layout_height="@dimen/size_avatar"
-        android:id="@+id/avatar_letter"
-        android:text="N"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        style="@style/AppTheme.AvatarLetter"
-        android:gravity="center_vertical|center_horizontal" />
-
-    <TextView
+    <FrameLayout
+        android:id="@+id/frame_layout_avatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Name"
+        >
+
+        <ImageView
+            android:id="@+id/icon_avatar"
+            android:layout_width="@dimen/size_avatar"
+            android:layout_height="@dimen/size_avatar"
+            />
+
+        <ImageView
+            android:id="@+id/icon_check"
+            android:layout_width="@dimen/size_avatar"
+            android:layout_height="@dimen/size_avatar"
+            android:src="@drawable/check_sm"
+            android:visibility="gone"
+            />
+        <!--android:background="@drawable/circle"-->
+
+    </FrameLayout>
+
+    <TextView
         android:id="@+id/text_view_name"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:layout_marginStart="@dimen/spacing_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/frame_layout_avatar"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/avatar_letter" />
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:text="Name"
+        style="@style/TextAppearance.AppCompat.Headline"
+        />
+    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date"
         android:id="@+id/text_view_date_reg"
-        style="@style/TextAppearance.AppCompat.Caption"
-        android:layout_below="@+id/text_view_name"
-        android:layout_alignStart="@+id/text_view_name" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Cost total"
+        android:layout_below="@+id/text_view_name"
+        android:layout_alignStart="@+id/text_view_name"
+        android:text="Date"
+        style="@style/TextAppearance.AppCompat.Caption"
+        />
+
+    <TextView
         android:id="@+id/text_view_cost_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        style="@style/TextAppearance.AppCompat.Display1" />
+        android:text="Cost total"
+        style="@style/TextAppearance.AppCompat.Display1"
+        />
+    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
 
 </RelativeLayout>

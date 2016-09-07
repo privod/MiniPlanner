@@ -11,7 +11,7 @@ import ru.home.miniplanner.model.Contribution;
 /**
  * Created by privod on 19.10.2015.
  */
-public class ContributionAdapter extends BaseAdapter<Contribution> {
+public class ContributionAdapter extends OldBaseAdapter<Contribution> {
     static final String LOG_TAG = ContributionAdapter.class.getSimpleName();
 
     public ContributionAdapter(Context context) {

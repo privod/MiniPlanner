@@ -7,7 +7,7 @@ import android.widget.EditText;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.service.PlanDao;
+import ru.home.miniplanner.db.PlanDao;
 
 public class PlanEditActivity extends EditActivity<Plan> {
     static final String LOG_TAG = PlanEditActivity.class.getSimpleName();

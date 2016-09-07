@@ -17,7 +17,7 @@ import ru.home.miniplanner.model.Party;
 /**
  * Created by privod on 28.10.2015.
  */
-public class PartyAdapter extends BaseAdapter<Party> {
+public class PartyAdapter extends OldBaseAdapter<Party> {
     static final String LOG_TAG = PartyAdapter.class.getSimpleName();
 
 //    public PartyAdapter(Context context, List<Party> list) {
