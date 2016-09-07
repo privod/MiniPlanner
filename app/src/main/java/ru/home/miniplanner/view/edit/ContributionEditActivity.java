@@ -9,7 +9,7 @@ import android.widget.Spinner;
 import java.util.List;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.db.BaseDao;
+import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Party;
@@ -25,7 +25,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 //    private EditText descriptionEditText;
     private Spinner toSpinner;
 
-    BaseDao<Party> partyDao;
+    Dao<Party> partyDao;
 
     Contribution contribution;
 

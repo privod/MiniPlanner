@@ -2,7 +2,6 @@ package ru.home.miniplanner.db;
 
 import android.content.Context;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -26,10 +25,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME ="planner.db";
     private static final int DATABASE_VERSION = 1;
 
-    private BaseDao<Plan> planDao;
-    private BaseDao<Party> partyDao;
-    private BaseDao<Bay> bayDao;
-    private BaseDao<Contribution> contributionDao;
+    private Dao<Plan> planDao;
+    private PartyDao partyDao;
+    private Dao<Bay> bayDao;
+    private Dao<Contribution> contributionDao;
+
+//    private Dao<Plan> planDao;
+//    private Dao<Party> partyDao;
+//    private Dao<Bay> bayDao;
+//    private Dao<Contribution> contributionDao;
 
 
     public DatabaseHelper(Context context) {
@@ -85,54 +89,69 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    private <T extends Domain, D extends BaseDao<T>> D getDao(D dao) {
+    private <T extends Domain, D extends Dao<T>> D getDao(D dao, Dao.Factory<T,D> factory) {
         if (null == dao) {
             try {
-                dao = D.new;
+                dao = factory.newDaoInstance(getConnectionSource());
             } catch (SQLException e) {
                 Log.e(this.getClass().getSimpleName(), e.getMessage());
             }
         }
+
+        return dao;
     }
 
-    private <T extends Domain> BaseDao<T> daoCreate(Class<T> tClass) {
-        BaseDao<T> dao = null;
+    public synchronized Dao<Plan> getPlanDao() {
+        return getDao(planDao, new Dao.Factory<Plan, Dao<Plan>>() {
+            @Override
+            public Dao<Plan> newDaoInstance(ConnectionSource connectionSource) throws SQLException {
+                return new Dao<Plan>(getConnectionSource(), Plan.class);
+            }
+        });
+    }
+
+    public synchronized PartyDao getPartyDao() {
+        return getDao(partyDao, new PartyDao.Factory() );
+    }
+
+
+    /*private <T extends Domain> Dao<T> daoCreate(Class<T> tClass) {
+        Dao<T> dao = null;
         try {
-            dao = new BaseDao<T>(getConnectionSource(), tClass);
+            dao = new Dao<T>(getConnectionSource(), tClass);
         } catch (SQLException e) {
             Log.e(this.getClass().getSimpleName(), e.getMessage());
         }
         return dao;
     }
 
-    public synchronized PlanDao getPlanDao() {
+    public synchronized Dao<Plan> getPlanDao() {
         if (null == planDao) {
             planDao = daoCreate(Plan.class);
         }
         return planDao;
     }
 
-
-    public synchronized BaseDao<Party> getPartyDao() {
+    public synchronized Dao<Party> getPartyDao() {
         if (null == partyDao) {
             partyDao = daoCreate(Party.class);
         }
         return partyDao;
     }
 
-    public synchronized BaseDao<Bay> getBayDao() {
+    public synchronized Dao<Bay> getBayDao() {
         if (null == bayDao) {
             bayDao = daoCreate(Bay.class);
         }
         return bayDao;
     }
 
-    public synchronized BaseDao<Contribution> getContributionDao() {
+    public synchronized Dao<Contribution> getContributionDao() {
         if (null == contributionDao) {
             contributionDao = daoCreate(Contribution.class);
         }
         return contributionDao;
-    }
+    }*/
 
     @Override
     public void close() {

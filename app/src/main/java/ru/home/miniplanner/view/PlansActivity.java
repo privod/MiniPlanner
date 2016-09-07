@@ -22,7 +22,7 @@ import com.bignerdranch.android.multiselector.SelectableHolder;
 import java.util.List;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.db.BaseDao;
+import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.view.adapter.PlanAdapter;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
@@ -33,7 +33,7 @@ public class PlansActivity extends AppCompatActivity {
 //    public static final int REQUEST_PARTIES = 10;
 //    private static final int REQUEST_PLAN_EDIT = 20;
 
-    private BaseDao<Plan> planDao;
+    private Dao<Plan> planDao;
     PlanAdapter planAdapter;
     RecyclerView recyclerView;
 //    Toolbar toolbar;

@@ -5,9 +5,10 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.db.PlanDao;
+import ru.home.miniplanner.db.PartyDao;
 
 public class PlanEditActivity extends EditActivity<Plan> {
     static final String LOG_TAG = PlanEditActivity.class.getSimpleName();
@@ -15,7 +16,7 @@ public class PlanEditActivity extends EditActivity<Plan> {
     private EditText nameEditText;
     private EditText dateRegEditText;
 
-    PlanDao planDao;
+    Dao<Plan> planDao;
 
     private Plan plan;
 

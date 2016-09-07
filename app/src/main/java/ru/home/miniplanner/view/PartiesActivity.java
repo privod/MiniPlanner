@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.BayDao;
-import ru.home.miniplanner.service.PartyDao;
-import ru.home.miniplanner.db.PlanDao;
+import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.view.adapter.PartyAdapter;
 import ru.home.miniplanner.view.edit.PartyEditActivity;
 
@@ -32,8 +32,8 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
     private static final int REQUEST_PARTY_CONTENT = 50;
 
 
-    PlanDao planDao;
-    PartyDao partyDao;
+    Dao<Plan> planDao;
+    ru.home.miniplanner.db.PartyDao partyDao;
     BayDao bayDao;
 
     Plan plan;
