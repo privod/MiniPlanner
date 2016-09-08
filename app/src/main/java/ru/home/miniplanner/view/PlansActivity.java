@@ -19,6 +19,7 @@ import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SelectableHolder;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import ru.home.miniplanner.R;
@@ -326,6 +327,35 @@ public class PlansActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }else if (id == R.id.action_cre_debug_data) {
+
+            Dao<Plan> planDao = HelperFactory.getHelper().getPlanDao();
+
+            Plan plan;
+            plan = new Plan();
+            plan.setName("Рыбылка");
+            plan.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
+            planDao.save(plan);
+
+            plan = new Plan();
+            plan.setName("Хмельники");
+            plan.setDateReg(new GregorianCalendar(2015, 7, 2).getTime());
+            planDao.save(plan);
+
+            plan = new Plan();
+            plan.setName("Баня");
+            plan.setDateReg(new GregorianCalendar(2016, 2, 13).getTime());
+            planDao.save(plan);
+
+            plan = new Plan();
+            plan.setName("Дача");
+            plan.setDateReg(new GregorianCalendar(2016, 7, 17).getTime());
+            planDao.save(plan);
+
+            planAdapter.setData(planDao.getAll());
+            planAdapter.notifyDataSetChanged();
+
             return true;
         }
 

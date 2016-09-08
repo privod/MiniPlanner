@@ -11,6 +11,7 @@ import java.util.List;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
+import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Party;
 
@@ -25,7 +26,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 //    private EditText descriptionEditText;
     private Spinner toSpinner;
 
-    Dao<Party> partyDao;
+    PartyDao partyDao;
 
     Contribution contribution;
 
@@ -69,7 +70,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 
         Long planId = contribution.getFrom().getPlan().getId();
         partyDao = HelperFactory.getHelper().getPartyDao();
-        List<Party> partyList = partyDao.getById(planId);
+        List<Party> partyList = partyDao.getByPlanId(planId);
         ArrayAdapter<Party> adapter = new ArrayAdapter<Party>(this, android.R.layout.simple_spinner_item, partyList);
         toSpinner.setAdapter(adapter);
 

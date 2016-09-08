@@ -30,6 +30,7 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
     protected MultiSelector multiSelector;
 
     public BaseAdapter(MultiSelector multiSelector, Class<VH> tClass) {
+        this.multiSelector = multiSelector;
         this.data = new ArrayList<>();
 //        this.arrayChecked = new SparseBooleanArray();
         this.tClass = tClass;

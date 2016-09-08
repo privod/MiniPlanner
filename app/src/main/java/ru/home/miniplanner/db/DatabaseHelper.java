@@ -114,6 +114,24 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return getDao(partyDao, new PartyDao.Factory() );
     }
 
+    public synchronized Dao<Bay> getBayDao() {
+        return getDao(bayDao, new Dao.Factory<Bay, Dao<Bay>>() {
+            @Override
+            public Dao<Bay> newDaoInstance(ConnectionSource connectionSource) throws SQLException {
+                return new Dao<Bay>(getConnectionSource(), Bay.class);
+            }
+        });
+    }
+
+    public synchronized Dao<Contribution> getContributionDao() {
+        return getDao(contributionDao, new Dao.Factory<Contribution, Dao<Contribution>>() {
+            @Override
+            public Dao<Contribution> newDaoInstance(ConnectionSource connectionSource) throws SQLException {
+                return new Dao<Contribution>(getConnectionSource(), Contribution.class);
+            }
+        });
+    }
+
 
     /*private <T extends Domain> Dao<T> daoCreate(Class<T> tClass) {
         Dao<T> dao = null;

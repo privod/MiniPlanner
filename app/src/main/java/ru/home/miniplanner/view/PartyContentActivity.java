@@ -3,15 +3,11 @@ package ru.home.miniplanner.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TabHost;
-
-import java.util.ArrayList;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.HelperFactory;
@@ -19,12 +15,11 @@ import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.service.BayDao;
-import ru.home.miniplanner.service.PartyDao;
+import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.view.adapter.BayAdapter;
 import ru.home.miniplanner.view.adapter.ContributionAdapter;
 import ru.home.miniplanner.view.edit.BayEditActivity;
 import ru.home.miniplanner.view.edit.ContributionEditActivity;
-import ru.home.miniplanner.view.edit.PartyEditActivity;
 
 public class PartyContentActivity extends AppCompatActivity {
     private static final int REQUEST_BAY_EDIT = 60;

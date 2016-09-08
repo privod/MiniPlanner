@@ -6,6 +6,7 @@
     <string name="app_name">Mini Planner</string>=
 
     <string name="action.settings">Settings</string>
+    <string name="action.cre_debug_data">Создать отладочные данные</string>
     <string name="action.edit">Edit</string>
     <string name="action.remove">Remove</string>
 

@@ -11,21 +11,19 @@ import android.widget.TabHost;
 import java.util.ArrayList;
 
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
-import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Party;
-import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.service.BayDao;
-import ru.home.miniplanner.service.PartyDao;
+import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.view.adapter.BayAdapter;
 
 public class PartyEditActivity extends EditActivity<Party> {
-    static final String LOG_TAG = PartyEditActivity.class.getSimpleName();
+//    static final String LOG_TAG = PartyEditActivity.class.getSimpleName();
 
     private EditText nameEditText;
     PartyDao partyDao;
-    BayDao bayDao;
+    Dao<Bay> bayDao;
     BayAdapter bayAdapter;
     Party party;
 
