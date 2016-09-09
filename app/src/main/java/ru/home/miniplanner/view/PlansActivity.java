@@ -270,8 +270,8 @@ public class PlansActivity extends AppCompatActivity {
 //        toolbar.setBackgroundResource(R.color.colorSelect);
 
 //        final ImageView selectorImage  = (ImageView) view.findViewById(R.id.selectorImage);
-//        final Animation animToSide = AnimationUtils.loadAnimation(this, R.anim.to_side);
-//        final Animation animFromSide = AnimationUtils.loadAnimation(this, R.anim.from_side);
+//        final Animation animToSide = AnimationUtils.loadAnimation(this, R.anim.avatar_out);
+//        final Animation animFromSide = AnimationUtils.loadAnimation(this, R.anim.avatar_in);
 //        animToSide.setAnimationListener( new Animation.AnimationListener() {
 //            @Override
 //            public void onAnimationStart(Animation animation) { }

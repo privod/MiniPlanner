@@ -6,34 +6,35 @@
     style="@style/AppTheme.LayoutPadding"
     >
 
-    <FrameLayout
-        android:id="@+id/frame_layout_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ViewSwitcher
+        android:id="@+id/view_swicher_avatar"
+        android:layout_width="@dimen/size_avatar"
+        android:layout_height="@dimen/size_avatar"
         >
 
         <ImageView
             android:id="@+id/icon_avatar"
-            android:layout_width="@dimen/size_avatar"
-            android:layout_height="@dimen/size_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
 
         <ImageView
             android:id="@+id/icon_check"
-            android:layout_width="@dimen/size_avatar"
-            android:layout_height="@dimen/size_avatar"
-            android:src="@drawable/check_sm"
-            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_checked"
+            android:background="@drawable/circle"
             />
+        <!--android:visibility="gone"-->
         <!--android:background="@drawable/circle"-->
 
-    </FrameLayout>
+    </ViewSwitcher>
 
     <TextView
         android:id="@+id/text_view_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/frame_layout_avatar"
+        android:layout_toEndOf="@+id/view_swicher_avatar"
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/spacing_normal"
         android:text="Name"
