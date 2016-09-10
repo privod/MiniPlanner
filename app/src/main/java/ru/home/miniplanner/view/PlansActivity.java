@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ViewAnimator;
 
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
@@ -88,12 +89,16 @@ public class PlansActivity extends AppCompatActivity {
         public void onDestroyActionMode(ActionMode actionMode) {
             super.onDestroyActionMode(actionMode);
 
-            for (int i = 0; i < recyclerView.getChildCount(); i++ ) {
-                AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) (recyclerView.getChildAt(i).findViewById(R.id.view_swicher_avatar));
-                if (avatarViewSwitcher.getDisplayedChild() == 1) {
-                    avatarViewSwitcher.showNext();
-                }
+//            for (int i = 0; i < recyclerView.getChildCount(); i++ ) {
+//                AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) (recyclerView.getChildAt(i).findViewById(R.id.view_swicher_avatar));
+//                if (avatarViewSwitcher.getDisplayedChild() == 1) {
+//                    avatarViewSwitcher.showNext();
+//                }
+//            }
+            for (int position: multiSelector.getSelectedPositions()) {
+                selectSwitch(position, 0);      // Назанчение второго параметра (long id) непонятно, внутри метода isSelected он не используется
             }
+
             multiSelector.clearSelections();
             multiSelector.setSelectable(false);
 //            planAdapter.notifyDataSetChanged();
@@ -158,12 +163,13 @@ public class PlansActivity extends AppCompatActivity {
         startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
     }
 
-    public void planSelect(View view, SelectableHolder holder) {
+    public void selectSwitch(int position, long id) {
         if (!multiSelector.isSelectable()) {
             actionMode = startSupportActionMode(mActionModeCallback);
         }
 
-        multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
+//        multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
+        multiSelector.setSelected(position, id, !multiSelector.isSelected(position, id));           // Назанчение второго параметра (long id) непонятно, внутри метода isSelected он не используется
 
         int selectCount = multiSelector.getSelectedPositions().size();
         if (selectCount == 0) {
@@ -174,7 +180,7 @@ public class PlansActivity extends AppCompatActivity {
             editMenuItem.setVisible(false);
         }
 
-        AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) view.findViewById(R.id.view_swicher_avatar);
+        AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) (recyclerView.getChildAt(position).findViewById(R.id.view_swicher_avatar));
         avatarViewSwitcher.showNext();
 //        planAdapter.notifyDataSetChanged();
     }

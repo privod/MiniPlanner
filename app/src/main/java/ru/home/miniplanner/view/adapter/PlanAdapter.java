@@ -1,6 +1,5 @@
 package ru.home.miniplanner.view.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
                 @Override
                 public boolean onLongClick(View v) {
                     if (v.getContext() instanceof PlansActivity) {
-                        ((PlansActivity) v.getContext()).planSelect(v, PlanViewHolder.this);
+                        ((PlansActivity) v.getContext()).selectSwitch(getAdapterPosition(), getItemId());
                         return true;
                     }
 
@@ -65,7 +64,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
                 @Override
                 public void onClick(View v) {
                     if (v.getContext() instanceof PlansActivity) {
-                        ((PlansActivity) v.getContext()).planSelect(v, PlanViewHolder.this);
+                        ((PlansActivity) v.getContext()).selectSwitch(getAdapterPosition(), getItemId());
                     }
                 }
             });
