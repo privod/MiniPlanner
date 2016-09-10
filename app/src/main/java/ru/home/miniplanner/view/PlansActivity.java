@@ -32,13 +32,10 @@ import ru.home.miniplanner.view.edit.PlanEditActivity;
 import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
 public class PlansActivity extends AppCompatActivity {
-//    public static final int REQUEST_PARTIES = 10;
-//    private static final int REQUEST_PLAN_EDIT = 20;
 
     private Dao<Plan> planDao;
     PlanAdapter planAdapter;
     RecyclerView recyclerView;
-//    Toolbar toolbar;
 
     MenuItem editMenuItem;
     ActionMode actionMode;
@@ -115,7 +112,7 @@ public class PlansActivity extends AppCompatActivity {
         HelperFactory.setHelper(this);
         planDao = HelperFactory.getHelper().getPlanDao();
 
-        planAdapter = new PlanAdapter(this, multiSelector);
+        planAdapter = new PlanAdapter(multiSelector);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setAdapter(planAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -143,10 +140,6 @@ public class PlansActivity extends AppCompatActivity {
         planAdapter.notifyDataSetChanged();
     }
 
-//    public List<Plan> getAllPlans() {
-//        return planDao.getAll();
-//    }
-
     public void startPartiesActivity(int position) {
         Intent intent = new Intent(PlansActivity.this, PartiesActivity.class);
         intent.putExtra(Plan.EXTRA_NAME, planDao.getAll().get(position));
@@ -165,87 +158,7 @@ public class PlansActivity extends AppCompatActivity {
         startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
     }
 
-//    public void planRemove(Plan plan) {
-//        this.planDao.delete(plan);
-//        planAdapter.setPlans(planDao.getAll());
-//        planAdapter.notifyDataSetChanged();
-//    }
-
-//    private int getSelectedPlanCount(List<Plan> plans) {
-//        int result = 0;
-//        for (Plan plan: plans) {
-//            if (plan.isSelected()) { result += 1; }
-//        }
-//        return result;
-//    }
-
-//    private void startMode(Mode modeToStart) {
-//        if (modeToStart == Mode.NORMAL) {
-//            editMenuItem.setVisible(false);
-//            removeMenuItem.setVisible(false);
-//            toolbar.setLogo(null);
-////            toolbar.setTitle(getString(R.string.title_plans));
-//            toolbar.setBackgroundResource(R.color.colorPrimary);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                Window window = getWindow();
-//                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//                window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-//            }
-//        } else if (modeToStart == Mode.EDIT) {
-//            editMenuItem.setVisible(true);
-//            removeMenuItem.setVisible(true);
-//            toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
-////            toolbar.setTitle(getString(R.string.title_plans));
-//            toolbar.setBackgroundResource(R.color.colorSelect);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                Window window = getWindow();
-//                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//                window.setStatusBarColor(getResources().getColor(R.color.colorSelectDark));
-//            }
-//        } else if (modeToStart == Mode.REMOVE) {
-//            editMenuItem.setVisible(false);
-//            removeMenuItem.setVisible(true);
-//            toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
-////            toolbar.setTitle(getString(R.string.title_plans));
-//            toolbar.setBackgroundResource(R.color.colorSelect);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                Window window = getWindow();
-//                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//                window.setStatusBarColor(getResources().getColor(R.color.colorSelectDark));
-//            }
-//        }
-//    }
-//
-//    private Mode getModeBySelected(List<Plan> plans) {
-//        if (getSelectedPlanCount(plans) == 0) {
-//            startMode(Mode.NORMAL);
-//            toolbar.setTitle(getString(R.string.title_plans));
-//        } else {
-//            if (getSelectedPlanCount(plans) == 1) {
-//                startMode(Mode.EDIT);
-//            } else {
-//                startMode(Mode.REMOVE);
-//                toolbar.setTitle(String.valueOf(getSelectedPlanCount(plans)));
-//            }
-//        }
-//
-//    }
-
     public void planSelect(View view, SelectableHolder holder) {
-
-//        List<Plan> plans = planDao.getAll();
-//        Plan plan = plans.get(position);
-//        plan.setSelected(!plan.isSelected());
-//        planDao.save(plan);
-
-//        if (!multiSelector.isSelectable()) {
-//            actionMode = startSupportActionMode(mActionModeCallback);
-//            multiSelector.setSelectable(true);
-//            multiSelector.setSelected(holder, true);
-//        } else {
-//            multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
-//        }
-
         if (!multiSelector.isSelectable()) {
             actionMode = startSupportActionMode(mActionModeCallback);
         }
@@ -264,28 +177,6 @@ public class PlansActivity extends AppCompatActivity {
         AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) view.findViewById(R.id.view_swicher_avatar);
         avatarViewSwitcher.showNext();
 //        planAdapter.notifyDataSetChanged();
-
-//        toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
-//        toolbar.setBackgroundResource(R.color.colorSelect);
-
-//        final ImageView selectorImage  = (ImageView) view.findViewById(R.id.selectorImage);
-//        final Animation animToSide = AnimationUtils.loadAnimation(this, R.anim.avatar_out);
-//        final Animation animFromSide = AnimationUtils.loadAnimation(this, R.anim.avatar_in);
-//        animToSide.setAnimationListener( new Animation.AnimationListener() {
-//            @Override
-//            public void onAnimationStart(Animation animation) { }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                avatarLetterView.setVisibility(View.INVISIBLE);
-//                selectorImage.setVisibility(View.VISIBLE);
-//                selectorImage.startAnimation(animFromSide);
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) { }
-//        });
-//        avatarLetterView.startAnimation(animToSide);
     }
 
     @Override
@@ -308,11 +199,6 @@ public class PlansActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-
-//        editMenuItem = menu.findItem(R.id.action_edit);
-//        removeMenuItem = menu.findItem(R.id.action_remove);
-//
-//        startMode(Mode.NORMAL);
 
         return true;
     }
@@ -363,7 +249,7 @@ public class PlansActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        HelperFactory.releaseHelper();      // TODO Нет гарантий вызова onDestroy, переделать!
+        HelperFactory.releaseHelper();
         super.onDestroy();
     }
 }
