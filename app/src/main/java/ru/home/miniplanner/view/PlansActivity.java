@@ -29,6 +29,7 @@ import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.view.divider.DividerItemDecoration;
 import ru.home.miniplanner.view.edit.PlanEditActivity;
+import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
 public class PlansActivity extends AppCompatActivity {
 //    public static final int REQUEST_PARTIES = 10;
@@ -91,13 +92,14 @@ public class PlansActivity extends AppCompatActivity {
             super.onDestroyActionMode(actionMode);
 
             for (int i = 0; i < recyclerView.getChildCount(); i++ ) {
-                /*AvatarLetterView avatarLetter = (AvatarLetterView) (recyclerView.getChildAt(i).findViewById(R.id.avatar_letter));
-                if (avatarLetter.isSelectedState()) {
-                    avatarLetter.switchSelectedState();
-                }*/
+                AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) (recyclerView.getChildAt(i).findViewById(R.id.view_swicher_avatar));
+                if (avatarViewSwitcher.getDisplayedChild() == 1) {
+                    avatarViewSwitcher.showNext();
+                }
             }
             multiSelector.clearSelections();
             multiSelector.setSelectable(false);
+//            planAdapter.notifyDataSetChanged();
 
             ViewService.setStatusBar(PlansActivity.this, R.color.colorPrimaryDark);
         }
@@ -259,12 +261,9 @@ public class PlansActivity extends AppCompatActivity {
             editMenuItem.setVisible(false);
         }
 
-        planAdapter.notifyDataSetChanged();
-//        AvatarLetterView avatarLetterView = (AvatarLetterView) view.findViewById(R.id.avatar_letter);
-//        avatarLetterView.switchSelectedState();
-
-
-
+        AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) view.findViewById(R.id.view_swicher_avatar);
+        avatarViewSwitcher.showNext();
+//        planAdapter.notifyDataSetChanged();
 
 //        toolbar.setLogo(R.drawable.ic_keyboard_backspace_white_24dp);
 //        toolbar.setBackgroundResource(R.color.colorSelect);

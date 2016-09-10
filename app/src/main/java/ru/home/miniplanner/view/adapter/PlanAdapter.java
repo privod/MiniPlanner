@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,6 +23,7 @@ import ru.home.miniplanner.R;
 import ru.home.miniplanner.Util;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.view.PlansActivity;
+import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
 /**
  * Created by privod on 19.10.2015.
@@ -41,7 +43,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
         private TextView costTotalTextView;
         private TextView nameTextView;
         private TextView dateRegTextView;
-        private ViewSwitcher avatarViewSwitcher;
+        private AvatarViewSwitcher avatarViewSwitcher;
 //        private FrameLayout avatarLayout;
         private ImageView avatarIcon;
 //        private ImageView checkedIcon;
@@ -82,22 +84,25 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
             dateRegTextView = (TextView) itemView.findViewById(R.id.text_view_date_reg);
             costTotalTextView = (TextView) itemView.findViewById(R.id.text_view_cost_total);
 //            avatarLayout = (FrameLayout) itemView.findViewById(R.id.frame_layout_avatar);
-            avatarIcon = (ImageView) itemView.findViewById(R.id.icon_avatar);
 //            checkedIcon = (ImageView) itemView.findViewById(R.id.icon_check);
 //            checkedIcon.setImageDrawable(TextDrawable.builder().buildRound(" ", ContextCompat.getColor(context, R.color.material_gray_700)));
-            avatarViewSwitcher = (ViewSwitcher) itemView.findViewById(R.id.view_swicher_avatar);
-            avatarViewSwitcher.setInAnimation(context, R.anim.avatar_in);
-            avatarViewSwitcher.setOutAnimation(context, R.anim.avatar_out);
-        }
-
-        // TODO Есть сомнения в технолигичности решения
-        public TextDrawable getNewAvatarDrawable(String text) {
-            String letter = String.valueOf(Character.toUpperCase(text.charAt(0)));
-            ColorGenerator generator = ColorGenerator.MATERIAL;
-//            avatarDrawable = TextDrawable.builder().buildRound(letter, generator.getColor(letter));
-//
-//            return avatarDrawable;
-            return TextDrawable.builder().buildRound(letter, generator.getColor(letter));
+            avatarIcon = (ImageView) itemView.findViewById(R.id.icon_avatar);
+//            avatarViewSwitcher.setInAnimation(context, R.anim.avatar_in);
+//            avatarViewSwitcher.setOutAnimation(context, R.anim.avatar_out);
+            avatarViewSwitcher = (AvatarViewSwitcher) itemView.findViewById(R.id.view_swicher_avatar);
+            avatarViewSwitcher.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Log.d(LOG_TAG, "Avatar Click");
+                    if (v.getContext() instanceof PlansActivity) {
+                        ((PlansActivity) v.getContext()).planSelect(v, PlanViewHolder.this);
+                    }
+//                    if (!multiSelector.isSelectable()) {
+//                        multiSelector.setSelectable(true);
+//                        multiSelector.setSelected(PlanViewHolder.this, true);
+//                    }
+                }
+            });
         }
     }
 
@@ -113,6 +118,20 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
 
         Plan plan = getData().get(position);
         holder.nameTextView.setText(plan.getName());
+        holder.dateRegTextView.setText(Util.dateToString(plan.getDateReg()));
+        holder.costTotalTextView.setText(plan.getTotalCost().toPlainString());
+        holder.avatarIcon.setImageDrawable(newAvatarDrawable(plan.getName()));
+
+//        if (multiSelector.isSelected(position, holder.getItemId()) != (holder.avatarViewSwitcher.getDisplayedChild() == 1)) {
+//            holder.avatarViewSwitcher.showNext();
+//        }
+
+        if (multiSelector.isSelected(position, holder.getItemId())) {
+            holder.avatarViewSwitcher.setDisplayedChildNoAnim(1);
+        } else {
+            holder.avatarViewSwitcher.setDisplayedChildNoAnim(0);
+        }
+
 
 //        if (multiSelector.isSelected(position, holder.getItemId())) {
 //            holder.avatarIcon.setImageDrawable(TextDrawable.builder().buildRound(" ", ContextCompat.getColor(holder.itemView.getContext(), R.color.material_gray_700)));
@@ -158,8 +177,10 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
                 holder.itemView.setBackgroundColor(Color.TRANSPARENT);
             }
         }*/
+    }
 
-        holder.dateRegTextView.setText(Util.dateToString(plan.getDateReg()));
-        holder.costTotalTextView.setText(plan.getTotalCost().toPlainString());
+    private TextDrawable newAvatarDrawable(String text) {
+        String letter = String.valueOf(Character.toUpperCase(text.charAt(0)));
+        return TextDrawable.builder().buildRound(letter, ColorGenerator.MATERIAL.getColor(letter));
     }
 }

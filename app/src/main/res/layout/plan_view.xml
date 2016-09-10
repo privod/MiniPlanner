@@ -6,10 +6,13 @@
     >
     <!--android:background="?android:attr/activatedBackgroundIndicator"-->
 
-    <ViewSwitcher
+    <ru.home.miniplanner.view.widget.AvatarViewSwitcher
         android:id="@+id/view_swicher_avatar"
         android:layout_width="@dimen/size_avatar"
         android:layout_height="@dimen/size_avatar"
+        android:animateFirstView="false"
+        android:inAnimation="@anim/avatar_in"
+        android:outAnimation="@anim/avatar_out"
         >
 
         <ImageView
@@ -28,7 +31,7 @@
         <!--android:visibility="gone"-->
         <!--android:background="@drawable/circle"-->
 
-    </ViewSwitcher>
+    </ru.home.miniplanner.view.widget.AvatarViewSwitcher>
 
     <TextView
         android:id="@+id/text_view_name"
