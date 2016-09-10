@@ -1,5 +1,6 @@
 package ru.home.miniplanner.view.adapter;
 
+import android.animation.StateListAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
@@ -45,7 +46,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
         private ImageView avatarIcon;
 //        private ImageView checkedIcon;
 
-        private TextDrawable avatarDrawable;
+//        private TextDrawable avatarDrawable;
 
         public PlanViewHolder(View itemView) {
             super(itemView);
@@ -93,9 +94,10 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
         public TextDrawable getNewAvatarDrawable(String text) {
             String letter = String.valueOf(Character.toUpperCase(text.charAt(0)));
             ColorGenerator generator = ColorGenerator.MATERIAL;
-            avatarDrawable = TextDrawable.builder().buildRound(letter, generator.getColor(letter));
-
-            return avatarDrawable;
+//            avatarDrawable = TextDrawable.builder().buildRound(letter, generator.getColor(letter));
+//
+//            return avatarDrawable;
+            return TextDrawable.builder().buildRound(letter, generator.getColor(letter));
         }
     }
 
@@ -110,7 +112,20 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
     public void onBindViewHolder(PlanViewHolder holder, int position) {
 
         Plan plan = getData().get(position);
-        if (!holder.nameTextView.getText().equals(plan.getName())) {
+        holder.nameTextView.setText(plan.getName());
+
+//        if (multiSelector.isSelected(position, holder.getItemId())) {
+//            holder.avatarIcon.setImageDrawable(TextDrawable.builder().buildRound(" ", ContextCompat.getColor(holder.itemView.getContext(), R.color.material_gray_700)));
+//            holder.checkedIcon.setVisibility(View.VISIBLE);
+//            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.material_gray_300));
+//        } else {
+//            holder.avatarIcon.setImageDrawable(holder.getNewAvatarDrawable(plan.getName()));
+//            holder.checkedIcon.setVisibility(View.GONE);
+//            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+//        }
+
+
+        /*if (!holder.nameTextView.getText().equals(plan.getName())) {
             holder.nameTextView.setText(plan.getName());
             holder.avatarIcon.setImageDrawable(holder.getNewAvatarDrawable(plan.getName()));
         }
@@ -128,21 +143,21 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
 //            }
 //
 //        }
-//        if (multiSelector.isSelected(position, holder.getItemId())) {
-//            if (holder.avatarIcon.getDrawable() != checkedDrawable) {
-//                // TODO Вынести в метод
-//                holder.avatarIcon.setImageDrawable(checkedDrawable);
-//                holder.checkedIcon.setVisibility(View.VISIBLE);
-//                holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.material_gray_400));
-//            }
-//        } else {
-//            if (holder.avatarIcon.getDrawable() != holder.avatarDrawable) {
-//                // TODO Вынести в тот же метод
-//                holder.avatarIcon.setImageDrawable(holder.avatarDrawable);
-//                holder.checkedIcon.setVisibility(View.GONE);
-//                holder.itemView.setBackgroundColor(Color.TRANSPARENT);
-//            }
-//        }
+        if (multiSelector.isSelected(position, holder.getItemId())) {
+            if (holder.avatarIcon.getDrawable() != checkedDrawable) {
+                // TODO Вынести в метод
+                holder.avatarIcon.setImageDrawable(checkedDrawable);
+                holder.checkedIcon.setVisibility(View.VISIBLE);
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.material_gray_400));
+            }
+        } else {
+            if (holder.avatarIcon.getDrawable() != holder.avatarDrawable) {
+                // TODO Вынести в тот же метод
+                holder.avatarIcon.setImageDrawable(holder.avatarDrawable);
+                holder.checkedIcon.setVisibility(View.GONE);
+                holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+            }
+        }*/
 
         holder.dateRegTextView.setText(Util.dateToString(plan.getDateReg()));
         holder.costTotalTextView.setText(plan.getTotalCost().toPlainString());
