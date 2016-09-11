@@ -1,5 +1,8 @@
 package ru.home.miniplanner.view.adapter;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,22 +73,8 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
                     }
                 }
             });
-//            avatarViewSwitcher.getInAnimation().setAnimationListener(new Animation.AnimationListener() {
-//                @Override
-//                public void onAnimationStart(Animation animation) {
-//
-//                }
-//
-//                @Override
-//                public void onAnimationEnd(Animation animation) {
-//                    PlanAdapter.this.notifyDataSetChanged();
-//                }
-//
-//                @Override
-//                public void onAnimationRepeat(Animation animation) {
-//
-//                }
-//            });
+//            setSelectionModeBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(itemView.getContext(), R.color.material_gray_300)));
+//            setDefaultModeBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
 
@@ -107,8 +96,10 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
 
         if (multiSelector.isSelected(position, holder.getItemId())) {
             holder.avatarViewSwitcher.setDisplayedChildNoAnim(1);
+//            holder.itemView.setBackgroundColor(Color.LTGRAY);
         } else {
             holder.avatarViewSwitcher.setDisplayedChildNoAnim(0);
+//            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
 
