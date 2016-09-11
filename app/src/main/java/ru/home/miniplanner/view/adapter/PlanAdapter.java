@@ -1,8 +1,10 @@
 package ru.home.miniplanner.view.adapter;
 
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +49,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
                 @Override
                 public boolean onLongClick(View v) {
                     if (v.getContext() instanceof PlansActivity) {
-                        ((PlansActivity) v.getContext()).selectSwitch(getAdapterPosition(), getItemId());
+                        ((PlansActivity) v.getContext()).selectSwitch(PlanViewHolder.this);
                         return true;
                     }
 
@@ -59,15 +61,31 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
             dateRegTextView = (TextView) itemView.findViewById(R.id.text_view_date_reg);
             costTotalTextView = (TextView) itemView.findViewById(R.id.text_view_cost_total);
             avatarIcon = (ImageView) itemView.findViewById(R.id.icon_avatar);
-            avatarViewSwitcher = (AvatarViewSwitcher) itemView.findViewById(R.id.view_swicher_avatar);
+            avatarViewSwitcher = (AvatarViewSwitcher) itemView.findViewById(R.id.view_switcher_avatar);
             avatarViewSwitcher.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (v.getContext() instanceof PlansActivity) {
-                        ((PlansActivity) v.getContext()).selectSwitch(getAdapterPosition(), getItemId());
+                        ((PlansActivity) v.getContext()).selectSwitch(PlanViewHolder.this);
                     }
                 }
             });
+//            avatarViewSwitcher.getInAnimation().setAnimationListener(new Animation.AnimationListener() {
+//                @Override
+//                public void onAnimationStart(Animation animation) {
+//
+//                }
+//
+//                @Override
+//                public void onAnimationEnd(Animation animation) {
+//                    PlanAdapter.this.notifyDataSetChanged();
+//                }
+//
+//                @Override
+//                public void onAnimationRepeat(Animation animation) {
+//
+//                }
+//            });
         }
     }
 

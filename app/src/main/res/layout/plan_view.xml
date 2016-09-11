@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
     style="@style/AppTheme.LayoutPadding"
     >
-    <!--android:background="?android:attr/activatedBackgroundIndicator"-->
+<!--android:background="?android:attr/activatedBackgroundIndicator"-->
 
     <ru.home.miniplanner.view.widget.AvatarViewSwitcher
-        android:id="@+id/view_swicher_avatar"
+        android:id="@+id/view_switcher_avatar"
         android:layout_width="@dimen/size_avatar"
         android:layout_height="@dimen/size_avatar"
         android:animateFirstView="false"
@@ -37,7 +38,7 @@
         android:id="@+id/text_view_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/view_swicher_avatar"
+        android:layout_toEndOf="@+id/view_switcher_avatar"
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/spacing_normal"
         android:text="Name"

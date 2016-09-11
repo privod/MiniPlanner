@@ -14,17 +14,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ViewAnimator;
 
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
-import com.bignerdranch.android.multiselector.SelectableHolder;
 
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
+import ru.home.miniplanner.view.adapter.BaseAdapter;
 import ru.home.miniplanner.view.adapter.PlanAdapter;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
@@ -89,19 +88,21 @@ public class PlansActivity extends AppCompatActivity {
         public void onDestroyActionMode(ActionMode actionMode) {
             super.onDestroyActionMode(actionMode);
 
-//            for (int i = 0; i < recyclerView.getChildCount(); i++ ) {
-//                AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) (recyclerView.getChildAt(i).findViewById(R.id.view_swicher_avatar));
-//                if (avatarViewSwitcher.getDisplayedChild() == 1) {
-//                    avatarViewSwitcher.showNext();
-//                }
-//            }
-            for (int position: multiSelector.getSelectedPositions()) {
-                selectSwitch(position, 0);      // Назанчение второго параметра (long id) непонятно, внутри метода isSelected он не используется
+            for (int i = 0; i < recyclerView.getChildCount(); i++ ) {
+                View view = recyclerView.getChildAt(i);
+                AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) (view.findViewById(R.id.view_switcher_avatar));
+                BaseAdapter.ViewHolder holder = (BaseAdapter.ViewHolder) recyclerView.getChildViewHolder(view);
+                if (multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId())) {
+                    avatarViewSwitcher.showNext();
+                }
             }
 
-            multiSelector.clearSelections();
+//            for (int position: multiSelector.getSelectedPositions()) {
+//                selectSwitch(position, 0);      // Назанчение второго параметра (long id) непонятно, внутри метода isSelected он не используется
+//            }
+
             multiSelector.setSelectable(false);
-//            planAdapter.notifyDataSetChanged();
+            multiSelector.clearSelections();
 
             ViewService.setStatusBar(PlansActivity.this, R.color.colorPrimaryDark);
         }
@@ -163,13 +164,13 @@ public class PlansActivity extends AppCompatActivity {
         startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
     }
 
-    public void selectSwitch(int position, long id) {
+    public void selectSwitch(BaseAdapter.ViewHolder holder) {
         if (!multiSelector.isSelectable()) {
             actionMode = startSupportActionMode(mActionModeCallback);
         }
 
-//        multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
-        multiSelector.setSelected(position, id, !multiSelector.isSelected(position, id));           // Назанчение второго параметра (long id) непонятно, внутри метода isSelected он не используется
+        multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
+//        multiSelector.setSelected(position, id, !multiSelector.isSelected(position, id));           // Назанчение второго параметра (long id) непонятно, внутри метода isSelected он не используется
 
         int selectCount = multiSelector.getSelectedPositions().size();
         if (selectCount == 0) {
@@ -180,8 +181,10 @@ public class PlansActivity extends AppCompatActivity {
             editMenuItem.setVisible(false);
         }
 
-        AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) (recyclerView.getChildAt(position).findViewById(R.id.view_swicher_avatar));
+//        AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) (recyclerView.getChildAt(position).findViewById(R.id.view_switcher_avatar));
+        AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) holder.itemView.findViewById(R.id.view_switcher_avatar);
         avatarViewSwitcher.showNext();
+
 //        planAdapter.notifyDataSetChanged();
     }
 
