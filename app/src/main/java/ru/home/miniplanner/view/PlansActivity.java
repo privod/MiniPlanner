@@ -1,5 +1,6 @@
 package ru.home.miniplanner.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import java.lang.Math;
 
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
@@ -21,6 +23,7 @@ import com.bignerdranch.android.multiselector.MultiSelector;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.view.adapter.BaseAdapter;
@@ -70,9 +73,10 @@ public class PlansActivity extends AppCompatActivity {
                 List<Plan> plans = planDao.getAll();
                 for (int position: multiSelector.getSelectedPositions()) {
                     planDao.delete(plans.get(position));
+                    planAdapter.notifyItemRemoved(position);
                 }
-                planAdapter.setData(planDao.getAll());
-                planAdapter.notifyDataSetChanged();
+//                planAdapter.setData(planDao.getAll());
+//                planAdapter.notifyDataSetChanged();
 
                 mode.finish();
                 multiSelector.clearSelections();
@@ -125,9 +129,9 @@ public class PlansActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        Animation anim = AnimationUtils.loadAnimation(this, R.anim.plans_appearance);
-        recyclerView.startAnimation(anim);
+        recyclerView.setItemAnimator(new SlideInLeftAnimator());
+//        Animation anim = AnimationUtils.loadAnimation(this, R.anim.plans_appearance);
+//        recyclerView.startAnimation(anim);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +147,11 @@ public class PlansActivity extends AppCompatActivity {
         super.onResume();
 
         planAdapter.setData(planDao.getAll());
-        planAdapter.notifyDataSetChanged();
+//        planAdapter.notifyDataSetChanged();
+        for (int position = 0; position < planAdapter.getItemCount(); position++) {
+            planAdapter.notifyItemInserted(position);
+        }
+
     }
 
     public void startPartiesActivity(int position) {
@@ -199,8 +207,10 @@ public class PlansActivity extends AppCompatActivity {
                 && resultCode == RESULT_OK) {
             Plan plan = (Plan) data.getSerializableExtra(Plan.EXTRA_NAME);
             planDao.save(plan);
-            planAdapter.setData(planDao.getAll());
-            planAdapter.notifyDataSetChanged();
+            planAdapter.notifyItemChanged(plan.getId().intValue());     // TODO HARDCODE Переделать
+
+//            planAdapter.setData(planDao.getAll());
+//            planAdapter.notifyDataSetChanged();
         }
     }
 
