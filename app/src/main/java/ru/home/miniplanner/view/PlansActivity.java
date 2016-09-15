@@ -66,10 +66,12 @@ public class PlansActivity extends AppCompatActivity {
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             if (item.getItemId() == R.id.action_remove) {
-                List<Plan> plans = planDao.getAll();
+//                List<Plan> plans = planDao.getAll();
+
                 List<Integer> selectedPositions = new ArrayList<>(multiSelector.getSelectedPositions());
                 for (int position: selectedPositions) {
-                    planDao.delete(plans.get(position));
+                    planAdapter.remove(position);
+                    planDao.delete(planAdapter.getItemId(position));
                 }
 //                planAdapter.setData(planDao.getAll());
 //                planAdapter.notifyDataSetChanged();
@@ -77,13 +79,11 @@ public class PlansActivity extends AppCompatActivity {
                 mode.finish();
                 multiSelector.clearSelections();
 
-                for (int position: selectedPositions) {
-                    planAdapter.notifyItemRemoved(position);
-                }
-
                 return true;
             } else if (item.getItemId() == R.id.action_edit) {
-                startPlanEditActivity(multiSelector.getSelectedPositions().get(0));       // Режим редактирования возможен только если выцделен один элемен, поэтому цикла не делаю, а выбираю нулевой элемент.
+                int position = multiSelector.getSelectedPositions().get(0);         // Режим редактирования возможен только если выцделен один элемен, поэтому цикла не делаю, а выбираю нулевой элемент.
+                Plan plan = planAdapter.getData().get(position);
+                startPlanEditActivity(plan);
             }
 
             return false;
@@ -124,6 +124,7 @@ public class PlansActivity extends AppCompatActivity {
         planDao = HelperFactory.getHelper().getPlanDao();
 
         planAdapter = new PlanAdapter(multiSelector);
+        planAdapter.setData(planDao.getAll());
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         if (null != recyclerView) {
             recyclerView.setAdapter(planAdapter);
@@ -141,7 +142,7 @@ public class PlansActivity extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startPlanEditActivity(0);
+                    startPlanEditActivity(new Plan());
                 }
             });
         }
@@ -151,14 +152,14 @@ public class PlansActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        planAdapter.setData(planDao.getAll());
+//        planAdapter.setData(planDao.getAll());
 //        planAdapter.notifyDataSetChanged();
 
 //        for (int position = 0; position < planAdapter.getItemCount(); position++) {
 //            planAdapter.notifyItemChanged(position);
 //        }
 
-        planAdapter.notifyItemRangeInserted(0, planAdapter.getItemCount());
+//        planAdapter.notifyItemRangeInserted(0, planAdapter.getItemCount());
     }
 
     public void startPartiesActivity(int position) {
@@ -167,9 +168,10 @@ public class PlansActivity extends AppCompatActivity {
         startActivityForResult(intent, getResources().getInteger(R.integer.request_code_parties));
     }
 
-    private void startPlanEditActivity(long id) {
+    private void startPlanEditActivity(Plan plan) {
         Intent intent = new Intent(PlansActivity.this, PlanEditActivity.class);
-        intent.putExtra(getString(R.string.argument_id), id);
+//        intent.putExtra(getString(R.string.argument_id), id);
+        intent.putExtra(plan.getClass().getSimpleName(), plan);
         startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
     }
 
@@ -206,11 +208,19 @@ public class PlansActivity extends AppCompatActivity {
 
         if (requestCode == getResources().getInteger(R.integer.request_code_plan_edit)
                 && resultCode == RESULT_OK) {
-//            Plan plan = (Plan) data.getSerializableExtra(Plan.EXTRA_NAME);
-            planAdapter.setData(planDao.getAll());
-            long id = data.getLongExtra(getString(R.string.argument_id), 0);
-            int position = planDao.getAll().indexOf(planDao.getById(id));
-            planAdapter.notifyItemInserted(position);
+            Plan plan = (Plan) data.getSerializableExtra(Plan.class.getSimpleName());
+            if (plan.getId() == 0) {
+                planAdapter.notifyItemInserted(planAdapter.getItemCount());
+            } else {
+                planAdapter.getData().
+            }
+
+            planDao.save()
+
+//            planAdapter.setData(planDao.getAll());
+//            long id = data.getLongExtra(getString(R.string.argument_id), 0);
+//            int position = planDao.getAll().indexOf(planDao.getById(id));
+//            planAdapter.notifyItemInserted(position);
 
 //            planAdapter.setData(planDao.getAll());
 //            planAdapter.notifyDataSetChanged();

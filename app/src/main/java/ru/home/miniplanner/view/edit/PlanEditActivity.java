@@ -14,6 +14,10 @@ public class PlanEditActivity extends EditActivity<Plan> {
     private EditText nameEditText;
     private EditText dateRegEditText;
 
+    public PlanEditActivity() {
+        tClass = Plan.class;
+    }
+
     @Override
     public Plan newInstanceEntity() {
         return new Plan();

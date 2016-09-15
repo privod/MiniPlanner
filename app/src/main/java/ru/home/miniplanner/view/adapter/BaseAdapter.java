@@ -50,4 +50,14 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
     public List<T> getData() {
         return data;
     }
+
+    public void remove(int position) {
+        getData().remove(position);
+        notifyItemRemoved(position);
+    }
+//
+//    public void add(String text, int position) {
+//        getData().add(position, text);
+//        notifyItemInserted(position);
+//    }
 }
