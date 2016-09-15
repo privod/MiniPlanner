@@ -1,57 +1,44 @@
 package ru.home.miniplanner.view.edit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.db.Dao;
+import ru.home.miniplanner.Util;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.db.PartyDao;
 
 public class PlanEditActivity extends EditActivity<Plan> {
-    static final String LOG_TAG = PlanEditActivity.class.getSimpleName();
 
     private EditText nameEditText;
     private EditText dateRegEditText;
 
-    Dao<Plan> planDao;
+    @Override
+    public Plan newInstanceEntity() {
+        return new Plan();
+    }
 
-    private Plan plan;
-
-    public PlanEditActivity() {
-        super(R.layout.activity_plan_edit);
+    @Override
+    public void changeEntity() {
+        entity.setName(nameEditText.getText().toString());
+        entity.setDateReg(Util.dateParse(dateRegEditText.getText().toString()));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        planDao = HelperFactory.getHelper().getPlanDao();
+        dao = HelperFactory.getHelper().getPlanDao();
 
-        Intent intent = this.getIntent();
-        plan = (Plan) intent.getSerializableExtra(Plan.EXTRA_NAME);
-//        planDao.refresh(plan);
-
-        doneListener = new OnEditorActionDoneListener() {
-            @Override
-            public void onActionDone() {
-                plan.setName(getViewService().textViewGetString(nameEditText));
-                plan.setDateReg(getViewService().textViewGetDate(dateRegEditText));
-//                entity.setCostExpect(viewService.textViewGetDecimal(costExpectEditText));
-
-                Intent intent = new Intent();
-                intent.putExtra(Plan.EXTRA_NAME, plan);
-                setResult(RESULT_OK, intent);
-                finish();            }
-        };
+        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
+        getLayoutInflater().inflate(R.layout.edit_plan, layout, true);
 
         nameEditText = (EditText) findViewById(R.id.edit_text_name);
         dateRegEditText = (EditText) findViewById(R.id.edit_text_date);
 
-        getViewService().textViewSetText(nameEditText, plan.getName());
-        getViewService().textViewSetText(dateRegEditText, plan.getDateReg());
+        nameEditText.setText(entity.getName());
+        dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
 
         nameEditText.requestFocus();
         nameEditText.selectAll();

@@ -16,45 +16,34 @@ import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.db.PartyDao;
+import ru.home.miniplanner.service.BayDao;
 import ru.home.miniplanner.view.adapter.BayAdapter;
 
 public class PartyEditActivity extends EditActivity<Party> {
-//    static final String LOG_TAG = PartyEditActivity.class.getSimpleName();
 
     private EditText nameEditText;
-    PartyDao partyDao;
-    Dao<Bay> bayDao;
-    BayAdapter bayAdapter;
-    Party party;
 
-
-    public PartyEditActivity() {
-        super(R.layout.activity_party_edit);
+    @Override
+    public Party newInstanceEntity() {
+        return new Party();
     }
+
+    @Override
+    public void changeEntity() {
+        entity.setName(nameEditText.getText().toString());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        partyDao = HelperFactory.getHelper().getPartyDao();
-        bayDao = HelperFactory.getHelper().getBayDao();
-
-        Intent intent = this.getIntent();
-        party = (Party) intent.getSerializableExtra(Party.EXTRA_NAME);
-
-        doneListener = new OnEditorActionDoneListener() {
-            @Override
-            public void onActionDone() {
-                party.setName(getViewService().textViewGetString(nameEditText));
-
-                Intent intent = new Intent();
-                intent.putExtra(Party.EXTRA_NAME, party);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        };
+        dao = HelperFactory.getHelper().getPartyDao();
+//        Dao<Bay> bayDao = HelperFactory.getHelper().getBayDao();
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
-        getViewService().textViewSetText(nameEditText, party.getName());
+
+        nameEditText.setText(entity.getName());
+
         nameEditText.requestFocus();
         nameEditText.selectAll();
         nameEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));

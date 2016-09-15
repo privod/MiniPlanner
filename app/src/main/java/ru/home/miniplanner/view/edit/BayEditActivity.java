@@ -1,57 +1,53 @@
 package ru.home.miniplanner.view.edit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import java.math.BigDecimal;
 
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.Util;
+import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
-import ru.home.miniplanner.model.Plan;
 
 /**
  * Created by bespalov on 08.12.15.
  */
 public class BayEditActivity extends EditActivity<Bay> {
-    static final String LOG_TAG = BayEditActivity.class.getSimpleName();
 
     private EditText costEditText;
     private EditText dateRegEditText;
     private EditText descriptionEditText;
-    Bay bay;
 
-    public BayEditActivity() {
-        super(R.layout.activity_bay_edit);
+    @Override
+    public Bay newInstanceEntity() {
+        return new Bay();
+    }
+
+    @Override
+    public void changeEntity() {
+        entity.setCost(new BigDecimal(costEditText.getText().toString()));
+        entity.setDateReg(Util.dateParse(dateRegEditText.getText().toString()));
+        entity.setDescription(descriptionEditText.getText().toString());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = this.getIntent();
-        bay = (Bay) intent.getSerializableExtra(Bay.EXTRA_NAME);
+        dao = HelperFactory.getHelper().getBayDao();
 
-
-        doneListener = new OnEditorActionDoneListener() {
-            @Override
-            public void onActionDone() {
-                bay.setCost(getViewService().textViewGetDecimal(costEditText));
-                bay.setDateReg(getViewService().textViewGetDate(dateRegEditText));
-                bay.setDescription(getViewService().textViewGetString(descriptionEditText));
-
-                Intent intent = new Intent();
-                intent.putExtra(Bay.EXTRA_NAME, bay);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        };
+        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
+        getLayoutInflater().inflate(R.layout.edit_plan, layout, true);          // TODO добавить R.layout.edit_bay
 
         costEditText = (EditText) findViewById(R.id.costEditText);
         dateRegEditText = (EditText) findViewById(R.id.dateRegEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
 
-        getViewService().textViewSetText(costEditText, bay.getCost());
-        getViewService().textViewSetText(dateRegEditText, bay.getDateReg());
-        getViewService().textViewSetText(descriptionEditText, bay.getDescription());
+        costEditText.setText(entity.getCost().toPlainString());
+        dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
+        descriptionEditText.setText(entity.getDescription());
 
         costEditText.requestFocus();
         costEditText.selectAll();

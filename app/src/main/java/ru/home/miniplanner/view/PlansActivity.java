@@ -1,25 +1,21 @@
 package ru.home.miniplanner.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import java.lang.Math;
 
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -71,15 +67,20 @@ public class PlansActivity extends AppCompatActivity {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             if (item.getItemId() == R.id.action_remove) {
                 List<Plan> plans = planDao.getAll();
-                for (int position: multiSelector.getSelectedPositions()) {
+                List<Integer> selectedPositions = new ArrayList<>(multiSelector.getSelectedPositions());
+                for (int position: selectedPositions) {
                     planDao.delete(plans.get(position));
-                    planAdapter.notifyItemRemoved(position);
                 }
 //                planAdapter.setData(planDao.getAll());
 //                planAdapter.notifyDataSetChanged();
 
                 mode.finish();
                 multiSelector.clearSelections();
+
+                for (int position: selectedPositions) {
+                    planAdapter.notifyItemRemoved(position);
+                }
+
                 return true;
             } else if (item.getItemId() == R.id.action_edit) {
                 startPlanEditActivity(multiSelector.getSelectedPositions().get(0));       // Режим редактирования возможен только если выцделен один элемен, поэтому цикла не делаю, а выбираю нулевой элемент.
@@ -124,22 +125,26 @@ public class PlansActivity extends AppCompatActivity {
 
         planAdapter = new PlanAdapter(multiSelector);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setAdapter(planAdapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new SlideInLeftAnimator());
+        if (null != recyclerView) {
+            recyclerView.setAdapter(planAdapter);
+            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+            recyclerView.setHasFixedSize(true);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setItemAnimator(new SlideInLeftAnimator());
 //        Animation anim = AnimationUtils.loadAnimation(this, R.anim.plans_appearance);
 //        recyclerView.startAnimation(anim);
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startPlanEditActivity(0);
-            }
-        });
+        if (null != fab) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startPlanEditActivity(0);
+                }
+            });
+        }
     }
 
     @Override
@@ -148,10 +153,12 @@ public class PlansActivity extends AppCompatActivity {
 
         planAdapter.setData(planDao.getAll());
 //        planAdapter.notifyDataSetChanged();
-        for (int position = 0; position < planAdapter.getItemCount(); position++) {
-            planAdapter.notifyItemInserted(position);
-        }
 
+//        for (int position = 0; position < planAdapter.getItemCount(); position++) {
+//            planAdapter.notifyItemChanged(position);
+//        }
+
+        planAdapter.notifyItemRangeInserted(0, planAdapter.getItemCount());
     }
 
     public void startPartiesActivity(int position) {
@@ -160,15 +167,9 @@ public class PlansActivity extends AppCompatActivity {
         startActivityForResult(intent, getResources().getInteger(R.integer.request_code_parties));
     }
 
-    private void startPlanEditActivity(int position) {
-        Plan plan;
-        if (position == 0) {
-            plan = new Plan();
-        } else {
-            plan = planDao.getAll().get(position);
-        }
+    private void startPlanEditActivity(long id) {
         Intent intent = new Intent(PlansActivity.this, PlanEditActivity.class);
-        intent.putExtra(Plan.EXTRA_NAME, plan);
+        intent.putExtra(getString(R.string.argument_id), id);
         startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
     }
 
@@ -205,9 +206,11 @@ public class PlansActivity extends AppCompatActivity {
 
         if (requestCode == getResources().getInteger(R.integer.request_code_plan_edit)
                 && resultCode == RESULT_OK) {
-            Plan plan = (Plan) data.getSerializableExtra(Plan.EXTRA_NAME);
-            planDao.save(plan);
-            planAdapter.notifyItemChanged(plan.getId().intValue());     // TODO HARDCODE Переделать
+//            Plan plan = (Plan) data.getSerializableExtra(Plan.EXTRA_NAME);
+            planAdapter.setData(planDao.getAll());
+            long id = data.getLongExtra(getString(R.string.argument_id), 0);
+            int position = planDao.getAll().indexOf(planDao.getById(id));
+            planAdapter.notifyItemInserted(position);
 
 //            planAdapter.setData(planDao.getAll());
 //            planAdapter.notifyDataSetChanged();
@@ -241,6 +244,7 @@ public class PlansActivity extends AppCompatActivity {
             plan.setName("Рыбылка");
             plan.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
             planDao.save(plan);
+            int posBegin = planDao.getAll().indexOf(plan);
 
             plan = new Plan();
             plan.setName("Хмельники");
@@ -258,7 +262,8 @@ public class PlansActivity extends AppCompatActivity {
             planDao.save(plan);
 
             planAdapter.setData(planDao.getAll());
-            planAdapter.notifyDataSetChanged();
+//            planAdapter.notifyDataSetChanged();
+            planAdapter.notifyItemRangeInserted(posBegin, posBegin + 4);
 
             return true;
         }

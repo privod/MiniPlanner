@@ -2,59 +2,56 @@ package ru.home.miniplanner.view.edit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.j256.ormlite.dao.BaseDaoImpl;
-
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.model.Domain;
-import ru.home.miniplanner.model.Party;
-import ru.home.miniplanner.view.ViewService;
 
 /**
  * Created by privod on 27.10.2015.
  */
 public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
-    static final String LOG_TAG = EditActivity.class.getSimpleName();
-    static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru"));
 
-    private ViewService viewService;
-//    private T entity;
+    protected Dao<T> dao;
+    protected T entity;
 
     protected OnEditorActionDoneListener doneListener;
 
     protected Button okButton;
     protected Button cancelButton;
 
-//    private final String extraName;
-    @LayoutRes private final int layoutResID;
-//    abstract protected EditText[] getArrayEdits();
-//    abstract protected void editResultOk();
-
-    public EditActivity(int layoutResID) {
-//        this.extraName = extraName;
-        this.layoutResID = layoutResID;
-    }
+    public abstract T newInstanceEntity();
+    public abstract void changeEntity();                    // TODO change method name
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutResID());
+        setContentView(R.layout.activity_edit);
 
-        viewService = new ViewService();
+        Intent intent = this.getIntent();
+        long id = intent.getLongExtra(getString(R.string.argument_id), 0);
+        if (id == 0) {
+            entity = newInstanceEntity();
+        } else {
+            entity = dao.getById(id);
+        }
 
-//        entity = getEntityFromIntent();
-//        if (null == entity) {
-//            setResult(RESULT_CANCELED);
-//            finish();
-//        }
+        doneListener = new OnEditorActionDoneListener() {
+            @Override
+            public void onActionDone() {
+                changeEntity();
+                dao.save(entity);
+
+                Intent intent = new Intent();
+                intent.putExtra(getString(R.string.argument_id), entity.getId());
+
+                setResult(RESULT_OK);
+                finish();
+            }
+        };
 
         okButton = (Button) findViewById(R.id.button_ok);
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -72,17 +69,5 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-//    public String getExtraName() {
-//        return extraName;
-//    }
-
-    public int getLayoutResID() {
-        return layoutResID;
-    }
-
-    public ViewService getViewService() {
-        return viewService;
     }
 }

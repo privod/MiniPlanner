@@ -2,6 +2,7 @@ package ru.home.miniplanner;
 
 import android.util.Log;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
