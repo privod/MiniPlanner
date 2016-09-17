@@ -70,8 +70,8 @@ public class PlansActivity extends AppCompatActivity {
 
                 List<Integer> selectedPositions = new ArrayList<>(multiSelector.getSelectedPositions());
                 for (int position: selectedPositions) {
-                    planAdapter.remove(position);
                     planDao.delete(planAdapter.getItemId(position));
+                    planAdapter.remove(position);
                 }
 //                planAdapter.setData(planDao.getAll());
 //                planAdapter.notifyDataSetChanged();
@@ -210,12 +210,16 @@ public class PlansActivity extends AppCompatActivity {
                 && resultCode == RESULT_OK) {
             Plan plan = (Plan) data.getSerializableExtra(Plan.class.getSimpleName());
             if (plan.getId() == 0) {
-                planAdapter.notifyItemInserted(planAdapter.getItemCount());
+                planAdapter.notifyItemInserted(planAdapter.getItemCount() - 1);
             } else {
-                planAdapter.getData().
+                for (int position = 0; position < planAdapter.getItemCount(); position++) {
+                    if (planAdapter.getData().get(position).getId().equals(plan.getId())) {
+                        planAdapter.getData().set(position, plan);
+                    }
+                }
             }
 
-            planDao.save()
+            planDao.save(plan);
 
 //            planAdapter.setData(planDao.getAll());
 //            long id = data.getLongExtra(getString(R.string.argument_id), 0);
