@@ -71,9 +71,9 @@ public class PlansActivity extends AppCompatActivity {
                 List<Integer> selectedPositions = new ArrayList<>(multiSelector.getSelectedPositions());
                 for (int position: selectedPositions) {
                     planDao.delete(planAdapter.getItemId(position));
-                    planAdapter.remove(position);
+//                    planAdapter.remove(position);
                 }
-//                planAdapter.setData(planDao.getAll());
+                planAdapter.updateData(planDao.getAll());
 //                planAdapter.notifyDataSetChanged();
 
                 mode.finish();
@@ -124,7 +124,7 @@ public class PlansActivity extends AppCompatActivity {
         planDao = HelperFactory.getHelper().getPlanDao();
 
         planAdapter = new PlanAdapter(multiSelector);
-        planAdapter.setData(planDao.getAll());
+//        planAdapter.updateData(planDao.getAll());
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         if (null != recyclerView) {
             recyclerView.setAdapter(planAdapter);
@@ -152,7 +152,7 @@ public class PlansActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-//        planAdapter.setData(planDao.getAll());
+        planAdapter.updateData(planDao.getAll());
 //        planAdapter.notifyDataSetChanged();
 
 //        for (int position = 0; position < planAdapter.getItemCount(); position++) {
@@ -209,24 +209,25 @@ public class PlansActivity extends AppCompatActivity {
         if (requestCode == getResources().getInteger(R.integer.request_code_plan_edit)
                 && resultCode == RESULT_OK) {
             Plan plan = (Plan) data.getSerializableExtra(Plan.class.getSimpleName());
-            if (plan.getId() == 0) {
-                planAdapter.notifyItemInserted(planAdapter.getItemCount() - 1);
-            } else {
-                for (int position = 0; position < planAdapter.getItemCount(); position++) {
-                    if (planAdapter.getData().get(position).getId().equals(plan.getId())) {
-                        planAdapter.getData().set(position, plan);
-                    }
-                }
-            }
+
+//            if (plan.getId() == 0) {
+//                planAdapter.notifyItemInserted(planAdapter.getItemCount() - 1);
+//            } else {
+//                for (int position = 0; position < planAdapter.getItemCount(); position++) {
+//                    if (planAdapter.getData().get(position).getId().equals(plan.getId())) {
+//                        planAdapter.getData().set(position, plan);
+//                    }
+//                }
+//            }
 
             planDao.save(plan);
 
-//            planAdapter.setData(planDao.getAll());
+//            planAdapter.updateData(planDao.getAll());
 //            long id = data.getLongExtra(getString(R.string.argument_id), 0);
 //            int position = planDao.getAll().indexOf(planDao.getById(id));
 //            planAdapter.notifyItemInserted(position);
 
-//            planAdapter.setData(planDao.getAll());
+            planAdapter.updateData(planDao.getAll());
 //            planAdapter.notifyDataSetChanged();
         }
     }
@@ -275,9 +276,9 @@ public class PlansActivity extends AppCompatActivity {
             plan.setDateReg(new GregorianCalendar(2016, 7, 17).getTime());
             planDao.save(plan);
 
-            planAdapter.setData(planDao.getAll());
+            planAdapter.updateData(planDao.getAll());
 //            planAdapter.notifyDataSetChanged();
-            planAdapter.notifyItemRangeInserted(posBegin, posBegin + 4);
+//            planAdapter.notifyItemRangeInserted(posBegin, posBegin + 4);
 
             return true;
         }
