@@ -6,8 +6,11 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
+import ru.home.miniplanner.model.Domain;
 
 /**
  * Created by privod on 24.08.2016.
@@ -31,5 +34,15 @@ public class Util {
             Log.e(Util.class.getSimpleName(), e.getMessage());
             return null;
         }
+    }
+
+    public static <T extends Domain> int positionById(List<T> list, long id) {
+        for (int position = 0; position < list.size(); position++) {
+            if (list.get(position).getId() == id) {
+                return position;
+            }
+        }
+
+        return -1;
     }
 }
