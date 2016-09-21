@@ -70,7 +70,7 @@ public class PlansActivity extends AppCompatActivity {
 
                 List<Integer> selectedPositions = new ArrayList<>(multiSelector.getSelectedPositions());
                 for (int position: selectedPositions) {
-                    planDao.delete(planAdapter.getItemId(position));
+                    planDao.delete(planAdapter.getData().get(position));
 //                    planAdapter.remove(position);
                 }
                 planAdapter.updateData(planDao.getAll());

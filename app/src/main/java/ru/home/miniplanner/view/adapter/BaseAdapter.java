@@ -30,7 +30,7 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
 
     public BaseAdapter(MultiSelector multiSelector, Class<VH> tClass) {
         this.multiSelector = multiSelector;
-        this.updateData(new ArrayList<T>());
+        this.data = new ArrayList<T>();
         this.tClass = tClass;
     }
 
@@ -89,6 +89,7 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
         for (int position = 0; position < newData.size(); position++) {
             if (!updatedPosition.contains(position)) {
                 this.data.add(newData.get(position));
+                notifyItemInserted(position);
             }
         }
         this.data = data;
