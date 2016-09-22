@@ -250,7 +250,7 @@ public class PlansActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }else if (id == R.id.action_cre_debug_data) {
+        } else if (id == R.id.action_cre_debug_data) {
 
             Dao<Plan> planDao = HelperFactory.getHelper().getPlanDao();
 
@@ -280,7 +280,7 @@ public class PlansActivity extends AppCompatActivity {
 //            planAdapter.notifyDataSetChanged();
 //            planAdapter.notifyItemRangeInserted(posBegin, posBegin + 4);
 
-            return true;
+            return true;    // */
         }
 
         return super.onOptionsItemSelected(item);

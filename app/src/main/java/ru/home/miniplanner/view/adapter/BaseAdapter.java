@@ -56,43 +56,43 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
     }
 
     public void updateData(List<T> newData) {
-        Set<Integer> updatedPosition = new HashSet<>();
-        for (int position = 0; position < this.data.size(); position++) {
+        this.data = newData;
+        notifyDataSetChanged();
+
+//        Set<Integer> updatedPosition = new HashSet<>();
+        /*for (int position = 0; position < this.data.size(); position++) {
             T item = this.data.get(position);
             int positionNew = Util.positionById(newData, item.getId());
-//            int position = getPositionById(itemNew.getId());
             if (positionNew < 0) {
                 this.data.remove(item);
                 notifyItemRemoved(position);
             } else {
-//                T itemOld = this.data.get(position);
                 this.data.set(position, newData.get(positionNew));
                 notifyItemChanged(position);
             }
             updatedPosition.add(positionNew);
         }
-//        for (int i = 0; i < newData.size(); i++) {
-//            T itemNew = newData.get(i);
-//            int position = getPositionById(itemNew.getId());
-//            if (position < 0) {
-//                this.data.add(itemNew);
-//                position = this.data.indexOf(itemNew);
-//                notifyItemInserted(position);
-//            } else {
-////                T itemOld = this.data.get(position);
-//                this.data.set(position, itemNew);
-//                notifyItemChanged(position);
-//            }
-//            updatedPosition.add(position);
-//        }
 
         for (int position = 0; position < newData.size(); position++) {
             if (!updatedPosition.contains(position)) {
                 this.data.add(newData.get(position));
                 notifyItemInserted(position);
             }
-        }
-        this.data = data;
+        } // */
+
+        /*for (int i = 0; i < newData.size(); i++) {
+            T itemNew = newData.get(i);
+            int position = getPositionById(itemNew.getId());
+            if (position < 0) {
+                this.data.add(itemNew);
+                position = this.data.indexOf(itemNew);
+                notifyItemInserted(position);
+            } else {
+                this.data.set(position, itemNew);
+                notifyItemChanged(position);
+            }
+            updatedPosition.add(position);
+        } // */
     }
 
     public void updateData(Collection<T> c) {
@@ -103,10 +103,10 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
         return data;
     }
 
-    public void remove(int position) {
-        getData().remove(position);
-        notifyItemRemoved(position);
-    }
+//    public void remove(int position) {
+//        getData().remove(position);
+//        notifyItemRemoved(position);
+//    }
 //
 //    public void add(String text, int position) {
 //        getData().add(position, text);
