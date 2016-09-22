@@ -19,11 +19,6 @@ public class PlanEditActivity extends EditActivity<Plan> {
     }
 
     @Override
-    public Plan newInstanceEntity() {
-        return new Plan();
-    }
-
-    @Override
     public void changeEntity() {
         entity.setName(nameEditText.getText().toString());
         entity.setDateReg(Util.dateParse(dateRegEditText.getText().toString()));

@@ -14,7 +14,6 @@ public class OnEditorActionTabBehavior implements TextView.OnEditorActionListene
 
     EditText nextView;
     private OnEditorActionDoneListener doneListener;
-//    abstract protected void editResultOk();
 
     public OnEditorActionTabBehavior(EditText nextView, OnEditorActionDoneListener l) {
         this.nextView = nextView;

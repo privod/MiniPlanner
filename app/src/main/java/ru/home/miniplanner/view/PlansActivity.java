@@ -66,21 +66,20 @@ public class PlansActivity extends AppCompatActivity {
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             if (item.getItemId() == R.id.action_remove) {
-//                List<Plan> plans = planDao.getAll();
 
                 List<Integer> selectedPositions = new ArrayList<>(multiSelector.getSelectedPositions());
                 for (int position: selectedPositions) {
                     planDao.delete(planAdapter.getData().get(position));
-//                    planAdapter.remove(position);
                 }
                 planAdapter.updateData(planDao.getAll());
-//                planAdapter.notifyDataSetChanged();
 
                 mode.finish();
                 multiSelector.clearSelections();
 
                 return true;
+
             } else if (item.getItemId() == R.id.action_edit) {
+
                 int position = multiSelector.getSelectedPositions().get(0);         // Режим редактирования возможен только если выцделен один элемен, поэтому цикла не делаю, а выбираю нулевой элемент.
                 Plan plan = planAdapter.getData().get(position);
                 startPlanEditActivity(plan);
@@ -102,10 +101,6 @@ public class PlansActivity extends AppCompatActivity {
                 }
             }
 
-//            for (int position: multiSelector.getSelectedPositions()) {
-//                selectSwitch(position, 0);      // Назанчение второго параметра (long id) непонятно, внутри метода isSelected он не используется
-//            }
-
             multiSelector.setSelectable(false);
             multiSelector.clearSelections();
 
@@ -124,7 +119,6 @@ public class PlansActivity extends AppCompatActivity {
         planDao = HelperFactory.getHelper().getPlanDao();
 
         planAdapter = new PlanAdapter(multiSelector);
-//        planAdapter.updateData(planDao.getAll());
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         if (null != recyclerView) {
             recyclerView.setAdapter(planAdapter);
@@ -133,8 +127,6 @@ public class PlansActivity extends AppCompatActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setItemAnimator(new SlideInLeftAnimator());
-//        Animation anim = AnimationUtils.loadAnimation(this, R.anim.plans_appearance);
-//        recyclerView.startAnimation(anim);
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -153,13 +145,6 @@ public class PlansActivity extends AppCompatActivity {
         super.onResume();
 
         planAdapter.updateData(planDao.getAll());
-//        planAdapter.notifyDataSetChanged();
-
-//        for (int position = 0; position < planAdapter.getItemCount(); position++) {
-//            planAdapter.notifyItemChanged(position);
-//        }
-
-//        planAdapter.notifyItemRangeInserted(0, planAdapter.getItemCount());
     }
 
     public void startPartiesActivity(int position) {
@@ -170,7 +155,6 @@ public class PlansActivity extends AppCompatActivity {
 
     private void startPlanEditActivity(Plan plan) {
         Intent intent = new Intent(PlansActivity.this, PlanEditActivity.class);
-//        intent.putExtra(getString(R.string.argument_id), id);
         intent.putExtra(plan.getClass().getSimpleName(), plan);
         startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
     }
@@ -181,7 +165,6 @@ public class PlansActivity extends AppCompatActivity {
         }
 
         multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
-//        multiSelector.setSelected(position, id, !multiSelector.isSelected(position, id));           // Назанчение второго параметра (long id) непонятно, внутри метода isSelected он не используется
 
         int selectCount = multiSelector.getSelectedPositions().size();
         if (selectCount == 0) {
@@ -192,11 +175,8 @@ public class PlansActivity extends AppCompatActivity {
             editMenuItem.setVisible(false);
         }
 
-//        AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) (recyclerView.getChildAt(position).findViewById(R.id.view_switcher_avatar));
         AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) holder.itemView.findViewById(R.id.view_switcher_avatar);
         avatarViewSwitcher.showNext();
-
-//        planAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -208,27 +188,10 @@ public class PlansActivity extends AppCompatActivity {
 
         if (requestCode == getResources().getInteger(R.integer.request_code_plan_edit)
                 && resultCode == RESULT_OK) {
+
             Plan plan = (Plan) data.getSerializableExtra(Plan.class.getSimpleName());
-
-//            if (plan.getId() == 0) {
-//                planAdapter.notifyItemInserted(planAdapter.getItemCount() - 1);
-//            } else {
-//                for (int position = 0; position < planAdapter.getItemCount(); position++) {
-//                    if (planAdapter.getData().get(position).getId().equals(plan.getId())) {
-//                        planAdapter.getData().set(position, plan);
-//                    }
-//                }
-//            }
-
             planDao.save(plan);
-
-//            planAdapter.updateData(planDao.getAll());
-//            long id = data.getLongExtra(getString(R.string.argument_id), 0);
-//            int position = planDao.getAll().indexOf(planDao.getById(id));
-//            planAdapter.notifyItemInserted(position);
-
             planAdapter.updateData(planDao.getAll());
-//            planAdapter.notifyDataSetChanged();
         }
     }
 
@@ -277,8 +240,6 @@ public class PlansActivity extends AppCompatActivity {
             planDao.save(plan);
 
             planAdapter.updateData(planDao.getAll());
-//            planAdapter.notifyDataSetChanged();
-//            planAdapter.notifyItemRangeInserted(posBegin, posBegin + 4);
 
             return true;    // */
         }

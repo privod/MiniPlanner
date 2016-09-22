@@ -24,11 +24,6 @@ public class PartyEditActivity extends EditActivity<Party> {
     private EditText nameEditText;
 
     @Override
-    public Party newInstanceEntity() {
-        return new Party();
-    }
-
-    @Override
     public void changeEntity() {
         entity.setName(nameEditText.getText().toString());
     }

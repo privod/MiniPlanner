@@ -45,7 +45,7 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
         return data.size();
     }
 
-    public int getPositionById(long id) {
+    /*public int getPositionById(long id) {
         for (int position = 0; position < this.data.size(); position++) {
             if (this.data.get(position).getId() == id) {
                 return position;
@@ -53,7 +53,7 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
         }
 
         return -1;
-    }
+    }   // */
 
     public void updateData(List<T> newData) {
         this.data = newData;
@@ -102,14 +102,4 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
     public List<T> getData() {
         return data;
     }
-
-//    public void remove(int position) {
-//        getData().remove(position);
-//        notifyItemRemoved(position);
-//    }
-//
-//    public void add(String text, int position) {
-//        getData().add(position, text);
-//        notifyItemInserted(position);
-//    }
 }

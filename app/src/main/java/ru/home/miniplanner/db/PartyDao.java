@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import ru.home.miniplanner.model.Party;
-import ru.home.miniplanner.model.Plan;
 
 /**
  * Created by privod on 23.10.2015.

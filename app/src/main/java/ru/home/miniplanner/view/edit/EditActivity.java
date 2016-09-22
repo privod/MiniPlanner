@@ -24,7 +24,6 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
     protected Button okButton;
     protected Button cancelButton;
 
-    public abstract T newInstanceEntity();
     public abstract void changeEntity();                    // TODO change method name
 
     @Override
@@ -33,7 +32,6 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
 
         Intent intent = this.getIntent();
-//        long id = intent.getLongExtra(getString(R.string.argument_id), 0);
         entity = tClass.cast(intent.getSerializableExtra(tClass.getSimpleName()));
 
         doneListener = new OnEditorActionDoneListener() {
@@ -43,7 +41,6 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
                 dao.save(entity);
 
                 Intent intent = new Intent();
-//                intent.putExtra(getString(R.string.argument_id), entity.getId());
                 intent.putExtra(entity.getClass().getSimpleName(), entity);
                 setResult(RESULT_OK, intent);
                 finish();

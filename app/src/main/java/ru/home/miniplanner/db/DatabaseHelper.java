@@ -30,12 +30,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Bay> bayDao;
     private Dao<Contribution> contributionDao;
 
-//    private Dao<Plan> planDao;
-//    private Dao<Party> partyDao;
-//    private Dao<Bay> bayDao;
-//    private Dao<Contribution> contributionDao;
-
-
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -131,45 +125,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             }
         });
     }
-
-
-    /*private <T extends Domain> Dao<T> daoCreate(Class<T> tClass) {
-        Dao<T> dao = null;
-        try {
-            dao = new Dao<T>(getConnectionSource(), tClass);
-        } catch (SQLException e) {
-            Log.e(this.getClass().getSimpleName(), e.getMessage());
-        }
-        return dao;
-    }
-
-    public synchronized Dao<Plan> getPlanDao() {
-        if (null == planDao) {
-            planDao = daoCreate(Plan.class);
-        }
-        return planDao;
-    }
-
-    public synchronized Dao<Party> getPartyDao() {
-        if (null == partyDao) {
-            partyDao = daoCreate(Party.class);
-        }
-        return partyDao;
-    }
-
-    public synchronized Dao<Bay> getBayDao() {
-        if (null == bayDao) {
-            bayDao = daoCreate(Bay.class);
-        }
-        return bayDao;
-    }
-
-    public synchronized Dao<Contribution> getContributionDao() {
-        if (null == contributionDao) {
-            contributionDao = daoCreate(Contribution.class);
-        }
-        return contributionDao;
-    }*/
 
     @Override
     public void close() {
