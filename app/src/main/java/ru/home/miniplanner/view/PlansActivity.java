@@ -3,6 +3,8 @@ package ru.home.miniplanner.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -156,7 +158,9 @@ public class PlansActivity extends AppCompatActivity {
     private void startPlanEditActivity(Plan plan) {
         Intent intent = new Intent(PlansActivity.this, PlanEditActivity.class);
         intent.putExtra(plan.getClass().getSimpleName(), plan);
-        startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
+//        startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
+        ActivityCompat.startActivityForResult(this, intent, getResources().getInteger(R.integer.request_code_plan_edit), options.toBundle());
     }
 
     public void selectSwitch(BaseAdapter.ViewHolder holder) {

@@ -21,11 +21,6 @@ public class BayEditActivity extends EditActivity<Bay> {
     private EditText descriptionEditText;
 
     @Override
-    public Bay newInstanceEntity() {
-        return new Bay();
-    }
-
-    @Override
     public void changeEntity() {
         entity.setCost(new BigDecimal(costEditText.getText().toString()));
         entity.setDateReg(Util.dateParse(dateRegEditText.getText().toString()));

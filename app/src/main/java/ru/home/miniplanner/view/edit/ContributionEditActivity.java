@@ -30,11 +30,6 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 //    }
 
     @Override
-    public Contribution newInstanceEntity() {
-        return new Contribution();
-    }
-
-    @Override
     public void changeEntity() {
         entity.setSum(new BigDecimal(sumEditText.getText().toString()));
         entity.setDateReg(Util.dateParse(dateRegEditText.getText().toString()));
