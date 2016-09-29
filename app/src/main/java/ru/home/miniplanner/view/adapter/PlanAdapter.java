@@ -35,26 +35,6 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
         public PlanViewHolder(View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.getContext() instanceof PlansActivity) {
-                        ((PlansActivity) v.getContext()).startPartiesActivity(getAdapterPosition());
-                    }
-                }
-            });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (v.getContext() instanceof PlansActivity) {
-                        ((PlansActivity) v.getContext()).selectSwitch(PlanViewHolder.this);
-                        return true;
-                    }
-
-                    return false;
-                }
-            });
-
             nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
             dateRegTextView = (TextView) itemView.findViewById(R.id.text_view_date_reg);
             costTotalTextView = (TextView) itemView.findViewById(R.id.text_view_cost_total);

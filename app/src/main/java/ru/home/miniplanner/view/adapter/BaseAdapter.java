@@ -17,6 +17,8 @@ import java.util.Set;
 
 import ru.home.miniplanner.Util;
 import ru.home.miniplanner.model.Domain;
+import ru.home.miniplanner.view.BaseListActivity;
+import ru.home.miniplanner.view.PlansActivity;
 
 /**
  * Created by privod on 19.10.2015.
@@ -37,6 +39,26 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
     public abstract class ViewHolder extends SwappingHolder {
         public ViewHolder(final View itemView) {
             super(itemView, multiSelector);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (v.getContext() instanceof BaseListActivity) {
+                        ((BaseListActivity) v.getContext()).startInsideActivity(getAdapterPosition());
+                    }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (v.getContext() instanceof BaseListActivity) {
+                        ((BaseListActivity) v.getContext()).selectSwitch(ViewHolder.this);
+                        return true;
+                    }
+
+                    return false;
+                }
+            });
         }
     }
 
