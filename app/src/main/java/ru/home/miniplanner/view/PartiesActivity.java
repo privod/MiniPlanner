@@ -1,5 +1,6 @@
 package ru.home.miniplanner.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -28,8 +29,8 @@ import ru.home.miniplanner.view.edit.PartyEditActivity;
 public class PartiesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private static final String LOG_TAG = PartiesActivity.class.getSimpleName();
     //    private static final int REQUEST_PARTIES = 10;
-    private static final int REQUEST_PARTY_EDIT = 40;
-    private static final int REQUEST_PARTY_CONTENT = 50;
+//    private static final int REQUEST_PARTY_EDIT = 40;
+//    private static final int REQUEST_PARTY_CONTENT = 50;
 
 
     Dao<Plan> planDao;
@@ -41,6 +42,15 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
     PartyAdapter partyAdapter;
 
     ListView listView;
+
+//    public PartiesActivity(Class<? extends Activity> insideActivityClass) {
+//        super(Party.class, insideActivityClass, PartyEditActivity.class);
+//    }
+//
+//    @Override
+//    protected Party newEntityInstance() {
+//        return null;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +107,7 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
             return;
         }
 
-        if (requestCode == REQUEST_PARTY_EDIT && resultCode == RESULT_OK) {
+        if (requestCode == RequestCode.PARTY_EDIT && resultCode == RESULT_OK) {
             Party party = (Party) data.getSerializableExtra(Party.EXTRA_NAME);
             partyDao.save(party);
             planDao.refresh(plan);
@@ -148,13 +158,13 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
     public void openPartyEditActivity(Party party) {
         Intent intent = new Intent(PartiesActivity.this, PartyEditActivity.class);
         intent.putExtra(Party.EXTRA_NAME, party);
-        startActivityForResult(intent, REQUEST_PARTY_EDIT);
+        startActivityForResult(intent, RequestCode.PARTY_EDIT);
     }
 
     public void openPartyContentActivity(Party party) {
         Intent intent = new Intent(PartiesActivity.this, PartyContentActivity.class);
         intent.putExtra(Party.EXTRA_NAME, party);
-        startActivityForResult(intent, REQUEST_PARTY_CONTENT);
+        startActivityForResult(intent, RequestCode.PARTY_CONTENT);
     }
 
     public void partyDelete (Party party) {

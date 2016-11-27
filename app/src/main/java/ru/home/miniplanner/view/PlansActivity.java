@@ -1,6 +1,5 @@
 package ru.home.miniplanner.view;
 
-import android.graphics.ComposePathEffect;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +16,8 @@ import ru.home.miniplanner.view.edit.PlanEditActivity;
 public class PlansActivity extends BaseListActivity<Plan> {
     public PlansActivity() {
         super(Plan.class, PartiesActivity.class, PlanEditActivity.class);
+
+        request_code_edit = RequestCode.PLAN_EDIT;
     }
 
     @Override
@@ -31,8 +32,6 @@ public class PlansActivity extends BaseListActivity<Plan> {
         dao = HelperFactory.getHelper().getPlanDao();
         adapter = new PlanAdapter(multiSelector);
         recyclerView.setAdapter(adapter);
-
-        request_code_edit = getResources().getInteger(R.integer.request_code_plan_edit);
     }
 
     @Override
