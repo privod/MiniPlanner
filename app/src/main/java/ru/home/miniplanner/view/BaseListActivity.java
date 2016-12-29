@@ -167,7 +167,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
     public void startInsideActivity(int position) {
         Intent intent = new Intent(BaseListActivity.this, insideActivityClass);
         T entity = dao.getAll().get(position);
-        intent.putExtra(entity.getClass().getSimpleName(), dao.getAll().get(position));
+        intent.putExtra(entity.getClass().getSimpleName(), entity);
         startActivity(intent);
     }
 

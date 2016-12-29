@@ -37,7 +37,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
 
             nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
             dateRegTextView = (TextView) itemView.findViewById(R.id.text_view_date_reg);
-            costTotalTextView = (TextView) itemView.findViewById(R.id.text_view_cost_total);
+            costTotalTextView = (TextView) itemView.findViewById(R.id.text_view_total_cost);
             avatarIcon = (ImageView) itemView.findViewById(R.id.icon_avatar);
             avatarViewSwitcher = (AvatarViewSwitcher) itemView.findViewById(R.id.view_switcher_avatar);
             avatarViewSwitcher.setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -37,11 +38,9 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
     ru.home.miniplanner.db.PartyDao partyDao;
     BayDao bayDao;
 
-    Plan plan;
-
+//    Plan plan;
     PartyAdapter partyAdapter;
-
-    ListView listView;
+    protected RecyclerView recyclerView;
 
 //    public PartiesActivity(Class<? extends Activity> insideActivityClass) {
 //        super(Party.class, insideActivityClass, PartyEditActivity.class);
@@ -63,15 +62,15 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
         partyDao = HelperFactory.getHelper().getPartyDao();
 //        bayDao = HelperFactory.getHelper().getBayDao();
 
-        plan = (Plan) getIntent().getSerializableExtra(Plan.EXTRA_NAME);
+        Plan plan = (Plan) getIntent().getSerializableExtra(Plan.EXTRA_NAME);
         planDao.refresh(plan);
 //        List<Party> parties = plan.getParties();
 //        for (Party party : parties) {
 //            partyDao.refresh(party);
 //        }
         partyAdapter = new PartyAdapter(this);
-        listView = (ListView) findViewById(R.id.recycler_view);
-        listView.setAdapter(partyAdapter);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setAdapter(partyAdapter);
 
         registerForContextMenu(listView);
         listView.setOnItemClickListener(this);

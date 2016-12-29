@@ -1,13 +1,15 @@
 package ru.home.miniplanner.view.adapter;
 
-import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Bay;
@@ -17,15 +19,55 @@ import ru.home.miniplanner.model.Party;
 /**
  * Created by privod on 28.10.2015.
  */
-public class PartyAdapter extends OldBaseAdapter<Party> {
+public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
     static final String LOG_TAG = PartyAdapter.class.getSimpleName();
 
-//    public PartyAdapter(Context context, List<Party> list) {
-//        super(context, list);
-//    }
+    private List<Party> parties;
 
-    public PartyAdapter(Context context) {
-        super(context);
+    public PartyAdapter() {
+        super();
+    }
+
+    public class PartyViewHolder extends RecyclerView.ViewHolder {
+        private TextView nameTextView;
+        private TextView debtTextView;
+
+        public PartyViewHolder(View itemView) {
+            super(itemView);
+
+            nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
+            debtTextView = (TextView) itemView.findViewById(R.id.text_view_debt);
+        }
+    }
+
+    @Override
+    public PartyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.party_view, parent, false);
+
+        return new PartyViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(PartyViewHolder holder, int position) {
+        Party party = getParties().get(position);
+
+        holder.nameTextView.setText(party.getName());
+
+        holder.debtTextView.setText(party.getDebt().abs().toPlainString());
+        if (party.getDebt().compareTo(new BigDecimal("0")) > 0) {
+            holder.debtTextView.setTextColor(ContextCompat.getColor(holder.debtTextView.getContext(), R.color.material_red_800));
+        } else {
+            holder.debtTextView.setTextColor(ContextCompat.getColor(holder.debtTextView.getContext(), R.color.material_green_700));
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return parties.size();
+    }
+
+    public List<Party> getParties() {
+        return parties;
     }
 
     @Override

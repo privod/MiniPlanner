@@ -20,14 +20,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/descriptionTextView"
+                android:id="@+id/text_view_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Headline"
                 android:text="Name" />
 
             <TextView
-                android:id="@+id/debtTextView"
+                android:id="@+id/text_view_debt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Subhead"

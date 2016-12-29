@@ -9,8 +9,8 @@
     <color name="material_gray_400">#bdbdbd</color>
     <color name="material_gray_300">#e0e0e0</color>
 
-    <color name="green">#43a047</color>
-    <color name="red">#be2b30</color>
+    <color name="material_green_700">#43a047</color>
+    <color name="material_red_800">#c62828</color>
 
     <color name="avatarRed">#ef5350</color>
     <color name="avatarPink">#f06292</color>
