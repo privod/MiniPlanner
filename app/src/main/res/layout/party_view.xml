@@ -34,14 +34,14 @@
                 android:text="Debt"/>
 
             <LinearLayout
-                android:id="@+id/bodyLayout"
+                android:id="@+id/partyContentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:baselineAligned="false">
 
-                <TableLayout
+                <!--<TableLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_small"
@@ -89,7 +89,7 @@
                             android:layout_height="wrap_content"
                             android:layout_column="1" />
                     </TableRow>
-                </TableLayout>
+                </TableLayout>-->
             </LinearLayout>
 
         </LinearLayout>

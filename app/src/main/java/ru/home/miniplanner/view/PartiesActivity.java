@@ -85,6 +85,8 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
                 openPartyEditActivity(party);
             }
         });
+
+
     }
 
     @Override

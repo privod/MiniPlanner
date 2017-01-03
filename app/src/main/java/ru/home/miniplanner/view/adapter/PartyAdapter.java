@@ -31,12 +31,14 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
     public class PartyViewHolder extends RecyclerView.ViewHolder {
         private TextView nameTextView;
         private TextView debtTextView;
+        private ViewGroup partyContentLayout;
 
         public PartyViewHolder(View itemView) {
             super(itemView);
 
             nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
             debtTextView = (TextView) itemView.findViewById(R.id.text_view_debt);
+            partyContentLayout = (ViewGroup) itemView.findViewById(R.id.partyContentLayout);
         }
     }
 
@@ -59,6 +61,40 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
         } else {
             holder.debtTextView.setTextColor(ContextCompat.getColor(holder.debtTextView.getContext(), R.color.material_green_700));
         }
+
+        LayoutInflater inflater = LayoutInflater.from(holder.partyContentLayout.getContext());
+
+        holder.partyContentLayout.removeAllViews();
+        for (Bay bay : party.getBays()) {
+            String tag = Bay.EXTRA_NAME + bay.getId();
+            View bayLayout;
+            bayLayout = holder.partyContentLayout.findViewWithTag(tag);
+            if (null == bayLayout) {
+                bayLayout = inflater.inflate(R.layout.party_bay_view, holder.partyContentLayout, false);
+                bayLayout.setTag(tag);
+                holder.partyContentLayout.addView(bayLayout);
+            }
+            TextView descriptionTextView = (TextView) bayLayout.findViewById(R.id.bayDescriptionTextView);
+            TextView costTextView = (TextView) bayLayout.findViewById(R.id.costTextView);
+            getViewService().textViewSetText(descriptionTextView, bay.getDescription());
+            getViewService().textViewSetText(costTextView, bay.getCost());
+        }
+        for (Contribution contribution : party.getOut()) {
+            String tag = Contribution.EXTRA_NAME + contribution.getId();
+            View contributionLayout;
+            contributionLayout = holder.partyContentLayout.findViewWithTag(tag);
+            if (null == contributionLayout) {
+                contributionLayout = inflater.inflate(R.layout.party_contribution_view, holder.partyContentLayout, false);
+                contributionLayout.setTag(tag);
+                holder.partyContentLayout.addView(contributionLayout);
+            }
+//            View contributionLayout = getLayout().inflate(R.layout.party_contribution_view, contentLayout, false);
+            TextView partyToTextView = (TextView) contributionLayout.findViewById(R.id.partyToTextView);
+            TextView sumTextView = (TextView) contributionLayout.findViewById(R.id.sumTextView);
+            getViewService().textViewSetText(partyToTextView, contribution.getTo().toString());
+            getViewService().textViewSetText(sumTextView, contribution.getSum());
+//            contentLayout.addView(contributionLayout);
+        }
     }
 
     @Override
@@ -70,14 +106,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
         return parties;
     }
 
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-
-
-    }
-
-    @Override
+    /*@Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = super.getView(position, convertView, parent);
 
@@ -163,5 +192,5 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
 //        }
 
         return view;
-    }
+    }*/
 }
