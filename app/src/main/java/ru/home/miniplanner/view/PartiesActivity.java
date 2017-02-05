@@ -38,7 +38,7 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
     ru.home.miniplanner.db.PartyDao partyDao;
     BayDao bayDao;
 
-//    Plan plan;
+    Plan plan;
     PartyAdapter partyAdapter;
     protected RecyclerView recyclerView;
 
@@ -59,46 +59,44 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
         setSupportActionBar(toolbar);
 
         planDao = HelperFactory.getHelper().getPlanDao();
-        partyDao = HelperFactory.getHelper().getPartyDao();
+//        partyDao = HelperFactory.getHelper().getPartyDao();
 //        bayDao = HelperFactory.getHelper().getBayDao();
 
-        Plan plan = (Plan) getIntent().getSerializableExtra(Plan.EXTRA_NAME);
+        plan = (Plan) getIntent().getSerializableExtra(Plan.EXTRA_NAME);
         planDao.refresh(plan);
 //        List<Party> parties = plan.getParties();
 //        for (Party party : parties) {
 //            partyDao.refresh(party);
 //        }
-        partyAdapter = new PartyAdapter(this);
+        partyAdapter = new PartyAdapter();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setAdapter(partyAdapter);
+        if (null != recyclerView) {
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(partyAdapter);
 
-        registerForContextMenu(listView);
-        listView.setOnItemClickListener(this);
+//            registerForContextMenu(listView);
+//            listView.setOnItemClickListener(this);
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Party party = new Party();
-                party.setPlan(plan);
-                party.setBays(new ArrayList<Bay>());
-                openPartyEditActivity(party);
-            }
-        });
-
-
+        if (null != fab) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Party party = new Party();
+                    party.setPlan(plan);
+                    party.setBays(new ArrayList<Bay>());
+                    openPartyEditActivity(party);
+                }
+            });
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        Collection<Party> parties = plan.getParties();
-//        for (Party party : parties){
-//            partyDao.refresh(party);
-//        }
-        partyAdapter.setList(parties);
-        partyAdapter.notifyDataSetChanged();
+        partyAdapter.updateParties(new ArrayList<>(plan.getParties()));
     }
 
     @Override
@@ -112,9 +110,7 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
             Party party = (Party) data.getSerializableExtra(Party.EXTRA_NAME);
             partyDao.save(party);
             planDao.refresh(plan);
-            partyAdapter.setList(plan.getParties());
-//            partyAdapter.setList(partyDao.getByPlanId(plan.getId()));
-            partyAdapter.notifyDataSetChanged();
+            partyAdapter.updateParties(new ArrayList<>(plan.getParties()));
         }
 //        else if (requestCode == REQUEST_BAY_EDIT && resultCode == RESULT_OK) {
 ////            Party party = (Party) data.getSerializableExtra("party");
@@ -127,11 +123,11 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
 //        }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Party party = (Party) listView.getItemAtPosition(position);
-        openPartyContentActivity(party);
-    }
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Party party = partyAdapter.getParties().get(position);
+//        openPartyContentActivity(party);
+//    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -162,7 +158,8 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
         startActivityForResult(intent, RequestCode.PARTY_EDIT);
     }
 
-    public void openPartyContentActivity(Party party) {
+    public void startPartyContentActivity(int position) {
+        Party party = partyAdapter.getParties().get(position);
         Intent intent = new Intent(PartiesActivity.this, PartyContentActivity.class);
         intent.putExtra(Party.EXTRA_NAME, party);
         startActivityForResult(intent, RequestCode.PARTY_CONTENT);
@@ -171,7 +168,12 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
     public void partyDelete (Party party) {
         partyDao.delete(party);
         planDao.refresh(plan);
-        partyAdapter.setList(plan.getParties());
+        partyAdapter.setList(new ArrayList<>(plan.getParties()));
         partyAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }
