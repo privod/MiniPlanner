@@ -1,17 +1,20 @@
 package ru.home.miniplanner.model;
 
+import com.bignerdranch.expandablerecyclerview.model.Parent;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by privod on 19.10.2015.
  */
 @DatabaseTable
-public class Party extends Domain {
+public class Party extends Domain implements Parent<Bay> {
     public static final String EXTRA_NAME = "party";
 
     @DatabaseField
@@ -122,5 +125,15 @@ public class Party extends Domain {
 
     public void setOut(Collection<Contribution> out) {
         this.out = out;
+    }
+
+    @Override
+    public List<Bay> getChildList() {
+        return new ArrayList<>(getBays());
+    }
+
+    @Override
+    public boolean isInitiallyExpanded() {
+        return false;
     }
 }

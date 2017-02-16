@@ -31,4 +31,5 @@ dependencies {
     compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'jp.wasabeef:recyclerview-animators:2.2.4'
+    compile 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
 }

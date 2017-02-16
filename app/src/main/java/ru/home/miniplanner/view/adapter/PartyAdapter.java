@@ -1,6 +1,7 @@
 package ru.home.miniplanner.view.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
+import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
+import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,23 +27,56 @@ import ru.home.miniplanner.view.PartiesActivity;
 /**
  * Created by privod on 28.10.2015.
  */
-public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
+//public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
+public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAdapter.PartyViewHolder, PartyAdapter.BayViewHolder> {
     static final String LOG_TAG = PartyAdapter.class.getSimpleName();
 
-    private List<Party> parties;
+//    private List<Party> parties;
 
     public PartyAdapter() {
-        super();
-        parties = new ArrayList<>();
+        super(new ArrayList<Party>());
+//        parties = new ArrayList<>();
     }
 
-    public class PartyViewHolder extends RecyclerView.ViewHolder {
+    class PartyViewHolder extends ParentViewHolder {
         private Context context;
         private TextView nameTextView;
         private TextView debtTextView;
         private ViewGroup partyContentLayout;
 
-        public PartyViewHolder(View itemView) {
+        PartyViewHolder(View itemView) {
+            super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (v.getContext() instanceof PartiesActivity) {
+                        ((PartiesActivity) v.getContext()).startPartyContentActivity(getAdapterPosition());
+                    }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    return v.getContext() instanceof PartiesActivity;
+
+                }
+            });
+
+            context = itemView.getContext();
+            nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
+            debtTextView = (TextView) itemView.findViewById(R.id.text_view_debt);
+            partyContentLayout = (ViewGroup) itemView.findViewById(R.id.partyContentLayout);
+        }
+    }
+
+    class BayViewHolder extends ChildViewHolder {
+        private Context context;
+        private TextView nameTextView;
+        private TextView debtTextView;
+        private ViewGroup partyContentLayout;
+
+        BayViewHolder(View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -68,16 +106,26 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
         }
     }
 
+    @NonNull
     @Override
-    public PartyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PartyViewHolder onCreateParentViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.party_view, parent, false);
 
         return new PartyViewHolder(view);
     }
 
+    @NonNull
     @Override
-    public void onBindViewHolder(PartyViewHolder holder, int position) {
-        Party party = getParties().get(position);
+    public BayViewHolder onCreateChildViewHolder(@NonNull ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bay_view, parent, false);
+
+        return new BayViewHolder(view);
+    }
+
+    @Override
+//    public void onBindParentViewHolder(PartyViewHolder holder, int position) {
+    public void onBindParentViewHolder(@NonNull PartyViewHolder holder, int parentPosition, @NonNull Party party) {
+//        Party party = getParties().get(position);
 
         holder.nameTextView.setText(party.getName());
 
@@ -124,13 +172,18 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
     }
 
     @Override
-    public int getItemCount() {
-        return parties.size();
+    public void onBindChildViewHolder(@NonNull BayViewHolder childViewHolder, int parentPosition, int childPosition, @NonNull Bay child) {
+
     }
 
-    public List<Party> getParties() {
-        return parties;
-    }
+//    @Override
+//    public int getItemCount() {
+//        return parties.size();
+//    }
+
+//    public List<Party> getParties() {
+//        return parties;
+//    }
 
     public void updateParties(List<Party> newParties) {
         this.parties = newParties;

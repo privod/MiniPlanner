@@ -159,7 +159,7 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
     }
 
     public void startPartyContentActivity(int position) {
-        Party party = partyAdapter.getParties().get(position);
+        Party party = partyAdapter.getParentList().get(position);
         Intent intent = new Intent(PartiesActivity.this, PartyContentActivity.class);
         intent.putExtra(Party.EXTRA_NAME, party);
         startActivityForResult(intent, RequestCode.PARTY_CONTENT);
@@ -168,7 +168,7 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
     public void partyDelete (Party party) {
         partyDao.delete(party);
         planDao.refresh(plan);
-        partyAdapter.setList(new ArrayList<>(plan.getParties()));
+        partyAdapter.set(new ArrayList<>(plan.getParties()));
         partyAdapter.notifyDataSetChanged();
     }
 
