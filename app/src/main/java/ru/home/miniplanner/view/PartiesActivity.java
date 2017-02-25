@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -16,77 +19,77 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
+import ru.home.miniplanner.model.Domain;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.BayDao;
 import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.view.adapter.PartyAdapter;
+import ru.home.miniplanner.view.adapter.PartyContentAdapter;
+import ru.home.miniplanner.view.divider.DividerItemDecoration;
 import ru.home.miniplanner.view.edit.PartyEditActivity;
 
-public class PartiesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    private static final String LOG_TAG = PartiesActivity.class.getSimpleName();
-    //    private static final int REQUEST_PARTIES = 10;
-//    private static final int REQUEST_PARTY_EDIT = 40;
-//    private static final int REQUEST_PARTY_CONTENT = 50;
-
+//public class PartiesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class PartiesActivity extends BaseActivity<Party> implements AdapterView.OnItemClickListener {
 
     Dao<Plan> planDao;
-    ru.home.miniplanner.db.PartyDao partyDao;
-    BayDao bayDao;
+//    ru.home.miniplanner.db.PartyDao partyDao;
+//    BayDao bayDao;
 
-//    Plan plan;
-    PartyAdapter partyAdapter;
-    protected RecyclerView recyclerView;
+    Plan plan;
+    PartyContentAdapter partyAdapter;
+//    protected RecyclerView recyclerView;
 
-//    public PartiesActivity(Class<? extends Activity> insideActivityClass) {
-//        super(Party.class, insideActivityClass, PartyEditActivity.class);
-//    }
-//
-//    @Override
-//    protected Party newEntityInstance() {
-//        return null;
-//    }
+    public PartiesActivity(Class<? extends Activity> insideActivityClass) {
+        super(PartyEditActivity.class);
+    }
+
+    @Override
+    protected Party newEntityInstance() {
+        return new Party();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parties);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         planDao = HelperFactory.getHelper().getPlanDao();
-        partyDao = HelperFactory.getHelper().getPartyDao();
+        dao = HelperFactory.getHelper().getPartyDao();
 //        bayDao = HelperFactory.getHelper().getBayDao();
 
-        Plan plan = (Plan) getIntent().getSerializableExtra(Plan.EXTRA_NAME);
-        planDao.refresh(plan);
+        plan = (Plan) getIntent().getSerializableExtra(Plan.EXTRA_NAME);   // ???
+        planDao.refresh(plan);                                                  // ???
 //        List<Party> parties = plan.getParties();
 //        for (Party party : parties) {
 //            partyDao.refresh(party);
 //        }
-        partyAdapter = new PartyAdapter(this);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        partyAdapter = new PartyContentAdapter();
+
+//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+//        if (null != recyclerView) {
+//            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+//            recyclerView.setLayoutManager(layoutManager);
+//        }
         recyclerView.setAdapter(partyAdapter);
 
-        registerForContextMenu(listView);
-        listView.setOnItemClickListener(this);
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        if (null != fab) {
+//            fab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    startEditActivity(new );
+//
+//                }
+//            });
+//        }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Party party = new Party();
-                party.setPlan(plan);
-                party.setBays(new ArrayList<Bay>());
-                openPartyEditActivity(party);
-            }
-        });
-
-
+//        registerForContextMenu(listView);
+//        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -99,6 +102,14 @@ public class PartiesActivity extends AppCompatActivity implements AdapterView.On
 //        }
         partyAdapter.setList(parties);
         partyAdapter.notifyDataSetChanged();
+    }
+
+    private void startEditActivity(Party entity) {
+        Intent intent = new Intent(BaseListActivity.this, editActivityClass);
+        intent.putExtra(entity.getClass().getSimpleName(), entity);
+//        startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
+        ActivityCompat.startActivityForResult(this, intent, request_code_edit, options.toBundle());
     }
 
     @Override

@@ -4,6 +4,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -65,5 +67,14 @@ public class PartyContentAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    public void updateParties(List<Party> parties) {
+        this.parties = parties;
+        notifyDataSetChanged();
+    }
+
+    public void updateParties(Collection<Party> c) {
+        this.updateParties(new ArrayList<>(c));
     }
 }

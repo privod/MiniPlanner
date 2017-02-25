@@ -15,7 +15,7 @@ import ru.home.miniplanner.view.edit.PlanEditActivity;
 
 public class PlansActivity extends BaseListActivity<Plan> {
     public PlansActivity() {
-        super(Plan.class, PartiesActivity.class, PlanEditActivity.class);
+        super(PlanEditActivity.class, Plan.class, PartiesActivity.class);
 
         request_code_edit = RequestCode.PLAN_EDIT;
     }
@@ -28,6 +28,8 @@ public class PlansActivity extends BaseListActivity<Plan> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        HelperFactory.setHelper(this);
 
         dao = HelperFactory.getHelper().getPlanDao();
         adapter = new PlanAdapter(multiSelector);
