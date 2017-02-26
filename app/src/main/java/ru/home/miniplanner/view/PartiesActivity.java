@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -19,19 +16,15 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
-import ru.home.miniplanner.model.Domain;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.BayDao;
 import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.view.adapter.PartyAdapter;
-import ru.home.miniplanner.view.adapter.PartyContentAdapter;
-import ru.home.miniplanner.view.divider.DividerItemDecoration;
 import ru.home.miniplanner.view.edit.PartyEditActivity;
 
 //public class PartiesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -96,12 +89,7 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
     protected void onResume() {
         super.onResume();
 
-        Collection<Party> parties = plan.getParties();
-//        for (Party party : parties){
-//            partyDao.refresh(party);
-//        }
-        partyAdapter.setList(parties);
-        partyAdapter.notifyDataSetChanged();
+        partyAdapter.updateParties(new ArrayList<>(plan.getParties()));
     }
 
     private void startEditActivity(Party entity) {
@@ -123,9 +111,7 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
             Party party = (Party) data.getSerializableExtra(Party.EXTRA_NAME);
             partyDao.save(party);
             planDao.refresh(plan);
-            partyAdapter.setList(plan.getParties());
-//            partyAdapter.setList(partyDao.getByPlanId(plan.getId()));
-            partyAdapter.notifyDataSetChanged();
+            partyAdapter.updateParties(new ArrayList<>(plan.getParties()));
         }
 //        else if (requestCode == REQUEST_BAY_EDIT && resultCode == RESULT_OK) {
 ////            Party party = (Party) data.getSerializableExtra("party");
@@ -138,11 +124,11 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
 //        }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Party party = (Party) listView.getItemAtPosition(position);
-        openPartyContentActivity(party);
-    }
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Party party = partyAdapter.getParties().get(position);
+//        openPartyContentActivity(party);
+//    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -173,7 +159,8 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
         startActivityForResult(intent, RequestCode.PARTY_EDIT);
     }
 
-    public void openPartyContentActivity(Party party) {
+    public void startPartyContentActivity(int position) {
+        Party party = partyAdapter.getParentList().get(position);
         Intent intent = new Intent(PartiesActivity.this, PartyContentActivity.class);
         intent.putExtra(Party.EXTRA_NAME, party);
         startActivityForResult(intent, RequestCode.PARTY_CONTENT);
@@ -182,7 +169,12 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
     public void partyDelete (Party party) {
         partyDao.delete(party);
         planDao.refresh(plan);
-        partyAdapter.setList(plan.getParties());
+        partyAdapter.set(new ArrayList<>(plan.getParties()));
         partyAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }
