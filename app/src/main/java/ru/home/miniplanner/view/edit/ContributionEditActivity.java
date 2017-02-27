@@ -25,6 +25,10 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 
     Contribution contribution;
 
+    public ContributionEditActivity() {
+        super(Contribution.class);
+    }
+
 //    public ContributionEditActivity() {
 //        super(R.layout.activity_contribution_edit);
 //    }

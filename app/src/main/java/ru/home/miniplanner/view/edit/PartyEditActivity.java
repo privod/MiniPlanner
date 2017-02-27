@@ -23,6 +23,10 @@ public class PartyEditActivity extends EditActivity<Party> {
 
     private EditText nameEditText;
 
+    public PartyEditActivity() {
+        super(Party.class);
+    }
+
     @Override
     public void changeEntity() {
         entity.setName(nameEditText.getText().toString());

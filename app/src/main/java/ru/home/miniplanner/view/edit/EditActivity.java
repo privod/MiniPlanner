@@ -26,6 +26,10 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
 
     public abstract void changeEntity();                    // TODO change method name
 
+    public EditActivity(Class<T> tClass) {
+        this.tClass = tClass;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

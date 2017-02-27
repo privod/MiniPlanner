@@ -15,7 +15,7 @@ public class PlanEditActivity extends EditActivity<Plan> {
     private EditText dateRegEditText;
 
     public PlanEditActivity() {
-        tClass = Plan.class;
+        super(Plan.class);
     }
 
     @Override

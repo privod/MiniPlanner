@@ -20,6 +20,10 @@ public class BayEditActivity extends EditActivity<Bay> {
     private EditText dateRegEditText;
     private EditText descriptionEditText;
 
+    public BayEditActivity() {
+        super(Bay.class);
+    }
+
     @Override
     public void changeEntity() {
         entity.setCost(new BigDecimal(costEditText.getText().toString()));
