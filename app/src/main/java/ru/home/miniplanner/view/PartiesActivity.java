@@ -35,11 +35,13 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
 //    BayDao bayDao;
 
     Plan plan;
-    PartyContentAdapter partyAdapter;
+    PartyAdapter partyAdapter;      // TODO Переименовать в adapter
 //    protected RecyclerView recyclerView;
 
-    public PartiesActivity(Class<? extends Activity> insideActivityClass) {
+    public PartiesActivity() {
         super(PartyEditActivity.class);
+
+        request_code_edit = RequestCode.PARTY_EDIT;
     }
 
     @Override
@@ -55,13 +57,13 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
         dao = HelperFactory.getHelper().getPartyDao();
 //        bayDao = HelperFactory.getHelper().getBayDao();
 
-        plan = (Plan) getIntent().getSerializableExtra(Plan.EXTRA_NAME);   // ???
-        planDao.refresh(plan);                                                  // ???
+        plan = (Plan) getIntent().getSerializableExtra(Plan.class.getSimpleName());   // TODO Возможно достаточно передавать ID плана, вместо объекта целиком
+        planDao.refresh(plan);
 //        List<Party> parties = plan.getParties();
 //        for (Party party : parties) {
 //            partyDao.refresh(party);
 //        }
-        partyAdapter = new PartyContentAdapter();
+        partyAdapter = new PartyAdapter();
 
 //        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 //        if (null != recyclerView) {
@@ -89,15 +91,8 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
     protected void onResume() {
         super.onResume();
 
-        partyAdapter.updateParties(new ArrayList<>(plan.getParties()));
-    }
-
-    private void startEditActivity(Party entity) {
-        Intent intent = new Intent(BaseListActivity.this, editActivityClass);
-        intent.putExtra(entity.getClass().getSimpleName(), entity);
-//        startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
-        ActivityCompat.startActivityForResult(this, intent, request_code_edit, options.toBundle());
+//        partyAdapter.updateParties(new ArrayList<>(plan.getParties()));
+        partyAdapter.setParentList(new ArrayList<>(plan.getParties()), true);
     }
 
     @Override
@@ -109,9 +104,9 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
 
         if (requestCode == RequestCode.PARTY_EDIT && resultCode == RESULT_OK) {
             Party party = (Party) data.getSerializableExtra(Party.EXTRA_NAME);
-            partyDao.save(party);
+            dao.save(party);
             planDao.refresh(plan);
-            partyAdapter.updateParties(new ArrayList<>(plan.getParties()));
+            partyAdapter.setParentList(new ArrayList<>(plan.getParties()), true);
         }
 //        else if (requestCode == REQUEST_BAY_EDIT && resultCode == RESULT_OK) {
 ////            Party party = (Party) data.getSerializableExtra("party");
@@ -130,48 +125,48 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
 //        openPartyContentActivity(party);
 //    }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.context_party, menu);
-    }
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//        getMenuInflater().inflate(R.menu.context_party, menu);
+//    }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        long id = item.getItemId();
-        Party party = (Party) listView.getItemAtPosition(menuInfo.position);
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item) {
+//        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+//        long id = item.getItemId();
+//        Party party = (Party) listView.getItemAtPosition(menuInfo.position);
+//
+//        if (id == R.id.context_party_edit) {
+//            openPartyEditActivity(party);
+//            return true;
+//        } else if (id == R.id.context_party_del) {
+//            partyDelete(party);
+//            return true;
+//        }
+//
+//        return super.onContextItemSelected(item);
+//    }
 
-        if (id == R.id.context_party_edit) {
-            openPartyEditActivity(party);
-            return true;
-        } else if (id == R.id.context_party_del) {
-            partyDelete(party);
-            return true;
-        }
+//    public void openPartyEditActivity(Party party) {
+//        Intent intent = new Intent(PartiesActivity.this, PartyEditActivity.class);
+//        intent.putExtra(Party.EXTRA_NAME, party);
+//        startActivityForResult(intent, RequestCode.PARTY_EDIT);
+//    }
 
-        return super.onContextItemSelected(item);
-    }
+//    public void startPartyContentActivity(int position) {
+//        Party party = partyAdapter.getParentList().get(position);
+//        Intent intent = new Intent(PartiesActivity.this, PartyContentActivity.class);
+//        intent.putExtra(Party.EXTRA_NAME, party);
+//        startActivityForResult(intent, RequestCode.PARTY_CONTENT);
+//    }
 
-    public void openPartyEditActivity(Party party) {
-        Intent intent = new Intent(PartiesActivity.this, PartyEditActivity.class);
-        intent.putExtra(Party.EXTRA_NAME, party);
-        startActivityForResult(intent, RequestCode.PARTY_EDIT);
-    }
-
-    public void startPartyContentActivity(int position) {
-        Party party = partyAdapter.getParentList().get(position);
-        Intent intent = new Intent(PartiesActivity.this, PartyContentActivity.class);
-        intent.putExtra(Party.EXTRA_NAME, party);
-        startActivityForResult(intent, RequestCode.PARTY_CONTENT);
-    }
-
-    public void partyDelete (Party party) {
-        partyDao.delete(party);
-        planDao.refresh(plan);
-        partyAdapter.set(new ArrayList<>(plan.getParties()));
-        partyAdapter.notifyDataSetChanged();
-    }
+//    public void partyDelete (Party party) {
+//        partyDao.delete(party);
+//        planDao.refresh(plan);
+//        partyAdapter.set(new ArrayList<>(plan.getParties()));
+//        partyAdapter.notifyDataSetChanged();
+//    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

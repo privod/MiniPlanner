@@ -29,7 +29,6 @@ import ru.home.miniplanner.view.PartiesActivity;
  */
 //public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
 public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAdapter.PartyViewHolder, PartyAdapter.BayViewHolder> {
-    static final String LOG_TAG = PartyAdapter.class.getSimpleName();
 
 //    private List<Party> parties;
 
@@ -50,9 +49,10 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (v.getContext() instanceof PartiesActivity) {
-                        ((PartiesActivity) v.getContext()).startPartyContentActivity(getAdapterPosition());
-                    }
+                    // TODO Click action
+//                    if (v.getContext() instanceof PartiesActivity) {
+//                        ((PartiesActivity) v.getContext()).startPartyContentActivity(getAdapterPosition());
+//                    }
                 }
             });
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -82,9 +82,10 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (v.getContext() instanceof PartiesActivity) {
-                        ((PartiesActivity) v.getContext()).startPartyContentActivity(getAdapterPosition());
-                    }
+                    // TODO Click action
+//                    if (v.getContext() instanceof PartiesActivity) {
+//                        ((PartiesActivity) v.getContext()).startPartyContentActivity(getAdapterPosition());
+//                    }
                 }
             });
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -185,10 +186,10 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
 //        return parties;
 //    }
 
-    public void updateParties(List<Party> newParties) {
-        this.parties = newParties;
-        notifyDataSetChanged();
-    }
+//    public void updateParties(List<Party> newParties) {
+//        setParentList(newParties);
+//        notifyDataSetChanged();
+//    }
 
     /*@Override
     public View getView(int position, View convertView, ViewGroup parent) {
