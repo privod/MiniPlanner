@@ -103,7 +103,7 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
         }
 
         if (requestCode == RequestCode.PARTY_EDIT && resultCode == RESULT_OK) {
-            Party party = (Party) data.getSerializableExtra(Party.EXTRA_NAME);
+            Party party = (Party) data.getSerializableExtra(Party.class.getSimpleName());
             dao.save(party);
             planDao.refresh(plan);
             partyAdapter.setParentList(new ArrayList<>(plan.getParties()), true);

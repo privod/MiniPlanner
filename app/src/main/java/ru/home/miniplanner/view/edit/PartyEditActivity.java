@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
 
@@ -39,7 +40,10 @@ public class PartyEditActivity extends EditActivity<Party> {
         dao = HelperFactory.getHelper().getPartyDao();
 //        Dao<Bay> bayDao = HelperFactory.getHelper().getBayDao();
 
-        nameEditText = (EditText) findViewById(R.id.nameEditText);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
+        getLayoutInflater().inflate(R.layout.edit_party, layout, true);
+
+        nameEditText = (EditText) findViewById(R.id.edit_text_name);
 
         nameEditText.setText(entity.getName());
 
