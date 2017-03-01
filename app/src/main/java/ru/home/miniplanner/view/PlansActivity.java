@@ -87,4 +87,10 @@ public class PlansActivity extends BaseListActivity<Plan> {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onDestroy() {
+        HelperFactory.releaseHelper();
+        super.onDestroy();
+    }
 }

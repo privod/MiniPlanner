@@ -70,10 +70,4 @@ public abstract class BaseActivity <T extends Domain>  extends AppCompatActivity
         Intent intent = getEditActivityIntent(entity);
         startActivityForResult(intent, request_code_edit);
     }
-
-    @Override
-    protected void onDestroy() {
-        HelperFactory.releaseHelper();
-        super.onDestroy();
-    }
 }

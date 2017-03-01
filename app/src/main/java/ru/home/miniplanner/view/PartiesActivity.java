@@ -46,7 +46,9 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
 
     @Override
     protected Party newEntityInstance() {
-        return new Party();
+        Party party = new Party();
+        party.setPlan(plan);
+        return party;
     }
 
     @Override
