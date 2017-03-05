@@ -134,6 +134,6 @@ public class Party extends Domain implements Parent<Bay> {
 
     @Override
     public boolean isInitiallyExpanded() {
-        return false;
+        return true;
     }
 }

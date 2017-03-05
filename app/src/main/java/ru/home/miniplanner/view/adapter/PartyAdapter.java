@@ -3,8 +3,6 @@ package ru.home.miniplanner.view.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +14,9 @@ import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Bay;
-import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.view.PartiesActivity;
 
@@ -41,7 +37,7 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
         private Context context;
         private TextView nameTextView;
         private TextView debtTextView;
-        private ViewGroup partyContentLayout;
+//        private ViewGroup partyContentLayout;
 
         PartyViewHolder(View itemView) {
             super(itemView);
@@ -66,15 +62,15 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
             context = itemView.getContext();
             nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
             debtTextView = (TextView) itemView.findViewById(R.id.text_view_debt);
-            partyContentLayout = (ViewGroup) itemView.findViewById(R.id.partyContentLayout);
+//            partyContentLayout = (ViewGroup) itemView.findViewById(R.id.partyContentLayout);
         }
     }
 
     class BayViewHolder extends ChildViewHolder {
         private Context context;
-        private TextView nameTextView;
-        private TextView debtTextView;
-        private ViewGroup partyContentLayout;
+        private TextView descriptionTextView;
+        private TextView costTextView;
+//        private ViewGroup partyContentLayout;
 
         BayViewHolder(View itemView) {
             super(itemView);
@@ -101,9 +97,9 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
             });
 
             context = itemView.getContext();
-            nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
-            debtTextView = (TextView) itemView.findViewById(R.id.text_view_debt);
-            partyContentLayout = (ViewGroup) itemView.findViewById(R.id.partyContentLayout);
+            descriptionTextView = (TextView) itemView.findViewById(R.id.text_view_description);
+            costTextView = (TextView) itemView.findViewById(R.id.text_view_cost);
+//            partyContentLayout = (ViewGroup) itemView.findViewById(R.id.partyContentLayout);
         }
     }
 
@@ -137,7 +133,7 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
             holder.debtTextView.setTextColor(ContextCompat.getColor(holder.context, R.color.material_green_700));
         }
 
-        LayoutInflater inflater = LayoutInflater.from(holder.context);
+        /*LayoutInflater inflater = LayoutInflater.from(holder.context);
 
         holder.partyContentLayout.removeAllViews();
         for (Bay bay : party.getBays()) {
@@ -169,12 +165,13 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
             partyToTextView.setText(contribution.getTo().toString());
             sumTextView.setText(contribution.getSum().toPlainString());
 //            contentLayout.addView(contributionLayout);
-        }
+        }*/
     }
 
     @Override
-    public void onBindChildViewHolder(@NonNull BayViewHolder childViewHolder, int parentPosition, int childPosition, @NonNull Bay child) {
-
+    public void onBindChildViewHolder(@NonNull BayViewHolder holder, int parentPosition, int childPosition, @NonNull Bay child) {
+        holder.descriptionTextView.setText(child.getDescription());
+        holder.costTextView.setText(child.getCost().toPlainString());
     }
 
 //    @Override
@@ -202,15 +199,15 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
         final Party party = (Party) getItem(position);
 
         TextView nameEditText = (TextView) view.findViewById(R.id.descriptionTextView);
-        TextView debtTextView = (TextView) view.findViewById(R.id.debtTextView);
+        TextView costTextView = (TextView) view.findViewById(R.id.costTextView);
 
         getViewService().textViewSetText(nameEditText, party.getName());
-        getViewService().textViewSetText(debtTextView, party.getDebt().abs());
+        getViewService().textViewSetText(costTextView, party.getDebt().abs());
 
         if (party.getDebt().compareTo(new BigDecimal("0")) > 0) {
-            debtTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
+            costTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
         } else {
-            debtTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.green));
+            costTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.green));
         }
 
 //        Log.e(LOG_TAG, String.format("%s\t%s\t%s\t%s", party.hashCode(), party.getBays().hashCode(),  party.getOut().hashCode(), party.getName()));

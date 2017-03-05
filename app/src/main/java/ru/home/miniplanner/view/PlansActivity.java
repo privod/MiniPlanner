@@ -1,13 +1,18 @@
 package ru.home.miniplanner.view;
 
+import android.icu.text.MessagePattern;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.math.BigDecimal;
 import java.util.GregorianCalendar;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
+import ru.home.miniplanner.model.Bay;
+import ru.home.miniplanner.model.Contribution;
+import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.view.adapter.PlanAdapter;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
@@ -57,13 +62,64 @@ public class PlansActivity extends BaseListActivity<Plan> {
         } else if (id == R.id.action_cre_debug_data) {
 
             Dao<Plan> planDao = HelperFactory.getHelper().getPlanDao();
+            Dao<Party> partyDao = HelperFactory.getHelper().getPartyDao();
+            Dao<Bay> bayDao = HelperFactory.getHelper().getBayDao();
+            Dao<Contribution> contributionDao = HelperFactory.getHelper().getContributionDao();
 
             Plan plan;
             plan = new Plan();
             plan.setName("Рыбылка");
             plan.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
             planDao.save(plan);
-            int posBegin = planDao.getAll().indexOf(plan);
+
+            Party partyP = new Party();
+            partyP.setPlan(plan);
+            partyP.setName("Петя");
+            partyDao.save(partyP);
+
+            Bay bay = new Bay();
+            bay.setDescription("Закуска");
+            bay.setCost(new BigDecimal("500"));
+            bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
+            bay.setParty(partyP);
+            bayDao.save(bay);
+
+            Party partyV = new Party();
+            partyV.setPlan(plan);
+            partyV.setName("Вася");
+            partyDao.save(partyV);
+
+            Contribution contribution = new Contribution();
+            contribution.setFrom(partyV);
+            contribution.setTo(partyP);
+            contribution.setSum(new BigDecimal("300"));
+            contributionDao.save(contribution);
+
+            Party partyPH = new Party();
+            partyPH.setPlan(plan);
+            partyPH.setName("Пафнутий");
+            partyDao.save(partyPH);
+
+            bay = new Bay();
+            bay.setDescription("Водка");
+            bay.setCost(new BigDecimal("1000"));
+            bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
+            bay.setParty(partyPH);
+            bayDao.save(bay);
+
+            bay = new Bay();
+            bay.setDescription("Пиво");
+            bay.setCost(new BigDecimal("900"));
+            bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
+            bay.setParty(partyPH);
+            bayDao.save(bay);
+
+            contribution = new Contribution();
+            contribution.setFrom(partyV);
+            contribution.setTo(partyPH);
+            contribution.setSum(new BigDecimal("300"));
+            contributionDao.save(contribution);
+
 
             plan = new Plan();
             plan.setName("Хмельники");
