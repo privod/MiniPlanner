@@ -126,10 +126,12 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
 
         holder.nameTextView.setText(party.getName());
 
-        holder.debtTextView.setText(party.getDebt().abs().toPlainString());
-        if (party.getDebt().compareTo(new BigDecimal("0")) > 0) {
+//        holder.debtTextView.setText(party.getDebt().abs().toPlainString());
+        if (null != party.getDebt()) {
+            holder.debtTextView.setText(party.getDebt().toPlainString());
             holder.debtTextView.setTextColor(ContextCompat.getColor(holder.context, R.color.material_red_800));
         } else {
+            holder.debtTextView.setText(party.getOverpay().toPlainString());
             holder.debtTextView.setTextColor(ContextCompat.getColor(holder.context, R.color.material_green_700));
         }
 

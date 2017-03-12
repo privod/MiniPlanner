@@ -3,98 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_gravity="center"
+    <!--<android.support.v7.widget.CardView-->
+        <!--xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/card_view"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="8dp"-->
+        <!--card_view:cardCornerRadius="4dp"-->
+        <!--card_view:cardElevation="2dp">-->
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="2dp">
+        style="@style/AppTheme.CardViewPadding"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/text_view_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/AppTheme.CardViewPadding"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:text="Name" />
 
-            <TextView
-                android:id="@+id/text_view_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Headline"
-                android:text="Name" />
+        <!--<LinearLayout-->
+            <!--android:id="@+id/partyContentLayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_marginTop="@dimen/spacing_normal"-->
+            <!--android:baselineAligned="false">-->
 
-            <TextView
-                android:id="@+id/text_view_debt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Subhead"
-                android:text="Debt"/>
+        <!--</LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/partyContentLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/spacing_normal"
-                android:baselineAligned="false">
+        <TextView
+            android:id="@+id/text_view_debt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:text="Debt"
+            android:layout_alignBaseline="@+id/text_view_name"
+            android:layout_alignBottom="@+id/text_view_name"
+            android:layout_alignParentEnd="true" />
 
-                <!--<TableLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/spacing_small"
-                    android:layout_weight="1"
-                    android:stretchColumns="0">
+    </RelativeLayout>
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/bayNameTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="0" />
-
-                        <TextView
-                            android:id="@+id/bayCostTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="1"
-                            android:textAlignment="textEnd" />
-
-                    </TableRow>
-                </TableLayout>
-
-                <TableLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_small"
-                    android:layout_weight="1"
-                    android:stretchColumns="0">
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="0" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_column="1" />
-                    </TableRow>
-                </TableLayout>-->
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
+    <!--</android.support.v7.widget.CardView>-->
 
 </FrameLayout>

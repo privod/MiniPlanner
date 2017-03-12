@@ -54,12 +54,37 @@ public class Party extends Domain implements Parent<Bay> {
         return totalSum;
     }
 
-    public BigDecimal getDebt() {
-        return plan.getShare()
-                .subtract(getTotalCostBays())
-                .subtract(getTotalSumOut())
-                .add(getTotalSumIn());
+//    public BigDecimal getDebt() {
+//        return plan.getShare()
+//                .subtract(getTotalCostBays())
+//                .subtract(getTotalSumOut())
+//                .add(getTotalSumIn());
+//
+//    }
 
+    private BigDecimal getBalance() {
+        return getTotalCostBays()
+                .add(getTotalSumOut())
+                .subtract(getTotalSumIn())
+                .subtract(plan.getShare());
+
+    }
+
+    public BigDecimal getDebt() {
+        BigDecimal debt = getBalance().negate();
+        if (debt.compareTo(new BigDecimal("0")) > 0) {
+            return debt;
+        }
+
+        return null;
+    }
+
+    public BigDecimal getOverpay() {
+        if (getBalance().compareTo(new BigDecimal("0")) > 0) {
+            return getBalance();
+        }
+
+        return new BigDecimal("0");
     }
 
     @Override
