@@ -48,7 +48,7 @@ public class PartyContentActivity extends AppCompatActivity {
         partyDao = HelperFactory.getHelper().getPartyDao();
 
         Intent intent = this.getIntent();
-        party = (Party) intent.getSerializableExtra(Party.EXTRA_NAME);
+        party = (Party) intent.getSerializableExtra(Party.class.getSimpleName());
 
         tabs = (TabHost) findViewById(android.R.id.tabhost);
         tabs.setup();

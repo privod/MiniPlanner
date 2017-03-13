@@ -15,7 +15,7 @@ import java.util.List;
  */
 @DatabaseTable
 public class Party extends Domain implements Parent<Bay> {
-    public static final String EXTRA_NAME = "party";
+//    public static final String EXTRA_NAME = "party";
 
     @DatabaseField
     private String name;
@@ -62,7 +62,7 @@ public class Party extends Domain implements Parent<Bay> {
 //
 //    }
 
-    private BigDecimal getBalance() {
+    public BigDecimal getBalance() {
         return getTotalCostBays()
                 .add(getTotalSumOut())
                 .subtract(getTotalSumIn())
