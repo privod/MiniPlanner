@@ -5,7 +5,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.NonNull;
+import android.support.transition.TransitionManager;
 import android.support.v4.content.ContextCompat;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +44,7 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, PartyContent,
         private ImageView expandImageView;
         private TextView nameTextView;
         private TextView debtTextView;
+        private ViewGroup expandLayout;
 //        private ViewGroup partyContentLayout;
 
         public PartyViewHolder(View itemView) {
@@ -66,20 +69,22 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, PartyContent,
 
             context = itemView.getContext();
 
-            final TransitionDrawable transition = new TransitionDrawable(new Drawable[] {
-                    context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_up_black_24dp),
-                    context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_black_24dp)
-            });
+            expandLayout = (ViewGroup) itemView.findViewById(R.id.layout_expand);
+//            final TransitionDrawable transition = new TransitionDrawable(new Drawable[] {
+//                    context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_up_black_24dp),
+//                    context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_black_24dp)
+//            });
             expandImageView = (ImageView) itemView.findViewById(R.id.image_view_expand);
-            expandImageView.setImageDrawable(transition);
+//            expandImageView.setImageDrawable(transition);
             expandImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (isExpanded()) {
-                        transition.startTransition(1000);
+//                        transition.startTransition(1000);
                         collapseView();
                     } else {
-                        transition.reverseTransition(1000);
+//                        transition.reverseTransition(1000);
+                        expandView();
                     }
                 }
             });
@@ -87,6 +92,14 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, PartyContent,
             nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
             debtTextView = (TextView) itemView.findViewById(R.id.text_view_debt);
 //            partyContentLayout = (ViewGroup) itemView.findViewById(R.id.partyContentLayout);
+        }
+
+        @Override
+        public void onExpansionToggled(boolean expanded) {
+            super.onExpansionToggled(expanded);
+
+            TransitionManager.beginDelayedTransition(expandLayout);
+            expandImageView.setRotation(180);
         }
     }
 

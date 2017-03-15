@@ -17,16 +17,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/AppTheme.CardViewPadding"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        style="@style/AppTheme.CardViewPadding"
+        >
 
-        <ImageView
-            android:id="@+id/image_view_expand"
+        <FrameLayout
+            android:id="@+id/layout_expand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
-            />
+            >
+
+            <ImageView
+                android:id="@+id/image_view_expand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+                />
+        </FrameLayout>
 
         <!--<LinearLayout-->
             <!--android:id="@+id/partyContentLayout"-->
@@ -42,7 +50,7 @@
             android:id="@+id/text_view_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/image_view_expand"
+            android:layout_toEndOf="@+id/layout_expand"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_centerVertical="true"
             android:text="Name"
