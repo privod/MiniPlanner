@@ -26,7 +26,7 @@ public class BayEditActivity extends EditActivity<Bay> {
 
     @Override
     public void changeEntity() {
-        entity.setCost(new BigDecimal(costEditText.getText().toString()));
+        entity.setSum(new BigDecimal(costEditText.getText().toString()));
         entity.setDateReg(Util.dateParse(dateRegEditText.getText().toString()));
         entity.setDescription(descriptionEditText.getText().toString());
     }
@@ -44,7 +44,7 @@ public class BayEditActivity extends EditActivity<Bay> {
         dateRegEditText = (EditText) findViewById(R.id.dateRegEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
 
-        costEditText.setText(entity.getCost().toPlainString());
+        costEditText.setText(entity.getSum().toPlainString());
         dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
         descriptionEditText.setText(entity.getDescription());
 

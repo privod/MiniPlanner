@@ -1,30 +1,34 @@
 package ru.home.miniplanner.view.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
 import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Party;
+import ru.home.miniplanner.model.PartyContent;
 import ru.home.miniplanner.view.PartiesActivity;
 
 /**
  * Created by privod on 28.10.2015.
  */
 //public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
-public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAdapter.PartyViewHolder, PartyAdapter.BayViewHolder> {
+public class PartyAdapter extends ExpandableRecyclerAdapter<Party, PartyContent, PartyAdapter.PartyViewHolder, PartyAdapter.PartyContentViewHolder> {
 
 //    private List<Party> parties;
 
@@ -35,11 +39,12 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
 
     class PartyViewHolder extends ParentViewHolder {
         private Context context;
+        private ImageView expandImageView;
         private TextView nameTextView;
         private TextView debtTextView;
 //        private ViewGroup partyContentLayout;
 
-        PartyViewHolder(View itemView) {
+        public PartyViewHolder(View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -60,19 +65,39 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
             });
 
             context = itemView.getContext();
+
+            final TransitionDrawable transition = new TransitionDrawable(new Drawable[] {
+                    context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_up_black_24dp),
+                    context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_black_24dp)
+            });
+            expandImageView = (ImageView) itemView.findViewById(R.id.image_view_expand);
+            expandImageView.setImageDrawable(transition);
+            expandImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isExpanded()) {
+                        transition.startTransition(1000);
+                        collapseView();
+                    } else {
+                        transition.reverseTransition(1000);
+                    }
+                }
+            });
+
             nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
             debtTextView = (TextView) itemView.findViewById(R.id.text_view_debt);
 //            partyContentLayout = (ViewGroup) itemView.findViewById(R.id.partyContentLayout);
         }
     }
 
-    class BayViewHolder extends ChildViewHolder {
-        private Context context;
+    class PartyContentViewHolder extends ChildViewHolder {
+//        private Context context;
+        private ImageView iconImageView;
         private TextView descriptionTextView;
-        private TextView costTextView;
+        private TextView sumTextView;
 //        private ViewGroup partyContentLayout;
 
-        BayViewHolder(View itemView) {
+        PartyContentViewHolder(View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -96,9 +121,10 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
                 }
             });
 
-            context = itemView.getContext();
+//            context = itemView.getContext();
+            iconImageView = (ImageView) itemView.findViewById(R.id.image_view_icon);
             descriptionTextView = (TextView) itemView.findViewById(R.id.text_view_description);
-            costTextView = (TextView) itemView.findViewById(R.id.text_view_cost);
+            sumTextView = (TextView) itemView.findViewById(R.id.text_view_sum);
 //            partyContentLayout = (ViewGroup) itemView.findViewById(R.id.partyContentLayout);
         }
     }
@@ -113,10 +139,10 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
 
     @NonNull
     @Override
-    public BayViewHolder onCreateChildViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bay_view, parent, false);
+    public PartyContentViewHolder onCreateChildViewHolder(@NonNull ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.party_contribution_view, parent, false);
 
-        return new BayViewHolder(view);
+        return new PartyContentViewHolder(view);
     }
 
     @Override
@@ -171,9 +197,16 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, Bay, PartyAda
     }
 
     @Override
-    public void onBindChildViewHolder(@NonNull BayViewHolder holder, int parentPosition, int childPosition, @NonNull Bay child) {
+    public void onBindChildViewHolder(@NonNull PartyContentViewHolder holder, int parentPosition, int childPosition, @NonNull PartyContent child) {
+
+        if (child instanceof Bay) {
+            holder.iconImageView.setImageResource(R.drawable.ic_cart);
+        } else {
+            holder.iconImageView.setImageResource(R.drawable.ic_cash_multiple);
+        }
+
         holder.descriptionTextView.setText(child.getDescription());
-        holder.costTextView.setText(child.getCost().toPlainString());
+        holder.sumTextView.setText(child.getSum().toPlainString());
     }
 
 //    @Override

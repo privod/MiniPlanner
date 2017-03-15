@@ -39,7 +39,7 @@ public class BayAdapter extends OldBaseAdapter<Bay> {
         getViewService().textViewSetText(descriptionTextView, bay.getDescription());
         getViewService().textViewSetText(dateRegTextView, bay.getDateReg());
 //        viewService.textViewSetText(costExpectTextView, plan.getCostExpect());
-        getViewService().textViewSetText(costTextView, bay.getCost());
+        getViewService().textViewSetText(costTextView, bay.getSum());
 
         return view;
     }

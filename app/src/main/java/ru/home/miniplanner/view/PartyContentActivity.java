@@ -106,7 +106,7 @@ public class PartyContentActivity extends AppCompatActivity {
         }
 
         if (requestCode == REQUEST_BAY_EDIT && resultCode == RESULT_OK) {
-            Bay bay = (Bay) data.getSerializableExtra(Bay.EXTRA_NAME);
+            Bay bay = (Bay) data.getSerializableExtra(Bay.class.getSimpleName());
             party.getBays().add(bay);
 //            bayDao.save(bay);
 //            partyDao.refresh(bay.getParty());
@@ -114,7 +114,7 @@ public class PartyContentActivity extends AppCompatActivity {
             bayAdapter.notifyDataSetChanged();
         }
         if (requestCode == REQUEST_CONTRIBUTION_EDIT && resultCode == RESULT_OK) {
-            Contribution contribution = (Contribution) data.getSerializableExtra(Contribution.EXTRA_NAME);
+            Contribution contribution = (Contribution) data.getSerializableExtra(Contribution.class.getSimpleName());
             party.getOut().add(contribution);
             contributionAdapter.setList(party.getOut());
             contributionAdapter.notifyDataSetChanged();
@@ -123,13 +123,13 @@ public class PartyContentActivity extends AppCompatActivity {
 
     public void openBayEditActivity(Bay bay) {
         Intent intent = new Intent(PartyContentActivity.this, BayEditActivity.class);
-        intent.putExtra(Bay.EXTRA_NAME, bay);
+        intent.putExtra(Bay.class.getSimpleName(), bay);
         startActivityForResult(intent, REQUEST_BAY_EDIT);
     }
 
     public void openContributionEditActivity(Contribution contribution) {
         Intent intent = new Intent(PartyContentActivity.this, ContributionEditActivity.class);
-        intent.putExtra(Contribution.EXTRA_NAME, contribution);
+        intent.putExtra(Contribution.class.getSimpleName(), contribution);
         startActivityForResult(intent, REQUEST_CONTRIBUTION_EDIT);
     }
 }

@@ -28,12 +28,12 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
         Bay bay = new Bay();
         bay.setParty(party);
-        bay.setCost(new BigDecimal("123"));
+        bay.setSum(new BigDecimal("123"));
         party.getBays().add(bay);
 
         bay = new Bay();
         bay.setParty(party);
-        bay.setCost(new BigDecimal("321"));
+        bay.setSum(new BigDecimal("321"));
         party.getBays().add(bay);
 
         plan.getTotalCost();

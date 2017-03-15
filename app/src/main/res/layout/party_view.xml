@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -20,12 +21,12 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/text_view_name"
+        <ImageView
+            android:id="@+id/image_view_expand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.AppCompat.Headline"
-            android:text="Name" />
+            app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+            />
 
         <!--<LinearLayout-->
             <!--android:id="@+id/partyContentLayout"-->
@@ -38,14 +39,25 @@
         <!--</LinearLayout>-->
 
         <TextView
+            android:id="@+id/text_view_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/image_view_expand"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_centerVertical="true"
+            android:text="Name"
+            style="@style/TextAppearance.AppCompat.Headline"
+            />
+
+        <TextView
             android:id="@+id/text_view_debt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
             android:text="Debt"
-            android:layout_alignBaseline="@+id/text_view_name"
-            android:layout_alignBottom="@+id/text_view_name"
-            android:layout_alignParentEnd="true" />
+            style="@style/TextAppearance.AppCompat.Headline"
+            />
 
     </RelativeLayout>
 

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by privod on 19.10.2015.
  */
 @DatabaseTable
-public class Party extends Domain implements Parent<Bay> {
+public class Party extends Domain implements Parent<PartyContent> {
 //    public static final String EXTRA_NAME = "party";
 
     @DatabaseField
@@ -33,7 +33,7 @@ public class Party extends Domain implements Parent<Bay> {
     public BigDecimal getTotalCostBays() {
         BigDecimal totalCost = new BigDecimal("0");
         for (Bay bay : bays) {
-            totalCost = totalCost.add(bay.getCost());
+            totalCost = totalCost.add(bay.getSum());
         }
         return totalCost;
     }
@@ -153,8 +153,10 @@ public class Party extends Domain implements Parent<Bay> {
     }
 
     @Override
-    public List<Bay> getChildList() {
-        return new ArrayList<>(getBays());
+    public List<PartyContent> getChildList() {
+        ArrayList<PartyContent> childList = new ArrayList<PartyContent>(getBays());
+        childList.addAll(getOut());
+        return childList;
     }
 
     @Override

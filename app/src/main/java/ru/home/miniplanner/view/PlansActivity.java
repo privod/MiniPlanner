@@ -79,7 +79,7 @@ public class PlansActivity extends BaseListActivity<Plan> {
 
             Bay bay = new Bay();
             bay.setDescription("Закуска");
-            bay.setCost(new BigDecimal("500"));
+            bay.setSum(new BigDecimal("500"));
             bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
             bay.setParty(partyP);
             bayDao.save(bay);
@@ -102,14 +102,14 @@ public class PlansActivity extends BaseListActivity<Plan> {
 
             bay = new Bay();
             bay.setDescription("Водка");
-            bay.setCost(new BigDecimal("1000"));
+            bay.setSum(new BigDecimal("1000"));
             bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
             bay.setParty(partyPH);
             bayDao.save(bay);
 
             bay = new Bay();
             bay.setDescription("Пиво");
-            bay.setCost(new BigDecimal("900"));
+            bay.setSum(new BigDecimal("900"));
             bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
             bay.setParty(partyPH);
             bayDao.save(bay);
