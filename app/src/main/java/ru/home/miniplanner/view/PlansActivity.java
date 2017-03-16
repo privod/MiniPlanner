@@ -2,6 +2,8 @@ package ru.home.miniplanner.view;
 
 import android.icu.text.MessagePattern;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -39,6 +41,9 @@ public class PlansActivity extends BaseListActivity<Plan> {
         dao = HelperFactory.getHelper().getPlanDao();
         adapter = new PlanAdapter(multiSelector);
         recyclerView.setAdapter(adapter);
+
+//        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+//        recyclerView.setItemAnimator(itemAnimator);
     }
 
     @Override

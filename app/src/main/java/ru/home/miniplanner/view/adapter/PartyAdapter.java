@@ -98,8 +98,15 @@ public class PartyAdapter extends ExpandableRecyclerAdapter<Party, PartyContent,
         public void onExpansionToggled(boolean expanded) {
             super.onExpansionToggled(expanded);
 
-            TransitionManager.beginDelayedTransition(expandLayout);
-            expandImageView.setRotation(180);
+
+            if (expanded) {
+                expandImageView.animate().rotation(180).start();
+            } else {
+                expandImageView.animate().rotationBy(180).rotation(0).start();
+            }
+
+//            TransitionManager.beginDelayedTransition(expandLayout);
+//            expandImageView.setRotation(180);
         }
     }
 
