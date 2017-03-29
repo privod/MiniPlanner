@@ -25,6 +25,7 @@ import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.service.BayDao;
 import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.view.adapter.PartyAdapter;
+import ru.home.miniplanner.view.divider.DividerItemDecoration;
 import ru.home.miniplanner.view.edit.PartyEditActivity;
 
 //public class PartiesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -73,6 +74,7 @@ public class PartiesActivity extends BaseActivity<Party> implements AdapterView.
 //            recyclerView.setLayoutManager(layoutManager);
 //        }
         recyclerView.setAdapter(partyAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        if (null != fab) {
