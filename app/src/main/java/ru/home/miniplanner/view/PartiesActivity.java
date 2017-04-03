@@ -27,20 +27,17 @@ import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.view.adapter.PartyAdapter;
 import ru.home.miniplanner.view.divider.DividerItemDecoration;
 import ru.home.miniplanner.view.edit.PartyEditActivity;
+import ru.home.miniplanner.view.edit.PlanEditActivity;
 
-//public class PartiesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-public class PartiesActivity extends BaseActivity<Party> implements AdapterView.OnItemClickListener {
+public class PartiesActivity extends BaseListActivity<Party> {
 
     Dao<Plan> planDao;
-//    ru.home.miniplanner.db.PartyDao partyDao;
-//    BayDao bayDao;
 
     Plan plan;
     PartyAdapter partyAdapter;      // TODO Переименовать в adapter
-//    protected RecyclerView recyclerView;
 
     public PartiesActivity() {
-        super(PartyEditActivity.class);
+        super(PartyEditActivity.class, Party.class, PartyContentActivity.class);
 
         request_code_edit = RequestCode.PARTY_EDIT;
     }
