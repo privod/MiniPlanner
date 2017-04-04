@@ -5,6 +5,8 @@ import android.util.Range;
 import android.util.SparseBooleanArray;
 import android.view.View;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SwappingHolder;
 
@@ -15,10 +17,13 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
+import ru.home.miniplanner.R;
 import ru.home.miniplanner.Util;
 import ru.home.miniplanner.model.Domain;
+import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.view.BaseListActivity;
 import ru.home.miniplanner.view.PlansActivity;
+import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
 /**
  * Created by privod on 19.10.2015.
@@ -26,18 +31,20 @@ import ru.home.miniplanner.view.PlansActivity;
 public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends Domain> extends RecyclerView.Adapter<VH> {
 
     private List<T> data;
-    protected Class<VH> tClass;
+//    protected Class<VH> tClass;
 
     protected MultiSelector multiSelector;
 
-    public BaseAdapter(MultiSelector multiSelector, Class<VH> tClass) {
+    BaseAdapter(MultiSelector multiSelector/*, Class<VH> tClass*/) {
         this.multiSelector = multiSelector;
         this.data = new ArrayList<T>();
-        this.tClass = tClass;
+//        this.tClass = tClass;
     }
 
     public abstract class ViewHolder extends SwappingHolder {
-        public ViewHolder(final View itemView) {
+        AvatarViewSwitcher avatarViewSwitcher;
+
+        ViewHolder(final View itemView) {
             super(itemView, multiSelector);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +66,33 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
                     return false;
                 }
             });
+            avatarViewSwitcher = (AvatarViewSwitcher) itemView.findViewById(R.id.view_switcher_avatar);
+            avatarViewSwitcher.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (v.getContext() instanceof BaseListActivity) {
+                        ((BaseListActivity) v.getContext()).selectSwitch(ViewHolder.this);
+                    }
+                }
+            });
         }
+    }
+
+    @Override
+    public void onBindViewHolder(VH holder, int position) {
+
+        if (multiSelector.isSelected(position, holder.getItemId())) {
+            holder.avatarViewSwitcher.setDisplayedChildNoAnim(1);
+//            holder.itemView.setBackgroundColor(Color.LTGRAY);
+        } else {
+            holder.avatarViewSwitcher.setDisplayedChildNoAnim(0);
+//            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    protected TextDrawable newAvatarDrawable(String text) {
+        String letter = String.valueOf(Character.toUpperCase(text.charAt(0)));
+        return TextDrawable.builder().buildRound(letter, ColorGenerator.MATERIAL.getColor(letter));
     }
 
     @Override

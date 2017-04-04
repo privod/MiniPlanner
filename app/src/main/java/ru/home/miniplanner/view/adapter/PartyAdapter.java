@@ -26,6 +26,8 @@ import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.PartyContent;
 import ru.home.miniplanner.view.PartiesActivity;
+import ru.home.miniplanner.view.PlansActivity;
+import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
 /**
  * Created by privod on 28.10.2015.
@@ -36,13 +38,15 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
 //    private List<Party> parties;
 
     public PartyAdapter(MultiSelector multiSelector) {
-        super(multiSelector, PartyAdapter.PartyViewHolder.class);
+        super(multiSelector/*, PartyAdapter.PartyViewHolder.class*/);
     }
 
     class PartyViewHolder extends BaseAdapter.ViewHolder {
         private Context context;
         private TextView nameTextView;
         private TextView debtTextView;
+//        private AvatarViewSwitcher avatarViewSwitcher;
+        private ImageView avatarIcon;
 
         public PartyViewHolder(View itemView) {
             super(itemView);
@@ -68,6 +72,17 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
 
             nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
             debtTextView = (TextView) itemView.findViewById(R.id.text_view_debt);
+            avatarIcon = (ImageView) itemView.findViewById(R.id.icon_avatar);
+//            avatarViewSwitcher = (AvatarViewSwitcher) itemView.findViewById(R.id.view_switcher_avatar);
+//            avatarViewSwitcher.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (v.getContext() instanceof PlansActivity) {
+//                        ((PlansActivity) v.getContext()).selectSwitch(PartyAdapter.PartyViewHolder.this);
+//                    }
+//                }
+//            });
+
         }
     }
 
@@ -80,9 +95,12 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
 
     @Override
     public void onBindViewHolder(PartyViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+
         Party party = getData().get(position);
 
         holder.nameTextView.setText(party.getName());
+        holder.avatarIcon.setImageDrawable(newAvatarDrawable(party.getName()));
 
 //        holder.debtTextView.setText(party.getDebt().abs().toPlainString());
         if (null != party.getDebt()) {

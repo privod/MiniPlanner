@@ -34,7 +34,7 @@ public class PartiesActivity extends BaseListActivity<Party> {
     Dao<Plan> planDao;
 
     Plan plan;
-    PartyAdapter partyAdapter;      // TODO Переименовать в adapter
+//    PartyAdapter partyAdapter;      // TODO Переименовать в adapter
 
     public PartiesActivity() {
         super(PartyEditActivity.class, Party.class, PartyContentActivity.class);
@@ -63,15 +63,15 @@ public class PartiesActivity extends BaseListActivity<Party> {
 //        for (Party party : parties) {
 //            partyDao.refresh(party);
 //        }
-        partyAdapter = new PartyAdapter();
+        adapter = new PartyAdapter(multiSelector);
 
 //        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 //        if (null != recyclerView) {
 //            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 //            recyclerView.setLayoutManager(layoutManager);
 //        }
-        recyclerView.setAdapter(partyAdapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        recyclerView.setAdapter(adapter);
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        if (null != fab) {
@@ -88,37 +88,37 @@ public class PartiesActivity extends BaseListActivity<Party> {
 //        listView.setOnItemClickListener(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        partyAdapter.updateParties(new ArrayList<>(plan.getParties()));
-        partyAdapter.setParentList(new ArrayList<>(plan.getParties()), true);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (null == data) {
-            return;
-        }
-
-        if (requestCode == RequestCode.PARTY_EDIT && resultCode == RESULT_OK) {
-            Party party = (Party) data.getSerializableExtra(Party.class.getSimpleName());
-            dao.save(party);
-            planDao.refresh(plan);
-            partyAdapter.setParentList(new ArrayList<>(plan.getParties()), true);
-        }
-//        else if (requestCode == REQUEST_BAY_EDIT && resultCode == RESULT_OK) {
-////            Party party = (Party) data.getSerializableExtra("party");
-//            Bay bay = (Bay) data.getSerializableExtra("bay");
-//            bayDao.save(bay);
-//            partyDao.refresh(bay.getParty());
-//            partyAdapter.setList(plan.getParties());
-////            partyAdapter.setList(partyDao.getByPlanId(plan.getId()));
-//            partyAdapter.notifyDataSetChanged();
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+////        partyAdapter.updateParties(new ArrayList<>(plan.getParties()));
+//        partyAdapter.setParentList(new ArrayList<>(plan.getParties()), true);
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//        if (null == data) {
+//            return;
 //        }
-    }
+//
+//        if (requestCode == RequestCode.PARTY_EDIT && resultCode == RESULT_OK) {
+//            Party party = (Party) data.getSerializableExtra(Party.class.getSimpleName());
+//            dao.save(party);
+//            planDao.refresh(plan);
+//            partyAdapter.setParentList(new ArrayList<>(plan.getParties()), true);
+//        }
+////        else if (requestCode == REQUEST_BAY_EDIT && resultCode == RESULT_OK) {
+//////            Party party = (Party) data.getSerializableExtra("party");
+////            Bay bay = (Bay) data.getSerializableExtra("bay");
+////            bayDao.save(bay);
+////            partyDao.refresh(bay.getParty());
+////            partyAdapter.setList(plan.getParties());
+//////            partyAdapter.setList(partyDao.getByPlanId(plan.getId()));
+////            partyAdapter.notifyDataSetChanged();
+////        }
+//    }
 
 //    @Override
 //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -169,8 +169,8 @@ public class PartiesActivity extends BaseListActivity<Party> {
 //        partyAdapter.notifyDataSetChanged();
 //    }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//    }
 }
