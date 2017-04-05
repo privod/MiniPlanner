@@ -51,23 +51,6 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
         public PartyViewHolder(View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // TODO Click action
-//                    if (v.getContext() instanceof PartiesActivity) {
-//                        ((PartiesActivity) v.getContext()).startPartyContentActivity(getAdapterPosition());
-//                    }
-                }
-            });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    return v.getContext() instanceof PartiesActivity;
-
-                }
-            });
-
             context = itemView.getContext();
 
             nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);

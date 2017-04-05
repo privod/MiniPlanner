@@ -152,13 +152,6 @@ public abstract class BaseListActivity<T extends Domain>  extends BaseActivity<T
 //        }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        adapter.updateData(dao.getAll());
-    }
-
     public void startInsideActivity(int position) {
         Intent intent = new Intent(BaseListActivity.this, insideActivityClass);
         T entity = dao.getAll().get(position);

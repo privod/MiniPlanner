@@ -58,7 +58,6 @@ public class PartiesActivity extends BaseListActivity<Party> {
 //        bayDao = HelperFactory.getHelper().getBayDao();
 
         plan = (Plan) getIntent().getSerializableExtra(Plan.class.getSimpleName());   // TODO Возможно достаточно передавать ID плана, вместо объекта целиком
-        planDao.refresh(plan);
 //        List<Party> parties = plan.getParties();
 //        for (Party party : parties) {
 //            partyDao.refresh(party);
@@ -86,6 +85,14 @@ public class PartiesActivity extends BaseListActivity<Party> {
 
 //        registerForContextMenu(listView);
 //        listView.setOnItemClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        planDao.refresh(plan);
+        adapter.updateData(new ArrayList<>(plan.getParties()));
     }
 
 //    @Override

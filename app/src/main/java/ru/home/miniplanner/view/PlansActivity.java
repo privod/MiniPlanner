@@ -47,6 +47,13 @@ public class PlansActivity extends BaseListActivity<Plan> {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        adapter.updateData(dao.getAll());
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
