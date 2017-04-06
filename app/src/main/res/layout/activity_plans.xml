@@ -8,7 +8,7 @@
     tools:context=".view.PlansActivity"
     >
 
-    <include layout="@layout/app_bar" />
+    <include layout="@layout/app_bar_toolbar" />
 
     <!--<include layout="@layout/content_plans" />-->
 
