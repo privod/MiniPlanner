@@ -22,7 +22,7 @@ public abstract class BaseActivity <T extends Domain>  extends AppCompatActivity
     protected final Class<? extends Activity> editActivityClass;
 
     protected Dao<T> dao;
-//    protected BaseAdapter<? extends BaseAdapter.ViewHolder, T> adapter;
+    //    protected BaseAdapter<? extends BaseAdapter.ViewHolder, T> adapter;
     protected RecyclerView recyclerView;
     protected int request_code_edit;
 
