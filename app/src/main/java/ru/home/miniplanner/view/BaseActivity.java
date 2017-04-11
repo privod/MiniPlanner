@@ -23,7 +23,6 @@ public abstract class BaseActivity <T extends Domain>  extends AppCompatActivity
 
     protected Dao<T> dao;
     //    protected BaseAdapter<? extends BaseAdapter.ViewHolder, T> adapter;
-    protected RecyclerView recyclerView;
     protected int request_code_edit;
 
     public BaseActivity(Class<? extends Activity> editActivityClass) {
@@ -39,14 +38,14 @@ public abstract class BaseActivity <T extends Domain>  extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        if (null != recyclerView) {
-//            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-//            recyclerView.setHasFixedSize(true);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-            recyclerView.setLayoutManager(layoutManager);
-//            recyclerView.setItemAnimator(new SlideInLeftAnimator());
-        }
+//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+//        if (null != recyclerView) {
+////            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+////            recyclerView.setHasFixedSize(true);
+//            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+//            recyclerView.setLayoutManager(layoutManager);
+////            recyclerView.setItemAnimator(new SlideInLeftAnimator());
+//        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (null != fab) {

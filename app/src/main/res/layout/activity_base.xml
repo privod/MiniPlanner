@@ -10,13 +10,19 @@
 
     <include layout="@layout/app_bar_toolbar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <FrameLayout
+        android:id="@+id/content_base"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/plan_view"
         />
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/recycler_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+        <!--tools:listitem="@layout/plan_view"-->
+        <!--/>-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

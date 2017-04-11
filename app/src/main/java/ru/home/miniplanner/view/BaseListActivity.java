@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
@@ -39,6 +40,7 @@ public abstract class BaseListActivity<T extends Domain>  extends BaseActivity<T
 //    protected RecyclerView recyclerView;
 //    protected int request_code_edit;
 
+    protected RecyclerView recyclerView;
     private MenuItem editMenuItem;
     private ActionMode actionMode;
     protected MultiSelector multiSelector = new MultiSelector();
@@ -130,6 +132,9 @@ public abstract class BaseListActivity<T extends Domain>  extends BaseActivity<T
 //        setSupportActionBar(toolbar);
 //
 //        HelperFactory.setHelper(this);
+        FrameLayout layout = (FrameLayout) findViewById(R.id.content_base);
+        getLayoutInflater().inflate(R.layout.recycler_view, layout, true);
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         if (null != recyclerView) {
