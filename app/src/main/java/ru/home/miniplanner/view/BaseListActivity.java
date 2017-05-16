@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -140,8 +141,8 @@ public abstract class BaseListActivity<T extends Domain>  extends BaseActivity<T
         if (null != recyclerView) {
             recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
             recyclerView.setHasFixedSize(true);
-//            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-//            recyclerView.setLayoutManager(layoutManager);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
             recyclerView.setItemAnimator(new SlideInLeftAnimator());
         }
 
