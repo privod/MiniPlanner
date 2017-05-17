@@ -3,7 +3,6 @@ package ru.home.miniplanner.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,7 +29,8 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
     protected RecyclerView recyclerView;
     protected int request_code_edit;
 
-    private OnFragmentInteractionListener mListener;    // TODO Возможно достаточно класса Context
+//    private OnFragmentInteractionListener context;    // TODO Возможно достаточно класса Context
+    private Context context;
 
     public BaseListFragment() {
         // Required empty public constructor
@@ -59,7 +59,7 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         if (null != recyclerView) {
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager((Context) mListener);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
             recyclerView.setLayoutManager(layoutManager);
         }
 
@@ -68,35 +68,36 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
 
 //    // TODO: Rename method, update argument and hook method into UI event
 //    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
+//        if (context != null) {
+//            context.onFragmentInteraction(uri);
 //        }
 //    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            this.context = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+        this.context = context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        context = null;
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+//    public interface OnFragmentInteractionListener {
+//        // TODO: Update argument type and name
+//        void onFragmentInteraction(Uri uri);
+//    }
 
     protected Intent getEditActivityIntent(T entity) {
-        Intent intent = new Intent((Context) mListener, editActivityClass);
+        Intent intent = new Intent((Context) context, editActivityClass);
         intent.putExtra(entity.getClass().getSimpleName(), entity);
         return  intent;
     }
