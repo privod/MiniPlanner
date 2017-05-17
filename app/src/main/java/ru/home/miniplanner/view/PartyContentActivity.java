@@ -1,6 +1,7 @@
 package ru.home.miniplanner.view;
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 
 import android.support.design.widget.TabLayout;
@@ -9,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Bay;
@@ -20,6 +22,10 @@ public class PartyContentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+
+        CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.coordinator);
+        getLayoutInflater().inflate(R.layout.app_bar_toolbar_tablaout, layout, true);
+        getLayoutInflater().inflate(R.layout.view_pager, layout, true);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

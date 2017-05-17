@@ -3,11 +3,15 @@ package ru.home.miniplanner.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +25,7 @@ import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.model.Domain;
 import ru.home.miniplanner.view.adapter.BaseAdapter;
 import ru.home.miniplanner.view.divider.DividerItemDecoration;
@@ -29,17 +34,15 @@ import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 /**
  * Created by privod on 26.09.2016.
  */
-//public abstract class BaseListActivity<T extends Domain>  extends AppCompatActivity {
-public abstract class BaseListActivity<T extends Domain>  extends BaseActivity<T> {
+public abstract class BaseListActivity<T extends Domain>  extends AppCompatActivity {
 
-//    private final Class<? extends Activity> editActivityClass;
+    private final Class<? extends Activity> editActivityClass;
     private final Class<T> entityClass;
     private final Class<? extends Activity> insideActivityClass;
 
-//    protected Dao<T> dao;
+    protected Dao<T> dao;
     protected BaseAdapter<? extends BaseAdapter.ViewHolder, T> adapter;
-//    protected RecyclerView recyclerView;
-//    protected int request_code_edit;
+    protected int request_code_edit;
 
     protected RecyclerView recyclerView;
     private MenuItem editMenuItem;
@@ -118,24 +121,24 @@ public abstract class BaseListActivity<T extends Domain>  extends BaseActivity<T
             Class<T> entityClass,
             Class<? extends Activity> insideActivityClass
     ) {
-        super(editActivityClass);
+        this.editActivityClass = editActivityClass;
         this.entityClass = entityClass;
         this.insideActivityClass = insideActivityClass;
     }
 
-//    protected abstract T newEntityInstance();
+    protected abstract T newEntityInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_base);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        HelperFactory.setHelper(this);
-        FrameLayout layout = (FrameLayout) findViewById(R.id.content_base);
+        setContentView(R.layout.activity_base);
+
+        CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.coordinator);
+        getLayoutInflater().inflate(R.layout.app_bar_toolbar, layout, true);
         getLayoutInflater().inflate(R.layout.recycler_view, layout, true);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         if (null != recyclerView) {
@@ -146,16 +149,16 @@ public abstract class BaseListActivity<T extends Domain>  extends BaseActivity<T
             recyclerView.setItemAnimator(new SlideInLeftAnimator());
         }
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        if (null != fab) {
-//            fab.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    startEditActivity(newEntityInstance());
-//
-//                }
-//            });
-//        }
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (null != fab) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startEditActivity(newEntityInstance());
+
+                }
+            });
+        }
     }
 
     public void startInsideActivity(int position) {
@@ -165,17 +168,13 @@ public abstract class BaseListActivity<T extends Domain>  extends BaseActivity<T
         startActivity(intent);
     }
 
-//    private void startEditActivity(T entity) {
-//        Intent intent = new Intent(BaseListActivity.this, editActivityClass);
-//        intent.putExtra(entity.getClass().getSimpleName(), entity);
-////        startActivityForResult(intent, getResources().getInteger(R.integer.request_code_plan_edit));
-//        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
-//        ActivityCompat.startActivityForResult(this, intent, request_code_edit, options.toBundle());
-//    }
+    protected Intent getEditActivityIntent(T entity) {
+        Intent intent = new Intent(BaseListActivity.this, editActivityClass);
+        intent.putExtra(entity.getClass().getSimpleName(), entity);
+        return  intent;
+    }
 
-    @Override
     protected void startEditActivity(T entity) {
-//        super.startEditActivity(entity);
         Intent intent = getEditActivityIntent(entity);
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
         ActivityCompat.startActivityForResult(this, intent, request_code_edit, options.toBundle());
