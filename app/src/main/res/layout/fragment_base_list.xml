@@ -4,6 +4,6 @@
     android:layout_height="match_parent"
     tools:context="ru.home.miniplanner.view.BaseListFragment">
 
-    <include layout="@layout/recycler_view" />
+    <include layout="@layout/widget_recycler_view" />
 
 </FrameLayout>

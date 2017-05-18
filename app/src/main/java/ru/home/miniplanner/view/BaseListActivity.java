@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
@@ -135,7 +134,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
 
         CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.coordinator);
         getLayoutInflater().inflate(R.layout.app_bar_toolbar, layout, true);
-        getLayoutInflater().inflate(R.layout.recycler_view, layout, true);
+        getLayoutInflater().inflate(R.layout.widget_recycler_view, layout, true);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -159,6 +158,13 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
                 }
             });
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        adapter.updateData(dao.getAll());
     }
 
     public void startInsideActivity(int position) {

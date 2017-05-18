@@ -38,7 +38,7 @@ public abstract class BaseActivity <T extends Domain>  extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+//        recyclerView = (RecyclerView) findViewById(R.id.widget_recycler_view);
 //        if (null != recyclerView) {
 ////            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 ////            recyclerView.setHasFixedSize(true);

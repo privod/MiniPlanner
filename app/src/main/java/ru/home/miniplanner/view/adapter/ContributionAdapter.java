@@ -1,6 +1,5 @@
 package ru.home.miniplanner.view.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import com.bignerdranch.android.multiselector.MultiSelector;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.Util;
 import ru.home.miniplanner.model.Contribution;
-import ru.home.miniplanner.model.Plan;
 
 /**
  * Created by privod on 19.10.2015.
@@ -42,7 +40,7 @@ public class ContributionAdapter extends BaseAdapter<ContributionAdapter.Contrib
 
     @Override
     public ContributionAdapter.ContributionViewHolder onCreateViewHolder(ViewGroup parent, int viewType)  {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_view, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_contribution, parent, false);
 
         return new ContributionAdapter.ContributionViewHolder(view);
     }

@@ -64,7 +64,7 @@ public class PartiesActivity extends BaseListActivity<Party> {
 //        }
         adapter = new PartyAdapter(multiSelector);
 
-//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+//        recyclerView = (RecyclerView) findViewById(R.id.widget_recycler_view);
 //        if (null != recyclerView) {
 //            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 //            recyclerView.setLayoutManager(layoutManager);

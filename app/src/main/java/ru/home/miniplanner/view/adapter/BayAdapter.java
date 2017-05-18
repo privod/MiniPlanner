@@ -1,46 +1,59 @@
 package ru.home.miniplanner.view.adapter;
 
-import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bignerdranch.android.multiselector.MultiSelector;
+
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.Util;
 import ru.home.miniplanner.model.Bay;
 
 /**
  * Created by privod on 19.10.2015.
  */
-public class BayAdapter extends OldBaseAdapter<Bay> {
-    static final String LOG_TAG = BayAdapter.class.getSimpleName();
 
-    public BayAdapter(Context context) {
-        super(context);
+public class BayAdapter extends BaseAdapter<BayAdapter.BayViewHolder, Bay> {
+
+    public BayAdapter(MultiSelector multiSelector) {
+        super(multiSelector/*, PlanViewHolder.class*/);
     }
 
-//    public BayAdapter(Context context, List<Bay> list) {
-//        super(context, list);
-//    }
+    class BayViewHolder extends BaseAdapter.ViewHolder {
+        private TextView descriptionTextView;
+        private TextView dateRegTextView;
+        private TextView costTextView;
+        //        private AvatarViewSwitcher avatarViewSwitcher;
+        private ImageView avatarIcon;
+
+        BayViewHolder(View itemView) {
+            super(itemView);
+
+            descriptionTextView = (TextView) itemView.findViewById(R.id.text_view_description);
+            dateRegTextView = (TextView) itemView.findViewById(R.id.text_view_date_reg);
+            costTextView = (TextView) itemView.findViewById(R.id.text_view_sum);
+            avatarIcon = (ImageView) itemView.findViewById(R.id.icon_avatar);
+        }
+    }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = super.getView(position, convertView, parent);
+    public BayAdapter.BayViewHolder onCreateViewHolder(ViewGroup parent, int viewType)  {
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_bay, parent, false);
 
-        if (null == view) {
-            view = getLayout().inflate(R.layout.bay_view, parent, false);
-        }
+        return new BayAdapter.BayViewHolder(view);
+    }
 
-        Bay bay = (Bay) getItem(position);
+    @Override
+    public void onBindViewHolder(BayAdapter.BayViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
 
-        TextView descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
-        TextView dateRegTextView = (TextView) view.findViewById(R.id.text_view_date_reg);
-        TextView costTextView = (TextView) view.findViewById(R.id.costTextView);
-
-        getViewService().textViewSetText(descriptionTextView, bay.getDescription());
-        getViewService().textViewSetText(dateRegTextView, bay.getDateReg());
-//        viewService.textViewSetText(costExpectTextView, plan.getCostExpect());
-        getViewService().textViewSetText(costTextView, bay.getSum());
-
-        return view;
+        Bay contribution = getData().get(position);
+        holder.descriptionTextView.setText(contribution.getDescription());
+        holder.dateRegTextView.setText(Util.dateToString(contribution.getDateReg()));
+        holder.costTextView.setText(contribution.getSum().toPlainString());
+        holder.avatarIcon.setImageDrawable(newAvatarDrawable(contribution.getDescription()));
     }
 }

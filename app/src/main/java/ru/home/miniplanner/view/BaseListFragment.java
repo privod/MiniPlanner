@@ -172,6 +172,13 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        adapter.updateData(dao.getAll());
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         activity = null;

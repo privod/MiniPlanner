@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/plan_view"
+        tools:listitem="@layout/list_item_plan"
         />
 
     <android.support.design.widget.FloatingActionButton

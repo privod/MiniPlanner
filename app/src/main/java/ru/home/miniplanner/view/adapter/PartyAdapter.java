@@ -1,13 +1,7 @@
 package ru.home.miniplanner.view.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
-import android.support.annotation.NonNull;
-import android.support.transition.TransitionManager;
 import android.support.v4.content.ContextCompat;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bignerdranch.android.multiselector.MultiSelector;
-import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
-import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
-import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
-
-import java.util.ArrayList;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Party;
-import ru.home.miniplanner.model.PartyContent;
-import ru.home.miniplanner.view.PartiesActivity;
-import ru.home.miniplanner.view.PlansActivity;
-import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
 /**
  * Created by privod on 28.10.2015.
@@ -71,7 +55,7 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
 
     @Override
     public PartyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.party_view, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_party, parent, false);
 
         return new PartyViewHolder(view);
     }

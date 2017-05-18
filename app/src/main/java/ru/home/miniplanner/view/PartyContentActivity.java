@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Bay;
@@ -25,7 +24,7 @@ public class PartyContentActivity extends AppCompatActivity {
 
         CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.coordinator);
         getLayoutInflater().inflate(R.layout.app_bar_toolbar_tablaout, layout, true);
-        getLayoutInflater().inflate(R.layout.view_pager, layout, true);
+        getLayoutInflater().inflate(R.layout.widget_view_pager, layout, true);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,8 +52,8 @@ public class PartyContentActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BaseListFragment<Contribution>(), Contribution.class.getSimpleName());
-        adapter.addFragment(new BaseListFragment<Bay>(), Bay.class.getSimpleName());
+        adapter.addFragment(new ContributionsFragment(), Contribution.class.getSimpleName());
+        adapter.addFragment(new BayFragment(), Bay.class.getSimpleName());
         viewPager.setAdapter(adapter);
     }
 }

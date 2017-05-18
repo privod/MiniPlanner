@@ -46,12 +46,12 @@ public class PlansActivity extends BaseListActivity<Plan> {
 //        recyclerView.setItemAnimator(itemAnimator);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        adapter.updateData(dao.getAll());
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        adapter.updateData(dao.getAll());
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

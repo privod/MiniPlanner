@@ -6,15 +6,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bignerdranch.android.multiselector.MultiSelector;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.Util;
 import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.view.PlansActivity;
-import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
 /**
  * Created by privod on 19.10.2015.
@@ -55,7 +51,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
 
     @Override
     public PlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType)  {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_view, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_plan, parent, false);
 
         return new PlanViewHolder(view);
     }

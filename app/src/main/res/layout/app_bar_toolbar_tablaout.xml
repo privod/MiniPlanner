@@ -7,8 +7,8 @@
     tools:showIn="@layout/activity_base"
     >
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/widget_toolbar" />
 
-    <include layout="@layout/tablayout" />
+    <include layout="@layout/widget_tablayout" />
 
 </android.support.design.widget.AppBarLayout>
