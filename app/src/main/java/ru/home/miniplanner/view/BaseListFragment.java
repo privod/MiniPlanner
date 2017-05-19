@@ -24,6 +24,7 @@ import java.util.List;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.model.Domain;
+import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.view.adapter.BaseAdapter;
 import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
@@ -35,7 +36,10 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
     private Class<T> entityClass;
     private Class<? extends Activity> insideActivityClass;
 
-//    private OnFragmentInteractionListener activity;    // TODO Возможно достаточно класса Context
+    Dao<Party> partyDao;
+    Party party;
+
+    //    private OnFragmentInteractionListener activity;    // TODO Возможно достаточно класса Context
     private AppCompatActivity activity;
     protected Dao<T> dao;
     protected int request_code_edit;

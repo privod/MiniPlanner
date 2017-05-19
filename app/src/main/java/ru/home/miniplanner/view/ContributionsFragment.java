@@ -21,4 +21,11 @@ public class ContributionsFragment extends BaseListFragment<Contribution> {
         adapter = new ContributionAdapter(multiSelector);
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        partyDao.refresh(party);
+    }
 }

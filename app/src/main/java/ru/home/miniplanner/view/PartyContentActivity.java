@@ -12,10 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.db.Dao;
+import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Contribution;
+import ru.home.miniplanner.model.Party;
 
 public class PartyContentActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
