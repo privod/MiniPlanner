@@ -28,8 +28,10 @@ import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.view.adapter.BaseAdapter;
 import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
+import static android.app.Activity.RESULT_OK;
 
-public class BaseListFragment  <T extends Domain> extends Fragment {
+
+public abstract class BaseListFragment  <T extends Domain> extends Fragment {
     private static final String ARG_EDIT_ACTIVITY_CLASS = "edit_activity_class";
 
     protected Class<? extends Activity> editActivityClass;
@@ -40,7 +42,7 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
     Party party;
 
     //    private OnFragmentInteractionListener activity;    // TODO Возможно достаточно класса Context
-    private AppCompatActivity activity;
+    private PartyContentActivity activity;
     protected Dao<T> dao;
     protected int request_code_edit;
 
@@ -131,6 +133,10 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
 //        return fragment;
 //    }
 
+    protected abstract T newEntityInstance();
+
+    protected abstract List<T> getList();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,9 +154,16 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
         if (null != recyclerView) {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
             recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
         }
 
-        recyclerView.setAdapter(adapter);
+        activity.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    startEditActivity(newEntityInstance());
+
+            }
+        });
 
 
         return view;
@@ -172,14 +185,14 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
 //            throw new RuntimeException(activity.toString()
 //                    + " must implement OnFragmentInteractionListener");
 //        }
-        this.activity = (AppCompatActivity) context;
+        this.activity = (PartyContentActivity) context;
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        adapter.updateData(dao.getAll());
+        adapter.updateData(getList());
     }
 
     @Override
@@ -193,8 +206,15 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
 //        void onFragmentInteraction(Uri uri);
 //    }
 
+    public void startInsideActivity(int position) {
+        Intent intent = new Intent(activity, insideActivityClass);
+        T entity = getList().get(position);
+        intent.putExtra(entity.getClass().getSimpleName(), entity);
+        startActivity(intent);
+    }
+
     protected Intent getEditActivityIntent(T entity) {
-        Intent intent = new Intent((Context) activity, editActivityClass);
+        Intent intent = new Intent(activity, editActivityClass);
         intent.putExtra(entity.getClass().getSimpleName(), entity);
         return  intent;
     }
@@ -202,5 +222,41 @@ public class BaseListFragment  <T extends Domain> extends Fragment {
     protected void startEditActivity(T entity) {
         Intent intent = getEditActivityIntent(entity);
         startActivityForResult(intent, request_code_edit);
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (null == data) {
+            return;
+        }
+
+        if (requestCode == request_code_edit && resultCode == RESULT_OK) {
+            T entity = entityClass.cast(data.getSerializableExtra(entityClass.getSimpleName()));
+            dao.save(entity);
+            adapter.updateData(getList());
+        }
+    }
+
+    public void selectSwitch(BaseAdapter.ViewHolder holder) {
+        if (!multiSelector.isSelectable()) {
+            actionMode = activity.startSupportActionMode(mActionModeCallback);
+        }
+
+        multiSelector.setSelected(holder, !multiSelector.isSelected(holder.getAdapterPosition(), holder.getItemId()));
+
+        int selectCount = multiSelector.getSelectedPositions().size();
+        if (selectCount == 0) {
+            actionMode.finish();
+        } else if (selectCount == 1) {
+            editMenuItem.setVisible(true);
+        } else {
+            editMenuItem.setVisible(false);
+        }
+
+        AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) holder.itemView.findViewById(R.id.view_switcher_avatar);
+        avatarViewSwitcher.showNext();
     }
 }

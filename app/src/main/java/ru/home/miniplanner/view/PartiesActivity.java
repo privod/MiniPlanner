@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
@@ -47,6 +48,12 @@ public class PartiesActivity extends BaseListActivity<Party> {
         Party party = new Party();
         party.setPlan(plan);
         return party;
+    }
+
+    @Override
+    protected List<Party> getList() {
+        planDao.refresh(plan);
+        return new ArrayList<>(plan.getParties());
     }
 
     @Override
@@ -87,13 +94,13 @@ public class PartiesActivity extends BaseListActivity<Party> {
 //        listView.setOnItemClickListener(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        planDao.refresh(plan);
-        adapter.updateData(new ArrayList<>(plan.getParties()));
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        planDao.refresh(plan);
+//        adapter.updateData(new ArrayList<>(plan.getParties()));
+//    }
 
 //    @Override
 //    protected void onResume() {
