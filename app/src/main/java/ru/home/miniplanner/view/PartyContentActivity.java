@@ -20,6 +20,7 @@ import ru.home.miniplanner.model.Party;
 
 public class PartyContentActivity extends AppCompatActivity {
 
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +43,16 @@ public class PartyContentActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (null != fab) {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-//                    startEditActivity(newEntityInstance());
-
-                }
-            });
-        }
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+//        if (null != fab) {
+//            fab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+////                    startEditActivity(newEntityInstance());
+//
+//                }
+//            });
+//        }
     }
 
     private void setupViewPager(ViewPager viewPager) {

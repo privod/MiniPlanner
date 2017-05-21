@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import java.math.BigDecimal;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
@@ -30,6 +31,11 @@ public class PlansActivity extends BaseListActivity<Plan> {
     @Override
     protected Plan newEntityInstance() {
         return new Plan();
+    }
+
+    @Override
+    protected List<Plan> getList() {
+        return dao.getAll();
     }
 
     @Override

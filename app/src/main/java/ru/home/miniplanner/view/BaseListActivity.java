@@ -127,6 +127,8 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
 
     protected abstract T newEntityInstance();
 
+    protected abstract List<T> getList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,12 +166,12 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
     protected void onResume() {
         super.onResume();
 
-        adapter.updateData(dao.getAll());
+        adapter.updateData(getList());
     }
 
     public void startInsideActivity(int position) {
         Intent intent = new Intent(BaseListActivity.this, insideActivityClass);
-        T entity = dao.getAll().get(position);
+        T entity = getList().get(position);
         intent.putExtra(entity.getClass().getSimpleName(), entity);
         startActivity(intent);
     }
@@ -196,7 +198,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         if (requestCode == request_code_edit && resultCode == RESULT_OK) {
             T entity = entityClass.cast(data.getSerializableExtra(entityClass.getSimpleName()));
             dao.save(entity);
-            adapter.updateData(dao.getAll());
+            adapter.updateData(getList());
         }
     }
 
