@@ -18,7 +18,7 @@ import ru.home.miniplanner.view.adapter.PlanAdapter;
  * Created by bespalov on 17.05.17.
  */
 
-public class ContributionsFragment extends BaseListFragment<Contribution> {
+public class ContributionsFragment extends PartyContentFragment<Contribution> {
 
     @Override
     protected Contribution newEntityInstance() {

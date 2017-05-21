@@ -64,7 +64,7 @@ public class PartiesActivity extends BaseListActivity<Party> {
         dao = HelperFactory.getHelper().getPartyDao();
 //        bayDao = HelperFactory.getHelper().getBayDao();
 
-        plan = (Plan) getIntent().getSerializableExtra(Plan.class.getSimpleName());   // TODO Возможно достаточно передавать ID плана, вместо объекта целиком
+        plan = (Plan) getIntent().getSerializableExtra(Plan.class.getSimpleName());
 //        List<Party> parties = plan.getParties();
 //        for (Party party : parties) {
 //            partyDao.refresh(party);

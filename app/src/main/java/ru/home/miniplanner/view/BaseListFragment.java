@@ -38,11 +38,8 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
     private Class<T> entityClass;
     private Class<? extends Activity> insideActivityClass;
 
-    Dao<Party> partyDao;
-    Party party;
-
     //    private OnFragmentInteractionListener activity;    // TODO Возможно достаточно класса Context
-    private PartyContentActivity activity;
+    protected PartyContentActivity activity;
     protected Dao<T> dao;
     protected int request_code_edit;
 

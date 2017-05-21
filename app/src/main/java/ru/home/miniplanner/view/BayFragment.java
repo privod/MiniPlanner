@@ -18,7 +18,7 @@ import ru.home.miniplanner.view.adapter.ContributionAdapter;
  * Created by bespalov on 17.05.17.
  */
 
-public class BayFragment extends BaseListFragment<Bay> {
+public class BayFragment extends PartyContentFragment<Bay> {
 
     @Override
     protected Bay newEntityInstance() {
@@ -40,13 +40,4 @@ public class BayFragment extends BaseListFragment<Bay> {
         dao = HelperFactory.getHelper().getBayDao();
         adapter = new BayAdapter(multiSelector);
     }
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = super.onCreateView(inflater, container, savedInstanceState);
-//
-//        recyclerView.setAdapter(adapter);
-//
-//        return view;
-//    }
 }
