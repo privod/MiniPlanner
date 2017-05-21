@@ -12,6 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.Util;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Contribution;
@@ -84,8 +85,7 @@ public class PlansActivity extends BaseListActivity<Plan> {
             Dao<Bay> bayDao = HelperFactory.getHelper().getBayDao();
             Dao<Contribution> contributionDao = HelperFactory.getHelper().getContributionDao();
 
-            Plan plan;
-            plan = new Plan();
+            Plan plan = new Plan();
             plan.setName("Рыбылка");
             plan.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
             planDao.save(plan);
@@ -135,7 +135,13 @@ public class PlansActivity extends BaseListActivity<Plan> {
             contribution = new Contribution();
             contribution.setFrom(partyV);
             contribution.setTo(partyPH);
-            contribution.setSum(new BigDecimal("300"));
+            contribution.setSum(new BigDecimal("400"));
+            contributionDao.save(contribution);
+
+            contribution = new Contribution();
+            contribution.setFrom(partyP);
+            contribution.setTo(partyPH);
+            contribution.setSum(new BigDecimal("200"));
             contributionDao.save(contribution);
 
 
@@ -143,6 +149,23 @@ public class PlansActivity extends BaseListActivity<Plan> {
             plan.setName("Хмельники");
             plan.setDateReg(new GregorianCalendar(2015, 7, 2).getTime());
             planDao.save(plan);
+
+            Party partyI = new Party();
+            partyI.setPlan(plan);
+            partyI.setName("Игорь");
+            partyDao.save(partyI);
+
+            Party partyD = new Party();
+            partyD.setPlan(plan);
+            partyD.setName("Дима");
+            partyDao.save(partyD);
+
+            bay = new Bay();
+            bay.setDescription("Закуска");
+            bay.setSum(new BigDecimal("500"));
+            bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
+            bay.setParty(partyI);
+            bayDao.save(bay);
 
             plan = new Plan();
             plan.setName("Баня");
