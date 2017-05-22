@@ -23,7 +23,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 //    private EditText descriptionEditText;
     private Spinner toSpinner;
 
-    Contribution contribution;
+//    Contribution contribution;
 
     public ContributionEditActivity() {
         super(Contribution.class);
@@ -46,18 +46,18 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
         dao = HelperFactory.getHelper().getContributionDao();
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
-        getLayoutInflater().inflate(R.layout.edit_plan, layout, true);          // TODO добавить R.layout.edit_contribution
+        getLayoutInflater().inflate(R.layout.edit_contribution, layout, true);
 
         sumEditText = (EditText) findViewById(R.id.sumEditText);
         dateRegEditText = (EditText) findViewById(R.id.dateRegEditText);
 //        descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         toSpinner = (Spinner) findViewById(R.id.toSpinner);
 
-        sumEditText.setText(contribution.getSum().toPlainString());
-        dateRegEditText.setText(Util.dateToString(contribution.getDateReg()));
+        sumEditText.setText(entity.getSum().toPlainString());
+        dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
 //        descriptionEditText.setText(contribution.getDescription());
 
-        Long planId = contribution.getFrom().getPlan().getId();
+        Long planId = entity.getFrom().getPlan().getId();
         PartyDao partyDao = HelperFactory.getHelper().getPartyDao();
         List<Party> partyList = partyDao.getByPlanId(planId);
         ArrayAdapter<Party> adapter = new ArrayAdapter<Party>(this, android.R.layout.simple_spinner_item, partyList);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.edit.PlanEditActivity"
+    tools:context=".view.edit.ContributionEditActivity"
     >
 
     <android.support.design.widget.TextInputLayout
@@ -10,7 +10,7 @@
         >
 
         <EditText
-            android:id="@+id/edit_text_name"
+            android:id="@+id/edit_text_sum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/plan_name_hint"
@@ -32,4 +32,10 @@
             style="@style/Widget.AppCompat.EditText.Date"
             />
     </android.support.design.widget.TextInputLayout>
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toSpinner" />
+
 </merge>
