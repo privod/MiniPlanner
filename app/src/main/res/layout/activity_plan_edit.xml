@@ -29,7 +29,7 @@
         android:paddingRight="@dimen/spacing_normal"
         android:paddingTop="@dimen/spacing_normal"
         android:weightSum="1"
-        tools:context="ru.home.miniplanner.view.edit.PlanEditActivity">
+        tools:context=".view.edit.PlanEditActivity">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"

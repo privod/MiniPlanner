@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.view.BaseListFragment;
+import ru.home.miniplanner.view.adapter.BaseAdapter;
 import ru.home.miniplanner.view.adapter.ContributionAdapter;
 import ru.home.miniplanner.view.adapter.PlanAdapter;
 
@@ -26,6 +28,16 @@ public class ContributionsFragment extends PartyContentFragment<Contribution> {
         contribution.setFrom(party);
         return contribution;
     }
+
+//    @Override
+//    protected Dao getDaoInstance() {
+//        return HelperFactory.getHelper().getContributionDao();
+//    }
+//
+//    @Override
+//    protected BaseAdapter getAdapterInstance() {
+//        return new ContributionAdapter(multiSelector);
+//    }
 
     @Override
     protected List<Contribution> getList() {

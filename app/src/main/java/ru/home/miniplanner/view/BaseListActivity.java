@@ -127,11 +127,41 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
 
     protected abstract T newEntityInstance();
 
+//    protected abstract Dao<T> getDaoInstance();
+//
+//    protected abstract BaseAdapter<? extends BaseAdapter.ViewHolder, T> getAdapterInstance();
+
     protected abstract List<T> getList();
+
+    private class ItemAction extends BaseAdapter.ItemAction {
+
+        @Override
+        public void open(int position) {
+            BaseListActivity.this.startInsideActivity(position);
+        }
+
+        @Override
+        public void selectSwitch(BaseAdapter.ViewHolder holder) {
+            BaseListActivity.this.selectSwitch(holder);
+        }
+    }
+
+    protected void onCreateBeforeView() {
+//        ItemAction behavior = new ItemAction();
+//        adapter.setItemAction(behavior);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        dao = getDaoInstance();
+//        adapter = getAdapterInstance();
+        onCreateBeforeView();
+
+        ItemAction behavior = new ItemAction();
+        adapter.setItemAction(behavior);
+
         setContentView(R.layout.activity_base);
 
         CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.coordinator);
@@ -148,6 +178,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setItemAnimator(new SlideInLeftAnimator());
+            recyclerView.setAdapter(adapter);
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

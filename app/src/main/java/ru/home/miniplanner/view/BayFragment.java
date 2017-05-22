@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Contribution;
+import ru.home.miniplanner.view.adapter.BaseAdapter;
 import ru.home.miniplanner.view.adapter.BayAdapter;
 import ru.home.miniplanner.view.adapter.ContributionAdapter;
 
@@ -26,6 +28,16 @@ public class BayFragment extends PartyContentFragment<Bay> {
         bay.setParty(party);
         return bay;
     }
+
+//    @Override
+//    protected Dao getDaoInstance() {
+//        return HelperFactory.getHelper().getBayDao();
+//    }
+//
+//    @Override
+//    protected BaseAdapter getAdapterInstance() {
+//        return new BayAdapter(multiSelector);
+//    }
 
     @Override
     protected List<Bay> getList() {

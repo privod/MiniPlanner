@@ -1,34 +1,14 @@
 package ru.home.miniplanner.view;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.ContextMenu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
-import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.service.BayDao;
-import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.view.adapter.PartyAdapter;
-import ru.home.miniplanner.view.divider.DividerItemDecoration;
 import ru.home.miniplanner.view.edit.PartyEditActivity;
-import ru.home.miniplanner.view.edit.PlanEditActivity;
 
 public class PartiesActivity extends BaseListActivity<Party> {
 
@@ -50,6 +30,16 @@ public class PartiesActivity extends BaseListActivity<Party> {
         return party;
     }
 
+//    @Override
+//    protected Dao<Party> getDaoInstance() {
+//        return HelperFactory.getHelper().getPartyDao();
+//    }
+//
+//    @Override
+//    protected BaseAdapter<? extends BaseAdapter.ViewHolder, Party> getAdapterInstance() {
+//        return new PartyAdapter(multiSelector);
+//    }
+
     @Override
     protected List<Party> getList() {
         planDao.refresh(plan);
@@ -57,42 +47,20 @@ public class PartiesActivity extends BaseListActivity<Party> {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    protected void onCreateBeforeView() {
         planDao = HelperFactory.getHelper().getPlanDao();
-        dao = HelperFactory.getHelper().getPartyDao();
-//        bayDao = HelperFactory.getHelper().getBayDao();
-
         plan = (Plan) getIntent().getSerializableExtra(Plan.class.getSimpleName());
-//        List<Party> parties = plan.getParties();
-//        for (Party party : parties) {
-//            partyDao.refresh(party);
-//        }
+
+        dao = HelperFactory.getHelper().getPartyDao();
         adapter = new PartyAdapter(multiSelector);
-
-//        recyclerView = (RecyclerView) findViewById(R.id.widget_recycler_view);
-//        if (null != recyclerView) {
-//            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-//            recyclerView.setLayoutManager(layoutManager);
-//        }
-        recyclerView.setAdapter(adapter);
-//        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        if (null != fab) {
-//            fab.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    startEditActivity(new );
-//
-//                }
-//            });
-//        }
-
-//        registerForContextMenu(listView);
-//        listView.setOnItemClickListener(this);
     }
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//        recyclerView.setAdapter(adapter);
+//    }
 
 //    @Override
 //    protected void onResume() {

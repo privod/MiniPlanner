@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +23,6 @@ import java.util.List;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.model.Domain;
-import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.view.adapter.BaseAdapter;
 import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
@@ -132,7 +130,24 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
 
     protected abstract T newEntityInstance();
 
+//    protected abstract Dao<T> getDaoInstance();
+//
+//    protected abstract BaseAdapter<? extends BaseAdapter.ViewHolder, T> getAdapterInstance();
+
     protected abstract List<T> getList();
+
+    private class ItemAction extends BaseAdapter.ItemAction {
+
+        @Override
+        public void open(int position) {
+            BaseListFragment.this.startInsideActivity(position);
+        }
+
+        @Override
+        public void selectSwitch(BaseAdapter.ViewHolder holder) {
+            BaseListFragment.this.selectSwitch(holder);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -140,6 +155,11 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
 //        if (getArguments() != null) {
 //            editActivityClass = (Class<? extends Activity>) getArguments().getSerializable(ARG_EDIT_ACTIVITY_CLASS);
 //        }
+
+//        dao = getDaoInstance();
+//        adapter = getAdapterInstance();
+        ItemAction behavior = new ItemAction();
+        adapter.setItemAction(behavior);
     }
 
     @Override

@@ -1,8 +1,6 @@
 package ru.home.miniplanner.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Range;
-import android.util.SparseBooleanArray;
 import android.view.View;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -12,17 +10,10 @@ import com.bignerdranch.android.multiselector.SwappingHolder;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.Util;
 import ru.home.miniplanner.model.Domain;
-import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.view.BaseListActivity;
-import ru.home.miniplanner.view.PlansActivity;
 import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 
 /**
@@ -31,14 +22,20 @@ import ru.home.miniplanner.view.widget.AvatarViewSwitcher;
 public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends Domain> extends RecyclerView.Adapter<VH> {
 
     private List<T> data;
-//    protected Class<VH> tClass;
 
     protected MultiSelector multiSelector;
+    private ItemAction itemAction;
 
-    BaseAdapter(MultiSelector multiSelector/*, Class<VH> tClass*/) {
+    BaseAdapter(MultiSelector multiSelector) {
         this.multiSelector = multiSelector;
         this.data = new ArrayList<T>();
-//        this.tClass = tClass;
+    }
+
+    public static abstract class ItemAction {
+
+        public abstract void open(int position);
+
+        public abstract void selectSwitch(BaseAdapter.ViewHolder holder);
     }
 
     public abstract class ViewHolder extends SwappingHolder {
@@ -50,18 +47,20 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (v.getContext() instanceof BaseListActivity) {
-                        ((BaseListActivity) v.getContext()).startInsideActivity(getAdapterPosition());
-                    }
+//                    if (v.getContext() instanceof BaseListActivity) {
+//                        ((BaseListActivity) v.getContext()).startInsideActivity(getAdapterPosition());
+//                    }
+                    itemAction.open(getAdapterPosition());
                 }
             });
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    if (v.getContext() instanceof BaseListActivity) {
-                        ((BaseListActivity) v.getContext()).selectSwitch(ViewHolder.this);
-                        return true;
-                    }
+//                    if (v.getContext() instanceof BaseListActivity) {
+//                        ((BaseListActivity) v.getContext()).selectSwitch(ViewHolder.this);
+//                        return true;
+//                    }
+                    itemAction.selectSwitch(ViewHolder.this);
 
                     return false;
                 }
@@ -70,9 +69,10 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
             avatarViewSwitcher.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (v.getContext() instanceof BaseListActivity) {
-                        ((BaseListActivity) v.getContext()).selectSwitch(ViewHolder.this);
-                    }
+//                    if (v.getContext() instanceof BaseListActivity) {
+//                        ((BaseListActivity) v.getContext()).selectSwitch(ViewHolder.this);
+//                    }
+                    itemAction.selectSwitch(ViewHolder.this);
                 }
             });
         }
@@ -90,7 +90,7 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
         }
     }
 
-    protected TextDrawable newAvatarDrawable(String text) {
+    TextDrawable newAvatarDrawable(String text) {
         String letter = String.valueOf(Character.toUpperCase(text.charAt(0)));
         return TextDrawable.builder().buildRound(letter, ColorGenerator.MATERIAL.getColor(letter));
     }
@@ -101,9 +101,9 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
     }
 
     /*public int getPositionById(long id) {
-        for (int position = 0; position < this.data.size(); position++) {
-            if (this.data.get(position).getId() == id) {
-                return position;
+        for (int AdapterPosition = 0; AdapterPosition < this.data.size(); AdapterPosition++) {
+            if (this.data.get(AdapterPosition).getId() == id) {
+                return AdapterPosition;
             }
         }
 
@@ -115,38 +115,38 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
         notifyDataSetChanged();
 
 //        Set<Integer> updatedPosition = new HashSet<>();
-        /*for (int position = 0; position < this.data.size(); position++) {
-            T item = this.data.get(position);
+        /*for (int AdapterPosition = 0; AdapterPosition < this.data.size(); AdapterPosition++) {
+            T item = this.data.get(AdapterPosition);
             int positionNew = Util.positionById(newData, item.getId());
             if (positionNew < 0) {
                 this.data.remove(item);
-                notifyItemRemoved(position);
+                notifyItemRemoved(AdapterPosition);
             } else {
-                this.data.set(position, newData.get(positionNew));
-                notifyItemChanged(position);
+                this.data.set(AdapterPosition, newData.get(positionNew));
+                notifyItemChanged(AdapterPosition);
             }
             updatedPosition.add(positionNew);
         }
 
-        for (int position = 0; position < newData.size(); position++) {
-            if (!updatedPosition.contains(position)) {
-                this.data.add(newData.get(position));
-                notifyItemInserted(position);
+        for (int AdapterPosition = 0; AdapterPosition < newData.size(); AdapterPosition++) {
+            if (!updatedPosition.contains(AdapterPosition)) {
+                this.data.add(newData.get(AdapterPosition));
+                notifyItemInserted(AdapterPosition);
             }
         } // */
 
         /*for (int i = 0; i < newData.size(); i++) {
             T itemNew = newData.get(i);
-            int position = getPositionById(itemNew.getId());
-            if (position < 0) {
+            int AdapterPosition = getPositionById(itemNew.getId());
+            if (AdapterPosition < 0) {
                 this.data.add(itemNew);
-                position = this.data.indexOf(itemNew);
-                notifyItemInserted(position);
+                AdapterPosition = this.data.indexOf(itemNew);
+                notifyItemInserted(AdapterPosition);
             } else {
-                this.data.set(position, itemNew);
-                notifyItemChanged(position);
+                this.data.set(AdapterPosition, itemNew);
+                notifyItemChanged(AdapterPosition);
             }
-            updatedPosition.add(position);
+            updatedPosition.add(AdapterPosition);
         } // */
     }
 
@@ -156,5 +156,9 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
 
     public List<T> getData() {
         return data;
+    }
+
+    public void setItemAction(ItemAction itemAction) {
+        this.itemAction = itemAction;
     }
 }

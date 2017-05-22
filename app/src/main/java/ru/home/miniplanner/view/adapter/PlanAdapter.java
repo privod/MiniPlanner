@@ -66,7 +66,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
         holder.costTotalTextView.setText(plan.getTotalCost().toPlainString());
         holder.avatarIcon.setImageDrawable(newAvatarDrawable(plan.getName()));
 
-//        if (multiSelector.isSelected(position, holder.getItemId())) {
+//        if (multiSelector.isSelected(AdapterPosition, holder.getItemId())) {
 //            holder.avatarViewSwitcher.setDisplayedChildNoAnim(1);
 ////            holder.itemView.setBackgroundColor(Color.LTGRAY);
 //        } else {

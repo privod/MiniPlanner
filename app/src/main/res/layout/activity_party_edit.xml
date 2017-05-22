@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/spacing_normal"
     android:paddingRight="@dimen/spacing_normal"
     android:paddingTop="@dimen/spacing_normal"
-    tools:context="ru.home.miniplanner.view.edit.PartyEditActivity"
+    tools:context=".view.edit.PartyEditActivity"
     android:weightSum="1"
     android:orientation="vertical">
 

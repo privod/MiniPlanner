@@ -1,9 +1,5 @@
 package ru.home.miniplanner.view;
 
-import android.icu.text.MessagePattern;
-import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,7 +8,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.Util;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Contribution;
@@ -34,24 +29,41 @@ public class PlansActivity extends BaseListActivity<Plan> {
         return new Plan();
     }
 
+//    @Override
+//    protected Dao<Plan> getDaoInstance() {
+//        HelperFactory.setHelper(this);
+//        return HelperFactory.getHelper().getPlanDao();
+//    }
+//
+//    @Override
+//    protected BaseAdapter<? extends BaseAdapter.ViewHolder, Plan> getAdapterInstance() {
+//        return new PlanAdapter(multiSelector);
+//    }
+
     @Override
     protected List<Plan> getList() {
         return dao.getAll();
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreateBeforeView() {
+        super.onCreateBeforeView();
 
         HelperFactory.setHelper(this);
 
         dao = HelperFactory.getHelper().getPlanDao();
         adapter = new PlanAdapter(multiSelector);
-        recyclerView.setAdapter(adapter);
-
-//        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-//        recyclerView.setItemAnimator(itemAnimator);
     }
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//        recyclerView.setAdapter(adapter);
+//
+////        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+////        recyclerView.setItemAnimator(itemAnimator);
+//    }
 
 //    @Override
 //    protected void onResume() {
