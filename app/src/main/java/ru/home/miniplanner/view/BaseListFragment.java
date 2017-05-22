@@ -158,13 +158,14 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
 
 //        dao = getDaoInstance();
 //        adapter = getAdapterInstance();
-        ItemAction behavior = new ItemAction();
-        adapter.setItemAction(behavior);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ItemAction action = new ItemAction();
+        adapter.setItemAction(action);
+
         View view = inflater.inflate(R.layout.fragment_base_list, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
