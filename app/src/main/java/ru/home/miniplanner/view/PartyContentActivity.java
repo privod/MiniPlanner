@@ -12,15 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import ru.home.miniplanner.R;
-import ru.home.miniplanner.db.Dao;
-import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Contribution;
-import ru.home.miniplanner.model.Party;
 
 public class PartyContentActivity extends AppCompatActivity {
 
-    FloatingActionButton fab;
+    ViewPagerAdapter adapter;
+//    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,25 +36,26 @@ public class PartyContentActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-//        if (null != fab) {
-//            fab.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-////                    startEditActivity(newEntityInstance());
-//
-//                }
-//            });
-//        }
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (null != fab) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    BaseListFragment fragment = (BaseListFragment) adapter.getItem(viewPager.getCurrentItem());
+                    fragment.newItemEdit();
+                }
+            });
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ContributionsFragment(), Contribution.class.getSimpleName());
         adapter.addFragment(new BayFragment(), Bay.class.getSimpleName());
         viewPager.setAdapter(adapter);

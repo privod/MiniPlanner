@@ -90,7 +90,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
 
                 int position = multiSelector.getSelectedPositions().get(0);         // Режим редактирования возможен только если выцделен один элемен, поэтому цикла не делаю, а выбираю нулевой элемент.
                 T entity = adapter.getData().get(position);
-                startEditActivity(entity);
+                listItemEdit(entity);
             }
 
             return false;
@@ -137,7 +137,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
 
         @Override
         public void open(int position) {
-            BaseListActivity.this.startInsideActivity(position);
+            BaseListActivity.this.listItemOpen(position);
         }
 
         @Override
@@ -186,7 +186,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startEditActivity(newEntityInstance());
+                    listItemEdit(newEntityInstance());
 
                 }
             });
@@ -200,7 +200,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         adapter.updateData(getList());
     }
 
-    public void startInsideActivity(int position) {
+    public void listItemOpen(int position) {
         Intent intent = new Intent(BaseListActivity.this, insideActivityClass);
         T entity = getList().get(position);
         intent.putExtra(entity.getClass().getSimpleName(), entity);
@@ -213,7 +213,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         return  intent;
     }
 
-    protected void startEditActivity(T entity) {
+    protected void listItemEdit(T entity) {
         Intent intent = getEditActivityIntent(entity);
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
         ActivityCompat.startActivityForResult(this, intent, request_code_edit, options.toBundle());

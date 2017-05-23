@@ -24,6 +24,10 @@ public abstract class PartyContentFragment <T extends Domain> extends BaseListFr
     Dao<Party> partyDao;
     Party party;
 
+    public PartyContentFragment(Class editActivityClass, Class entityClass, Class insideActivityClass) {
+        super(editActivityClass, entityClass, insideActivityClass);
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

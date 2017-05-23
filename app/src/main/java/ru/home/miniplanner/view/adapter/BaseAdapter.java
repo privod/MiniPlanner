@@ -48,7 +48,7 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
                 @Override
                 public void onClick(View v) {
 //                    if (v.getContext() instanceof BaseListActivity) {
-//                        ((BaseListActivity) v.getContext()).startInsideActivity(getAdapterPosition());
+//                        ((BaseListActivity) v.getContext()).listItemOpen(getAdapterPosition());
 //                    }
                     itemAction.open(getAdapterPosition());
                 }

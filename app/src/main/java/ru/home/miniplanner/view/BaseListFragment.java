@@ -90,7 +90,7 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
 
                 int position = multiSelector.getSelectedPositions().get(0);         // Режим редактирования возможен только если выцделен один элемен, поэтому цикла не делаю, а выбираю нулевой элемент.
                 T entity = adapter.getData().get(position);
-                startEditActivity(entity);
+                listItemEdit(entity);
             }
 
             return false;
@@ -116,8 +116,13 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
         }
     };
 
-    public BaseListFragment() {
-        // Required empty public constructor
+    public BaseListFragment(Class<? extends Activity> editActivityClass,
+                            Class<T> entityClass,
+                            Class<? extends Activity> insideActivityClass
+    ) {
+        this.editActivityClass = editActivityClass;
+        this.entityClass = entityClass;
+        this.insideActivityClass = insideActivityClass;
     }
 
 //    public static BaseListFragment newInstance(Class<? extends Activity> editActivityClass) {
@@ -140,7 +145,7 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
 
         @Override
         public void open(int position) {
-            BaseListFragment.this.startInsideActivity(position);
+            BaseListFragment.this.listItemOpen(position);
         }
 
         @Override
@@ -175,13 +180,12 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
             recyclerView.setAdapter(adapter);
         }
 
-        activity.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    startEditActivity(newEntityInstance());
-
-            }
-        });
+//        activity.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                    listItemEdit(newEntityInstance());
+//            }
+//        });
 
 
         return view;
@@ -224,7 +228,7 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
 //        void onFragmentInteraction(Uri uri);
 //    }
 
-    public void startInsideActivity(int position) {
+    public void listItemOpen(int position) {
         Intent intent = new Intent(activity, insideActivityClass);
         T entity = getList().get(position);
         intent.putExtra(entity.getClass().getSimpleName(), entity);
@@ -237,12 +241,14 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
         return  intent;
     }
 
-    protected void startEditActivity(T entity) {
+    protected void listItemEdit(T entity) {
         Intent intent = getEditActivityIntent(entity);
         startActivityForResult(intent, request_code_edit);
     }
 
-
+    protected void newItemEdit() {
+        listItemEdit(newEntityInstance());
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
