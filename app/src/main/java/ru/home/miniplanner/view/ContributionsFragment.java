@@ -1,5 +1,6 @@
 package ru.home.miniplanner.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +16,17 @@ import ru.home.miniplanner.view.BaseListFragment;
 import ru.home.miniplanner.view.adapter.BaseAdapter;
 import ru.home.miniplanner.view.adapter.ContributionAdapter;
 import ru.home.miniplanner.view.adapter.PlanAdapter;
+import ru.home.miniplanner.view.edit.ContributionEditActivity;
 
 /**
  * Created by bespalov on 17.05.17.
  */
 
 public class ContributionsFragment extends PartyContentFragment<Contribution> {
+
+    public ContributionsFragment() {
+        super(ContributionEditActivity.class, Contribution.class, null);
+    }
 
     @Override
     protected Contribution newEntityInstance() {

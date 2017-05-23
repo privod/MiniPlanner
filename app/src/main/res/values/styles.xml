@@ -62,4 +62,9 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="Widget.AppCompat.EditText.Sum">
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
 </resources>

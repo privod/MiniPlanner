@@ -31,6 +31,8 @@ public class ContributionAdapter extends BaseAdapter<ContributionAdapter.Contrib
         ContributionViewHolder(View itemView) {
             super(itemView);
 
+            itemView.setOnClickListener(null);
+
             descriptionTextView = (TextView) itemView.findViewById(R.id.text_view_description);
             dateRegTextView = (TextView) itemView.findViewById(R.id.text_view_date_reg);
             sumTextView = (TextView) itemView.findViewById(R.id.text_view_sum);

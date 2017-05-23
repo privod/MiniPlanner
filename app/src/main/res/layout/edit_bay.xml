@@ -10,11 +10,11 @@
         >
 
         <EditText
-            android:id="@+id/edit_text_name"
+            android:id="@+id/edit_text_sum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_name"
-            style="@style/Widget.AppCompat.EditText.Name"
+            android:hint="@string/hint_sum"
+            style="@style/Widget.AppCompat.EditText.Sum"
             />
 
     </android.support.design.widget.TextInputLayout>
@@ -32,4 +32,20 @@
             style="@style/Widget.AppCompat.EditText.Date"
             />
     </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/edit_text_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_description"
+            style="@style/Widget.AppCompat.EditText.Name"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
 </merge>

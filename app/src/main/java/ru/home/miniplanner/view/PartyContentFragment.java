@@ -1,5 +1,6 @@
 package ru.home.miniplanner.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +20,15 @@ import ru.home.miniplanner.view.adapter.BayAdapter;
  * Created by bespalov on 17.05.17.
  */
 
-public abstract class PartyContentFragment <T extends Domain> extends BaseListFragment {
+public abstract class PartyContentFragment <T extends Domain> extends BaseListFragment<T> {
 
     Dao<Party> partyDao;
     Party party;
 
-    public PartyContentFragment(Class editActivityClass, Class entityClass, Class insideActivityClass) {
+    public PartyContentFragment(Class<? extends Activity> editActivityClass,
+                                Class<T> entityClass,
+                                Class<? extends Activity> insideActivityClass
+    ) {
         super(editActivityClass, entityClass, insideActivityClass);
     }
 

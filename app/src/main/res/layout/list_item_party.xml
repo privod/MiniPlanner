@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
-    style="@style/AppTheme.LayoutListItem"
-    >
+    style="@style/AppTheme.LayoutListItem">
 
     <ru.home.miniplanner.view.widget.AvatarViewSwitcher
         android:id="@+id/view_switcher_avatar"
@@ -41,7 +41,7 @@
         android:layout_toEndOf="@+id/view_switcher_avatar"
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_centerVertical="true"
-        android:text="Name"
+        tool:text="Name"
         style="@style/TextAppearance.AppCompat.Headline"
         />
 
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:text="Debt"
+        tool:text="Debt"
         style="@style/TextAppearance.AppCompat.Headline"
         />
 

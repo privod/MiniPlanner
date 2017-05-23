@@ -16,7 +16,7 @@ import ru.home.miniplanner.model.Bay;
  */
 public class BayEditActivity extends EditActivity<Bay> {
 
-    private EditText costEditText;
+    private EditText sumEditText;
     private EditText dateRegEditText;
     private EditText descriptionEditText;
 
@@ -26,7 +26,7 @@ public class BayEditActivity extends EditActivity<Bay> {
 
     @Override
     public void changeEntity() {
-        entity.setSum(new BigDecimal(costEditText.getText().toString()));
+        entity.setSum(new BigDecimal(sumEditText.getText().toString()));
         entity.setDateReg(Util.dateParse(dateRegEditText.getText().toString()));
         entity.setDescription(descriptionEditText.getText().toString());
     }
@@ -38,19 +38,19 @@ public class BayEditActivity extends EditActivity<Bay> {
         dao = HelperFactory.getHelper().getBayDao();
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
-        getLayoutInflater().inflate(R.layout.edit_plan, layout, true);          // TODO добавить R.layout.edit_bay
+        getLayoutInflater().inflate(R.layout.edit_bay, layout, true);          // TODO добавить R.layout.edit_bay
 
-        costEditText = (EditText) findViewById(R.id.costEditText);
-        dateRegEditText = (EditText) findViewById(R.id.dateRegEditText);
-        descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
+        sumEditText = (EditText) findViewById(R.id.edit_text_sum);
+        dateRegEditText = (EditText) findViewById(R.id.edit_text_date);
+        descriptionEditText = (EditText) findViewById(R.id.edit_text_description);
 
-        costEditText.setText(entity.getSum().toPlainString());
+        sumEditText.setText(entity.getSum().toPlainString());
         dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
         descriptionEditText.setText(entity.getDescription());
 
-        costEditText.requestFocus();
-        costEditText.selectAll();
-        costEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
+        sumEditText.requestFocus();
+        sumEditText.selectAll();
+        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
         dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(descriptionEditText, doneListener));
         descriptionEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
     }

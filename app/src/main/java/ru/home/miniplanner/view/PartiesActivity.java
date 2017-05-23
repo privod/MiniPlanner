@@ -97,7 +97,7 @@ public class PartiesActivity extends BaseListActivity<Party> {
 ////            bayDao.save(bay);
 ////            partyDao.refresh(bay.getParty());
 ////            partyAdapter.setList(plan.getParties());
-//////            partyAdapter.setList(partyDao.getByPlanId(plan.getId()));
+//////            partyAdapter.setList(partyDao.getOtherParty(plan.getId()));
 ////            partyAdapter.notifyDataSetChanged();
 ////        }
 //    }

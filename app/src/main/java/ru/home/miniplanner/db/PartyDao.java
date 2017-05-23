@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import ru.home.miniplanner.model.Party;
+import ru.home.miniplanner.model.Plan;
 
 /**
  * Created by privod on 23.10.2015.
@@ -26,9 +27,14 @@ public class PartyDao extends Dao<Party> {
         super(connectionSource, Party.class);
     }
 
-    public List<Party> getByPlanId(Long planId) {
+    /**
+     * Return all parties of current plan except yourself
+     * @param planId Current plan id
+     * @param partySelfId Yourself id
+     */
+    public List<Party> getOtherParty(Long planId, Long partySelfId) {
         try {
-            return this.queryBuilder().where().eq("plan_id", planId).query(); // TODO Hardcode: "plan_id"
+            return this.queryBuilder().where().eq("plan_id", planId).and().not().idEq(partySelfId).query(); // TODO Hardcode: "plan_id"
         } catch (SQLException e) {
             Log.e(this.getClass().getSimpleName(), e.getMessage());
             return null;
