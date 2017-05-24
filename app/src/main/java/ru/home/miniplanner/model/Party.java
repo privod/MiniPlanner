@@ -15,12 +15,9 @@ import java.util.List;
  */
 @DatabaseTable
 public class Party extends Domain implements Parent<PartyContent> {
-//    public static final String EXTRA_NAME = "party";
 
     @DatabaseField
     private String name;
-//    @DatabaseField(dataType = DataType.BIG_DECIMAL)
-//    private BigDecimal deposit;                         // ?????
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Plan plan;
     @ForeignCollectionField
@@ -30,7 +27,7 @@ public class Party extends Domain implements Parent<PartyContent> {
     @ForeignCollectionField(foreignFieldName = "from")
     private Collection<Contribution> out;
 
-    public BigDecimal getTotalCostBays() {
+    BigDecimal getTotalCostBays() {
         BigDecimal totalCost = new BigDecimal("0");
         for (Bay bay : bays) {
             totalCost = totalCost.add(bay.getSum());
@@ -38,11 +35,11 @@ public class Party extends Domain implements Parent<PartyContent> {
         return totalCost;
     }
 
-    public BigDecimal getTotalSumIn() {
+    private BigDecimal getTotalSumIn() {
         return getTotalSumContributions(getIn());
     }
 
-    public BigDecimal getTotalSumOut() {
+    private BigDecimal getTotalSumOut() {
         return getTotalSumContributions(getOut());
     }
 
@@ -54,15 +51,7 @@ public class Party extends Domain implements Parent<PartyContent> {
         return totalSum;
     }
 
-//    public BigDecimal getDebt() {
-//        return plan.getShare()
-//                .subtract(getTotalCostBays())
-//                .subtract(getTotalSumOut())
-//                .add(getTotalSumIn());
-//
-//    }
-
-    public BigDecimal getBalance() {
+    private BigDecimal getBalance() {
         return getTotalCostBays()
                 .add(getTotalSumOut())
                 .subtract(getTotalSumIn())
@@ -100,14 +89,6 @@ public class Party extends Domain implements Parent<PartyContent> {
         this.name = name;
     }
 
-//    public BigDecimal getDeposit() {
-//        return deposit;
-//    }
-//
-//    public void setDeposit(BigDecimal deposit) {
-//        this.deposit = deposit;
-//    }
-
     public Plan getPlan() {
         return plan;
     }
@@ -115,18 +96,6 @@ public class Party extends Domain implements Parent<PartyContent> {
     public void setPlan(Plan plan) {
         this.plan = plan;
     }
-
-//    public List<Bay> getBays() {
-//        if (bays instanceof List) {
-//            return (List<Bay>)bays;
-//        } else {
-//            return new ArrayList<Bay>(bays);
-//        }
-//    }
-
-//    public void setBays(List<Bay> bays) {
-//        this.bays = bays;
-//    }
 
     public Collection<Bay> getBays() {
         return bays;

@@ -11,6 +11,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 import ru.home.miniplanner.model.Domain;
+import ru.home.miniplanner.model.Party;
+import ru.home.miniplanner.model.Plan;
 
 /**
  * Created by privod on 24.08.2016.
@@ -44,5 +46,19 @@ public class Util {
         }
 
         return -1;
+    }
+
+    public static Plan getPlanInstance(String name, Date reg) {
+        Plan plan = new Plan();
+        plan.setName(name);
+        plan.setDateReg(reg);
+        return plan;
+    }
+
+    public static Party getPartyInstance(String name, Plan plan) {
+        Party party = new Party();
+        party.setPlan(plan);
+        party.setName(name);
+        return party;
     }
 }

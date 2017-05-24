@@ -13,44 +13,11 @@ import java.util.Date;
  */
 @DatabaseTable
 public class Bay extends PartyContent {
-//    public static final String EXTRA_NAME = "bay";
-
-//    @DatabaseField(dataType = DataType.BIG_DECIMAL)
-//    private BigDecimal cost;
-//    @DatabaseField(dataType = DataType.DATE)
-//    private Date dateReg;
 
     @DatabaseField
     private String description;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Party party;
-
-//    public Bay() {
-//        this.cost = new BigDecimal("0");
-//        this.dateReg = new Date();
-////        this.description = null;
-//    }
-
-//    @Override
-//    public String toString() {
-//        return String.format("%s/t%s", getDescription(), getCost());
-//    }
-
-//    public BigDecimal getCost() {
-//        return cost;
-//    }
-//
-//    public void setCost(BigDecimal cost) {
-//        this.cost = cost;
-//    }
-//
-//    public Date getDateReg() {
-//        return dateReg;
-//    }
-//
-//    public void setDateReg(Date dateReg) {
-//        this.dateReg = dateReg;
-//    }
 
     @Override
     public String getDescription() {

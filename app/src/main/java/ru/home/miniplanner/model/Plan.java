@@ -17,25 +17,16 @@ import java.util.Date;
  */
 @DatabaseTable
 public class Plan extends Domain {
-    public static final String EXTRA_NAME = "plan";
 
     @DatabaseField
     private String name;
     @DatabaseField(dataType = DataType.DATE)
     private Date dateReg;
-    @DatabaseField(dataType = DataType.BIG_DECIMAL)
-    private BigDecimal costExpect;
-//    @DatabaseField(dataType = DataType.INTEGER)
-//    @ColorInt
-//    private int avatarColor;
-//    @DatabaseField(dataType = DataType.BOOLEAN)
-//    private boolean selected;
     @ForeignCollectionField
     private Collection<Party> parties;
 
     public Plan() {
         dateReg = new Date();
-        costExpect = new BigDecimal("0");
     }
 
     public BigDecimal getTotalCost() {
@@ -72,18 +63,6 @@ public class Plan extends Domain {
         this.dateReg = dateReg;
     }
 
-//    public List<Party> getParties() {
-//        if (parties instanceof List) {
-//            return (List<Party>)parties;
-//        } else {
-//            return new ArrayList<Party>(parties);
-//        }
-//    }
-//
-//    public void setParties(Collection<Party> parties) {
-//        this.parties = parties;
-//    }
-
     public Collection<Party> getParties() {
         return parties;
     }
@@ -91,28 +70,4 @@ public class Plan extends Domain {
     public void setParties(Collection<Party> parties) {
         this.parties = parties;
     }
-
-    public BigDecimal getCostExpect() {
-        return costExpect;
-    }
-
-    public void setCostExpect(BigDecimal costExpect) {
-        this.costExpect = costExpect;
-    }
-
-//    public int getAvatarColor() {
-//        return avatarColor;
-//    }
-//
-//    public void setAvatarColor(int avatarColor) {
-//        this.avatarColor = avatarColor;
-//    }
-//
-//    public boolean isSelected() {
-//        return selected;
-//    }
-//
-//    public void setSelected(boolean selected) {
-//        this.selected = selected;
-//    }
 }
