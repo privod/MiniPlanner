@@ -29,17 +29,6 @@ public class PlansActivity extends BaseListActivity<Plan> {
         return new Plan();
     }
 
-//    @Override
-//    protected Dao<Plan> getDaoInstance() {
-//        HelperFactory.setHelper(this);
-//        return HelperFactory.getHelper().getPlanDao();
-//    }
-//
-//    @Override
-//    protected BaseAdapter<? extends BaseAdapter.ViewHolder, Plan> getAdapterInstance() {
-//        return new PlanAdapter(multiSelector);
-//    }
-
     @Override
     protected List<Plan> getList() {
         return dao.getAll();
@@ -54,23 +43,6 @@ public class PlansActivity extends BaseListActivity<Plan> {
         dao = HelperFactory.getHelper().getPlanDao();
         adapter = new PlanAdapter(multiSelector);
     }
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        recyclerView.setAdapter(adapter);
-//
-////        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-////        recyclerView.setItemAnimator(itemAnimator);
-//    }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-//        adapter.updateData(dao.getAll());
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
