@@ -62,7 +62,7 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
 //                    }
                     itemAction.selectSwitch(ViewHolder.this);
 
-                    return false;
+                    return true;
                 }
             });
             avatarViewSwitcher = (AvatarViewSwitcher) itemView.findViewById(R.id.view_switcher_avatar);
