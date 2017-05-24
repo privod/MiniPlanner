@@ -31,7 +31,7 @@ public class ContributionsFragment extends PartyContentFragment<Contribution> {
     @Override
     protected Contribution newEntityInstance() {
         Contribution contribution = new Contribution();
-        contribution.setFrom(party);
+        contribution.setFrom(activity.party);
         return contribution;
     }
 
@@ -47,8 +47,8 @@ public class ContributionsFragment extends PartyContentFragment<Contribution> {
 
     @Override
     protected List<Contribution> getList() {
-        partyDao.refresh(party);
-        return new ArrayList<>(party.getOut());
+        partyDao.refresh(activity.party);
+        return new ArrayList<>(activity.party.getOut());
     }
 
     @Override

@@ -23,7 +23,6 @@ import ru.home.miniplanner.view.adapter.BayAdapter;
 public abstract class PartyContentFragment <T extends Domain> extends BaseListFragment<T> {
 
     Dao<Party> partyDao;
-    Party party;
 
     public PartyContentFragment(Class<? extends Activity> editActivityClass,
                                 Class<T> entityClass,
@@ -38,6 +37,5 @@ public abstract class PartyContentFragment <T extends Domain> extends BaseListFr
         super.onCreate(savedInstanceState);
 
         partyDao = HelperFactory.getHelper().getPartyDao();
-        party = (Party) activity.getIntent().getSerializableExtra(Party.class.getSimpleName());
     }
 }

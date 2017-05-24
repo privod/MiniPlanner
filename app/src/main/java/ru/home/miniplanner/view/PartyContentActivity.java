@@ -14,16 +14,22 @@ import android.view.View;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Contribution;
+import ru.home.miniplanner.model.Party;
 
 public class PartyContentActivity extends AppCompatActivity {
 
     ViewPagerAdapter adapter;
-//    FloatingActionButton fab;
+    Party party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        party = (Party) getIntent().getSerializableExtra(Party.class.getSimpleName());
+
         setContentView(R.layout.activity_base);
+
+        setTitle(party.getName());
 
         CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.coordinator);
         getLayoutInflater().inflate(R.layout.app_bar_toolbar_tablaout, layout, true);

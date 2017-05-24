@@ -31,7 +31,7 @@ public class BayFragment extends PartyContentFragment<Bay> {
     @Override
     protected Bay newEntityInstance() {
         Bay bay = new Bay();
-        bay.setParty(party);
+        bay.setParty(activity.party);
         return bay;
     }
 
@@ -47,8 +47,8 @@ public class BayFragment extends PartyContentFragment<Bay> {
 
     @Override
     protected List<Bay> getList() {
-        partyDao.refresh(party);
-        return new ArrayList<>(party.getBays());
+        partyDao.refresh(activity.party);
+        return new ArrayList<>(activity.party.getBays());
     }
 
     @Override
