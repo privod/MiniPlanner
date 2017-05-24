@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import ru.home.miniplanner.R;
+import ru.home.miniplanner.Util;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Contribution;
@@ -69,96 +70,36 @@ public class PlansActivity extends BaseListActivity<Plan> {
             Dao<Bay> bayDao = HelperFactory.getHelper().getBayDao();
             Dao<Contribution> contributionDao = HelperFactory.getHelper().getContributionDao();
 
-            Plan plan = new Plan();
-            plan.setName("Рыбылка");
-            plan.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
+            Plan plan = Util.getPlanInstance("Рыбылка", new GregorianCalendar(2015, 5, 28).getTime());
             planDao.save(plan);
 
-            Party partyP = new Party();
-            partyP.setPlan(plan);
-            partyP.setName("Петя");
+            Party partyP = Util.getPartyInstance("Петя", plan);
             partyDao.save(partyP);
-
-            Bay bay = new Bay();
-            bay.setDescription("Закуска");
-            bay.setSum(new BigDecimal("500"));
-            bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
-            bay.setParty(partyP);
-            bayDao.save(bay);
-
-            Party partyV = new Party();
-            partyV.setPlan(plan);
-            partyV.setName("Вася");
+            Party partyV = Util.getPartyInstance("Вася", plan);
             partyDao.save(partyV);
-
-            Contribution contribution = new Contribution();
-            contribution.setFrom(partyV);
-            contribution.setTo(partyP);
-            contribution.setSum(new BigDecimal("300"));
-            contributionDao.save(contribution);
-
-            Party partyPH = new Party();
-            partyPH.setPlan(plan);
-            partyPH.setName("Пафнутий");
+            Party partyPH = Util.getPartyInstance("Пафнутий", plan);
             partyDao.save(partyPH);
 
-            bay = new Bay();
-            bay.setDescription("Водка");
-            bay.setSum(new BigDecimal("1000"));
-            bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
-            bay.setParty(partyPH);
-            bayDao.save(bay);
+            bayDao.save(Util.getBayInstace("Закуска", new BigDecimal("500"), new GregorianCalendar(2015, 5, 28).getTime(), partyP));
+            bayDao.save(Util.getBayInstace("Водка", new BigDecimal("1000"), new GregorianCalendar(2015, 5, 28).getTime(), partyPH));
+            bayDao.save(Util.getBayInstace("Пиво", new BigDecimal("900"), new GregorianCalendar(2015, 5, 28).getTime(), partyPH));
 
-            bay = new Bay();
-            bay.setDescription("Пиво");
-            bay.setSum(new BigDecimal("900"));
-            bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
-            bay.setParty(partyPH);
-            bayDao.save(bay);
+            contributionDao.save(Util.getContributionInstance(partyV, partyP, new BigDecimal("300")));
+            contributionDao.save(Util.getContributionInstance(partyV, partyPH, new BigDecimal("700")));
+            contributionDao.save(Util.getContributionInstance(partyP, partyPH, new BigDecimal("500")));
 
-            contribution = new Contribution();
-            contribution.setFrom(partyV);
-            contribution.setTo(partyPH);
-            contribution.setSum(new BigDecimal("400"));
-            contributionDao.save(contribution);
-
-            contribution = new Contribution();
-            contribution.setFrom(partyP);
-            contribution.setTo(partyPH);
-            contribution.setSum(new BigDecimal("200"));
-            contributionDao.save(contribution);
-
-
-            plan = new Plan();
-            plan.setName("Хмельники");
-            plan.setDateReg(new GregorianCalendar(2015, 7, 2).getTime());
+            plan = Util.getPlanInstance("Хмельники", new GregorianCalendar(2015, 7, 2).getTime());
             planDao.save(plan);
 
-            Party partyI = new Party();
-            partyI.setPlan(plan);
-            partyI.setName("Игорь");
+            Party partyI = Util.getPartyInstance("Игорь", plan);
             partyDao.save(partyI);
 
-            Party partyD = new Party();
-            partyD.setPlan(plan);
-            partyD.setName("Дима");
+            Party partyD = Util.getPartyInstance("Дима", plan);
             partyDao.save(partyD);
 
-            bay = new Bay();
-            bay.setDescription("Закуска");
-            bay.setSum(new BigDecimal("500"));
-            bay.setDateReg(new GregorianCalendar(2015, 5, 28).getTime());
-            bay.setParty(partyI);
-            bayDao.save(bay);
+            bayDao.save(Util.getBayInstace("Закуска", new BigDecimal("500"), new GregorianCalendar(2015, 6, 30).getTime(), partyI));
 
-            plan = new Plan();
-            plan.setName("Баня");
-            plan.setDateReg(new GregorianCalendar(2016, 2, 13).getTime());
-            planDao.save(plan);
-
-            plan = new Plan();
-            plan.setName("Дача");
-            plan.setDateReg(new GregorianCalendar(2016, 7, 17).getTime());
+            plan = Util.getPlanInstance("Дача", new GregorianCalendar(2016, 7, 17).getTime());
             planDao.save(plan);
 
             adapter.updateData(planDao.getAll());

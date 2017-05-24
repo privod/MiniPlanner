@@ -6,10 +6,13 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import ru.home.miniplanner.model.Bay;
+import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Domain;
 import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.model.Plan;
@@ -60,5 +63,22 @@ public class Util {
         party.setPlan(plan);
         party.setName(name);
         return party;
+    }
+
+    public static Contribution getContributionInstance(Party partyFrom, Party partyTo, BigDecimal sum) {
+        Contribution contribution = new Contribution();
+        contribution.setFrom(partyFrom);
+        contribution.setTo(partyTo);
+        contribution.setSum(sum);
+        return contribution;
+    }
+
+    public static Bay getBayInstace(String description, BigDecimal sum, Date reg, Party party) {
+        Bay bay = new Bay();
+        bay.setDescription(description);
+        bay.setSum(sum);
+        bay.setDateReg(reg);
+        bay.setParty(party);
+        return bay;
     }
 }
