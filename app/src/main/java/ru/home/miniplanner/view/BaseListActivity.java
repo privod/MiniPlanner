@@ -7,6 +7,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -204,7 +205,12 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         Intent intent = new Intent(BaseListActivity.this, insideActivityClass);
         T entity = getList().get(position);
         intent.putExtra(entity.getClass().getSimpleName(), entity);
-        startActivity(intent);
+//        startActivity(intent);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                new Pair<View, String>(findViewById(R.id.coordinator), "plan")
+        );
+        ActivityCompat.startActivityForResult(this, intent, request_code_edit, options.toBundle());
     }
 
     protected Intent getEditActivityIntent(T entity) {
