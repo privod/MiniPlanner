@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Party;
+import ru.home.miniplanner.view.edit.editoraction.OnEditorActionListener;
 
 public class PartyEditActivity extends EditActivity<Party> {
 
@@ -37,6 +38,6 @@ public class PartyEditActivity extends EditActivity<Party> {
 
         nameEditText.requestFocus();
         nameEditText.selectAll();
-        nameEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
+        nameEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneAction, goAction));
     }
 }

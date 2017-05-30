@@ -9,6 +9,7 @@ import android.widget.Button;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.model.Domain;
+import ru.home.miniplanner.view.edit.editoraction.EditorAction;
 
 /**
  * Created by privod on 27.10.2015.
@@ -19,7 +20,8 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
     protected Dao<T> dao;
     protected T entity;
 
-    protected OnEditorActionDoneListener doneListener;
+    protected EditorAction doneAction;
+    protected EditorAction goAction;
 
     protected Button okButton;
     protected Button cancelButton;
@@ -38,16 +40,19 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         Intent intent = this.getIntent();
         entity = tClass.cast(intent.getSerializableExtra(tClass.getSimpleName()));
 
-        doneListener = new OnEditorActionDoneListener() {
+        doneAction = new EditorAction() {
             @Override
-            public void onActionDone() {
-                changeEntity();
-                dao.save(entity);
+            public boolean action() {
+                onOk();
+                return true;
+            }
+        };
 
-                Intent intent = new Intent();
-                intent.putExtra(entity.getClass().getSimpleName(), entity);
-                setResult(RESULT_OK, intent);
-                finish();
+        goAction = new EditorAction() {
+            @Override
+            public boolean action() {
+                // TODO РЕализовать обработку ошибок ввода
+                return true;
             }
         };
 
@@ -55,7 +60,7 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doneListener.onActionDone();
+                onOk();
             }
         });
 
@@ -67,5 +72,15 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    protected void onOk() {
+        changeEntity();
+        dao.save(entity);
+
+        Intent intent = new Intent();
+        intent.putExtra(entity.getClass().getSimpleName(), entity);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

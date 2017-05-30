@@ -10,6 +10,8 @@ import ru.home.miniplanner.R;
 import ru.home.miniplanner.Util;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
+import ru.home.miniplanner.view.edit.editoraction.NextEditorAction;
+import ru.home.miniplanner.view.edit.editoraction.OnEditorActionListener;
 
 /**
  * Created by bespalov on 08.12.15.
@@ -50,8 +52,11 @@ public class BayEditActivity extends EditActivity<Bay> {
 
         sumEditText.requestFocus();
         sumEditText.selectAll();
-        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
-        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(descriptionEditText, doneListener));
-        descriptionEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
+//        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneAction));
+//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(descriptionEditText, doneAction));
+//        descriptionEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneAction));
+        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(dateRegEditText), doneAction, goAction));
+        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(descriptionEditText), doneAction, goAction));
+        descriptionEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneAction, goAction));
     }
 }

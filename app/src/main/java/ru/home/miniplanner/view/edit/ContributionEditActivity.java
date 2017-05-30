@@ -15,6 +15,8 @@ import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Party;
+import ru.home.miniplanner.view.edit.editoraction.NextEditorAction;
+import ru.home.miniplanner.view.edit.editoraction.OnEditorActionListener;
 
 public class ContributionEditActivity extends EditActivity<Contribution> {
 
@@ -63,7 +65,9 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 
         sumEditText.requestFocus();
         sumEditText.selectAll();
-        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
-        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
+//        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneAction));
+//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneAction));
+        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(dateRegEditText), doneAction, goAction));
+        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneAction, goAction));
     }
 }

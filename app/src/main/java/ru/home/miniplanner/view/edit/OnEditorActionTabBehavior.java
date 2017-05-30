@@ -1,10 +1,11 @@
 package ru.home.miniplanner.view.edit;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import ru.home.miniplanner.view.edit.editoraction.EditorAction;
 
 /**
  * Created by privod on 01.11.2015.
@@ -12,11 +13,11 @@ import android.widget.TextView;
 class OnEditorActionTabBehavior implements TextView.OnEditorActionListener {
 
     private EditText nextView;
-    private OnEditorActionDoneListener doneListener;
+    private EditorAction doneBehavior;
 
-    OnEditorActionTabBehavior(EditText nextView, OnEditorActionDoneListener listener) {
+    OnEditorActionTabBehavior(EditText nextView, EditorAction done) {
         this.nextView = nextView;
-        this.doneListener = listener;
+        this.doneBehavior = done;
     }
 
     @Override
@@ -26,7 +27,7 @@ class OnEditorActionTabBehavior implements TextView.OnEditorActionListener {
             nextView.selectAll();
             return true;
         } else  if (actionId == EditorInfo.IME_ACTION_DONE) {
-            doneListener.onActionDone();
+            doneBehavior.action();
             return true;
         }
         return false;
