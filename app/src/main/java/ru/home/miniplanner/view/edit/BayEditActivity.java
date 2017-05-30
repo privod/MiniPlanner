@@ -52,11 +52,11 @@ public class BayEditActivity extends EditActivity<Bay> {
 
         sumEditText.requestFocus();
         sumEditText.selectAll();
-//        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneAction));
-//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(descriptionEditText, doneAction));
-//        descriptionEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneAction));
-        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(dateRegEditText), doneAction, goAction));
-        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(descriptionEditText), doneAction, goAction));
-        descriptionEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneAction, goAction));
+//        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
+//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(descriptionEditText, doneListener));
+//        descriptionEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
+        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(dateRegEditText), doneListener));
+        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(descriptionEditText), doneListener));
+        descriptionEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
     }
 }

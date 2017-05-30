@@ -2,7 +2,6 @@ package ru.home.miniplanner.view.edit.editoraction;
 
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -10,33 +9,24 @@ import android.widget.TextView;
  */
 public class OnEditorActionListener implements TextView.OnEditorActionListener {
 
-//    private EditText nextView;
-    private EditorAction nextAction;
-    private EditorAction doneAction;
-    private EditorAction goAction;
+    private TextView.OnEditorActionListener nextListener;
+    private TextView.OnEditorActionListener doneListener;
 
-//    public OnEditorActionListener(EditText nextView, EditorAction doneAction, EditorAction goAction) {
-    public OnEditorActionListener(EditorAction nextAction, EditorAction doneAction, EditorAction goAction) {
-//        this.nextView = nextView;
-        this.nextAction = nextAction;
-        this.doneAction = doneAction;
-        this.goAction = goAction;
+    public OnEditorActionListener(TextView.OnEditorActionListener nextListener, TextView.OnEditorActionListener doneListener) {
+        this.nextListener = nextListener;
+        this.doneListener = doneListener;
     }
 
-    private boolean actionCheck(EditorAction action) {
-        return null != action && action.action();
+    private boolean actionCheck(TextView.OnEditorActionListener action, TextView v, int actionId, KeyEvent event) {
+        return null != action && action.onEditorAction(v, actionId, event);
     }
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_NEXT) {
-//            nextView.requestFocus();
-//            nextView.selectAll();
-            return actionCheck(nextAction);
+            return actionCheck(nextListener, v, actionId, event);
         } else  if (actionId == EditorInfo.IME_ACTION_DONE) {
-            return actionCheck(doneAction);
-        } else  if (actionId == EditorInfo.IME_ACTION_GO) {
-            return actionCheck(goAction);
+            return actionCheck(doneListener, v, actionId, event);
         }
         return false;
     }

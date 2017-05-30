@@ -65,9 +65,9 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 
         sumEditText.requestFocus();
         sumEditText.selectAll();
-//        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneAction));
-//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneAction));
-        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(dateRegEditText), doneAction, goAction));
-        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneAction, goAction));
+//        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
+//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
+        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(dateRegEditText), doneListener));
+        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
     }
 }

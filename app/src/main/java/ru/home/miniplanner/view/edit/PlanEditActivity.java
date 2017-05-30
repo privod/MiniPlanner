@@ -8,7 +8,6 @@ import ru.home.miniplanner.R;
 import ru.home.miniplanner.Util;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Plan;
-import ru.home.miniplanner.view.edit.editoraction.EditorAction;
 import ru.home.miniplanner.view.edit.editoraction.NextEditorAction;
 import ru.home.miniplanner.view.edit.editoraction.OnEditorActionListener;
 
@@ -39,14 +38,17 @@ public class PlanEditActivity extends EditActivity<Plan> {
         nameEditText = (EditText) findViewById(R.id.edit_text_name);
         dateRegEditText = (EditText) findViewById(R.id.edit_text_date);
 
+
         nameEditText.setText(entity.getName());
         dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
 
         nameEditText.requestFocus();
         nameEditText.selectAll();
-//        nameEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneAction));
-//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneAction));
-        nameEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(dateRegEditText), doneAction, goAction));
-        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneAction, goAction));
+//        nameEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
+//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
+        nameEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(dateRegEditText), doneListener));
+        nameEditText.setOnFocusChangeListener(focusChangeListener);
+        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
+        dateRegEditText.setOnFocusChangeListener(focusChangeListener);
     }
 }

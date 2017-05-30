@@ -38,6 +38,6 @@ public class PartyEditActivity extends EditActivity<Party> {
 
         nameEditText.requestFocus();
         nameEditText.selectAll();
-        nameEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneAction, goAction));
+        nameEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
     }
 }
