@@ -111,4 +111,6 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
+
+    protected void 
 }

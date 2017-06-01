@@ -1,4 +1,4 @@
-package ru.home.miniplanner.view.edit.editoraction;
+package ru.home.miniplanner.view.edit.listeners;
 
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;

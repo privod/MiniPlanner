@@ -1,4 +1,4 @@
-package ru.home.miniplanner.view.edit.editoraction;
+package ru.home.miniplanner.view.edit.listeners;
 
 import android.view.KeyEvent;
 import android.widget.EditText;
@@ -8,11 +8,11 @@ import android.widget.TextView;
  * Created by privod on 30.05.2017.
  */
 
-public class NextEditorAction implements TextView.OnEditorActionListener {
+public class OnEditorActionListenerNext implements TextView.OnEditorActionListener {
 
     private EditText nextView;
 
-    public NextEditorAction(EditText nextView) {
+    public OnEditorActionListenerNext(EditText nextView) {
         this.nextView = nextView;
     }
 

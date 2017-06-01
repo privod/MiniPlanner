@@ -10,8 +10,8 @@ import ru.home.miniplanner.R;
 import ru.home.miniplanner.Util;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Bay;
-import ru.home.miniplanner.view.edit.editoraction.NextEditorAction;
-import ru.home.miniplanner.view.edit.editoraction.OnEditorActionListener;
+import ru.home.miniplanner.view.edit.listeners.OnEditorActionListenerNext;
+import ru.home.miniplanner.view.edit.listeners.OnEditorActionListener;
 
 /**
  * Created by bespalov on 08.12.15.
@@ -55,8 +55,8 @@ public class BayEditActivity extends EditActivity<Bay> {
 //        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
 //        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(descriptionEditText, doneListener));
 //        descriptionEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
-        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(dateRegEditText), doneListener));
-        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(new NextEditorAction(descriptionEditText), doneListener));
+        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(dateRegEditText), doneListener));
+        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(descriptionEditText), doneListener));
         descriptionEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
     }
 }
