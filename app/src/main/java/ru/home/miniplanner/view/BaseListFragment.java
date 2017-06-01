@@ -79,7 +79,7 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
                 for (int position: selectedPositions) {
                     dao.delete(adapter.getData().get(position));
                 }
-                adapter.updateData(dao.getAll());
+                adapter.updateData(getList());
 
                 mode.finish();
                 multiSelector.clearSelections();

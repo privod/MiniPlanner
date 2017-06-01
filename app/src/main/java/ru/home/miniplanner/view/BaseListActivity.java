@@ -80,7 +80,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
                 for (int position: selectedPositions) {
                     dao.delete(adapter.getData().get(position));
                 }
-                adapter.updateData(dao.getAll());
+                adapter.updateData(getList());
 
                 mode.finish();
                 multiSelector.clearSelections();
