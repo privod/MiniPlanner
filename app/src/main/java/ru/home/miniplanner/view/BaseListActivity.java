@@ -233,8 +233,8 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         }
 
         if (requestCode == request_code_edit && resultCode == RESULT_OK) {
-            T entity = entityClass.cast(data.getSerializableExtra(entityClass.getSimpleName()));
-            dao.save(entity);
+//            T entity = entityClass.cast(data.getSerializableExtra(entityClass.getSimpleName()));
+//            dao.save(entity);
             adapter.updateData(getList());
         }
     }

@@ -1,6 +1,7 @@
 package ru.home.miniplanner.view.edit;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -54,6 +55,9 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
         dateRegEditText = (EditText) findViewById(R.id.edit_text_date);
         toSpinner = (Spinner) findViewById(R.id.spinner_to);
 
+        TextInputLayout sumInputLayout = (TextInputLayout) findViewById(R.id.input_layout_sum);
+        TextInputLayout dateRegInputLayout = (TextInputLayout) findViewById(R.id.input_layout_date);
+
         sumEditText.setText(entity.getSum().toPlainString());
         dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
 
@@ -65,9 +69,9 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 
         sumEditText.requestFocus();
         sumEditText.selectAll();
-//        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
-//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
-        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(dateRegEditText), doneListener));
-        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
+//        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(dateRegEditText), doneListener));
+//        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
+        editTextSetListeners(sumEditText, dateRegEditText, sumInputLayout);
+        editTextSetListeners(dateRegEditText, null, dateRegInputLayout);
     }
 }

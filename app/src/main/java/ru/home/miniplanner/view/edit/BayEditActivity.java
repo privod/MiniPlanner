@@ -1,6 +1,7 @@
 package ru.home.miniplanner.view.edit;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -46,17 +47,22 @@ public class BayEditActivity extends EditActivity<Bay> {
         dateRegEditText = (EditText) findViewById(R.id.edit_text_date);
         descriptionEditText = (EditText) findViewById(R.id.edit_text_description);
 
+        TextInputLayout sumInputLayout = (TextInputLayout) findViewById(R.id.input_layout_sum);
+        TextInputLayout dateRegInputLayout = (TextInputLayout) findViewById(R.id.input_layout_date);
+        TextInputLayout descriptionRegInputLayout = (TextInputLayout) findViewById(R.id.input_layout_description);
+
+
         sumEditText.setText(entity.getSum().toPlainString());
         dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
         descriptionEditText.setText(entity.getDescription());
 
         sumEditText.requestFocus();
         sumEditText.selectAll();
-//        sumEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
-//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(descriptionEditText, doneListener));
-//        descriptionEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
-        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(dateRegEditText), doneListener));
-        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(descriptionEditText), doneListener));
-        descriptionEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
+//        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(dateRegEditText), doneListener));
+//        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(descriptionEditText), doneListener));
+//        descriptionEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
+        editTextSetListeners(sumEditText, dateRegEditText, sumInputLayout);
+        editTextSetListeners(dateRegEditText, descriptionEditText, dateRegInputLayout);
+        editTextSetListeners(descriptionEditText, null, descriptionRegInputLayout);
     }
 }

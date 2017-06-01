@@ -1,6 +1,7 @@
 package ru.home.miniplanner.view.edit;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -38,17 +39,16 @@ public class PlanEditActivity extends EditActivity<Plan> {
         nameEditText = (EditText) findViewById(R.id.edit_text_name);
         dateRegEditText = (EditText) findViewById(R.id.edit_text_date);
 
+        TextInputLayout nameInputLayout = (TextInputLayout) findViewById(R.id.input_layout_name);
+        TextInputLayout dateRegInputLayout = (TextInputLayout) findViewById(R.id.input_layout_date);
 
         nameEditText.setText(entity.getName());
         dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
 
-        nameEditText.requestFocus();
-        nameEditText.selectAll();
-//        nameEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(dateRegEditText, doneListener));
-//        dateRegEditText.setOnEditorActionListener(new OnEditorActionTabBehavior(null, doneListener));
-        nameEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(dateRegEditText), doneListener));
-        nameEditText.setOnFocusChangeListener(focusChangeListener);
-        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
-        dateRegEditText.setOnFocusChangeListener(focusChangeListener);
+//        nameEditText.requestFocus();
+//        nameEditText.selectAll();
+        setFocus(nameEditText);
+        editTextSetListeners(nameEditText, dateRegEditText, nameInputLayout);
+        editTextSetListeners(dateRegEditText, null, dateRegInputLayout);
     }
 }
