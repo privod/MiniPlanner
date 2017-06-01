@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.home.miniplanner.R;
@@ -28,7 +29,8 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
     protected T entity;
 
     protected TextView.OnEditorActionListener doneListener;
-    protected View.OnFocusChangeListener focusChangeListener;
+
+    LinearLayout layout;
 
     protected Button okButton;
     protected Button cancelButton;
@@ -70,6 +72,8 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
 //            }
 //        };
 
+        layout = (LinearLayout) findViewById(R.id.edit_content);
+
         okButton = (Button) findViewById(R.id.button_ok);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +93,18 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
     }
 
     protected void onOk() {
+        for (int i = 0; i < layout.getChildCount(); i++) {
+            View view = layout.getChildAt(i);
+
+            if (view instanceof TextInputLayout) {
+                TextInputLayout inputLayout = (TextInputLayout) view;
+                if (!validateEditText(inputLayout)) {
+                    setFocus(inputLayout.getEditText());
+                    return;
+                }
+            }
+        }
+
         changeEntity();
         dao.save(entity);
 
@@ -101,26 +117,10 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
 
     protected void editTextSetListeners(EditText view, EditText nextView, final TextInputLayout inputLayout) {
 
-        TextView.OnEditorActionListener nextListener = null;
-        if (null != nextView) {
-            nextListener = new OnEditorActionListenerNext(nextView);
-        }
+        TextView.OnEditorActionListener nextListener = nextView != null ? new OnEditorActionListenerNext(nextView) : null;
+
         view.setOnEditorActionListener(new OnEditorActionListener(nextListener, doneListener));
 
-//        view.setOnFocusChangeListener(new OnFocusChangeListener(inputLayout) {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//                if (!b && view instanceof EditText) {
-//                    EditText editText = (EditText) view;
-//                    if (editText.getText().length() < 1) {
-//                        inputLayout.setError("Not empty require");   // TODO Hardcode!!! Move to resource.
-//                        setFocus(editText);
-//                    } else {
-//                        inputLayout.setError("");
-//                    }
-//                }
-//            }
-//        });
         view.setOnFocusChangeListener(new OnFocusChangeListener(inputLayout) {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -139,7 +139,7 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         return view.getText().toString().matches("\\d{1,2}\\.\\d{1,2}\\.\\d{4}");
     }
 
-    protected void validateEditText(TextInputLayout inputLayout) {
+    protected boolean validateEditText(TextInputLayout inputLayout) {
         EditText editText = inputLayout.getEditText();
         boolean shouldShowError;
         String err;
@@ -154,8 +154,10 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         if (shouldShowError) {
             inputLayout.setError(err);
 //            setFocus(editText);
+            return false;
         } else {
-            inputLayout.setError("");
+            inputLayout.setError(null);
+            return true;
         }
     }
 

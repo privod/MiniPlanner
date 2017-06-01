@@ -40,7 +40,7 @@ public class BayEditActivity extends EditActivity<Bay> {
 
         dao = HelperFactory.getHelper().getBayDao();
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
+//        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
         getLayoutInflater().inflate(R.layout.edit_bay, layout, true);          // TODO добавить R.layout.edit_bay
 
         sumEditText = (EditText) findViewById(R.id.edit_text_sum);

@@ -17,16 +17,12 @@ public class OnEditorActionListener implements TextView.OnEditorActionListener {
         this.doneListener = doneListener;
     }
 
-    private boolean actionCheck(TextView.OnEditorActionListener action, TextView v, int actionId, KeyEvent event) {
-        return null != action && action.onEditorAction(v, actionId, event);
-    }
-
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_NEXT) {
-            return actionCheck(nextListener, v, actionId, event);
+            return null != nextListener && nextListener.onEditorAction(v, actionId, event);
         } else  if (actionId == EditorInfo.IME_ACTION_DONE) {
-            return actionCheck(doneListener, v, actionId, event);
+            return  null != doneListener && doneListener.onEditorAction(v, actionId, event);
         }
         return false;
     }

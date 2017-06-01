@@ -33,7 +33,7 @@ public class PlanEditActivity extends EditActivity<Plan> {
 
         dao = HelperFactory.getHelper().getPlanDao();
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
+//        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
         getLayoutInflater().inflate(R.layout.edit_plan, layout, true);
 
         nameEditText = (EditText) findViewById(R.id.edit_text_name);

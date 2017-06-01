@@ -30,7 +30,7 @@ public class PartyEditActivity extends EditActivity<Party> {
         dao = HelperFactory.getHelper().getPartyDao();
 //        Dao<Bay> bayDao = HelperFactory.getHelper().getBayDao();
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
+//        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
         getLayoutInflater().inflate(R.layout.edit_party, layout, true);
 
         TextInputLayout nameInputLayout = (TextInputLayout) findViewById(R.id.input_layout_name);

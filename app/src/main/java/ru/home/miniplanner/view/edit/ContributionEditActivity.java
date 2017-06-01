@@ -48,7 +48,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 
         dao = HelperFactory.getHelper().getContributionDao();
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
+//        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
         getLayoutInflater().inflate(R.layout.edit_contribution, layout, true);
 
         sumEditText = (EditText) findViewById(R.id.edit_text_sum);
