@@ -18,4 +18,9 @@ public abstract class Domain implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Domain && this.getId().equals(((Domain) obj).getId());
+    }
 }

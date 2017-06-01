@@ -66,6 +66,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
         List<Party> partyList = partyDao.getOtherParty(planId, entity.getFrom().getId());
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, partyList);
         toSpinner.setAdapter(adapter);
+        toSpinner.setSelection(partyList.indexOf(entity.getTo()));
 
         sumEditText.requestFocus();
         sumEditText.selectAll();
