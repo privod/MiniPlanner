@@ -32,7 +32,7 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
 //        private AvatarViewSwitcher avatarViewSwitcher;
         private ImageView avatarIcon;
 
-        public PartyViewHolder(View itemView) {
+        PartyViewHolder(View itemView) {
             super(itemView);
 
             context = itemView.getContext();

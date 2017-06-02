@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Contribution;
+import ru.home.miniplanner.model.Party;
 import ru.home.miniplanner.view.BaseListFragment;
 import ru.home.miniplanner.view.adapter.BaseAdapter;
 import ru.home.miniplanner.view.adapter.ContributionAdapter;
@@ -32,6 +34,19 @@ public class ContributionsFragment extends PartyContentFragment<Contribution> {
     protected Contribution newEntityInstance() {
         Contribution contribution = new Contribution();
         contribution.setFrom(activity.party);
+
+        BigDecimal diffMin = null;
+        Party optimalParty = null;
+        for (Party party: partyDao.getOtherParty(activity.party.getPlan().getId(), activity.party.getId())) {
+            BigDecimal diff = party.getOverpay().subtract(activity.party.getDebt()).abs();
+            if (null == optimalParty || diff.compareTo(diffMin) < 0) {
+                optimalParty = party;
+                diffMin = diff;
+            }
+        }
+
+        contribution.setTo(optimalParty);
+        contribution.setSum(optimalParty.getOverpay().min(activity.party.getDebt()));
         return contribution;
     }
 

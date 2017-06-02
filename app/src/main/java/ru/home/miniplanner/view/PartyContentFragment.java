@@ -11,6 +11,7 @@ import java.util.List;
 
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
+import ru.home.miniplanner.db.PartyDao;
 import ru.home.miniplanner.model.Bay;
 import ru.home.miniplanner.model.Domain;
 import ru.home.miniplanner.model.Party;
@@ -22,7 +23,7 @@ import ru.home.miniplanner.view.adapter.BayAdapter;
 
 public abstract class PartyContentFragment <T extends Domain> extends BaseListFragment<T> {
 
-    Dao<Party> partyDao;
+    PartyDao partyDao;
 
     public PartyContentFragment(Class<? extends Activity> editActivityClass,
                                 Class<T> entityClass,
