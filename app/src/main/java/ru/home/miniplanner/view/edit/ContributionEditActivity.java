@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import java.math.BigDecimal;
 import java.util.List;
 
+import fr.ganfra.materialspinner.MaterialSpinner;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.Util;
 import ru.home.miniplanner.db.HelperFactory;
@@ -25,7 +26,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 
     private EditText sumEditText;
     private EditText dateRegEditText;
-    private Spinner toSpinner;
+    private MaterialSpinner toSpinner;
 
     public ContributionEditActivity() {
         super(Contribution.class);
@@ -39,7 +40,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
     public void changeEntity() {
         entity.setSum(new BigDecimal(sumEditText.getText().toString()));
         entity.setDateReg(Util.dateParse(dateRegEditText.getText().toString()));
-        entity.setTo(adapter.getItem(toSpinner.getSelectedItemPosition()));
+        entity.setTo(adapter.getItem(toSpinner.getSelectedItemPosition() - 1));
     }
 
     @Override
@@ -53,7 +54,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 
         sumEditText = (EditText) findViewById(R.id.edit_text_sum);
         dateRegEditText = (EditText) findViewById(R.id.edit_text_date);
-        toSpinner = (Spinner) findViewById(R.id.spinner_to);
+        toSpinner = (MaterialSpinner) findViewById(R.id.spinner_to);
 
         TextInputLayout sumInputLayout = (TextInputLayout) findViewById(R.id.input_layout_sum);
         TextInputLayout dateRegInputLayout = (TextInputLayout) findViewById(R.id.input_layout_date);
@@ -65,8 +66,9 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
         PartyDao partyDao = HelperFactory.getHelper().getPartyDao();
         List<Party> partyList = partyDao.getOtherParty(planId, entity.getFrom().getId());
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, partyList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         toSpinner.setAdapter(adapter);
-        toSpinner.setSelection(partyList.indexOf(entity.getTo()));
+        toSpinner.setSelection(partyList.indexOf(entity.getTo()) + 1);
 
         sumEditText.requestFocus();
         sumEditText.selectAll();

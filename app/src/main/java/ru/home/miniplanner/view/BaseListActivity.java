@@ -23,7 +23,6 @@ import com.bignerdranch.android.multiselector.MultiSelector;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.model.Domain;
@@ -134,7 +133,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
 
     protected abstract List<T> getList();
 
-    private class ItemAction extends BaseAdapter.ItemAction {
+    private class ItemAction implements BaseAdapter.ItemAction {
 
         @Override
         public void open(int position) {
@@ -144,6 +143,12 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         @Override
         public void selectSwitch(BaseAdapter.ViewHolder holder) {
             BaseListActivity.this.selectSwitch(holder);
+        }
+
+        @Override
+        public void edit(int position) {
+            T entity = adapter.getData().get(position);
+            listItemEdit(entity);
         }
     }
 
@@ -178,7 +183,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
             recyclerView.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setItemAnimator(new SlideInLeftAnimator());
+//            recyclerView.setItemAnimator(new SlideInLeftAnimator());
             recyclerView.setAdapter(adapter);
         }
 

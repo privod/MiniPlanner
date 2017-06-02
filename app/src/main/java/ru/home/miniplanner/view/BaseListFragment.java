@@ -141,7 +141,7 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
 
     protected abstract List<T> getList();
 
-    private class ItemAction extends BaseAdapter.ItemAction {
+    private class ItemAction implements BaseAdapter.ItemAction {
 
         @Override
         public void open(int position) {
@@ -151,6 +151,12 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
         @Override
         public void selectSwitch(BaseAdapter.ViewHolder holder) {
             BaseListFragment.this.selectSwitch(holder);
+        }
+
+        @Override
+        public void edit(int position) {
+            T entity = adapter.getData().get(position);
+            listItemEdit(entity);
         }
     }
 

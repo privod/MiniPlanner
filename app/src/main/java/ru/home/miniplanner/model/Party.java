@@ -1,6 +1,5 @@
 package ru.home.miniplanner.model;
 
-import com.bignerdranch.expandablerecyclerview.model.Parent;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -14,7 +13,7 @@ import java.util.List;
  * Created by privod on 19.10.2015.
  */
 @DatabaseTable
-public class Party extends Domain implements Parent<PartyContent> {
+public class Party extends Domain {
 
     @DatabaseField
     private String name;
@@ -119,17 +118,5 @@ public class Party extends Domain implements Parent<PartyContent> {
 
     public void setOut(Collection<Contribution> out) {
         this.out = out;
-    }
-
-    @Override
-    public List<PartyContent> getChildList() {
-        ArrayList<PartyContent> childList = new ArrayList<PartyContent>(getBays());
-        childList.addAll(getOut());
-        return childList;
-    }
-
-    @Override
-    public boolean isInitiallyExpanded() {
-        return true;
     }
 }

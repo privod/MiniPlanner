@@ -24,18 +24,20 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
     private List<T> data;
 
     protected MultiSelector multiSelector;
-    private ItemAction itemAction;
+    protected ItemAction itemAction;
 
     BaseAdapter(MultiSelector multiSelector) {
         this.multiSelector = multiSelector;
         this.data = new ArrayList<T>();
     }
 
-    public static abstract class ItemAction {
+    public interface ItemAction {
 
-        public abstract void open(int position);
+        void open(int position);
 
-        public abstract void selectSwitch(BaseAdapter.ViewHolder holder);
+        void selectSwitch(BaseAdapter.ViewHolder holder);
+
+        void edit(int position);
     }
 
     public abstract class ViewHolder extends SwappingHolder {

@@ -45,4 +45,5 @@
     <string name="hint_date">Date</string>
     <string name="hint_sum">Sum</string>
     <string name="hint_description">Description</string>
+    <string name="hint_to">To</string>
 </resources>

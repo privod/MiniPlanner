@@ -102,6 +102,7 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
                     setFocus(inputLayout.getEditText());
                     return;
                 }
+
             }
         }
 
@@ -115,7 +116,7 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         finish();
     }
 
-    protected void editTextSetListeners(EditText view, EditText nextView, final TextInputLayout inputLayout) {
+    protected void editTextSetListeners(EditText view, View nextView, final TextInputLayout inputLayout) {
 
         TextView.OnEditorActionListener nextListener = nextView != null ? new OnEditorActionListenerNext(nextView) : null;
 

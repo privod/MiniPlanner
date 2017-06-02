@@ -32,7 +32,12 @@ public class BayAdapter extends BaseAdapter<BayAdapter.BayViewHolder, Bay> {
         BayViewHolder(View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(null);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemAction.edit(getAdapterPosition());
+                }
+            });
 
             descriptionTextView = (TextView) itemView.findViewById(R.id.text_view_description);
             dateRegTextView = (TextView) itemView.findViewById(R.id.text_view_date_reg);
