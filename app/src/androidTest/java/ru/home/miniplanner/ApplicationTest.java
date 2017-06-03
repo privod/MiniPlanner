@@ -36,9 +36,12 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         bay.setSum(new BigDecimal("321"));
         party.getBays().add(bay);
 
-        plan.getTotalCost();
+        party = new Party();
+        party.setPlan(plan);
+        party.setBays(new ArrayList<Bay>());
+        plan.getParties().add(party);
 
-        assertEquals(plan.getTotalCost(), new BigDecimal("144"));
-        assertEquals(plan.getShare(), new BigDecimal("244"));
+        assertEquals(new BigDecimal("444"), plan.getTotalCost());
+        assertEquals(new BigDecimal("222"), plan.getShare());
     }
 }

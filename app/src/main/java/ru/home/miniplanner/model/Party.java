@@ -60,11 +60,11 @@ public class Party extends Domain {
 
     public BigDecimal getDebt() {
         BigDecimal debt = getBalance().negate();
-        if (debt.compareTo(new BigDecimal("0")) > 0) {
+        if (debt.signum() > 0) {
             return debt;
         }
 
-        return null;
+        return new BigDecimal("0");
     }
 
     public BigDecimal getOverpay() {
@@ -73,6 +73,31 @@ public class Party extends Domain {
         }
 
         return new BigDecimal("0");
+    }
+
+    /* Looks for an optimal contributor for a contribution from the list of other participants
+     */
+    public Party findOptimalParty(List<Party> otherParties) {
+
+        if (this.getDebt().signum() == 0) {
+            return  null;
+        }
+
+        BigDecimal diffMin = null;
+        Party optimalParty = null;
+        for (Party otherParty: otherParties) {
+            if (otherParty.getOverpay().signum() == 0) {
+                continue;
+            }
+
+            BigDecimal diff = otherParty.getOverpay().subtract(this.getDebt()).abs();
+            if (null == optimalParty || (diff.compareTo(diffMin) < 0)) {
+                optimalParty = otherParty;
+                diffMin = diff;
+            }
+        }
+
+        return optimalParty;
     }
 
     @Override

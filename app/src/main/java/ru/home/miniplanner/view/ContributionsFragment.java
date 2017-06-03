@@ -14,6 +14,7 @@ import ru.home.miniplanner.db.Dao;
 import ru.home.miniplanner.db.HelperFactory;
 import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Party;
+import ru.home.miniplanner.model.Plan;
 import ru.home.miniplanner.view.BaseListFragment;
 import ru.home.miniplanner.view.adapter.BaseAdapter;
 import ru.home.miniplanner.view.adapter.ContributionAdapter;
@@ -32,21 +33,17 @@ public class ContributionsFragment extends PartyContentFragment<Contribution> {
 
     @Override
     protected Contribution newEntityInstance() {
+//        partyDao.refresh(thisParty);
+        HelperFactory.getHelper().getPlanDao().refresh(activity.party.getPlan());
+        List<Party> otherParties = partyDao.getOtherParty(activity.party.getPlan().getId(), activity.party.getId());
+        Party optimalParty = activity.party.findOptimalParty(otherParties);
+
         Contribution contribution = new Contribution();
         contribution.setFrom(activity.party);
-
-        BigDecimal diffMin = null;
-        Party optimalParty = null;
-        for (Party party: partyDao.getOtherParty(activity.party.getPlan().getId(), activity.party.getId())) {
-            BigDecimal diff = party.getOverpay().subtract(activity.party.getDebt()).abs();
-            if (null == optimalParty || diff.compareTo(diffMin) < 0) {
-                optimalParty = party;
-                diffMin = diff;
-            }
+        if (null != optimalParty) {
+            contribution.setTo(optimalParty);
+            contribution.setSum(optimalParty.getOverpay().min(activity.party.getDebt()));
         }
-
-        contribution.setTo(optimalParty);
-        contribution.setSum(optimalParty.getOverpay().min(activity.party.getDebt()));
         return contribution;
     }
 
