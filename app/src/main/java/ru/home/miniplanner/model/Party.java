@@ -50,7 +50,7 @@ public class Party extends Domain {
         return totalSum;
     }
 
-    private BigDecimal getBalance() {
+    public BigDecimal getBalance() {
         return getTotalCostBays()
                 .add(getTotalSumOut())
                 .subtract(getTotalSumIn())

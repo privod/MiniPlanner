@@ -1,0 +1,44 @@
+<resources>
+
+    <!--Intent arguments-->
+    <!--<string name="argument.id">id</string>-->
+
+    <!--<string name="app_name">Mini Planner</string>-->
+
+    <string name="action.settings">Настройки</string>
+    <string name="action.cre_debug_data">Создать отладочные данные</string>
+    <string name="action.edit">Изменить</string>
+    <string name="action.remove">Удалить</string>
+
+    <string name="title.plans">Список мероприятий</string>
+    <string name="title.parties">Список участников</string>
+    <string name="title.party_content">Список покупок и взносов</string>
+    <string name="title.contributions">Взносы</string>
+    <string name="title.bays">Покупки</string>
+
+    <string name="title.plan_edit">Параметры мероприятия</string>
+    <string name="title.party_edit">Параметры участника</string>
+    <string name="title.bay_edit">Параметры покупки</string>
+    <string name="title.contribution_edit">Параметры взноса</string>
+
+    <string name="text.debt">долг</string>
+    <string name="text.over">переплата</string>
+
+    <string name="error.edit_text_empty">Значение не может быть пустым</string>
+    <string name="error.edit_text_date_format">Неверный формат даты(должен быть DD.MM.YYYY)</string>
+
+    <!-- Base value -->
+    <!--<string name="button.ok">OK</string>-->
+    <string name="button.cancel">Отмена</string>
+
+
+    <string name="default.bay_description">Товар</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hint_name">Наименование</string>
+    <string name="hint_party_name">Имя</string>
+    <string name="hint_date">Дата</string>
+    <string name="hint_sum">Сумма</string>
+    <string name="hint_description">Описание</string>
+    <string name="hint_to">Кому</string>
+</resources>

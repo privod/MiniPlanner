@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_description"
-            android:text="@string/action.edit"
+            android:text="@string/default.bay_description"
             style="@style/Widget.AppCompat.EditText.Name"
             />
 
