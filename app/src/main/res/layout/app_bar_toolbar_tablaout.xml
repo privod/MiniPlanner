@@ -4,10 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/AppTheme.AppBarOverlay"
-    tools:showIn="@layout/activity_base"
     >
 
     <include layout="@layout/widget_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.LayoutListItem"
+        >
+
+        <TextView
+            android:id="@+id/text_vew_label_debt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Debt/Overpay"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            />
+
+        <TextView
+            android:id="@+id/text_vew_debt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            tools:text="100"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_vew_label_debt"
+            android:layout_alignStart="@+id/text_vew_label_debt"
+            android:text="@string/label.received"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            />
+
+        <TextView
+            android:id="@+id/text_vew_received"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_below="@+id/text_vew_label_debt"
+            android:layout_alignParentEnd="true"
+            tools:text="200"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            />
+
+    </RelativeLayout>
 
     <include layout="@layout/widget_tablayout" />
 

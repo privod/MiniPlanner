@@ -34,7 +34,7 @@ public class Party extends Domain {
         return totalCost;
     }
 
-    private BigDecimal getTotalSumIn() {
+    public BigDecimal getTotalSumIn() {
         return getTotalSumContributions(getIn());
     }
 

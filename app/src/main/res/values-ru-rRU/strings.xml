@@ -21,8 +21,13 @@
     <string name="title.bay_edit">Параметры покупки</string>
     <string name="title.contribution_edit">Параметры взноса</string>
 
-    <string name="text.debt">долг</string>
-    <string name="text.over">переплата</string>
+    <string name="label.received">Получено</string>
+    <string name="label.debt">Долг</string>
+    <string name="label.overpay">Переплата</string>
+
+
+    <!--<string name="text.debt">долг</string>-->
+    <!--<string name="text.over">переплата</string>-->
 
     <string name="error.edit_text_empty">Значение не может быть пустым</string>
     <string name="error.edit_text_date_format">Неверный формат даты(должен быть DD.MM.YYYY)</string>

@@ -53,6 +53,8 @@ public class PartiesActivity extends BaseListActivity<Party> {
 
         dao = HelperFactory.getHelper().getPartyDao();
         adapter = new PartyAdapter(multiSelector);
+
+        setTitle(plan.getName());
     }
 
 //    @Override

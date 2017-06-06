@@ -80,6 +80,7 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
                     dao.delete(adapter.getData().get(position));
                 }
                 adapter.updateData(getList());
+                activity.refreshSubtitle();
 
                 mode.finish();
                 multiSelector.clearSelections();
@@ -267,6 +268,7 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
 //            T entity = entityClass.cast(data.getSerializableExtra(entityClass.getSimpleName()));
 //            dao.save(entity);
             adapter.updateData(getList());
+            activity.refreshSubtitle();
         }
     }
 

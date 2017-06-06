@@ -21,8 +21,12 @@
     <string name="title.bay_edit">Properties of bay</string>
     <string name="title.contribution_edit">Properties of contribution</string>
 
-    <string name="text.debt">debt</string>
-    <string name="text.over">overpay</string>
+    <string name="label.received">Received</string>
+    <string name="label.debt">Debt</string>
+    <string name="label.overpay">Overpay</string>
+
+    <!--<string name="text.debt">debt</string>-->
+    <!--<string name="text.over">overpay</string>-->
 
     <string name="error.edit_text_empty">Value can not be empty</string>
     <string name="error.edit_text_date_format">Invalid date format (mast be DD.MM.YYYY)</string>

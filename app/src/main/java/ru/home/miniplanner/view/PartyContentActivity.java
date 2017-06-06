@@ -6,22 +6,23 @@ import android.support.design.widget.FloatingActionButton;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import ru.home.miniplanner.R;
 import ru.home.miniplanner.db.HelperFactory;
-import ru.home.miniplanner.model.Bay;
-import ru.home.miniplanner.model.Contribution;
 import ru.home.miniplanner.model.Party;
 
 public class PartyContentActivity extends AppCompatActivity {
 
     ViewPagerAdapter adapter;
     Party party;
+
+    TextView debtTextView;
+    TextView debtLabelTextView;
+    TextView receivedTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,12 @@ public class PartyContentActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        debtTextView = (TextView) findViewById(R.id.text_vew_debt);
+        debtLabelTextView = (TextView) findViewById(R.id.text_vew_label_debt);
+        receivedTextView = (TextView) findViewById(R.id.text_vew_received);
+
+        setTitle(party.getName());
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -61,11 +68,19 @@ public class PartyContentActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        refreshSubtitle();
+    }
+
+    public void refreshSubtitle() {
         if (party.getBalance().signum() > 0) {
-            setTitle(String.format("%s (%s: %s)", party.getName(), getString(R.string.text_over), party.getOverpay()));
+            debtLabelTextView.setText(R.string.label_overpay);
+            debtTextView.setText(party.getOverpay().toPlainString());
         } else {
-            setTitle(String.format("%s (%s: %s)", party.getName(), getString(R.string.text_debt), party.getDebt()));
+            debtLabelTextView.setText(R.string.label_debt);
+            debtTextView.setText(party.getDebt().toPlainString());
         }
+
+        receivedTextView.setText(party.getTotalSumIn().toPlainString());
     }
 
     private void setupViewPager(ViewPager viewPager) {
