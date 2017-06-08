@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ru.home.miniplanner.view.widget.AvatarViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+<ru.bespalov.miniplanner.view.widget.AvatarViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/view_switcher_avatar"
     android:layout_width="@dimen/size_avatar"
     android:layout_height="@dimen/size_avatar"
@@ -24,4 +24,4 @@
     <!--android:visibility="gone"-->
     <!--android:background="@drawable/circle"-->
 
-</ru.home.miniplanner.view.widget.AvatarViewSwitcher>
+</ru.bespalov.miniplanner.view.widget.AvatarViewSwitcher>

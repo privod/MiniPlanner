@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.home.miniplanner">
+    package="ru.bespalov.miniplanner">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.PlansActivity"
+            android:name="ru.bespalov.miniplanner.view.PlansActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter android:label="@string/title.plans">
@@ -24,27 +24,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.edit.PlanEditActivity"
+            android:name="ru.bespalov.miniplanner.view.edit.PlanEditActivity"
             android:label="@string/title.plan_edit"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name=".view.PartiesActivity"
+            android:name="ru.bespalov.miniplanner.view.PartiesActivity"
             android:label="@string/title.parties"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".view.edit.PartyEditActivity"
+            android:name="ru.bespalov.miniplanner.view.edit.PartyEditActivity"
             android:label="@string/title.party_edit"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name=".view.PartyContentActivity"
+            android:name="ru.bespalov.miniplanner.view.PartyContentActivity"
             android:label="@string/title.party_content"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".view.edit.BayEditActivity"
+            android:name="ru.bespalov.miniplanner.view.edit.BayEditActivity"
             android:label="@string/title.bay_edit"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name=".view.edit.ContributionEditActivity"
+            android:name="ru.bespalov.miniplanner.view.edit.ContributionEditActivity"
             android:label="@string/title.contribution_edit"
             android:windowSoftInputMode="stateVisible"/>
     </application>

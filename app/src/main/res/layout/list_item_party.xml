@@ -6,7 +6,7 @@
     android:background="?android:attr/selectableItemBackground"
     style="@style/AppTheme.LayoutListItem">
 
-    <ru.home.miniplanner.view.widget.AvatarViewSwitcher
+    <ru.bespalov.miniplanner.view.widget.AvatarViewSwitcher
         android:id="@+id/view_switcher_avatar"
         android:layout_width="@dimen/size_avatar"
         android:layout_height="@dimen/size_avatar"
@@ -31,7 +31,7 @@
         <!--android:visibility="gone"-->
         <!--android:background="@drawable/circle"-->
 
-    </ru.home.miniplanner.view.widget.AvatarViewSwitcher>
+    </ru.bespalov.miniplanner.view.widget.AvatarViewSwitcher>
 
 
     <TextView

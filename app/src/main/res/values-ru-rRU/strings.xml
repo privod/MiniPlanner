@@ -1,9 +1,7 @@
 <resources>
 
     <!--Intent arguments-->
-    <!--<string name="argument.id">id</string>-->
-
-    <!--<string name="app_name">Mini Planner</string>-->
+    <string name="app_name">Mini Planner</string>
 
     <string name="action.settings">Настройки</string>
     <string name="action.cre_debug_data">Создать отладочные данные</string>
@@ -33,7 +31,7 @@
     <string name="error.edit_text_date_format">Неверный формат даты(должен быть DD.MM.YYYY)</string>
 
     <!-- Base value -->
-    <!--<string name="button.ok">OK</string>-->
+    <string name="button.ok">ОК</string>
     <string name="button.cancel">Отмена</string>
 
 
