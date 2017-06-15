@@ -15,7 +15,7 @@ import ru.bespalov.miniplanner.model.Domain;
  */
 public class Dao<T extends Domain> extends BaseDaoImpl<T, Long> {
 
-    public static abstract class Factory<T extends Domain, D extends Dao<T>> {
+    static abstract class Factory<T extends Domain, D extends Dao<T>> {
         public abstract D newDaoInstance(ConnectionSource connectionSource) throws SQLException;
     }
 
@@ -36,9 +36,9 @@ public class Dao<T extends Domain> extends BaseDaoImpl<T, Long> {
         }
     }
 
-    public int delete(Long id) {
-        return this.delete(getById(id));
-    }
+//    public int delete(Long id) {
+//        return this.delete(getById(id));
+//    }
 
     @Override
     public int delete(T entity) {
@@ -60,7 +60,7 @@ public class Dao<T extends Domain> extends BaseDaoImpl<T, Long> {
         }
     }
 
-    public T getById(Long id) {
+    private T getById(Long id) {
         try {
             return super.queryForId(id);
         } catch (SQLException e) {

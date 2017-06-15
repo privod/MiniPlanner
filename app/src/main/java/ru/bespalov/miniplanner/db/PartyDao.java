@@ -7,6 +7,8 @@ import com.j256.ormlite.support.ConnectionSource;
 import java.sql.SQLException;
 import java.util.List;
 
+import ru.bespalov.miniplanner.model.Bay;
+import ru.bespalov.miniplanner.model.Contribution;
 import ru.bespalov.miniplanner.model.Party;
 
 /**
@@ -14,7 +16,7 @@ import ru.bespalov.miniplanner.model.Party;
  */
 public class PartyDao extends Dao<Party> {
 
-    public static class Factory extends Dao.Factory<Party, PartyDao> {
+    static class Factory extends Dao.Factory<Party, PartyDao> {
 
         @Override
         public PartyDao newDaoInstance(ConnectionSource connectionSource) throws SQLException {
@@ -22,8 +24,26 @@ public class PartyDao extends Dao<Party> {
         }
     }
 
-    public PartyDao(ConnectionSource connectionSource) throws SQLException {
+    private PartyDao(ConnectionSource connectionSource) throws SQLException {
         super(connectionSource, Party.class);
+    }
+
+    @Override
+    public int delete(Party entity) {
+
+        for (Contribution contribution : entity.getIn()) {
+            HelperFactory.getHelper().getContributionDao().delete(contribution);
+        }
+
+        for (Contribution contribution : entity.getOut()) {
+            HelperFactory.getHelper().getContributionDao().delete(contribution);
+        }
+
+        for (Bay bay : entity.getBays()) {
+            HelperFactory.getHelper().getBayDao().delete(bay);
+        }
+
+        return super.delete(entity);
     }
 
     /**
