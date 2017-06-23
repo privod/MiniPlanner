@@ -3,7 +3,8 @@
     <!--Intent arguments-->
     <string name="app_name">Mini Planner</string>=
 
-    <string name="action.settings">Settings</string>
+    <string name="action.data_load">Data load</string>
+    <string name="action.data_save">Data save</string>
     <string name="action.cre_debug_data">Create debug data</string>
     <string name="action.edit">Edit</string>
     <string name="action.remove">Remove</string>

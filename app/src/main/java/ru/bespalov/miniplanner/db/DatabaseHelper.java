@@ -22,7 +22,7 @@ import ru.bespalov.miniplanner.model.Plan;
  * Created by privod on 23.10.2015.
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-    private static final String DATABASE_NAME ="planner.db";
+    public static final String DATABASE_NAME ="planner.db";
     private static final int DATABASE_VERSION = 1;
 
     private Dao<Plan> planDao;

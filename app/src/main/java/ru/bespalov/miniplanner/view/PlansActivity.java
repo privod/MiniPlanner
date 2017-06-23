@@ -74,7 +74,10 @@ public class PlansActivity extends BaseListActivity<Plan> {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_data_load) {
+            return true;
+        } else if (id == R.id.action_data_save) {
+
             return true;
         } else if (id == R.id.action_cre_debug_data) {
 

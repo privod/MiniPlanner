@@ -3,9 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".PlansActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_data_load"
         android:orderInCategory="100"
-        android:title="@string/action.settings"
+        android:title="@string/action.data_load"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_data_save"
+        android:orderInCategory="100"
+        android:title="@string/action.data_save"
         app:showAsAction="never"
         />
     <item
