@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".PlansActivity">
     <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action.settings"
+        app:showAsAction="never"
+        />
+    <item
         android:id="@+id/action_data_load"
         android:orderInCategory="100"
         android:title="@string/action.data_load"

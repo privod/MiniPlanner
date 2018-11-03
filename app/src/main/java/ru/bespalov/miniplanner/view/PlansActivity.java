@@ -1,11 +1,18 @@
 package ru.bespalov.miniplanner.view;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -13,6 +20,7 @@ import java.util.List;
 import ru.bespalov.miniplanner.R;
 import ru.bespalov.miniplanner.Util;
 import ru.bespalov.miniplanner.db.Dao;
+import ru.bespalov.miniplanner.db.DatabaseHelper;
 import ru.bespalov.miniplanner.model.Bay;
 import ru.bespalov.miniplanner.model.Contribution;
 import ru.bespalov.miniplanner.model.Party;
@@ -20,6 +28,7 @@ import ru.bespalov.miniplanner.view.adapter.PlanAdapter;
 import ru.bespalov.miniplanner.db.HelperFactory;
 import ru.bespalov.miniplanner.model.Plan;
 import ru.bespalov.miniplanner.view.edit.PlanEditActivity;
+import ru.bespalov.miniplanner.view.widget.SaveFileDialog;
 
 public class PlansActivity extends BaseListActivity<Plan> {
     public PlansActivity() {
@@ -66,6 +75,28 @@ public class PlansActivity extends BaseListActivity<Plan> {
         return true;
     }
 
+//    private boolean createDownloadFolderDialog(Context context, File folder) {
+//        boolean result;
+//        AlertDialog alert = new AlertDialog.Builder(context)
+//                .setTitle(String.format(getString(R.string.dialog_folder_download_create_title), folder.getPath()))
+//                .setMessage(R.string.dialog_folder_download_create)
+//                .setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//
+//                            }
+//                        }
+//                )
+//                .setNegativeButton(R.string.button_cancel,
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                dialog.cancel();
+//                            }
+//                        }).create();
+//        alert.show();
+//
+//    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -77,6 +108,28 @@ public class PlansActivity extends BaseListActivity<Plan> {
         if (id == R.id.action_data_load) {
             return true;
         } else if (id == R.id.action_data_save) {
+//            for (String fil: fileList()) {
+//                Log.d("PlansActivity-menu", String.format("fileList=%s", fil));
+//            }
+//            Log.d("PlansActivity-menu", getFileStreamPath(DatabaseHelper.DATABASE_NAME).getAbsolutePath());
+
+//            File destDB = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + File.separator + DatabaseHelper.DATABASE_NAME);
+//
+//            SaveFileDialog fileDialog = new SaveFileDialog(this)
+//                    .setOpenDialogListener(new SaveFileDialog.SaveDialogListener() {
+//                        @Override
+//                        public void OnInputFileName(String fileName) {
+//                            if
+//                            getFileStreamPath(DatabaseHelper.DATABASE_NAME);
+//                            Toast.makeText(getApplicationContext(), fileName, Toast.LENGTH_LONG).show();
+//                        }
+//                    })
+//                    .setInputText();
+//            fileDialog.show();
+
+            return true;
+        } else if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
 
             return true;
         } else if (id == R.id.action_cre_debug_data) {

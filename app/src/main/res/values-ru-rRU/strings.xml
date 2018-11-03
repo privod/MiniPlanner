@@ -3,7 +3,9 @@
     <!--Intent arguments-->
     <string name="app_name">Mini Planner</string>
 
-    <string name="action.data_save">Настройки</string>
+    <string name="action.data_save">Сохранить данные</string>
+    <string name="action.data_load">загрузить данные</string>
+    <string name="action.settings">Настройки</string>
     <string name="action.cre_debug_data">Создать отладочные данные</string>
     <string name="action.edit">Изменить</string>
     <string name="action.remove">Удалить</string>
@@ -44,4 +46,19 @@
     <string name="hint_sum">Сумма</string>
     <string name="hint_description">Описание</string>
     <string name="hint_to">Кому</string>
+    <string name="data_save_path">Путь сохранения данных</string>
+    <string name="dialog_folder_download_create_title">В памяти устройтсва отсутствует каталог %s</string>
+    <string name="dialog_folder_download_create">Создать?</string>
+
+
+    <string name="pref_header_general">Основные</string>
+
+    <string name="pref_title_database_path">Путь по умолчанию для выгрузки базы данных</string>
+    <string name="pref_title_database_load">Загрузить базу данных</string>
+    <string name="pref_title_database_unload">Выгрузить базу данных</string>
+
+    <string name="pref_title_language_default">Язык устройства</string>
+    <string name="pref_description_language_default">Использовать язык устройства (рекомендуется)</string>
+    <string name="pref_title_сhoose_language">Выберите язык</string>
+
 </resources>
