@@ -63,9 +63,10 @@
     <string name="dialog_folder_download_create">Create?</string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Strings related to Settings -->
 
-    <!-- Example General settings -->
+    <!-- Settings -->
+
+    <!-- General settings -->
     <string name="pref_header_general">General</string>
 
     <string name="pref_title_language_default">Device language</string>
@@ -80,6 +81,8 @@
         <item>eng</item>
     </string-array>
 
+    <!-- Database settings -->
+    <string name="pref_header_data_sync">Database</string>
     <string name="pref_title_database_path">Default path to unload database</string>
     <string name="pref_title_database_load">Load database</string>
     <string name="pref_title_database_unload">Unload database</string>
@@ -87,7 +90,6 @@
 
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
