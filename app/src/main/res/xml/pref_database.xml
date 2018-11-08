@@ -15,7 +15,7 @@
     <EditTextPreference
         android:capitalize="words"
         android:inputType="textCapWords"
-        android:key="example_text"
+        android:key="database_path"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"

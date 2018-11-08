@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -195,21 +196,30 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("language_list"));
 
             ListPreference listLanguage = (ListPreference) findPreference("language_list");
-            listLanguage.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            listLanguage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    ListPreference listLangPref = (ListPreference) preference;
-
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
                     Resources res = getResources();
                     Configuration conf = res.getConfiguration();
-                    conf.setLocale(new Locale(listLangPref.getValue().toLowerCase()));
+                    Locale locale = new Locale(newValue.toString());
+                    conf.setLocale(locale);
                     res.updateConfiguration(conf, res.getDisplayMetrics());
-                    getActivity().recreate();
-
+//                    getActivity().recreate();
                     return true;
                 }
             });
+
+//            SwitchPreference defaultLanguage = (SwitchPreference) findPreference("language_default");
+//            defaultLanguage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+//                @Override
+//                public boolean onPreferenceChange(Preference preference, Object newValue) {
+//                    setLanguage(preference);
+//
+//                    return false;
+//                }
+//            });
         }
+
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
@@ -268,7 +278,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("sync_frequency"));
+            bindPreferenceSummaryToValue(findPreference("database_path"));
         }
 
             @Override

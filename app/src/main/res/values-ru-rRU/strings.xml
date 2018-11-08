@@ -55,13 +55,18 @@
 
     <!--Основные настройки-->
     <string name="pref_header_general">Основные</string>
-    <string name="pref_title_language_default">Язык устройства</string>
-    <string name="pref_description_language_default">Использовать язык устройства (рекомендуется)</string>
+    <!--<string name="pref_title_language_default">Язык устройства</string>-->
+    <!--<string name="pref_description_language_default">Использовать язык устройства (рекомендуется)</string>-->
     <string name="pref_title_сhoose_language">Выберите язык</string>
+    <string-array name="pref_language_list_titles">
+        <item>Язык устройства</item>
+        <item>Русский</item>
+        <item>English</item>
+    </string-array>
 
     <!--Настойки базы данных-->
     <string name="pref_header_data_sync">База данных</string>
-    <string name="pref_title_database_path">Путь по умолчанию для выгрузки базы данных</string>
+    <string name="pref_title_database_path">Путь для загрузки/выгрузки базы данных</string>
     <string name="pref_title_database_load">Загрузить базу данных</string>
     <string name="pref_title_database_unload">Выгрузить базу данных</string>
 

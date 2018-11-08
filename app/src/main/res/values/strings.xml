@@ -69,21 +69,23 @@
     <!-- General settings -->
     <string name="pref_header_general">General</string>
 
-    <string name="pref_title_language_default">Device language</string>
-    <string name="pref_description_language_default">Use device language (recommended)</string>
+    <!--<string name="pref_title_language_default">Device language</string>-->
+    <!--<string name="pref_description_language_default">Use device language (recommended)</string>-->
     <string name="pref_title_сhoose_language">Choose language</string>
     <string-array name="pref_language_list_titles">
+        <item>Devise language</item>
         <item>English</item>
         <item>Русский</item>
     </string-array>
     <string-array name="pref_language_list_values">
-        <item>rus</item>
-        <item>eng</item>
+        <item>default</item>
+        <item>en_US</item>
+        <item>ru_RU</item>
     </string-array>
 
     <!-- Database settings -->
     <string name="pref_header_data_sync">Database</string>
-    <string name="pref_title_database_path">Default path to unload database</string>
+    <string name="pref_title_database_path">\Path to load/unload database</string>
     <string name="pref_title_database_load">Load database</string>
     <string name="pref_title_database_unload">Unload database</string>
     <!--<string name="pref_default_display_name">John Smith</string>-->

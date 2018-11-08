@@ -1,11 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="language_default"
-        android:summary="@string/pref_description_language_default"
-        android:title="@string/pref_title_language_default"
-        android:disableDependentsState="true"/>
+    <!--<SwitchPreference-->
+        <!--android:defaultValue="true"-->
+        <!--android:key="language_default"-->
+        <!--android:summary="@string/pref_description_language_default"-->
+        <!--android:title="@string/pref_title_language_default"-->
+        <!--android:disableDependentsState="true"/>-->
 
     <ListPreference
         android:defaultValue="-1"
@@ -14,7 +14,7 @@
         android:key="language_list"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
-        android:title="@string/pref_title_сhoose_language"
-        android:dependency="language_default" />
+        android:title="@string/pref_title_сhoose_language"/>
+        <!--android:dependency="language_default" />-->
 
 </PreferenceScreen>
