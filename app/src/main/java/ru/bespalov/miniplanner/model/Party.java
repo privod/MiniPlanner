@@ -25,7 +25,7 @@ public class Party extends Domain {
     @ForeignCollectionField(foreignFieldName = "from")
     private Collection<Contribution> out;
 
-    BigDecimal getTotalCostBays() {
+    public BigDecimal getTotalCostBays() {
         BigDecimal totalCost = new BigDecimal("0");
         for (Bay bay : bays) {
             totalCost = totalCost.add(bay.getSum());
@@ -37,7 +37,7 @@ public class Party extends Domain {
         return getTotalSumContributions(getIn());
     }
 
-    private BigDecimal getTotalSumOut() {
+    public BigDecimal getTotalSumOut() {
         return getTotalSumContributions(getOut());
     }
 

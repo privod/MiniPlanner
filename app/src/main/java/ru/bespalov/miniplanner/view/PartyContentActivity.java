@@ -20,9 +20,11 @@ public class PartyContentActivity extends AppCompatActivity {
     ViewPagerAdapter adapter;
     Party party;
 
+    TextView TotalCostByTextView;
+    TextView sumOutTextView;
+    TextView sumInTextView;
     TextView debtTextView;
     TextView debtLabelTextView;
-    TextView receivedTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +43,11 @@ public class PartyContentActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        TotalCostByTextView = (TextView) findViewById(R.id.text_vew_total_sum_by);
+        sumOutTextView = (TextView) findViewById(R.id.text_vew_sum_out);
+        sumInTextView = (TextView) findViewById(R.id.text_vew_sum_in);
         debtTextView = (TextView) findViewById(R.id.text_vew_debt);
         debtLabelTextView = (TextView) findViewById(R.id.text_vew_label_debt);
-        receivedTextView = (TextView) findViewById(R.id.text_vew_received);
 
         setTitle(party.getName());
 
@@ -72,6 +76,9 @@ public class PartyContentActivity extends AppCompatActivity {
     }
 
     public void refreshSubtitle() {
+        TotalCostByTextView.setText(party.getTotalCostBays().toPlainString());
+        sumOutTextView.setText(party.getTotalSumOut().toPlainString());
+        sumInTextView.setText(party.getTotalSumIn().toPlainString());
         if (party.getBalance().signum() > 0) {
             debtLabelTextView.setText(R.string.label_overpay);
             debtTextView.setText(party.getOverpay().toPlainString());
@@ -79,8 +86,6 @@ public class PartyContentActivity extends AppCompatActivity {
             debtLabelTextView.setText(R.string.label_debt);
             debtTextView.setText(party.getDebt().toPlainString());
         }
-
-        receivedTextView.setText(party.getTotalSumIn().toPlainString());
     }
 
     private void setupViewPager(ViewPager viewPager) {
