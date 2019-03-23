@@ -1,8 +1,14 @@
 package ru.bespalov.miniplanner.view;
 
+import android.os.Build;
+import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.bespalov.miniplanner.R;
 import ru.bespalov.miniplanner.db.Dao;
 import ru.bespalov.miniplanner.db.HelperFactory;
 import ru.bespalov.miniplanner.model.Party;
@@ -16,6 +22,10 @@ public class PartiesActivity extends BaseListActivity<Party> {
 
     Plan plan;
 //    PartyAdapter partyAdapter;      // TODO Переименовать в adapter
+
+    TextView totalCostTextView;
+    TextView partiesCountTextView;
+    TextView shareTextView;
 
     public PartiesActivity() {
         super(PartyEditActivity.class, Party.class, PartyContentActivity.class);
@@ -55,6 +65,34 @@ public class PartiesActivity extends BaseListActivity<Party> {
         adapter = new PartyAdapter(multiSelector);
 
         setTitle(plan.getName());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        totalCostTextView = (TextView) findViewById(R.id.text_vew_total_cost);
+        partiesCountTextView = (TextView) findViewById(R.id.text_vew_parties_count);
+        shareTextView = (TextView) findViewById(R.id.text_vew_share);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        refreshSubtitle();
+    }
+
+    @Override
+    protected void layoutInflateSubtitle(CoordinatorLayout layout) {
+        getLayoutInflater().inflate(R.layout.app_bar_toolbar_parties, layout, true);
+    }
+
+    @Override
+    public void refreshSubtitle() {
+        totalCostTextView.setText(plan.getTotalCost().toPlainString());
+        partiesCountTextView.setText(String.valueOf(plan.getParties().size()));
+        shareTextView.setText(plan.getShare().toPlainString());
     }
 
 //    @Override

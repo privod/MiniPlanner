@@ -1,18 +1,13 @@
 package ru.bespalov.miniplanner.view;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -20,7 +15,6 @@ import java.util.List;
 import ru.bespalov.miniplanner.R;
 import ru.bespalov.miniplanner.Util;
 import ru.bespalov.miniplanner.db.Dao;
-import ru.bespalov.miniplanner.db.DatabaseHelper;
 import ru.bespalov.miniplanner.model.Bay;
 import ru.bespalov.miniplanner.model.Contribution;
 import ru.bespalov.miniplanner.model.Party;
@@ -28,7 +22,6 @@ import ru.bespalov.miniplanner.view.adapter.PlanAdapter;
 import ru.bespalov.miniplanner.db.HelperFactory;
 import ru.bespalov.miniplanner.model.Plan;
 import ru.bespalov.miniplanner.view.edit.PlanEditActivity;
-import ru.bespalov.miniplanner.view.widget.SaveFileDialog;
 
 public class PlansActivity extends BaseListActivity<Plan> {
     public PlansActivity() {

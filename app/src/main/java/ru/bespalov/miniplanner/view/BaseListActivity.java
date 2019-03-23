@@ -13,6 +13,7 @@ import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,6 +81,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
                     dao.delete(adapter.getData().get(position));
                 }
                 adapter.updateData(getList());
+                refreshSubtitle();
 
                 mode.finish();
                 multiSelector.clearSelections();
@@ -171,7 +173,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         setContentView(R.layout.activity_base);
 
         CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.coordinator);
-        getLayoutInflater().inflate(R.layout.app_bar_toolbar, layout, true);
+        layoutInflateSubtitle(layout);
         getLayoutInflater().inflate(R.layout.widget_recycler_view, layout, true);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -204,6 +206,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         super.onResume();
 
         adapter.updateData(getList());
+        refreshSubtitle();
     }
 
     public void listItemOpen(int position) {
@@ -241,6 +244,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
 //            T entity = entityClass.cast(data.getSerializableExtra(entityClass.getSimpleName()));
 //            dao.save(entity);
             adapter.updateData(getList());
+            refreshSubtitle();
         }
     }
 
@@ -263,4 +267,10 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         AvatarViewSwitcher avatarViewSwitcher = (AvatarViewSwitcher) holder.itemView.findViewById(R.id.view_switcher_avatar);
         avatarViewSwitcher.showNext();
     }
+
+    protected void layoutInflateSubtitle(CoordinatorLayout layout) {
+        getLayoutInflater().inflate(R.layout.app_bar_toolbar, layout, true);
+    }
+
+    protected void refreshSubtitle() { }
 }

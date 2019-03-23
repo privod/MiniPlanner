@@ -35,7 +35,7 @@ public class PartyContentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
 
         CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.coordinator);
-        getLayoutInflater().inflate(R.layout.app_bar_toolbar_tablaout, layout, true);
+        getLayoutInflater().inflate(R.layout.app_bar_toolbar_party_content, layout, true);
         getLayoutInflater().inflate(R.layout.widget_view_pager, layout, true);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

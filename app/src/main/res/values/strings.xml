@@ -142,4 +142,7 @@
     <string name="file_exist">File exist</string>
     <string name="rewrite_file">%s file exist, rewrite?</string>
     <string name="data_loaded">Data loaded</string>
+    <string name="title_parties_count">Number of participants</string>
+    <string name="title_total_cost">Total cost</string>
+    <string name="title_share">Amount per participant</string>
 </resources>
