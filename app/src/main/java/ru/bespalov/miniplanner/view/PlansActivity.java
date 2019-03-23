@@ -105,33 +105,33 @@ public class PlansActivity extends BaseListActivity<Plan> {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_data_load) {
-            return true;
-        } else if (id == R.id.action_data_save) {
-//            for (String fil: fileList()) {
-//                Log.d("PlansActivity-menu", String.format("fileList=%s", fil));
-//            }
-//            Log.d("PlansActivity-menu", getFileStreamPath(DatabaseHelper.DATABASE_NAME).getAbsolutePath());
-
-//            File destDB = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + File.separator + DatabaseHelper.DATABASE_NAME);
-//
-//            SaveFileDialog fileDialog = new SaveFileDialog(this)
-//                    .setOpenDialogListener(new SaveFileDialog.SaveDialogListener() {
-//                        @Override
-//                        public void OnInputFileName(String fileName) {
-//                            if
-//                            getFileStreamPath(DatabaseHelper.DATABASE_NAME);
-//                            Toast.makeText(getApplicationContext(), fileName, Toast.LENGTH_LONG).show();
-//                        }
-//                    })
-//                    .setInputText();
-//            fileDialog.show();
-
-            return true;
-        } else if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
 
             return true;
+//        } else if (id == R.id.action_data_load) {
+//            return true;
+//        } else if (id == R.id.action_data_save) {
+////            for (String fil: fileList()) {
+////                Log.d("PlansActivity-menu", String.format("fileList=%s", fil));
+////            }
+////            Log.d("PlansActivity-menu", getFileStreamPath(DatabaseHelper.DATABASE_NAME).getAbsolutePath());
+//
+////            File destDB = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + File.separator + DatabaseHelper.DATABASE_NAME);
+////
+////            SaveFileDialog fileDialog = new SaveFileDialog(this)
+////                    .setOpenDialogListener(new SaveFileDialog.SaveDialogListener() {
+////                        @Override
+////                        public void OnInputFileName(String fileName) {
+////                            if
+////                            getFileStreamPath(DatabaseHelper.DATABASE_NAME);
+////                            Toast.makeText(getApplicationContext(), fileName, Toast.LENGTH_LONG).show();
+////                        }
+////                    })
+////                    .setInputText();
+////            fileDialog.show();
+//
+//            return true;
         } else if (id == R.id.action_cre_debug_data) {
 
             Dao<Plan> planDao = HelperFactory.getHelper().getPlanDao();

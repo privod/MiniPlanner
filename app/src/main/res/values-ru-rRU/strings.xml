@@ -36,6 +36,10 @@
     <string name="button.ok">ОК</string>
     <string name="button.cancel">Отмена</string>
 
+    <string name="button.yes">Да</string>
+    <string name="button.no">Нет</string>
+
+    <string name="operation_canceled">Операция отменена</string>
 
     <string name="default.bay_description">Товар</string>
 
@@ -69,5 +73,9 @@
     <string name="pref_title_database_path">Путь для загрузки/выгрузки базы данных</string>
     <string name="pref_title_database_load">Загрузить базу данных</string>
     <string name="pref_title_database_unload">Выгрузить базу данных</string>
+    <string name="data_unloaded">Данные выгружены</string>
+    <string name="file_exist">Файл существует</string>
+    <string name="rewrite_file">Файл %s существует, перезаписать?</string>
+    <string name="data_loaded">Данные загружены</string>
 
 </resources>

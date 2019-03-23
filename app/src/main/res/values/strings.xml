@@ -36,6 +36,9 @@
     <string name="button.ok">OK</string>
     <string name="button.cancel">Cancel</string>
 
+    <string name="button.yes">Yes</string>
+    <string name="button.no">No</string>
+
     <!-- Strings related to login -->
     <!--<string name="prompt_email">Email</string>-->
     <!--<string name="prompt_password">Password (optional)</string>-->
@@ -134,4 +137,9 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="operation_canceled">Operation canceled</string>
+    <string name="data_unloaded">Data unloaded</string>
+    <string name="file_exist">File exist</string>
+    <string name="rewrite_file">%s file exist, rewrite?</string>
+    <string name="data_loaded">Data loaded</string>
 </resources>

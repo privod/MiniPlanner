@@ -8,18 +8,18 @@
         android:title="@string/action.settings"
         app:showAsAction="never"
         />
-    <item
-        android:id="@+id/action_data_load"
-        android:orderInCategory="100"
-        android:title="@string/action.data_load"
-        app:showAsAction="never"
-        />
-    <item
-        android:id="@+id/action_data_save"
-        android:orderInCategory="100"
-        android:title="@string/action.data_save"
-        app:showAsAction="never"
-        />
+    <!--<item-->
+        <!--android:id="@+id/action_data_load"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action.data_load"-->
+        <!--app:showAsAction="never"-->
+        <!--/>-->
+    <!--<item-->
+        <!--android:id="@+id/action_data_save"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action.data_save"-->
+        <!--app:showAsAction="never"-->
+        <!--/>-->
     <item
         android:id="@+id/action_cre_debug_data"
         android:orderInCategory="110"

@@ -22,12 +22,12 @@
         android:title="@string/pref_title_database_path" />
         <!--android:defaultValue="@string/pref_default_display_name"-->
 
-    <Preference android:title="@string/pref_title_database_load">
-        <intent android:action="android.settings.SYNC_SETTINGS" />
-    </Preference>
+    <Preference
+        android:title="@string/pref_title_database_load"
+        android:key="database_load"/>
 
-    <Preference android:title="@string/pref_title_database_unload">
-        <intent android:action="android.settings.SYNC_SETTINGS" />
-    </Preference>
+    <Preference
+        android:title="@string/pref_title_database_unload"
+        android:key="database_unload"/>
 
 </PreferenceScreen>
