@@ -37,7 +37,7 @@ public class Plan extends Domain {
 
     public BigDecimal getShare() {
         BigDecimal partiesCount = new BigDecimal(parties.size());
-        return getTotalCost().divide(partiesCount, 0, RoundingMode.HALF_UP);
+        return getTotalCost().divide(partiesCount, 2, RoundingMode.HALF_UP);
     }
 
     @Override
