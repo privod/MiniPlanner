@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.util.GregorianCalendar;
@@ -25,7 +24,7 @@ import ru.bespalov.miniplanner.view.edit.PlanEditActivity;
 
 public class PlansActivity extends BaseListActivity<Plan> {
     public PlansActivity() {
-        super(PlanEditActivity.class, Plan.class, PartiesActivity.class);
+        super(PlanEditActivity.class, PartiesActivity.class);
 
         request_code_edit = RequestCode.PLAN_EDIT;
     }
@@ -68,28 +67,6 @@ public class PlansActivity extends BaseListActivity<Plan> {
         return true;
     }
 
-//    private boolean createDownloadFolderDialog(Context context, File folder) {
-//        boolean result;
-//        AlertDialog alert = new AlertDialog.Builder(context)
-//                .setTitle(String.format(getString(R.string.dialog_folder_download_create_title), folder.getPath()))
-//                .setMessage(R.string.dialog_folder_download_create)
-//                .setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        }
-//                )
-//                .setNegativeButton(R.string.button_cancel,
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int id) {
-//                                dialog.cancel();
-//                            }
-//                        }).create();
-//        alert.show();
-//
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -102,29 +79,6 @@ public class PlansActivity extends BaseListActivity<Plan> {
             startActivity(new Intent(this, SettingsActivity.class));
 
             return true;
-//        } else if (id == R.id.action_data_load) {
-//            return true;
-//        } else if (id == R.id.action_data_save) {
-////            for (String fil: fileList()) {
-////                Log.d("PlansActivity-menu", String.format("fileList=%s", fil));
-////            }
-////            Log.d("PlansActivity-menu", getFileStreamPath(DatabaseHelper.DATABASE_NAME).getAbsolutePath());
-//
-////            File destDB = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + File.separator + DatabaseHelper.DATABASE_NAME);
-////
-////            SaveFileDialog fileDialog = new SaveFileDialog(this)
-////                    .setOpenDialogListener(new SaveFileDialog.SaveDialogListener() {
-////                        @Override
-////                        public void OnInputFileName(String fileName) {
-////                            if
-////                            getFileStreamPath(DatabaseHelper.DATABASE_NAME);
-////                            Toast.makeText(getApplicationContext(), fileName, Toast.LENGTH_LONG).show();
-////                        }
-////                    })
-////                    .setInputText();
-////            fileDialog.show();
-//
-//            return true;
         } else if (id == R.id.action_cre_debug_data) {
 
             Dao<Plan> planDao = HelperFactory.getHelper().getPlanDao();
@@ -166,7 +120,7 @@ public class PlansActivity extends BaseListActivity<Plan> {
 
             adapter.updateData(planDao.getAll());
 
-            return true;    // */
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

@@ -30,13 +30,9 @@ import static android.app.Activity.RESULT_OK;
 
 
 public abstract class BaseListFragment  <T extends Domain> extends Fragment {
-    private static final String ARG_EDIT_ACTIVITY_CLASS = "edit_activity_class";
-
     protected Class<? extends Activity> editActivityClass;
-    private Class<T> entityClass;
     private Class<? extends Activity> insideActivityClass;
 
-    //    private OnFragmentInteractionListener activity;    // TODO Возможно достаточно класса Context
     protected PartyContentActivity activity;
     protected Dao<T> dao;
     protected int request_code_edit;
@@ -118,27 +114,13 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
     };
 
     public BaseListFragment(Class<? extends Activity> editActivityClass,
-                            Class<T> entityClass,
                             Class<? extends Activity> insideActivityClass
     ) {
         this.editActivityClass = editActivityClass;
-        this.entityClass = entityClass;
         this.insideActivityClass = insideActivityClass;
     }
 
-//    public static BaseListFragment newInstance(Class<? extends Activity> editActivityClass) {
-//        BaseListFragment fragment = new BaseListFragment();
-//        Bundle args = new Bundle();
-//        args.putSerializable(ARG_EDIT_ACTIVITY_CLASS, editActivityClass);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
     protected abstract T newEntityInstance();
-
-//    protected abstract Dao<T> getDaoInstance();
-//
-//    protected abstract BaseAdapter<? extends BaseAdapter.ViewHolder, T> getAdapterInstance();
 
     protected abstract List<T> getList();
 
@@ -162,17 +144,6 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            editActivityClass = (Class<? extends Activity>) getArguments().getSerializable(ARG_EDIT_ACTIVITY_CLASS);
-//        }
-
-//        dao = getDaoInstance();
-//        adapter = getAdapterInstance();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ItemAction action = new ItemAction();
@@ -187,14 +158,6 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
             recyclerView.setAdapter(adapter);
         }
 
-//        activity.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                    listItemEdit(newEntityInstance());
-//            }
-//        });
-
-
         return view;
     }
 
@@ -208,12 +171,7 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (activity instanceof OnFragmentInteractionListener) {
-//            this.activity = (OnFragmentInteractionListener) activity;
-//        } else {
-//            throw new RuntimeException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+
         this.activity = (PartyContentActivity) context;
     }
 
@@ -229,11 +187,6 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
         super.onDetach();
         activity = null;
     }
-
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 
     public void listItemOpen(int position) {
         Intent intent = new Intent(activity, insideActivityClass);
@@ -265,8 +218,6 @@ public abstract class BaseListFragment  <T extends Domain> extends Fragment {
         }
 
         if (requestCode == request_code_edit && resultCode == RESULT_OK) {
-//            T entity = entityClass.cast(data.getSerializableExtra(entityClass.getSimpleName()));
-//            dao.save(entity);
             adapter.updateData(getList());
             activity.refreshSubtitle();
         }

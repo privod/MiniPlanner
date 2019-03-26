@@ -17,7 +17,7 @@ import ru.bespalov.miniplanner.view.edit.BayEditActivity;
 public class BayFragment extends PartyContentFragment<Bay> {
 
     public BayFragment() {
-        super(BayEditActivity.class, Bay.class, null);
+        super(BayEditActivity.class, null);
     }
 
     @Override
@@ -26,16 +26,6 @@ public class BayFragment extends PartyContentFragment<Bay> {
         bay.setParty(activity.party);
         return bay;
     }
-
-//    @Override
-//    protected Dao getDaoInstance() {
-//        return HelperFactory.getHelper().getBayDao();
-//    }
-//
-//    @Override
-//    protected BaseAdapter getAdapterInstance() {
-//        return new BayAdapter(multiSelector);
-//    }
 
     @Override
     protected List<Bay> getList() {

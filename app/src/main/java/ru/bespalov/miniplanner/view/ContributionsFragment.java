@@ -18,12 +18,11 @@ import ru.bespalov.miniplanner.view.edit.ContributionEditActivity;
 public class ContributionsFragment extends PartyContentFragment<Contribution> {
 
     public ContributionsFragment() {
-        super(ContributionEditActivity.class, Contribution.class, null);
+        super(ContributionEditActivity.class, null);
     }
 
     @Override
     protected Contribution newEntityInstance() {
-//        partyDao.refresh(thisParty);
         HelperFactory.getHelper().getPlanDao().refresh(activity.party.getPlan());
         List<Party> otherParties = partyDao.getOtherParty(activity.party.getPlan().getId(), activity.party.getId());
         Party optimalParty = activity.party.findOptimalParty(otherParties);
@@ -36,16 +35,6 @@ public class ContributionsFragment extends PartyContentFragment<Contribution> {
         }
         return contribution;
     }
-
-//    @Override
-//    protected Dao getDaoInstance() {
-//        return HelperFactory.getHelper().getContributionDao();
-//    }
-//
-//    @Override
-//    protected BaseAdapter getAdapterInstance() {
-//        return new ContributionAdapter(multiSelector);
-//    }
 
     @Override
     protected List<Contribution> getList() {
@@ -60,19 +49,4 @@ public class ContributionsFragment extends PartyContentFragment<Contribution> {
         dao = HelperFactory.getHelper().getContributionDao();
         adapter = new ContributionAdapter(multiSelector);
     }
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = super.onCreateView(inflater, container, savedInstanceState);
-//
-//        recyclerView.setAdapter(adapter);
-//
-//        return view;
-//    }
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        partyDao.refresh(party);
-//    }
 }

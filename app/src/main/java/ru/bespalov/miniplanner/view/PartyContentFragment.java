@@ -16,10 +16,9 @@ public abstract class PartyContentFragment <T extends Domain> extends BaseListFr
     PartyDao partyDao;
 
     public PartyContentFragment(Class<? extends Activity> editActivityClass,
-                                Class<T> entityClass,
                                 Class<? extends Activity> insideActivityClass
     ) {
-        super(editActivityClass, entityClass, insideActivityClass);
+        super(editActivityClass, insideActivityClass);
     }
 
 

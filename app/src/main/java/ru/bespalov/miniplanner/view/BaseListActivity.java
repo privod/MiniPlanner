@@ -13,7 +13,6 @@ import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +36,6 @@ import ru.bespalov.miniplanner.view.widget.AvatarViewSwitcher;
 public abstract class BaseListActivity<T extends Domain>  extends AppCompatActivity {
 
     private final Class<? extends Activity> editActivityClass;
-    private final Class<T> entityClass;
     private final Class<? extends Activity> insideActivityClass;
 
     protected Dao<T> dao;
@@ -119,19 +117,13 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
     };
 
     public BaseListActivity(Class<? extends Activity> editActivityClass,
-            Class<T> entityClass,
             Class<? extends Activity> insideActivityClass
     ) {
         this.editActivityClass = editActivityClass;
-        this.entityClass = entityClass;
         this.insideActivityClass = insideActivityClass;
     }
 
     protected abstract T newEntityInstance();
-
-//    protected abstract Dao<T> getDaoInstance();
-//
-//    protected abstract BaseAdapter<? extends BaseAdapter.ViewHolder, T> getAdapterInstance();
 
     protected abstract List<T> getList();
 
@@ -155,16 +147,12 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
     }
 
     protected void onCreateBeforeView() {
-//        ItemAction behavior = new ItemAction();
-//        adapter.setItemAction(behavior);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        dao = getDaoInstance();
-//        adapter = getAdapterInstance();
         onCreateBeforeView();
 
         ItemAction behavior = new ItemAction();
@@ -185,7 +173,6 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
             recyclerView.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
-//            recyclerView.setItemAnimator(new SlideInLeftAnimator());
             recyclerView.setAdapter(adapter);
         }
 
@@ -213,7 +200,6 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         Intent intent = new Intent(BaseListActivity.this, insideActivityClass);
         T entity = getList().get(position);
         intent.putExtra(entity.getClass().getSimpleName(), entity);
-//        startActivity(intent);
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 this,
                 new Pair<View, String>(findViewById(R.id.coordinator), "plan")
@@ -241,8 +227,6 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
         }
 
         if (requestCode == request_code_edit && resultCode == RESULT_OK) {
-//            T entity = entityClass.cast(data.getSerializableExtra(entityClass.getSimpleName()));
-//            dao.save(entity);
             adapter.updateData(getList());
             refreshSubtitle();
         }
