@@ -49,19 +49,12 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    if (v.getContext() instanceof BaseListActivity) {
-//                        ((BaseListActivity) v.getContext()).listItemOpen(getAdapterPosition());
-//                    }
                     itemAction.open(getAdapterPosition());
                 }
             });
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-//                    if (v.getContext() instanceof BaseListActivity) {
-//                        ((BaseListActivity) v.getContext()).selectSwitch(ViewHolder.this);
-//                        return true;
-//                    }
                     itemAction.selectSwitch(ViewHolder.this);
 
                     return true;
@@ -71,9 +64,6 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
             avatarViewSwitcher.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    if (v.getContext() instanceof BaseListActivity) {
-//                        ((BaseListActivity) v.getContext()).selectSwitch(ViewHolder.this);
-//                    }
                     itemAction.selectSwitch(ViewHolder.this);
                 }
             });
@@ -85,10 +75,8 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
 
         if (multiSelector.isSelected(position, holder.getItemId())) {
             holder.avatarViewSwitcher.setDisplayedChildNoAnim(1);
-//            holder.itemView.setBackgroundColor(Color.LTGRAY);
         } else {
             holder.avatarViewSwitcher.setDisplayedChildNoAnim(0);
-//            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
 
@@ -102,58 +90,9 @@ public abstract class BaseAdapter<VH extends BaseAdapter.ViewHolder, T extends D
         return data.size();
     }
 
-    /*public int getPositionById(long id) {
-        for (int AdapterPosition = 0; AdapterPosition < this.data.size(); AdapterPosition++) {
-            if (this.data.get(AdapterPosition).getId() == id) {
-                return AdapterPosition;
-            }
-        }
-
-        return -1;
-    }   // */
-
     public void updateData(List<T> newData) {
         this.data = newData;
         notifyDataSetChanged();
-
-//        Set<Integer> updatedPosition = new HashSet<>();
-        /*for (int AdapterPosition = 0; AdapterPosition < this.data.size(); AdapterPosition++) {
-            T item = this.data.get(AdapterPosition);
-            int positionNew = Util.positionById(newData, item.getId());
-            if (positionNew < 0) {
-                this.data.remove(item);
-                notifyItemRemoved(AdapterPosition);
-            } else {
-                this.data.set(AdapterPosition, newData.get(positionNew));
-                notifyItemChanged(AdapterPosition);
-            }
-            updatedPosition.add(positionNew);
-        }
-
-        for (int AdapterPosition = 0; AdapterPosition < newData.size(); AdapterPosition++) {
-            if (!updatedPosition.contains(AdapterPosition)) {
-                this.data.add(newData.get(AdapterPosition));
-                notifyItemInserted(AdapterPosition);
-            }
-        } // */
-
-        /*for (int i = 0; i < newData.size(); i++) {
-            T itemNew = newData.get(i);
-            int AdapterPosition = getPositionById(itemNew.getId());
-            if (AdapterPosition < 0) {
-                this.data.add(itemNew);
-                AdapterPosition = this.data.indexOf(itemNew);
-                notifyItemInserted(AdapterPosition);
-            } else {
-                this.data.set(AdapterPosition, itemNew);
-                notifyItemChanged(AdapterPosition);
-            }
-            updatedPosition.add(AdapterPosition);
-        } // */
-    }
-
-    public void updateData(Collection<T> c) {
-        this.updateData(new ArrayList<>(c));
     }
 
     public List<T> getData() {

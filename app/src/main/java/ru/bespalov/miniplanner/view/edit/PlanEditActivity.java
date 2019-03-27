@@ -30,7 +30,6 @@ public class PlanEditActivity extends EditActivity<Plan> {
 
         dao = HelperFactory.getHelper().getPlanDao();
 
-//        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
         getLayoutInflater().inflate(R.layout.edit_plan, layout, true);
 
         nameEditText = (EditText) findViewById(R.id.edit_text_name);
@@ -42,8 +41,6 @@ public class PlanEditActivity extends EditActivity<Plan> {
         nameEditText.setText(entity.getName());
         dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
 
-//        nameEditText.requestFocus();
-//        nameEditText.selectAll();
         setFocus(nameEditText);
         editTextSetListeners(nameEditText, dateRegEditText, nameInputLayout);
         editTextSetListeners(dateRegEditText, null, dateRegInputLayout);

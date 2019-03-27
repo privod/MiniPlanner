@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -27,7 +28,6 @@ import ru.bespalov.miniplanner.R;
 import ru.bespalov.miniplanner.db.Dao;
 import ru.bespalov.miniplanner.model.Domain;
 import ru.bespalov.miniplanner.view.adapter.BaseAdapter;
-import ru.bespalov.miniplanner.view.divider.DividerItemDecoration;
 import ru.bespalov.miniplanner.view.widget.AvatarViewSwitcher;
 
 /**
@@ -169,7 +169,7 @@ public abstract class BaseListActivity<T extends Domain>  extends AppCompatActiv
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         if (null != recyclerView) {
-            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             recyclerView.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);

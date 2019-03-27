@@ -16,20 +16,16 @@ import ru.bespalov.miniplanner.model.Party;
 /**
  * Created by privod on 28.10.2015.
  */
-//public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
 public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Party> {
 
-//    private List<Party> parties;
-
     public PartyAdapter(MultiSelector multiSelector) {
-        super(multiSelector/*, PartyAdapter.PartyViewHolder.class*/);
+        super(multiSelector);
     }
 
     class PartyViewHolder extends BaseAdapter.ViewHolder {
         private Context context;
         private TextView nameTextView;
         private TextView debtTextView;
-//        private AvatarViewSwitcher avatarViewSwitcher;
         private ImageView avatarIcon;
 
         PartyViewHolder(View itemView) {
@@ -40,16 +36,6 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
             nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
             debtTextView = (TextView) itemView.findViewById(R.id.text_view_debt);
             avatarIcon = (ImageView) itemView.findViewById(R.id.icon_avatar);
-//            avatarViewSwitcher = (AvatarViewSwitcher) itemView.findViewById(R.id.view_switcher_avatar);
-//            avatarViewSwitcher.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (v.getContext() instanceof PlansActivity) {
-//                        ((PlansActivity) v.getContext()).selectSwitch(PartyAdapter.PartyViewHolder.this);
-//                    }
-//                }
-//            });
-
         }
     }
 
@@ -69,7 +55,6 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
         holder.nameTextView.setText(party.getName());
         holder.avatarIcon.setImageDrawable(newAvatarDrawable(party.getName()));
 
-//        holder.debtTextView.setText(party.getDebt().abs().toPlainString());
         if (party.getDebt().signum() == 0) {
             holder.debtTextView.setText(party.getOverpay().toPlainString());
             holder.debtTextView.setTextColor(ContextCompat.getColor(holder.context, R.color.material_green_700));

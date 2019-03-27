@@ -36,10 +36,6 @@ public class Dao<T extends Domain> extends BaseDaoImpl<T, Long> {
         }
     }
 
-//    public int delete(Long id) {
-//        return this.delete(getById(id));
-//    }
-
     @Override
     public int delete(T entity) {
         try {

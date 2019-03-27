@@ -28,10 +28,6 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
         super(Contribution.class);
     }
 
-//    public ContributionEditActivity() {
-//        super(R.layout.activity_contribution_edit);
-//    }
-
     @Override
     public void changeEntity() {
         entity.setSum(new BigDecimal(sumEditText.getText().toString()));
@@ -45,7 +41,6 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 
         dao = HelperFactory.getHelper().getContributionDao();
 
-//        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
         getLayoutInflater().inflate(R.layout.edit_contribution, layout, true);
 
         sumEditText = (EditText) findViewById(R.id.edit_text_sum);
@@ -68,8 +63,6 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
 
         sumEditText.requestFocus();
         sumEditText.selectAll();
-//        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(dateRegEditText), doneListener));
-//        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
         editTextSetListeners(sumEditText, dateRegEditText, sumInputLayout);
         editTextSetListeners(dateRegEditText, null, dateRegInputLayout);
     }

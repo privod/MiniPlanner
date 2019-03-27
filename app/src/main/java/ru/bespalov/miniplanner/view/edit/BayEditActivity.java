@@ -37,7 +37,6 @@ public class BayEditActivity extends EditActivity<Bay> {
 
         dao = HelperFactory.getHelper().getBayDao();
 
-//        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
         getLayoutInflater().inflate(R.layout.edit_bay, layout, true);          // TODO добавить R.layout.edit_bay
 
         sumEditText = (EditText) findViewById(R.id.edit_text_sum);
@@ -55,9 +54,6 @@ public class BayEditActivity extends EditActivity<Bay> {
 
         sumEditText.requestFocus();
         sumEditText.selectAll();
-//        sumEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(dateRegEditText), doneListener));
-//        dateRegEditText.setOnEditorActionListener(new OnEditorActionListener(new OnEditorActionListenerNext(descriptionEditText), doneListener));
-//        descriptionEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
         editTextSetListeners(sumEditText, dateRegEditText, sumInputLayout);
         editTextSetListeners(dateRegEditText, descriptionEditText, dateRegInputLayout);
         editTextSetListeners(descriptionEditText, null, descriptionRegInputLayout);

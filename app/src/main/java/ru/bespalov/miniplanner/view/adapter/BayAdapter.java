@@ -19,14 +19,13 @@ import ru.bespalov.miniplanner.model.Bay;
 public class BayAdapter extends BaseAdapter<BayAdapter.BayViewHolder, Bay> {
 
     public BayAdapter(MultiSelector multiSelector) {
-        super(multiSelector/*, PlanViewHolder.class*/);
+        super(multiSelector);
     }
 
     class BayViewHolder extends BaseAdapter.ViewHolder {
         private TextView descriptionTextView;
         private TextView dateRegTextView;
         private TextView costTextView;
-        //        private AvatarViewSwitcher avatarViewSwitcher;
         private ImageView avatarIcon;
 
         BayViewHolder(View itemView) {

@@ -25,7 +25,6 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
         private TextView costTotalTextView;
         private TextView nameTextView;
         private TextView dateRegTextView;
-//        private AvatarViewSwitcher avatarViewSwitcher;
         private ImageView avatarIcon;
 
         PlanViewHolder(View itemView) {
@@ -35,17 +34,6 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
             dateRegTextView = (TextView) itemView.findViewById(R.id.text_view_date_reg);
             costTotalTextView = (TextView) itemView.findViewById(R.id.text_view_total_cost);
             avatarIcon = (ImageView) itemView.findViewById(R.id.icon_avatar);
-//            avatarViewSwitcher = (AvatarViewSwitcher) itemView.findViewById(R.id.view_switcher_avatar);
-//            avatarViewSwitcher.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (v.getContext() instanceof PlansActivity) {
-//                        ((PlansActivity) v.getContext()).selectSwitch(PlanViewHolder.this);
-//                    }
-//                }
-//            });
-//            setSelectionModeBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(itemView.getContext(), R.color.material_gray_300)));
-//            setDefaultModeBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
 
@@ -65,18 +53,5 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
         holder.dateRegTextView.setText(Util.dateToString(plan.getDateReg()));
         holder.costTotalTextView.setText(plan.getTotalCost().toPlainString());
         holder.avatarIcon.setImageDrawable(newAvatarDrawable(plan.getName()));
-
-//        if (multiSelector.isSelected(AdapterPosition, holder.getItemId())) {
-//            holder.avatarViewSwitcher.setDisplayedChildNoAnim(1);
-////            holder.itemView.setBackgroundColor(Color.LTGRAY);
-//        } else {
-//            holder.avatarViewSwitcher.setDisplayedChildNoAnim(0);
-////            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
-//        }
     }
-
-//    private TextDrawable newAvatarDrawable(String text) {
-//        String letter = String.valueOf(Character.toUpperCase(text.charAt(0)));
-//        return TextDrawable.builder().buildRound(letter, ColorGenerator.MATERIAL.getColor(letter));
-//    }
 }

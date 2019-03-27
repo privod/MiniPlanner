@@ -57,21 +57,6 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
             }
         };
 
-//        goAction = new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-//
-//                TextInputLayout layout = (TextInputLayout) textView.getParent();
-//                if (textView.getText().length() < 1) {
-//                    layout.setError("Not empty require");
-//                } else {
-//                    layout.setError("");
-//                }
-//
-//                return false;
-//            }
-//        };
-
         layout = (LinearLayout) findViewById(R.id.edit_content);
 
         okButton = (Button) findViewById(R.id.button_ok);
@@ -109,9 +94,6 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         changeEntity();
         dao.save(entity);
 
-//        Intent intent = new Intent();
-//        intent.putExtra(entity.getClass().getSimpleName(), entity);
-//        setResult(RESULT_OK, intent);
         setResult(RESULT_OK);
         finish();
     }
@@ -133,7 +115,7 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
     }
 
     protected boolean checkEditText(EditText view) {
-        return view.getText().length() > 1;
+        return view.getText().length() > 0;
     }
 
     protected boolean checkEditTextDate(EditText view) {
@@ -144,6 +126,9 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
         EditText editText = inputLayout.getEditText();
         boolean shouldShowError;
         String err;
+
+        if (editText == null) { return true; }
+
         if (editText.getInputType() == (InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_DATE)) {
             shouldShowError = !checkEditTextDate(editText);
             err = getString(R.string.error_edit_text_date_format);
@@ -154,8 +139,7 @@ public abstract class EditActivity<T extends Domain> extends AppCompatActivity {
 
         if (shouldShowError) {
             inputLayout.setError(err);
-//            setFocus(editText);
-            return false;
+             return false;
         } else {
             inputLayout.setError(null);
             return true;

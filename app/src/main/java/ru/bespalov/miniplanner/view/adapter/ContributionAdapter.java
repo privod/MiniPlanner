@@ -25,7 +25,6 @@ public class ContributionAdapter extends BaseAdapter<ContributionAdapter.Contrib
         private TextView descriptionTextView;
         private TextView dateRegTextView;
         private TextView sumTextView;
-//        private AvatarViewSwitcher avatarViewSwitcher;
         private ImageView avatarIcon;
 
         ContributionViewHolder(View itemView) {

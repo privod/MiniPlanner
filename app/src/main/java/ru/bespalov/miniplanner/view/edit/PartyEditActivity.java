@@ -26,9 +26,7 @@ public class PartyEditActivity extends EditActivity<Party> {
         super.onCreate(savedInstanceState);
 
         dao = HelperFactory.getHelper().getPartyDao();
-//        Dao<Bay> bayDao = HelperFactory.getHelper().getBayDao();
 
-//        LinearLayout layout = (LinearLayout) findViewById(R.id.edit_content);
         getLayoutInflater().inflate(R.layout.edit_party, layout, true);
 
         TextInputLayout nameInputLayout = (TextInputLayout) findViewById(R.id.input_layout_name);
@@ -39,7 +37,6 @@ public class PartyEditActivity extends EditActivity<Party> {
 
         nameEditText.requestFocus();
         nameEditText.selectAll();
-//        nameEditText.setOnEditorActionListener(new OnEditorActionListener(null, doneListener));
         editTextSetListeners(nameEditText, null, nameInputLayout);
     }
 }

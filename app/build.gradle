@@ -22,15 +22,15 @@ android {
 
 dependencies {
     implementation 'com.android.support:support-vector-drawable:25.4.0'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.android.support:design:25.4.0'
-    compile 'com.j256.ormlite:ormlite-core:4.48'
-    compile 'com.j256.ormlite:ormlite-android:4.48'
-    compile 'com.j256.ormlite:ormlite-jdbc:4.48'
-    compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
-    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-    compile 'com.github.ganfra:material-spinner:1.1.1'
-    compile 'com.android.support:support-v4:25.4.0'
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation 'com.android.support:design:25.4.0'
+    implementation 'com.j256.ormlite:ormlite-core:4.48'
+    implementation 'com.j256.ormlite:ormlite-android:4.48'
+    implementation 'com.j256.ormlite:ormlite-jdbc:4.48'
+    implementation 'com.bignerdranch.android:recyclerview-multiselect:0.2'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'com.github.ganfra:material-spinner:1.1.1'
+    implementation 'com.android.support:support-v4:25.4.0'
+    testImplementation 'junit:junit:4.12'
 }
