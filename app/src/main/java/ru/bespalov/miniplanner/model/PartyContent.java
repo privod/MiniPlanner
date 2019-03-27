@@ -17,7 +17,7 @@ public abstract class PartyContent extends Domain {
     @DatabaseField(dataType = DataType.DATE)
     private Date dateReg;
 
-    public PartyContent() {
+    PartyContent() {
         this.sum = new BigDecimal("0");
         this.dateReg = new Date();
     }

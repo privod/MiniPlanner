@@ -23,7 +23,7 @@ import ru.bespalov.miniplanner.model.Plan;
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public static final String DATABASE_NAME ="planner.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private Dao<Plan> planDao;
     private PartyDao partyDao;
@@ -51,14 +51,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try
         {
-            TableUtils.dropTable(connectionSource, Plan.class, true);
-            TableUtils.createTable(connectionSource, Plan.class);
-            TableUtils.dropTable(connectionSource, Party.class, true);
-            TableUtils.createTable(connectionSource, Party.class);
-            TableUtils.dropTable(connectionSource, Bay.class, true);
-            TableUtils.createTable(connectionSource, Bay.class);
-            TableUtils.dropTable(connectionSource, Contribution.class, true);
-            TableUtils.createTable(connectionSource, Contribution.class);
+//            TableUtils.dropTable(connectionSource, Plan.class, true);
+//            TableUtils.createTable(connectionSource, Plan.class);
+//            TableUtils.dropTable(connectionSource, Party.class, true);
+//            TableUtils.createTable(connectionSource, Party.class);
+//            TableUtils.dropTable(connectionSource, Bay.class, true);
+//            TableUtils.createTable(connectionSource, Bay.class);
+//            TableUtils.dropTable(connectionSource, Contribution.class, true);
+//            TableUtils.createTable(connectionSource, Contribution.class);
+            if (oldVersion < 2) {
+                planDao = getPlanDao();
+                planDao.executeRaw("ALTER TABLE plan ADD COLUMN scale INTEGER;");
+                planDao.executeRaw("UPDATE plan set scale = :S;", planDao.getTableInfo().getFieldTypeByColumnName("scale").getDefaultValue().toString());
+
+                partyDao = getPartyDao();
+                partyDao.executeRaw("ALTER TABLE party ADD COLUMN share VARCHAR;");
+                partyDao.executeRaw("UPDATE party set share = :S;", partyDao.getTableInfo().getFieldTypeByColumnName("share").getDefaultValue().toString());
+            }
 
             //TODO update tables with save data.
 //            upgradeTable(database, getPlanDao(), Plan.class);

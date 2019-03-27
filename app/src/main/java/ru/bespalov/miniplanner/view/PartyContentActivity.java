@@ -76,7 +76,7 @@ public class PartyContentActivity extends AppCompatActivity {
     }
 
     public void refreshSubtitle() {
-        TotalCostByTextView.setText(party.getTotalCostBays().toPlainString());
+        TotalCostByTextView.setText(party.getBaysCost().toPlainString());
         sumOutTextView.setText(party.getTotalSumOut().toPlainString());
         sumInTextView.setText(party.getTotalSumIn().toPlainString());
         if (party.getBalance().signum() > 0) {

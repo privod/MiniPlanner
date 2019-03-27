@@ -20,24 +20,34 @@ public class Plan extends Domain {
     private String name;
     @DatabaseField(dataType = DataType.DATE)
     private Date dateReg;
+    @DatabaseField(defaultValue = "0")
+    private int scale;
     @ForeignCollectionField
     private Collection<Party> parties;
 
     public Plan() {
         dateReg = new Date();
+//        scale = 0;
     }
 
     public BigDecimal getTotalCost() {
         BigDecimal totalCost = new BigDecimal("0");
         for (Party party : parties) {
-            totalCost = totalCost.add(party.getTotalCostBays());
+            totalCost = totalCost.add(party.getBaysCost());
         }
         return totalCost;
     }
 
-    public BigDecimal getShare() {
-        BigDecimal partiesCount = new BigDecimal(parties.size());
-        return getTotalCost().divide(partiesCount, 2, RoundingMode.HALF_UP);
+    public BigDecimal getPartiesCount() {
+        BigDecimal partiesCount = new BigDecimal("0");
+        for (Party party: parties) {
+            partiesCount = partiesCount.add(party.getShare());
+        }
+        return partiesCount;
+    }
+
+    public BigDecimal getShareCost() {
+        return getTotalCost().divide(getPartiesCount(), scale, RoundingMode.HALF_UP);
     }
 
     @Override
@@ -59,6 +69,14 @@ public class Plan extends Domain {
 
     public void setDateReg(Date dateReg) {
         this.dateReg = dateReg;
+    }
+
+    public int getScale() {
+        return scale;
+    }
+
+    public void setScale(int scale) {
+        this.scale = scale;
     }
 
     public Collection<Party> getParties() {

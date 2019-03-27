@@ -41,6 +41,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         plan.getParties().add(party);
 
         assertEquals(new BigDecimal("444"), plan.getTotalCost());
-        assertEquals(new BigDecimal("222"), plan.getShare());
+        assertEquals(new BigDecimal("222"), plan.getShareCost());
     }
 }

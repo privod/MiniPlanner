@@ -1,5 +1,6 @@
 package ru.bespalov.miniplanner.model;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -16,6 +17,8 @@ public class Party extends Domain {
 
     @DatabaseField
     private String name;
+    @DatabaseField(dataType = DataType.BIG_DECIMAL, defaultValue = "1")
+    private BigDecimal share;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Plan plan;
     @ForeignCollectionField
@@ -25,7 +28,11 @@ public class Party extends Domain {
     @ForeignCollectionField(foreignFieldName = "from")
     private Collection<Contribution> out;
 
-    public BigDecimal getTotalCostBays() {
+//    public Party() {
+//        this.share = new BigDecimal("1");
+//    }
+
+    public BigDecimal getBaysCost() {
         BigDecimal totalCost = new BigDecimal("0");
         for (Bay bay : bays) {
             totalCost = totalCost.add(bay.getSum());
@@ -41,6 +48,14 @@ public class Party extends Domain {
         return getTotalSumContributions(getOut());
     }
 
+    BigDecimal getShare() {
+        return share;
+    }
+
+    public void setShare(BigDecimal share) {
+        this.share = share;
+    }
+
     private BigDecimal getTotalSumContributions(Collection<Contribution> contributions) {
         BigDecimal totalSum = new BigDecimal("0");
         for (Contribution contribution : contributions) {
@@ -50,10 +65,10 @@ public class Party extends Domain {
     }
 
     public BigDecimal getBalance() {
-        return getTotalCostBays()
+        return getBaysCost()
                 .add(getTotalSumOut())
                 .subtract(getTotalSumIn())
-                .subtract(plan.getShare());
+                .subtract(plan.getShareCost());
 
     }
 

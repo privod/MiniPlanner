@@ -79,7 +79,7 @@ public class PartiesActivity extends BaseListActivity<Party> {
     @Override
     public void refreshSubtitle() {
         totalCostTextView.setText(plan.getTotalCost().toPlainString());
-        partiesCountTextView.setText(String.valueOf(plan.getParties().size()));
-        shareTextView.setText(plan.getShare().toPlainString());
+        partiesCountTextView.setText(String.valueOf(plan.getPartiesCount()));
+        shareTextView.setText(plan.getShareCost().toPlainString());
     }
 }
