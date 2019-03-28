@@ -18,7 +18,7 @@ public abstract class PartyContent extends Domain {
     private Date dateReg;
 
     PartyContent() {
-        this.sum = new BigDecimal("0");
+        this.sum = BigDecimal.ZERO;
         this.dateReg = new Date();
     }
 

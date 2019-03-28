@@ -36,4 +36,21 @@
             style="@style/Widget.AppCompat.EditText.Date"
             />
     </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_scale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        >
+
+        <EditText
+            android:id="@+id/edit_text_scale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/hint_scale"
+            style="@style/Widget.AppCompat.EditText.Date"
+            />
+    </android.support.design.widget.TextInputLayout>
 </merge>

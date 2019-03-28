@@ -18,6 +18,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -186,7 +187,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
-//                || NotificationPreferenceFragment.class.getName().equals(fragmentName)
                 || DatabasePreferenceFragment.class.getName().equals(fragmentName);
     }
 
@@ -241,7 +241,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class DatabasePreferenceFragment extends PreferenceFragment {
-        EditTextPreference prefDBPath;
+        final int WRITE_PERMISSION_REQUEST = 0;
+        EditTextPreference prefBackUpPath;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -249,21 +250,25 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_database);
             setHasOptionsMenu(true);
 
-            final File dbFile = getActivity().getDatabasePath(DatabaseHelper.DATABASE_NAME);
-
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("database_path"));
 
-            prefDBPath = (EditTextPreference) findPreference("database_path");
-            prefDBPath.setText(Environment.getExternalStorageDirectory().getPath()
-                    + File.separator
-                    + Environment.DIRECTORY_DOWNLOADS
-                    + File.separator
-                    + DatabaseHelper.DATABASE_NAME
-            );
+            prefBackUpPath = (EditTextPreference) findPreference("database_path");
+            if (prefBackUpPath.getText().isEmpty()) {
+                prefBackUpPath.setText(Environment.getExternalStorageDirectory().getPath()
+                        + File.separator
+                        + Environment.DIRECTORY_DOWNLOADS
+                        + File.separator
+                        + DatabaseHelper.DATABASE_NAME
+                );
+            }
+
+            final File dbFile = getActivity().getDatabasePath(DatabaseHelper.DATABASE_NAME);
+
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST);
 
             Preference prefLoad = (Preference) findPreference("database_load");
             prefLoad.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -271,13 +276,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    if (dbFile.exists()) {
+
+                    final File bakFile = new File(prefBackUpPath.getText());
+                    if (bakFile.exists()) {
                         AlertDialog.Builder ad = new AlertDialog.Builder(getContext());
                         ad.setTitle(R.string.pref_title_database_load);
                         ad.setMessage("ВНИМАНИЕ: будет произведена полная загрузка базы данных из файла, текущее состояние данных приложения будет утеряно");
                         ad.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int arg1) {
-                                copyFile(new File(prefDBPath.getText()), dbFile);
+                                copyFile(bakFile, dbFile);
                                 Toast.makeText(getContext(), R.string.data_loaded, Toast.LENGTH_LONG).show();
                             }
                         });
@@ -288,7 +295,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         });
                         ad.show();
                     } else {
-                        Toast.makeText(getContext(), R.string.data_unloaded, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), String.format(getContext().getString(R.string.not_found_file), bakFile.getPath()), Toast.LENGTH_LONG).show();
                     }
 
                     return false;
@@ -301,17 +308,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    int WRITE_PERMISSION_REQUEST = 0;
-                    HelperFactory.releaseHelper();
-                    requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST);
 
                     if (dbFile.exists()) {
                         AlertDialog.Builder ad = new AlertDialog.Builder(getContext());
                         ad.setTitle(R.string.file_exist);
-                        ad.setMessage(String.format(getContext().getString(R.string.rewrite_file), prefDBPath.getText()));
+                        ad.setMessage(String.format(getContext().getString(R.string.rewrite_file), prefBackUpPath.getText()));
                         ad.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int arg1) {
-                                copyFile(dbFile, new File(prefDBPath.getText()));
+                                copyFile(dbFile, new File(prefBackUpPath.getText()));
                                 Toast.makeText(getContext(), R.string.data_unloaded, Toast.LENGTH_LONG).show();
                             }
                         });
@@ -323,7 +327,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         ad.show();
                     }
 
-                    HelperFactory.setHelper(getActivity());
                     return false;
                 }
             });

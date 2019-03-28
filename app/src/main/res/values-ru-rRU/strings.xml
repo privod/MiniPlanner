@@ -49,6 +49,7 @@
     <string name="hint_party_name">Имя</string>
     <string name="hint_date">Дата</string>
     <string name="hint_sum">Сумма</string>
+    <string name="hint_scale">точность (количестово знаков после запятой)</string>
     <string name="hint_description">Описание</string>
     <string name="hint_to">Кому</string>
     <string name="data_save_path">Путь сохранения данных</string>
@@ -77,6 +78,7 @@
     <string name="data_unloaded">Данные выгружены</string>
     <string name="file_exist">Файл существует</string>
     <string name="rewrite_file">Файл %s существует, перезаписать?</string>
+    <string name="not_found_file">Файл %s не найден</string>
     <string name="data_loaded">Данные загружены</string>
     <string name="title_paty_count">Количество участников</string>
     <string name="title_parties_count">Количество участников</string>

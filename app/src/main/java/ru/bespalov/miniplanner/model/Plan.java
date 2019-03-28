@@ -31,7 +31,7 @@ public class Plan extends Domain {
     }
 
     public BigDecimal getTotalCost() {
-        BigDecimal totalCost = new BigDecimal("0");
+        BigDecimal totalCost = BigDecimal.ZERO;
         for (Party party : parties) {
             totalCost = totalCost.add(party.getBaysCost());
         }
@@ -39,7 +39,7 @@ public class Plan extends Domain {
     }
 
     public BigDecimal getPartiesCount() {
-        BigDecimal partiesCount = new BigDecimal("0");
+        BigDecimal partiesCount = BigDecimal.ZERO;
         for (Party party: parties) {
             partiesCount = partiesCount.add(party.getShare());
         }
@@ -47,7 +47,11 @@ public class Plan extends Domain {
     }
 
     public BigDecimal getShareCost() {
-        return getTotalCost().divide(getPartiesCount(), scale, RoundingMode.HALF_UP);
+        if (getPartiesCount().compareTo(BigDecimal.ZERO) == 0) {
+            return BigDecimal.ZERO;
+        } else {
+            return getTotalCost().divide(getPartiesCount(), scale, RoundingMode.HALF_UP);
+        }
     }
 
     @Override

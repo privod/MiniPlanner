@@ -29,11 +29,11 @@ public class Party extends Domain {
     private Collection<Contribution> out;
 
 //    public Party() {
-//        this.share = new BigDecimal("1");
+//        this.share = BigDecimal.ONE;
 //    }
 
     public BigDecimal getBaysCost() {
-        BigDecimal totalCost = new BigDecimal("0");
+        BigDecimal totalCost = BigDecimal.ZERO;
         for (Bay bay : bays) {
             totalCost = totalCost.add(bay.getSum());
         }
@@ -57,7 +57,7 @@ public class Party extends Domain {
     }
 
     private BigDecimal getTotalSumContributions(Collection<Contribution> contributions) {
-        BigDecimal totalSum = new BigDecimal("0");
+        BigDecimal totalSum = BigDecimal.ZERO;
         for (Contribution contribution : contributions) {
             totalSum = totalSum.add(contribution.getSum());
         }
@@ -78,15 +78,15 @@ public class Party extends Domain {
             return debt;
         }
 
-        return new BigDecimal("0");
+        return BigDecimal.ZERO;
     }
 
     public BigDecimal getOverpay() {
-        if (getBalance().compareTo(new BigDecimal("0")) > 0) {
+        if (getBalance().compareTo(BigDecimal.ZERO) > 0) {
             return getBalance();
         }
 
-        return new BigDecimal("0");
+        return BigDecimal.ZERO;
     }
 
     /* Looks for an optimal contributor for a contribution from the list of other participants
