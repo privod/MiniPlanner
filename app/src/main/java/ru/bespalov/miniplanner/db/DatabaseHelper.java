@@ -23,7 +23,7 @@ import ru.bespalov.miniplanner.model.Plan;
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public static final String DATABASE_NAME ="planner.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private Dao<Plan> planDao;
     private PartyDao partyDao;
@@ -57,16 +57,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 //            TableUtils.createTable(connectionSource, Party.class);
 //            TableUtils.dropTable(connectionSource, Bay.class, true);
 //            TableUtils.createTable(connectionSource, Bay.class);
-//            TableUtils.dropTable(connectionSource, Contribution.class, true);
-//            TableUtils.createTable(connectionSource, Contribution.class);
             if (oldVersion < 2) {
                 planDao = getPlanDao();
-                planDao.executeRaw("ALTER TABLE plan ADD COLUMN scale INTEGER;");
-                planDao.executeRaw("UPDATE plan set scale = :S;", planDao.getTableInfo().getFieldTypeByColumnName("scale").getDefaultValue().toString());
-
+                planDao.executeRaw("BEGIN TRANSACTION;");
+                planDao.executeRaw("ALTER TABLE `plan` ADD COLUMN `scale` INTEGER;");
+                planDao.executeRaw("UPDATE `plan` SET `scale` = :S;", planDao.getTableInfo().getFieldTypeByColumnName("scale").getDefaultValue().toString());
                 partyDao = getPartyDao();
-                partyDao.executeRaw("ALTER TABLE party ADD COLUMN share VARCHAR;");
-                partyDao.executeRaw("UPDATE party set share = :S;", partyDao.getTableInfo().getFieldTypeByColumnName("share").getDefaultValue().toString());
+                partyDao.executeRaw("ALTER TABLE `party` ADD COLUMN `share` VARCHAR;");
+                partyDao.executeRaw("UPDATE `party` SET `share` = :S;", partyDao.getTableInfo().getFieldTypeByColumnName("share").getDefaultValue().toString());
+                partyDao.executeRaw("COMMIT;");
+            } else if (oldVersion < 3) {
+                contributionDao = getContributionDao();
+                contributionDao.executeRaw("BEGIN TRANSACTION;");
+                contributionDao.executeRaw("ALTER TABLE `contribution` RENAME TO `contribution_bak`;");
+                contributionDao.executeRaw("CREATE TABLE `contribution` (`party_id` BIGINT , `to_id` BIGINT , `dateReg` VARCHAR , `sum` VARCHAR , `id` INTEGER PRIMARY KEY AUTOINCREMENT );");
+                contributionDao.executeRaw("INSERT INTO `contribution` SELECT `from_id`, `to_id`, `dateReg`, `sum`, `id` FROM `contribution_bak`;");
+                contributionDao.executeRaw("DROP TABLE `contribution_bak`;");
+                contributionDao.executeRaw("COMMIT;");
             }
 
             //TODO update tables with save data.

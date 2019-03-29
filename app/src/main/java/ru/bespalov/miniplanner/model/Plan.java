@@ -38,6 +38,10 @@ public class Plan extends Domain {
         return totalCost;
     }
 
+    public String getTotalCostView() {
+        return getTotalCost().setScale(getScale(), RoundingMode.HALF_UP).toPlainString();
+    }
+
     public BigDecimal getPartiesCount() {
         BigDecimal partiesCount = BigDecimal.ZERO;
         for (Party party: parties) {
@@ -50,11 +54,15 @@ public class Plan extends Domain {
         if (getPartiesCount().compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ZERO;
         } else {
-            return getTotalCost().divide(getPartiesCount(), scale, RoundingMode.HALF_UP);
+            return getTotalCost().divide(getPartiesCount(), 5, RoundingMode.HALF_UP);
         }
     }
 
-    @Override
+    public String getShareCostView() {
+        return getShareCost().setScale(getScale(), RoundingMode.HALF_UP).toPlainString();
+    }
+
+        @Override
     public String toString() {
         return getName();
     }

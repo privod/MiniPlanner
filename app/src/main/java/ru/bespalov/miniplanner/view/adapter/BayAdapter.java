@@ -59,7 +59,7 @@ public class BayAdapter extends BaseAdapter<BayAdapter.BayViewHolder, Bay> {
         Bay contribution = getData().get(position);
         holder.descriptionTextView.setText(contribution.getDescription());
         holder.dateRegTextView.setText(Util.dateToString(contribution.getDateReg()));
-        holder.costTextView.setText(contribution.getSum().toPlainString());
+        holder.costTextView.setText(contribution.getSumView());
         holder.avatarIcon.setImageDrawable(newAvatarDrawable(contribution.getDescription()));
     }
 }

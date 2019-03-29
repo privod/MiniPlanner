@@ -7,17 +7,17 @@ import com.j256.ormlite.field.DatabaseField;
  */
 public class Contribution extends PartyContent {
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    private Party from;
+//    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+//    private Party from;
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Party to;
 
     public Party getFrom() {
-        return from;
+        return super.getParty();
     }
 
     public void setFrom(Party from) {
-        this.from = from;
+        super.setParty(from);
     }
 
     public Party getTo() {

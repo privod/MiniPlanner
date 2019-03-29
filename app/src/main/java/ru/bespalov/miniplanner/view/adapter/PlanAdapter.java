@@ -51,7 +51,7 @@ public class PlanAdapter extends BaseAdapter<PlanAdapter.PlanViewHolder, Plan> {
         Plan plan = getData().get(position);
         holder.nameTextView.setText(plan.getName());
         holder.dateRegTextView.setText(Util.dateToString(plan.getDateReg()));
-        holder.costTotalTextView.setText(plan.getTotalCost().toPlainString());
+        holder.costTotalTextView.setText(plan.getTotalCostView());
         holder.avatarIcon.setImageDrawable(newAvatarDrawable(plan.getName()));
     }
 }

@@ -76,9 +76,9 @@ public class PartyContentActivity extends AppCompatActivity {
     }
 
     public void refreshSubtitle() {
-        TotalCostByTextView.setText(party.getBaysCost().toPlainString());
-        sumOutTextView.setText(party.getTotalSumOut().toPlainString());
-        sumInTextView.setText(party.getTotalSumIn().toPlainString());
+        TotalCostByTextView.setText(party.getBaysCostView());
+        sumOutTextView.setText(party.getTotalSumOutView());
+        sumInTextView.setText(party.getTotalSumInView());
         if (party.getBalance().signum() > 0) {
             debtLabelTextView.setText(R.string.label_overpay);
             debtTextView.setText(party.getOverpay().toPlainString());

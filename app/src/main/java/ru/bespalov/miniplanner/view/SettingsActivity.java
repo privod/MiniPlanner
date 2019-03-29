@@ -257,7 +257,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("database_path"));
 
             prefBackUpPath = (EditTextPreference) findPreference("database_path");
-            if (prefBackUpPath.getText().isEmpty()) {
+            if (prefBackUpPath.getText() == null || prefBackUpPath.getText().isEmpty()) {
                 prefBackUpPath.setText(Environment.getExternalStorageDirectory().getPath()
                         + File.separator
                         + Environment.DIRECTORY_DOWNLOADS

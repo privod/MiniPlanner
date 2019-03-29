@@ -58,7 +58,7 @@ public class ContributionAdapter extends BaseAdapter<ContributionAdapter.Contrib
         Contribution contribution = getData().get(position);
         holder.descriptionTextView.setText(contribution.getDescription());
         holder.dateRegTextView.setText(Util.dateToString(contribution.getDateReg()));
-        holder.sumTextView.setText(contribution.getSum().toPlainString());
+        holder.sumTextView.setText(contribution.getSumView());
         holder.avatarIcon.setImageDrawable(newAvatarDrawable(contribution.getDescription()));
     }
 }

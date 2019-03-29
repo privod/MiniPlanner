@@ -6,6 +6,7 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,14 +26,14 @@ public class Party extends Domain {
     private Collection<Bay> bays;
     @ForeignCollectionField(foreignFieldName = "to")
     private Collection<Contribution> in;
-    @ForeignCollectionField(foreignFieldName = "from")
+    @ForeignCollectionField(foreignFieldName = "party")
     private Collection<Contribution> out;
 
 //    public Party() {
 //        this.share = BigDecimal.ONE;
 //    }
 
-    public BigDecimal getBaysCost() {
+    BigDecimal getBaysCost() {
         BigDecimal totalCost = BigDecimal.ZERO;
         for (Bay bay : bays) {
             totalCost = totalCost.add(bay.getSum());
@@ -40,16 +41,32 @@ public class Party extends Domain {
         return totalCost;
     }
 
-    public BigDecimal getTotalSumIn() {
+    public String getBaysCostView() {
+        return getBaysCost().setScale(getPlan().getScale(), RoundingMode.HALF_UP).toPlainString();
+    }
+
+    private BigDecimal getTotalSumIn() {
         return getTotalSumContributions(getIn());
     }
 
-    public BigDecimal getTotalSumOut() {
+    public String getTotalSumInView() {
+        return getTotalSumIn().setScale(getPlan().getScale(), RoundingMode.HALF_UP).toPlainString();
+    }
+
+    private BigDecimal getTotalSumOut() {
         return getTotalSumContributions(getOut());
     }
 
-    BigDecimal getShare() {
+    public String getTotalSumOutView() {
+        return getTotalSumOut().setScale(getPlan().getScale(), RoundingMode.HALF_UP).toPlainString();
+    }
+
+    public BigDecimal getShare() {
         return share;
+    }
+
+    public String getShareView() {
+        return getShare().setScale(getPlan().getScale(), RoundingMode.HALF_UP).toPlainString();
     }
 
     public void setShare(BigDecimal share) {
@@ -81,12 +98,20 @@ public class Party extends Domain {
         return BigDecimal.ZERO;
     }
 
+    public String getDebtView() {
+        return getDebt().setScale(getPlan().getScale(), RoundingMode.HALF_UP).toPlainString();
+    }
+
     public BigDecimal getOverpay() {
         if (getBalance().compareTo(BigDecimal.ZERO) > 0) {
             return getBalance();
         }
 
         return BigDecimal.ZERO;
+    }
+
+    public String getOverpayView() {
+        return getOverpay().setScale(getPlan().getScale(), RoundingMode.HALF_UP).toPlainString();
     }
 
     /* Looks for an optimal contributor for a contribution from the list of other participants

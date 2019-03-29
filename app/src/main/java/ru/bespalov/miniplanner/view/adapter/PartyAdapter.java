@@ -56,10 +56,10 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
         holder.avatarIcon.setImageDrawable(newAvatarDrawable(party.getName()));
 
         if (party.getDebt().signum() == 0) {
-            holder.debtTextView.setText(party.getOverpay().toPlainString());
+            holder.debtTextView.setText(party.getOverpayView());
             holder.debtTextView.setTextColor(ContextCompat.getColor(holder.context, R.color.material_green_700));
         } else {
-            holder.debtTextView.setText(party.getDebt().toPlainString());
+            holder.debtTextView.setText(party.getDebtView());
             holder.debtTextView.setTextColor(ContextCompat.getColor(holder.context, R.color.material_red_800));
         }
     }

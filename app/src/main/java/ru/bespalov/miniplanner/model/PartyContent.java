@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 /**
@@ -16,6 +17,8 @@ public abstract class PartyContent extends Domain {
     private BigDecimal sum;
     @DatabaseField(dataType = DataType.DATE)
     private Date dateReg;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    private Party party;
 
     PartyContent() {
         this.sum = BigDecimal.ZERO;
@@ -24,8 +27,12 @@ public abstract class PartyContent extends Domain {
 
     public abstract String getDescription();
 
-    public BigDecimal getSum() {
+    BigDecimal getSum() {
         return sum;
+    }
+
+    public String getSumView() {
+        return getSum().setScale(getParty().getPlan().getScale(), RoundingMode.HALF_UP).toPlainString();
     }
 
     public void setSum(BigDecimal sum) {
@@ -40,4 +47,11 @@ public abstract class PartyContent extends Domain {
         this.dateReg = dateReg;
     }
 
+    protected Party getParty() {
+        return party;
+    }
+
+    protected void setParty(Party party) {
+        this.party = party;
+    }
 }

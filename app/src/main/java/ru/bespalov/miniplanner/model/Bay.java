@@ -11,8 +11,6 @@ public class Bay extends PartyContent {
 
     @DatabaseField
     private String description;
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    private Party party;
 
     @Override
     public String getDescription() {
@@ -23,11 +21,13 @@ public class Bay extends PartyContent {
         this.description = description;
     }
 
+    @Override
     public Party getParty() {
-        return party;
+        return super.getParty();
     }
 
+    @Override
     public void setParty(Party party) {
-        this.party = party;
+        super.setParty(party);
     }
 }
