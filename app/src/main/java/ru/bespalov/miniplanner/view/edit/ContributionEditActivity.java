@@ -50,7 +50,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
         TextInputLayout sumInputLayout = (TextInputLayout) findViewById(R.id.input_layout_sum);
         TextInputLayout dateRegInputLayout = (TextInputLayout) findViewById(R.id.input_layout_date);
 
-        sumEditText.setText(entity.getSum().toPlainString());
+        sumEditText.setText(entity.getSumView());
         dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
 
         Long planId = entity.getFrom().getPlan().getId();
@@ -61,8 +61,7 @@ public class ContributionEditActivity extends EditActivity<Contribution> {
         toSpinner.setAdapter(adapter);
         toSpinner.setSelection(partyList.indexOf(entity.getTo()) + 1);
 
-        sumEditText.requestFocus();
-        sumEditText.selectAll();
+        setFocus(sumEditText);
         editTextSetListeners(sumEditText, dateRegEditText, sumInputLayout);
         editTextSetListeners(dateRegEditText, null, dateRegInputLayout);
     }

@@ -85,7 +85,7 @@ public class Party extends Domain {
         return getBaysCost()
                 .add(getTotalSumOut())
                 .subtract(getTotalSumIn())
-                .subtract(plan.getShareCost());
+                .subtract(plan.getShareCost().multiply(getShare()));
 
     }
 

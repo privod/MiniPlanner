@@ -17,18 +17,20 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <!--<android.support.design.widget.TextInputLayout
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_share"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
         <EditText
-            android:id="@+id/edit_text_date"
-            android:layout_width="wrap_content"
+            android:id="@+id/edit_text_share"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/plan_date_hint"
-            style="@style/Widget.AppCompat.EditText.Date"
+            android:inputType="numberDecimal"
+            android:hint="@string/hint_share"
+            style="@style/Widget.AppCompat.EditText.Sum"
             />
-    </android.support.design.widget.TextInputLayout>-->
+    </android.support.design.widget.TextInputLayout>
 
 </merge>

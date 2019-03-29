@@ -48,12 +48,11 @@ public class BayEditActivity extends EditActivity<Bay> {
         TextInputLayout descriptionRegInputLayout = (TextInputLayout) findViewById(R.id.input_layout_description);
 
 
-        sumEditText.setText(entity.getSum().toPlainString());
+        sumEditText.setText(entity.getSumView());
         dateRegEditText.setText(Util.dateToString(entity.getDateReg()));
         descriptionEditText.setText(entity.getDescription());
 
-        sumEditText.requestFocus();
-        sumEditText.selectAll();
+        setFocus(sumEditText);
         editTextSetListeners(sumEditText, dateRegEditText, sumInputLayout);
         editTextSetListeners(dateRegEditText, descriptionEditText, dateRegInputLayout);
         editTextSetListeners(descriptionEditText, null, descriptionRegInputLayout);

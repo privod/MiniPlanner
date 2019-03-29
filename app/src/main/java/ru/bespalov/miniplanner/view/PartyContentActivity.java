@@ -81,18 +81,18 @@ public class PartyContentActivity extends AppCompatActivity {
         sumInTextView.setText(party.getTotalSumInView());
         if (party.getBalance().signum() > 0) {
             debtLabelTextView.setText(R.string.label_overpay);
-            debtTextView.setText(party.getOverpay().toPlainString());
+            debtTextView.setText(party.getOverpayView());
         } else {
             debtLabelTextView.setText(R.string.label_debt);
-            debtTextView.setText(party.getDebt().toPlainString());
+            debtTextView.setText(party.getDebtView());
         }
     }
 
     private void setupViewPager(ViewPager viewPager) {
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ContributionsFragment(), getString(R.string.title_contributions));
         adapter.addFragment(new BayFragment(), getString(R.string.title_bays));
+        adapter.addFragment(new ContributionsFragment(), getString(R.string.title_contributions));
         viewPager.setAdapter(adapter);
     }
 }

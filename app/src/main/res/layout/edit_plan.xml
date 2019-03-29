@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:hint="@string/hint_scale"
-            style="@style/Widget.AppCompat.EditText.Date"
+            style="@style/Widget.AppCompat.EditText.Sum"
             />
     </android.support.design.widget.TextInputLayout>
 </merge>
