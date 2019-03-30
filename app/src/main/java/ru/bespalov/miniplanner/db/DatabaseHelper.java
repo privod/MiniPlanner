@@ -53,10 +53,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         {
 //            TableUtils.dropTable(connectionSource, Plan.class, true);
 //            TableUtils.createTable(connectionSource, Plan.class);
-//            TableUtils.dropTable(connectionSource, Party.class, true);
-//            TableUtils.createTable(connectionSource, Party.class);
-//            TableUtils.dropTable(connectionSource, Bay.class, true);
-//            TableUtils.createTable(connectionSource, Bay.class);
             if (oldVersion < 2) {
                 planDao = getPlanDao();
                 planDao.executeRaw("BEGIN TRANSACTION;");
@@ -75,13 +71,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 contributionDao.executeRaw("DROP TABLE `contribution_bak`;");
                 contributionDao.executeRaw("COMMIT;");
             }
-
-            //TODO update tables with save data.
-//            upgradeTable(database, getPlanDao(), Plan.class);
-//            upgradeTable(database, getPartyDao(), Party.class);
-//            upgradeTable(database, getBayDao(), Bay.class);
-//            upgradeTable(database, getContributionDao(), Contribution.class);
-
         }
         catch (SQLException e){
             Log.e(this.getClass().getSimpleName(), e.getMessage());
