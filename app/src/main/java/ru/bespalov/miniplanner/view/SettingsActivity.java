@@ -284,7 +284,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         ad.setMessage("ВНИМАНИЕ: будет произведена полная загрузка базы данных из файла, текущее состояние данных приложения будет утеряно");
                         ad.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int arg1) {
+//                                HelperFactory.releaseHelper();
                                 copyFile(bakFile, dbFile);
+//                                HelperFactory.setHelper(getActivity());
                                 Toast.makeText(getContext(), R.string.data_loaded, Toast.LENGTH_LONG).show();
                             }
                         });

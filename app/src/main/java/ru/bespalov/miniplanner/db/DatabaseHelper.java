@@ -1,10 +1,12 @@
 package ru.bespalov.miniplanner.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import java.sql.SQLException;
 import java.util.List;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -49,32 +51,36 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
+        ContentValues contVal = new ContentValues();
+
+        database.beginTransaction();
         try
         {
-//            TableUtils.dropTable(connectionSource, Plan.class, true);
-//            TableUtils.createTable(connectionSource, Plan.class);
             if (oldVersion < 2) {
-                planDao = getPlanDao();
-                planDao.executeRaw("BEGIN TRANSACTION;");
-                planDao.executeRaw("ALTER TABLE `plan` ADD COLUMN `scale` INTEGER;");
-                planDao.executeRaw("UPDATE `plan` SET `scale` = :S;", planDao.getTableInfo().getFieldTypeByColumnName("scale").getDefaultValue().toString());
-                partyDao = getPartyDao();
-                partyDao.executeRaw("ALTER TABLE `party` ADD COLUMN `share` VARCHAR;");
-                partyDao.executeRaw("UPDATE `party` SET `share` = :S;", partyDao.getTableInfo().getFieldTypeByColumnName("share").getDefaultValue().toString());
-                partyDao.executeRaw("COMMIT;");
-            } else if (oldVersion < 3) {
-                contributionDao = getContributionDao();
-                contributionDao.executeRaw("BEGIN TRANSACTION;");
-                contributionDao.executeRaw("ALTER TABLE `contribution` RENAME TO `contribution_bak`;");
-                contributionDao.executeRaw("CREATE TABLE `contribution` (`party_id` BIGINT , `to_id` BIGINT , `dateReg` VARCHAR , `sum` VARCHAR , `id` INTEGER PRIMARY KEY AUTOINCREMENT );");
-                contributionDao.executeRaw("INSERT INTO `contribution` SELECT `from_id`, `to_id`, `dateReg`, `sum`, `id` FROM `contribution_bak`;");
-                contributionDao.executeRaw("DROP TABLE `contribution_bak`;");
-                contributionDao.executeRaw("COMMIT;");
+                database.execSQL("ALTER TABLE `pla` ADD COLUMN `scale` INTEGER;");
+                contVal.clear();
+                contVal.put("scale", "0");                                                  // Default value for Plan.scale
+                database.update("plan", contVal, null, null);
+
+                database.execSQL("ALTER TABLE `party` ADD COLUMN `share` VARCHAR;");
+                contVal.clear();
+                contVal.put("share", "1");                                                  // Default value for Party.share
+                database.update("party", contVal, null, null);
+            }
+
+
+            if (oldVersion < 3) {
+                database.execSQL("ALTER TABLE `contribution` RENAME TO `contribution_bak`;");
+                database.execSQL("CREATE TABLE `contribution` (`party_id` BIGINT , `to_id` BIGINT , `dateReg` VARCHAR , `sum` VARCHAR , `id` INTEGER PRIMARY KEY AUTOINCREMENT );");
+                database.execSQL("INSERT INTO `contribution` SELECT `from_id`, `to_id`, `dateReg`, `sum`, `id` FROM `contribution_bak`;");
+                database.execSQL("DROP TABLE `contribution_bak`;");
             }
         }
-        catch (SQLException e){
+        catch (SQLiteException e){
             Log.e(this.getClass().getSimpleName(), e.getMessage());
             throw new RuntimeException(e);
+        } finally {
+            database.endTransaction();
         }
     }
 
