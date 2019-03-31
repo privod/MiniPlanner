@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_view_name"
         android:layout_alignStart="@+id/text_view_name"
-        android:text="@string/label_share"
+        android:text="@string/label_short_share"
         style="@style/TextAppearance.AppCompat.Caption"
         />
 

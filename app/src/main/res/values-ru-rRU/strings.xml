@@ -85,6 +85,7 @@
     <string name="title_share">Сумма с человека</string>
     <string name="total_cost_by">Сума покупок</string>
     <string name="hint_share">Доля участия</string>
-    <string name="label_share">Доля:</string>
+    <string name="label_short_share">Доля:</string>
+    <string name="label_share">Доля участия</string>
 
 </resources>

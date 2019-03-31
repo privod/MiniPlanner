@@ -19,6 +19,9 @@
             android:id="@+id/text_vew_label_total_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@id/text_vew_total_cost"
             android:text="@string/title_total_cost"
             style="@style/TextAppearance.AppCompat.Subhead"
         />
@@ -37,8 +40,9 @@
             android:id="@+id/text_vew_label_parties_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/text_vew_label_total_cost"
-            android:layout_alignStart="@+id/text_vew_label_total_cost"
+            android:layout_toStartOf="@id/text_vew_parties_count"
             android:text="@string/title_parties_count"
             style="@style/TextAppearance.AppCompat.Subhead"
             />
@@ -58,8 +62,9 @@
             android:id="@+id/text_vew_label_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/text_vew_label_parties_count"
-            android:layout_alignStart="@+id/text_vew_label_parties_count"
+            android:layout_toStartOf="@id/text_vew_share"
             android:text="@string/title_share"
             style="@style/TextAppearance.AppCompat.Subhead"
             />

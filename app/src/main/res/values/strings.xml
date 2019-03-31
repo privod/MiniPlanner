@@ -150,5 +150,6 @@
     <string name="title_share">Amount per participant</string>
     <string name="total_cost_by">Total sum by</string>
     <string name="hint_share">Share of participation</string>
-    <string name="label_share">Share:</string>
+    <string name="label_short_share">Share:</string>
+    <string name="label_share">Share of participation</string>
 </resources>

@@ -21,10 +21,11 @@ public class PartyContentActivity extends AppCompatActivity {
     Party party;
 
     TextView TotalCostByTextView;
-    TextView sumOutTextView;
-    TextView sumInTextView;
     TextView debtTextView;
     TextView debtLabelTextView;
+    TextView shareTextView;
+    TextView sumOutTextView;
+    TextView sumInTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,11 @@ public class PartyContentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TotalCostByTextView = (TextView) findViewById(R.id.text_vew_total_cost_by);
-        sumOutTextView = (TextView) findViewById(R.id.text_vew_sum_out);
-        sumInTextView = (TextView) findViewById(R.id.text_vew_sum_in);
         debtTextView = (TextView) findViewById(R.id.text_vew_debt);
         debtLabelTextView = (TextView) findViewById(R.id.text_vew_label_debt);
+        shareTextView = (TextView) findViewById(R.id.text_vew_share);
+        sumOutTextView = (TextView) findViewById(R.id.text_vew_sum_out);
+        sumInTextView = (TextView) findViewById(R.id.text_vew_sum_in);
 
         setTitle(party.getName());
 
@@ -77,8 +79,6 @@ public class PartyContentActivity extends AppCompatActivity {
 
     public void refreshSubtitle() {
         TotalCostByTextView.setText(party.getBaysCostView());
-        sumOutTextView.setText(party.getTotalSumOutView());
-        sumInTextView.setText(party.getTotalSumInView());
         if (party.getBalance().signum() > 0) {
             debtLabelTextView.setText(R.string.label_overpay);
             debtTextView.setText(party.getOverpayView());
@@ -86,6 +86,9 @@ public class PartyContentActivity extends AppCompatActivity {
             debtLabelTextView.setText(R.string.label_debt);
             debtTextView.setText(party.getDebtView());
         }
+        shareTextView.setText(party.getShare().toPlainString());
+        sumOutTextView.setText(party.getTotalSumOutView());
+        sumInTextView.setText(party.getTotalSumInView());
     }
 
     private void setupViewPager(ViewPager viewPager) {

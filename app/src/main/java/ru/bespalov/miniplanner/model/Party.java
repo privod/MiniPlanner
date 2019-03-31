@@ -29,9 +29,9 @@ public class Party extends Domain {
     @ForeignCollectionField(foreignFieldName = "party")
     private Collection<Contribution> out;
 
-//    public Party() {
-//        this.share = BigDecimal.ONE;
-//    }
+    public Party() {
+        this.share = BigDecimal.ONE;
+    }
 
     BigDecimal getBaysCost() {
         BigDecimal totalCost = BigDecimal.ZERO;

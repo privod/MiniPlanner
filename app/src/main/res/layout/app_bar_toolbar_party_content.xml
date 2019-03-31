@@ -22,52 +22,60 @@
             >
 
             <TextView
-                style="@style/TextAppearance.AppCompat.Caption"
+                android:id="@+id/text_vew_label_total_cost_by"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@id/text_vew_total_cost_by"
                 android:text="@string/total_cost_by" />
 
             <TextView
                 android:id="@+id/text_vew_total_cost_by"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                tools:text="100" />
+                android:layout_alignParentTop="true"
+                tools:text="1000" />
 
             <TextView
-                style="@style/TextAppearance.AppCompat.Caption"
                 android:id="@+id/text_vew_label_debt"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text_vew_total_cost_by"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_vew_label_total_cost_by"
+                android:layout_toStartOf="@id/text_vew_debt"
                 tools:text="Долг/Переплата" />
 
             <TextView
                 android:id="@+id/text_vew_debt"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text_vew_total_cost_by"
+                android:layout_below="@+id/text_vew_label_total_cost_by"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 tools:text="200" />
 
             <TextView
-                style="@style/TextAppearance.AppCompat.Caption"
+                android:id="@+id/text_vew_label_share"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_below="@+id/text_vew_label_debt"
-                tools:text="Доля участия" />
+                android:layout_toStartOf="@id/text_vew_share"
+                android:text="@string/label_share" />
 
             <TextView
                 android:id="@+id/text_vew_share"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_vew_label_debt"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 tools:text="1" />
 
         </RelativeLayout>
@@ -80,38 +88,47 @@
             >
 
             <TextView
-                style="@style/TextAppearance.AppCompat.Caption"
+                android:id="@+id/text_vew_label_sum_out"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@id/text_vew_sum_out"
                 android:text="@string/label_sum_out" />
 
             <TextView
                 android:id="@+id/text_vew_sum_out"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
                 tools:text="50" />
 
             <TextView
                 android:id="@+id/text_vew_label_sum_in"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text_vew_sum_out"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_vew_label_sum_out"
+                android:layout_toStartOf="@id/text_vew_sum_in"
                 android:text="@string/label_sum_in" />
 
             <TextView
                 android:id="@+id/text_vew_sum_in"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text_vew_sum_out"
+                android:layout_below="@+id/text_vew_label_sum_out"
                 android:layout_alignParentEnd="true"
                 tools:text="100" />
 
         </RelativeLayout>
 
     </LinearLayout>
+
+    <include layout="@layout/widget_tablayout" />
 
 </android.support.design.widget.AppBarLayout>
