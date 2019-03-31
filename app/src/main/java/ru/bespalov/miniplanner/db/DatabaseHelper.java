@@ -57,7 +57,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try
         {
             if (oldVersion < 2) {
-                database.execSQL("ALTER TABLE `pla` ADD COLUMN `scale` INTEGER;");
+                database.execSQL("ALTER TABLE `plan` ADD COLUMN `scale` INTEGER;");
                 contVal.clear();
                 contVal.put("scale", "0");                                                  // Default value for Plan.scale
                 database.update("plan", contVal, null, null);
@@ -68,13 +68,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 database.update("party", contVal, null, null);
             }
 
-
             if (oldVersion < 3) {
                 database.execSQL("ALTER TABLE `contribution` RENAME TO `contribution_bak`;");
                 database.execSQL("CREATE TABLE `contribution` (`party_id` BIGINT , `to_id` BIGINT , `dateReg` VARCHAR , `sum` VARCHAR , `id` INTEGER PRIMARY KEY AUTOINCREMENT );");
                 database.execSQL("INSERT INTO `contribution` SELECT `from_id`, `to_id`, `dateReg`, `sum`, `id` FROM `contribution_bak`;");
                 database.execSQL("DROP TABLE `contribution_bak`;");
             }
+            database.setTransactionSuccessful();
         }
         catch (SQLiteException e){
             Log.e(this.getClass().getSimpleName(), e.getMessage());
