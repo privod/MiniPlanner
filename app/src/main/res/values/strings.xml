@@ -145,9 +145,10 @@
     <string name="rewrite_file">%s file exist, rewrite?</string>
     <string name="not_found_file">%s not found file</string>
     <string name="data_loaded">Data loaded</string>
-    <string name="title_parties_count">Number of participants</string>
+    <string name="title_parties_count">Total number of shares</string>
     <string name="title_total_cost">Total cost</string>
     <string name="title_share">Amount per participant</string>
     <string name="total_cost_by">Total sum by</string>
     <string name="hint_share">Share of participation</string>
+    <string name="label_share">Share:</string>
 </resources>

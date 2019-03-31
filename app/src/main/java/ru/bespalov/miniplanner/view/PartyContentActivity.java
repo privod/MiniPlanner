@@ -43,7 +43,7 @@ public class PartyContentActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TotalCostByTextView = (TextView) findViewById(R.id.text_vew_total_sum_by);
+        TotalCostByTextView = (TextView) findViewById(R.id.text_vew_total_cost_by);
         sumOutTextView = (TextView) findViewById(R.id.text_vew_sum_out);
         sumInTextView = (TextView) findViewById(R.id.text_vew_sum_in);
         debtTextView = (TextView) findViewById(R.id.text_vew_debt);

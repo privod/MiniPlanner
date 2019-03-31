@@ -7,33 +7,6 @@
     style="@style/AppTheme.LayoutListItem.Plan">
 <!--android:background="?android:attr/activatedBackgroundIndicator"-->
 
-    <!--<ru.home.miniplanner.view.widget.AvatarViewSwitcher
-        android:id="@+id/view_switcher_avatar"
-        android:layout_width="@dimen/size_avatar"
-        android:layout_height="@dimen/size_avatar"
-        android:animateFirstView="false"
-        android:inAnimation="@anim/avatar_in"
-        android:outAnimation="@anim/avatar_out"
-        >
-
-        <ImageView
-            android:id="@+id/icon_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
-        <ImageView
-            android:id="@+id/icon_check"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_checked"
-            android:background="@drawable/circle"
-            />
-        &lt;!&ndash;android:visibility="gone"&ndash;&gt;
-        &lt;!&ndash;android:background="@drawable/circle"&ndash;&gt;
-
-    </ru.home.miniplanner.view.widget.AvatarViewSwitcher>-->
-
     <include layout="@layout/widget_avatar_switcher" />
 
     <TextView

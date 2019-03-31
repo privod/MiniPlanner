@@ -7,87 +7,111 @@
 
     <include layout="@layout/widget_toolbar" />
 
-    <RelativeLayout
-        style="@style/AppTheme.LayoutListItem"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        >
 
-        <TextView
-            android:id="@+id/text_vew_label_total_cost_by"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            style="@style/AppTheme.LayoutListItem"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/total_cost_by" />
+            android:layout_weight="1"
+            >
 
-        <TextView
-            android:id="@+id/text_vew_total_sum_by"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
+            <TextView
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_cost_by" />
+
+            <TextView
+                android:id="@+id/text_vew_total_cost_by"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                tools:text="100" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:id="@+id/text_vew_label_debt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_vew_total_cost_by"
+                tools:text="Долг/Переплата" />
+
+            <TextView
+                android:id="@+id/text_vew_debt"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_vew_total_cost_by"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                tools:text="200" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_vew_label_debt"
+                tools:text="Доля участия" />
+
+            <TextView
+                android:id="@+id/text_vew_share"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_vew_label_debt"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                tools:text="1" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/AppTheme.LayoutListItem"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            tools:text="100" />
+            android:layout_weight="1"
+            >
 
-        <TextView
-            android:id="@+id/text_vew_label_sum_out"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_vew_label_total_cost_by"
-            android:layout_alignStart="@+id/text_vew_label_total_cost_by"
-            android:text="@string/label_sum_out" />
+            <TextView
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_sum_out" />
 
-        <TextView
-            android:id="@+id/text_vew_sum_out"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_vew_label_total_cost_by"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            tools:text="200" />
+            <TextView
+                android:id="@+id/text_vew_sum_out"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                tools:text="50" />
 
-        <TextView
-            android:id="@+id/text_vew_label_sum_in"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_vew_label_sum_out"
-            android:layout_alignStart="@+id/text_vew_label_sum_out"
-            android:text="@string/label_sum_in" />
+            <TextView
+                android:id="@+id/text_vew_label_sum_in"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_vew_sum_out"
+                android:text="@string/label_sum_in" />
 
-        <TextView
-            android:id="@+id/text_vew_sum_in"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_vew_label_sum_out"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            tools:text="200" />
+            <TextView
+                android:id="@+id/text_vew_sum_in"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_vew_sum_out"
+                android:layout_alignParentEnd="true"
+                tools:text="100" />
 
-        <TextView
+        </RelativeLayout>
 
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:id="@+id/text_vew_label_debt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_vew_label_sum_in"
-            android:layout_alignStart="@+id/text_vew_label_sum_in"
-            tools:text="Долг/Переплата" />
-
-        <TextView
-            android:id="@+id/text_vew_debt"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_vew_label_sum_in"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            tools:text="200" />
-
-    </RelativeLayout>
-
-    <include layout="@layout/widget_tablayout" />
+    </LinearLayout>
 
 </android.support.design.widget.AppBarLayout>

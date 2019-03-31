@@ -25,6 +25,7 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
     class PartyViewHolder extends BaseAdapter.ViewHolder {
         private Context context;
         private TextView nameTextView;
+        private TextView shareTextView;
         private TextView debtTextView;
         private ImageView avatarIcon;
 
@@ -34,6 +35,7 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
             context = itemView.getContext();
 
             nameTextView = (TextView) itemView.findViewById(R.id.text_view_name);
+            shareTextView = (TextView) itemView.findViewById(R.id.text_view_share);
             debtTextView = (TextView) itemView.findViewById(R.id.text_view_debt);
             avatarIcon = (ImageView) itemView.findViewById(R.id.icon_avatar);
         }
@@ -53,6 +55,7 @@ public class PartyAdapter extends BaseAdapter<PartyAdapter.PartyViewHolder, Part
         Party party = getData().get(position);
 
         holder.nameTextView.setText(party.getName());
+        holder.shareTextView.setText(party.getShare().toPlainString());
         holder.avatarIcon.setImageDrawable(newAvatarDrawable(party.getName()));
 
         if (party.getDebt().signum() == 0) {

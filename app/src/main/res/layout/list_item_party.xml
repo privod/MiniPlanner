@@ -6,7 +6,7 @@
     android:background="?android:attr/selectableItemBackground"
     style="@style/AppTheme.LayoutListItem">
 
-    <ru.bespalov.miniplanner.view.widget.AvatarViewSwitcher
+    <!--<ru.bespalov.miniplanner.view.widget.AvatarViewSwitcher
         android:id="@+id/view_switcher_avatar"
         android:layout_width="@dimen/size_avatar"
         android:layout_height="@dimen/size_avatar"
@@ -28,21 +28,41 @@
             android:src="@drawable/ic_checked"
             android:background="@drawable/circle"
             />
-        <!--android:visibility="gone"-->
-        <!--android:background="@drawable/circle"-->
 
-    </ru.bespalov.miniplanner.view.widget.AvatarViewSwitcher>
+    </ru.bespalov.miniplanner.view.widget.AvatarViewSwitcher> -->
 
+    <include layout="@layout/widget_avatar_switcher" />
 
     <TextView
         android:id="@+id/text_view_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/view_switcher_avatar"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/spacing_normal"
-        android:layout_centerVertical="true"
         tool:text="Name"
         style="@style/TextAppearance.AppCompat.Headline"
+        />
+
+    <TextView
+        android:id="@+id/text_view_label_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_name"
+        android:layout_alignStart="@+id/text_view_name"
+        android:text="@string/label_share"
+        style="@style/TextAppearance.AppCompat.Caption"
+        />
+
+    <TextView
+        android:id="@+id/text_view_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_name"
+        android:layout_toEndOf="@+id/text_view_label_share"
+        android:layout_marginStart="@dimen/spacing_small"
+        tool:text="1"
+        style="@style/TextAppearance.AppCompat.Caption"
         />
 
     <TextView

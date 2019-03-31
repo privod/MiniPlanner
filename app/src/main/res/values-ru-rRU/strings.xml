@@ -80,11 +80,11 @@
     <string name="rewrite_file">Файл %s существует, перезаписать?</string>
     <string name="not_found_file">Файл %s не найден</string>
     <string name="data_loaded">Данные загружены</string>
-    <string name="title_paty_count">Количество участников</string>
-    <string name="title_parties_count">Количество участников</string>
+    <string name="title_parties_count">Общее количество долей участия</string>
     <string name="title_total_cost">Общий бюджет</string>
     <string name="title_share">Сумма с человека</string>
     <string name="total_cost_by">Сума покупок</string>
     <string name="hint_share">Доля участия</string>
+    <string name="label_share">Доля:</string>
 
 </resources>

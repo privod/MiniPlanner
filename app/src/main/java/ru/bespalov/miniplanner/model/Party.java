@@ -65,10 +65,6 @@ public class Party extends Domain {
         return share;
     }
 
-    public String getShareView() {
-        return getShare().setScale(getPlan().getScale(), RoundingMode.HALF_UP).toPlainString();
-    }
-
     public void setShare(BigDecimal share) {
         this.share = share;
     }
