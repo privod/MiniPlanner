@@ -36,7 +36,7 @@ public class PlansActivity extends BaseListActivity<Plan> {
 
     @Override
     protected List<Plan> getList() {
-        return dao.getAll();
+        return dao.getAllSorted("dateReg", false);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class PlansActivity extends BaseListActivity<Plan> {
             plan = Util.getPlanInstance("Дача", new GregorianCalendar(2016, 7, 17).getTime());
             planDao.save(plan);
 
-            adapter.updateData(planDao.getAll());
+            adapter.updateData(planDao.getAllSorted("dateReg", false));
 
             return true;
         }

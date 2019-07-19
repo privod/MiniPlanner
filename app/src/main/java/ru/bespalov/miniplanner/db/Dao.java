@@ -73,4 +73,13 @@ public class Dao<T extends Domain> extends BaseDaoImpl<T, Long> {
             return null;
         }
     }
+
+    public List<T> getAllSorted(String columnName, boolean ascending) {
+        try {
+            return this.queryBuilder().orderBy(columnName, ascending).query();
+        } catch (SQLException e) {
+            Log.e(this.getClass().getSimpleName(), e.getMessage());
+            return null;
+        }
+    }
 }
